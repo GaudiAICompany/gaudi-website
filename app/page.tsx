@@ -199,7 +199,7 @@ export default function LandingPage() {
                 }
               >
                 <a
-                  href="https://calendly.com/piedrasebastian"
+                  href="https://cal.com/gaudiai"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center"
@@ -243,7 +243,7 @@ export default function LandingPage() {
               className="bg-primary hover:bg-primary/90 text-white px-8 h-12 whitespace-nowrap font-medium"
             >
               <a
-                href="https://calendly.com/piedrasebastian"
+                href="https://cal.com/gaudiai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center"
@@ -304,7 +304,7 @@ export default function LandingPage() {
                       }`}
                     >
                       <a
-                        href="https://calendly.com/piedrasebastian"
+                        href="https://cal.com/gaudiai"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center"
@@ -371,7 +371,7 @@ export default function LandingPage() {
                 className="bg-primary hover:bg-primary/90 text-white px-8 h-12 whitespace-nowrap font-medium"
               >
                 <a
-                  href="https://calendly.com/piedrasebastian"
+                  href="https://cal.com/gaudiai"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center"
@@ -506,7 +506,7 @@ export default function LandingPage() {
                 <li></li>
                 <li>
                   <a
-                    href="https://calendly.com/piedrasebastian"
+                    href="https://cal.com/gaudiai"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-background transition-colors"
