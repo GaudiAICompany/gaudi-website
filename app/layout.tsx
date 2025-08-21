@@ -18,7 +18,7 @@ const sourceSans = Source_Sans_3({
 })
 
 export const metadata: Metadata = {
-  title: "Gaudi AI - Revolutionizing Construction with AI",
+  title: "Gaudi AI",
   description:
     "Transform your construction projects with cutting-edge AI technology. Build smarter, faster, and more efficiently.",
   generator: "v0.app",
