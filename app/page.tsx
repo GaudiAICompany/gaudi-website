@@ -38,7 +38,7 @@ export default function LandingPage() {
       let newActiveStep = 0
       timelineSteps.forEach((step, index) => {
         const rect = step.getBoundingClientRect()
-        const stepCenter = rect.top + rect.height / 2
+        const stepCenter = rect.top - rect.height / 3
 
         if (stepCenter <= viewportCenter) {
           newActiveStep = index
@@ -191,7 +191,14 @@ export default function LandingPage() {
               >
                 FAQ
               </button>
-
+              <button
+                onClick={() => scrollToSection("contact")}
+                className={`text-sm font-medium transition-colors ${
+                  navOnLight ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white"
+                }`}
+              >
+                Contact Us
+              </button>
               <Button
                 size="sm"
                 className={
@@ -248,7 +255,7 @@ export default function LandingPage() {
                 rel="noopener noreferrer"
                 className="flex items-center"
               >
-                Book a demo <ArrowRight className="ml-2 h-4 w-4" />
+                Learn More <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
           </div>
