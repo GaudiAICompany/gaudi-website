@@ -27,7 +27,24 @@ export default function LandingPage() {
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setContactSubmitted(true) // always succeed for now
+    const form = e.currentTarget
+    const action = form.getAttribute("data-action")
+    const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+    const email = emailInput?.value || '';
+    console.log("Contact form submitted with email:", email)
+    console.log("Form action:", action)
+
+    switch (action) {
+      case "cal":
+        window.open(`https://cal.com/gaudiai?email=${encodeURIComponent(email)}`, "_blank", "noopener,noreferrer")
+        break
+      case "contact-form":
+        setContactSubmitted(true) // always succeed for now
+        break
+      default:
+        console.warn('Unknown form action:', action)
+    }
+
   }
 
   const scrollToSection = (sectionId: string) => {
@@ -36,6 +53,16 @@ export default function LandingPage() {
       element.scrollIntoView({ behavior: "smooth" })
     }
   }
+
+  const trackCTA = (label: string) => {
+    console.log(`Tracking CTA click: ${label}`)
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'cta_click', {
+        event_category: 'engagement',
+        event_label: label,
+      });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -208,12 +235,13 @@ export default function LandingPage() {
               </button>
               <Button
                 size="sm"
+                onClick={() => {trackCTA("top-banner-book-demo")}}
                 className={
                   navOnLight ? "bg-primary text-white hover:bg-primary/90" : "bg-white text-slate-900 hover:bg-white/90"
                 }
               >
                 <a
-                  href="https://cal.com/gaudiai"
+                  href={`https://cal.com/gaudiai?email=${encodeURIComponent(email)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center"
@@ -228,8 +256,8 @@ export default function LandingPage() {
 
       <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden pt-16">
         <div className="absolute inset-0 z-0">
-          <video autoPlay muted loop playsInline className="w-full h-full object-cover" poster="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/istockphoto-1176763743-640_adpp_is-uCUMwiXWL2PiwXbt1PqvifTt6ezUY9.mp4">
-            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/istockphoto-1176763743-640_adpp_is-uCUMwiXWL2PiwXbt1PqvifTt6ezUY9.mp4" type="video/mp4" />
+          <video autoPlay muted loop playsInline className="w-full h-full object-cover" poster="/background.mp4"> 
+            <source src="/background.mp4"/>
           </video>
           <div className="absolute inset-0 video-overlay" />
         </div>
@@ -244,20 +272,26 @@ export default function LandingPage() {
             optimization. Build faster, smarter, and more efficiently.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
+          <form
+            onSubmit={handleContactSubmit}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto"
+            data-action="cal"
+          >
             <Input
               type="email"
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="bg-white/95 border-0 text-foreground placeholder:text-muted-foreground h-12 text-base"
+              required
             />
             <Button
+              type="submit"
               size="lg"
+              onClick={() => {trackCTA("main-hero-learn-more")}}
               className="bg-primary hover:bg-primary/90 text-white px-8 h-12 whitespace-nowrap font-medium"
             >
               <a
-                href="https://cal.com/gaudiai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center"
@@ -265,7 +299,7 @@ export default function LandingPage() {
                 Learn More <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
-          </div>
+          </form>
         </div>
       </section>
 
@@ -313,12 +347,13 @@ export default function LandingPage() {
                     <p className="text-muted-foreground mb-6 leading-relaxed text-lg max-w-md">{step.description}</p>
                     <Button
                       variant="outline"
+                      onClick={() => {trackCTA("timeline-learn-more")}}
                       className={`border-primary hover:bg-primary hover:text-white bg-transparent transition-all duration-300 ${
                         activeStep == index ? "text-primary opacity-100" : "text-muted-foreground opacity-60"
                       }`}
                     >
                       <a
-                        href="https://cal.com/gaudiai"
+                        href={`https://cal.com/gaudiai?email=${encodeURIComponent(email)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center"
@@ -372,7 +407,11 @@ export default function LandingPage() {
           </div>
 
           <div className="text-center">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
+            <form
+              onSubmit={handleContactSubmit}
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto"
+              data-action="cal"
+            >
               <Input
                 type="email"
                 placeholder="Email address"
@@ -381,11 +420,12 @@ export default function LandingPage() {
                 className="bg-white border-2 border-primary/30 focus:border-primary text-foreground placeholder:text-muted-foreground h-12 text-base focus:ring-2 focus:ring-primary/20 transition-all duration-200"
               />
               <Button
+                type="submit"
                 size="lg"
+                onClick={() => {trackCTA("main-hero-learn-more")}}
                 className="bg-primary hover:bg-primary/90 text-white px-8 h-12 whitespace-nowrap font-medium"
               >
                 <a
-                  href="https://cal.com/gaudiai"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center"
@@ -393,7 +433,7 @@ export default function LandingPage() {
                   Book a demo <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
-            </div>
+            </form>
           </div>
         </div>
       </section>
@@ -474,18 +514,32 @@ export default function LandingPage() {
                     </Button>
                   </div>
                 ) : (
-                  <form onSubmit={handleContactSubmit} className="space-y-4">
+                  <form
+                    onSubmit={handleContactSubmit} 
+                    className="space-y-4"
+                    data-action="contact-form"
+                  >
                     <div className="grid md:grid-cols-2 gap-4">
                       <Input placeholder="First Name" required/>
                       <Input placeholder="Last Name" required/>
                     </div>
-                    <Input placeholder="Email Address" type="email" required/>
+                    <Input
+                      type="email"
+                      placeholder="Email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
                     <Input placeholder="Company Name" />
                     <textarea
                       placeholder="Tell us about your project..."
                       className="w-full p-3 border border-input rounded-md resize-none h-32"
                     />
-                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
+                    <Button
+                      type="submit"
+                      onClick={() => {trackCTA("contact-form-send-message")}}
+                      className="w-full bg-primary hover:bg-primary/90"
+                    >
                       Send Message <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </form>
@@ -535,17 +589,6 @@ export default function LandingPage() {
                 <li>
                   <a href="#" className="hover:text-background transition-colors">
                     About
-                  </a>
-                </li>
-                <li></li>
-                <li>
-                  <a
-                    href="https://cal.com/gaudiai"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-background transition-colors"
-                  >
-                    Contact
                   </a>
                 </li>
                 <li>

@@ -41,8 +41,12 @@ export default function RootLayout({
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            gtag('set', 'debug_mode', true); // TODO: remove in production
             gtag('js', new Date());
-            gtag('config', 'G-RDKTVR94C3');
+            gtag('config', 'G-RDKTVR94C3', {
+              debug_mode: true, // TODO: remove in production})
+              send_page_view: true
+            });
           `}
         </Script>
       </head>
