@@ -566,7 +566,14 @@ const faqs = [
               </p>
               <div className="flex gap-4">
                 <Button variant="ghost" size="sm" className="text-background hover:bg-background/10">
+                  <a
+                    href="https://www.linkedin.com/in/sebastian-piedra-rodriguez/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center"
+                  >
                   LinkedIn
+                  </a>
                 </Button>
               </div>
             </div>
