@@ -158,13 +158,13 @@ export default function LandingPage() {
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            <div
-              className={`font-playfair text-xl font-bold transition-colors ${
-                navOnLight ? "text-foreground" : "text-white"
-              }`}
-            >
-              Gaudi AI
-            </div>
+            <a href="#" className="transition-colors">
+              <img
+                src="/logo_text.png" // Replace with your actual image path
+                alt="Gaudi AI Logo"
+                className={`h-6 w-auto ${navOnLight ? "filter-none" : "filter brightness-0 invert"}`}
+              />
+            </a>
             <div className="hidden md:flex items-center space-x-8">
               <button
                 onClick={() => scrollToSection("hero")}
