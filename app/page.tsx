@@ -282,23 +282,23 @@ export default function LandingPage() {
                   data-timeline-step={index}
                   className={`grid md:grid-cols-2 gap-12 items-center relative transition-all duration-500 ${
                     index % 2 === 1 ? "md:grid-flow-col-dense" : ""
-                  } ${activeStep >= index ? "opacity-100" : "opacity-60"}`}
+                  } ${activeStep == index ? "opacity-100" : "opacity-60"}`}
                 >
                   <div
                     className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-4 border-background z-10 hidden md:block transition-all duration-300 ${
-                      activeStep >= index ? "bg-primary scale-125 shadow-lg shadow-primary/30" : "bg-muted"
+                      activeStep == index ? "bg-primary scale-125 shadow-lg shadow-primary/30" : "bg-muted"
                     }`}
                   />
 
                   <div
                     className={`${index % 2 === 1 ? "md:col-start-2 md:text-right" : ""} transition-all duration-500 ${
-                      activeStep >= index ? "transform translate-y-0" : "transform translate-y-4"
+                      activeStep == index ? "transform translate-y-0" : "transform translate-y-4"
                     }`}
                   >
                     <h3
                       id={index === 1 ? "photo-authentication" : undefined}
                       className={`font-playfair text-3xl font-bold mb-4 transition-colors duration-300 ${
-                        activeStep >= index ? "text-foreground" : "text-muted-foreground"
+                        activeStep == index ? "text-foreground" : "text-muted-foreground"
                       }`}
                     >
                       {step.title}
@@ -307,7 +307,7 @@ export default function LandingPage() {
                     <Button
                       variant="outline"
                       className={`border-primary hover:bg-primary hover:text-white bg-transparent transition-all duration-300 ${
-                        activeStep >= index ? "text-primary opacity-100" : "text-muted-foreground opacity-60"
+                        activeStep == index ? "text-primary opacity-100" : "text-muted-foreground opacity-60"
                       }`}
                     >
                       <a
@@ -323,7 +323,7 @@ export default function LandingPage() {
 
                   <div
                     className={`${index % 2 === 1 ? "md:col-start-1" : ""} transition-all duration-500 ${
-                      activeStep >= index ? "transform translate-y-0 opacity-100" : "transform translate-y-8 opacity-70"
+                      activeStep == index ? "transform translate-y-0 opacity-100" : "transform translate-y-8 opacity-70"
                     }`}
                   >
                     <div className="flex justify-center">
@@ -332,7 +332,7 @@ export default function LandingPage() {
                           src={step.wireframe || "/placeholder.svg?height=500&width=250&query=mobile app wireframe"}
                           alt={`${step.title} mobile app wireframe`}
                           className={`w-full h-auto rounded-2xl shadow-2xl border border-gray-200 transition-all duration-500 ${
-                            activeStep >= index ? "scale-100" : "scale-95"
+                            activeStep == index ? "scale-100" : "scale-95"
                           }`}
                         />
                       </div>
