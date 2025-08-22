@@ -153,28 +153,29 @@ export default function LandingPage() {
     },
   ]
 
-  const faqs = [
-    {
-      question: "How does Gaudi AI integrate with existing construction workflows?",
-      answer:
-        "Gaudi AI seamlessly integrates with popular project management tools and construction software through our robust API. Our team provides comprehensive onboarding and training to ensure smooth adoption.",
-    },
-    {
-      question: "What types of construction projects can benefit from Gaudi AI?",
-      answer:
-        "Our platform is designed for projects of all sizes, from residential developments to large commercial and infrastructure projects. The AI adapts to different construction methodologies and local building codes.",
-    },
-    {
-      question: "How secure is our project data with Gaudi AI?",
-      answer:
-        "We employ enterprise-grade security measures including end-to-end encryption, SOC 2 compliance, and regular security audits. Your data is stored in secure, geographically distributed data centers.",
-    },
-    {
-      question: "What kind of support do you provide during implementation?",
-      answer:
-        "We offer dedicated customer success managers, 24/7 technical support, comprehensive training programs, and ongoing optimization consultations to ensure you get maximum value from our platform.",
-    },
-  ]
+const faqs = [
+  {
+    question: "Do I need a trained inspector to use Gaudi?",
+    answer:
+      "No. Any team member on site with a smartphone and a hard hat can use Gaudi. Gaudi’s AR-guided prompts ensure every capture is accurate and complete. Gaudi works offline. Inspectors capture everything on-site, and files sync automatically once back online.",
+  },
+  {
+    question: "Is this accepted by banks and regulators?",
+    answer:
+      "Yes. Unlike appraisals, construction draw inspections are not bound by federal licensing rules—lenders set their own requirements. Gaudi produces audit-ready, tamper-proof reports that meet or exceed traditional inspection standards, giving both credit officers and regulators the documentation they expect.",
+  },
+  {
+    question: "How does Gaudi prevent fraud?",
+    answer:
+      "Every capture is geo-tagged, timestamped, and cryptographically verified. Photos can’t be reused, edited, or faked. Reports are digitally signed and immutable." +
+      "Every file is encrypted at capture, optimized for upload, and stored immutably in the cloud. Lenders control retention settings, while role-based access ensures only authorized users can view reports.",
+  },
+  {
+    question: "How do you protect privacy on site?",
+    answer:
+      "Faces, license plates, and other personal identifiers are automatically blurred on-device before upload. That means no biometric data leaves the phone, reducing compliance risk and protecting worker privacy.",
+  }
+]
 
   return (
     <div className="min-h-screen">
@@ -264,12 +265,17 @@ export default function LandingPage() {
 
         <div className="relative z-10 text-center text-white max-w-3xl mx-auto px-6">
           <h1 className="font-playfair text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            AI-powered construction
-            <span className="block">that just works</span>
+            Faster Draw Inspections
+            <span className="block"> Powered by AI</span>
           </h1>
+          {/* <p className="text-lg md:text-xl mb-1 text-gray-200 max-w-2xl mx-auto leading-relaxed">
+            Workers capture job-site imagery guided by Augmented Reality.
+          </p>
+          <p className="text-lg md:text-xl mb-1 text-gray-200 max-w-2xl mx-auto leading-relaxed">
+            Our models authenticate progress instantly.
+          </p> */}
           <p className="text-lg md:text-xl mb-12 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Transform your construction projects with intelligent planning, real-time monitoring, and automated
-            optimization. Build faster, smarter, and more efficiently.
+            Workers capture job-site imagery guided by Augmented Reality. AI models authenticate progress instantly. Banks release funds in minutes effortlessly.
           </p>
 
           <form
@@ -440,7 +446,7 @@ export default function LandingPage() {
 
       <section id="faq" className="bg-gray-50 py-20">
         <div className="max-w-4xl mx-auto px-6 pb-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-6">Frequently Asked Questions</h2>
             <p className="text-xl text-muted-foreground">Get answers to common questions about Gaudi AI.</p>
           </div>
