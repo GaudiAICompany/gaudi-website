@@ -16,12 +16,19 @@ import {
   DollarSign,
   AlertTriangle,
   FileText,
+  CheckCircle2 
 } from "lucide-react"
 
 export default function LandingPage() {
   const [email, setEmail] = useState("")
   const [activeStep, setActiveStep] = useState(0)
   const [navOnLight, setNavOnLight] = useState(false)
+  const [contactSubmitted, setContactSubmitted] = useState(false)
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setContactSubmitted(true) // always succeed for now
+  }
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -450,19 +457,39 @@ export default function LandingPage() {
 
             <Card className="p-8">
               <CardContent className="space-y-4 p-0">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Input placeholder="First Name" />
-                  <Input placeholder="Last Name" />
-                </div>
-                <Input placeholder="Email Address" type="email" />
-                <Input placeholder="Company Name" />
-                <textarea
-                  placeholder="Tell us about your project..."
-                  className="w-full p-3 border border-input rounded-md resize-none h-32"
-                />
-                <Button className="w-full bg-primary hover:bg-primary/90">
-                  Send Message <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                {contactSubmitted ? (
+                  <div
+                    className="flex flex-col items-center justify-center text-center py-12"
+                    role="status"
+                    aria-live="polite"
+                    tabIndex={-1}
+                  >
+                    <CheckCircle2 className="h-12 w-12 text-primary mb-4" />
+                    <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
+                    <p className="text-muted-foreground mb-6">
+                      Thanks for reaching out. Our team will get back to you shortly.
+                    </p>
+                    <Button onClick={() => setContactSubmitted(false)} className="bg-primary hover:bg-primary/90 text-white">
+                      Send Another Message
+                    </Button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleContactSubmit} className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <Input placeholder="First Name" required/>
+                      <Input placeholder="Last Name" required/>
+                    </div>
+                    <Input placeholder="Email Address" type="email" required/>
+                    <Input placeholder="Company Name" />
+                    <textarea
+                      placeholder="Tell us about your project..."
+                      className="w-full p-3 border border-input rounded-md resize-none h-32"
+                    />
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
+                      Send Message <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </form>
+                )}
               </CardContent>
             </Card>
           </div>
