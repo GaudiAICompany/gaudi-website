@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Create .env.production
-      - run: |
+        run: |
           echo "FUNCTION_API_BASE=https://google.com" >> .env.production
           echo "FUNCTION_API_KEY=testkey" >> .env.production
       - name: Build and export static site
