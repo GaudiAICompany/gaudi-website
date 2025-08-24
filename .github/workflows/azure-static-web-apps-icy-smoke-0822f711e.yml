@@ -23,8 +23,8 @@ jobs:
         run: npm install
       - name: Create .env.production
       - run: |
-          echo "FUNCTION_API_BASE=${{ secrets.FUNCTION_API_BASE }}" >> .env.production
-          echo "FUNCTION_API_KEY=${{ secrets.FUNCTION_API_KEY }}" >> .env.production
+          echo "FUNCTION_API_BASE=https://google.com" >> .env.production
+          echo "FUNCTION_API_KEY=testkey" >> .env.production
       - name: Build and export static site
         run: npm run build
       - name: Build And Deploy
