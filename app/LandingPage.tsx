@@ -38,6 +38,7 @@ export default function LandingPage({
     const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement
     const email = emailInput?.value || ''
     const url = `${functionApiBase}/api/capture_cta_email?code=${functionApiKey}`
+    console.log("Submitting contact form to:", url)
     // const url = "https://gaudi-backend-e2ayh3cabbgrbmdj.westus3-01.azurewebsites.net/api/capture_cta_email?code=E38pYa-M3_u81zWIeJyNRzXEFuVFmtTQJTitos9QcrXQAzFuAb_dHg%3D%3D"
 
     const firstNameInput = form.querySelector('input[name="firstName"]') as HTMLInputElement
