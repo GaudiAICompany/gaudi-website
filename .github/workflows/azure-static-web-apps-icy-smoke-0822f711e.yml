@@ -21,10 +21,11 @@ jobs:
           lfs: false
       - name: Install dependencies
         run: npm install
+      - name: Create .env.production
+      - run: |
+        echo "FUNCTION_API_BASE=${{ secrets.FUNCTION_API_BASE }}" >> .env.production
+        echo "FUNCTION_API_KEY=${{ secrets.FUNCTION_API_KEY }}" >> .env.production
       - name: Build and export static site
-        env:
-          FUNCTION_API_BASE: ${{ secrets.FUNCTION_API_BASE }}
-          FUNCTION_API_KEY: ${{ secrets.FUNCTION_API_KEY }}
         run: npm run build
       - name: Build And Deploy
         id: builddeploy
