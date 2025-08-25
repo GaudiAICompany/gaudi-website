@@ -634,7 +634,7 @@ const faqs = [
                   </a>
                 </li>
                 <li>
-                  <a href="#photo-authentication" className="hover:text-background transition-colors">
+                  <a href="/privacy" className="hover:text-background transition-colors">
                     Privacy
                   </a>
                 </li>
