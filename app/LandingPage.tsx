@@ -296,12 +296,6 @@ const faqs = [
             Faster Draw Inspections
             <span className="block"> Powered by AI</span>
           </h1>
-          {/* <p className="text-lg md:text-xl mb-1 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Workers capture job-site imagery guided by Augmented Reality.
-          </p>
-          <p className="text-lg md:text-xl mb-1 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Our models authenticate progress instantly.
-          </p> */}
           <p className="text-lg md:text-xl mb-12 text-gray-200 max-w-2xl mx-auto leading-relaxed">
             Workers capture job-site imagery guided by Augmented Reality. AI models authenticate progress instantly. Banks release funds in minutes effortlessly.
           </p>
