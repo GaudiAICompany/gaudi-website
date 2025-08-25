@@ -285,8 +285,8 @@ const faqs = [
 
       <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden pt-16">
         <div className="absolute inset-0 z-0">
-          <video autoPlay muted loop playsInline className="w-full h-full object-cover" poster="/background.mp4"> 
-            <source src="/background.mp4"/>
+          <video autoPlay muted loop playsInline preload="auto" className="w-full h-full object-cover" poster="/background.png"> 
+            <source src="https://gaudi.blob.core.windows.net/website-assets/background.mp4"/>
           </video>
           <div className="absolute inset-0 video-overlay" />
         </div>
