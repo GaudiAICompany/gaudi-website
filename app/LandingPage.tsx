@@ -18,6 +18,7 @@ import {
   FileText,
   CheckCircle2 
 } from "lucide-react"
+import ImageModal from "./ImageModal"
 
 export default function LandingPage({
   functionApiBase,
@@ -397,15 +398,10 @@ const faqs = [
                     }`}
                   >
                     <div className="flex justify-center">
-                      <div className="w-64 h-auto">
-                        <img
+                        <ImageModal
                           src={step.wireframe || "/placeholder.svg?height=500&width=250&query=mobile app wireframe"}
                           alt={`${step.title} mobile app wireframe`}
-                          className={`w-full h-auto rounded-2xl shadow-2xl border border-gray-200 transition-all duration-500 ${
-                            activeStep == index ? "scale-100" : "scale-95"
-                          }`}
                         />
-                      </div>
                     </div>
                   </div>
                 </div>
