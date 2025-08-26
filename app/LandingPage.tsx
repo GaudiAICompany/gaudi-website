@@ -582,18 +582,6 @@ const faqs = [
               <p className="text-background/80 mb-6 max-w-md">
                 Gaudi reimagines construction inspections with augmented reality, instant verification, and fraud-proof reporting.
               </p>
-              <div className="flex gap-4">
-                <Button variant="ghost" size="sm" className="text-background hover:bg-background/10">
-                  <a
-                    href="https://www.linkedin.com/in/sebastian-piedra-rodriguez/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center"
-                  >
-                  LinkedIn
-                  </a>
-                </Button>
-              </div>
             </div>
 
             <div>
