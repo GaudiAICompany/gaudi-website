@@ -124,15 +124,15 @@ export default function LandingPage({
 
   const timelineSteps = [
     {
-      title: "AR Inspections",
+      title: "AR-Guided Capture",
       description:
-        "Advanced augmented reality technology overlays digital inspection data onto real construction sites, enabling instant verification of progress and compliance without delays.",
+        "Gaudi uses augmented reality to guide on-site crews through step-by-step capture based on your project’s blueprints and milestones. No inspections skipped, no angles missed.  The result? 100% complete, fully verified reports, every time.",
       wireframe: "/mobile-ar-inspection-wireframe.png",
     },
     {
-      title: "Photo Authentication",
+      title: "Verified & Fraud-Proof",
       description:
-        "AI-powered computer vision authenticates construction progress through verified imagery, eliminating fraud and providing lenders with trusted, real-time project documentation.",
+        "Every image is geo-tagged, time-stamped, and cryptographically verified, so you know exactly when, where, and how it was captured. With device checks, Landmark Match, and Live Capture, Gaudi ensures every report is real, secure, and fraud-proof.",
       wireframe: "/mobile-photo-auth-wireframe.png",
     },
     {
@@ -145,40 +145,40 @@ export default function LandingPage({
 
   const benefits = [
     {
-      icon: <Clock className="h-8 w-8" />,
-      title: "Faster Turnaround = Higher Profitability",
+      icon: <Clock className="h-11 w-11" />,
+      title: "Faster Turnaround = Faster Returns",
       description:
-        "Approve and disburse funds in days instead of weeks. Interest income starts sooner, borrower satisfaction rises, loan portfolio turns faster.",
+        "Approve and fund draws in hours, not weeks. Interest accrues sooner, your loan portfolio turns faster and borrower satisfaction rises.",
     },
     {
-      icon: <Globe className="h-8 w-8" />,
-      title: "Expanded Lending Reach",
+      icon: <Globe className="h-11 w-11" />,
+      title: "Expanded Lending Footprint",
       description:
-        "Remote/virtual inspections mean banks can confidently lend outside their usual footprint (e.g. rural areas, other states). Growth in construction loan volume without needing new field staff.",
+        "Virtual inspections unlock new markets, rural builds, out-of-state borrowers, without adding field staff.",
     },
     {
-      icon: <FileCheck className="h-8 w-8" />,
-      title: "Verified Evidence = Reduced Fraud & Risk",
+      icon: <FileCheck className="h-11 w-11" />,
+      title: "Fraud and Risk Free",
       description:
-        "Location + timestamp + tamper-proof photos. Prevents false draw requests and protects collateral value (peace of mind for credit/risk).",
+        "Every photo is geo-tagged, time-stamped, and tamper-proof, so you can trust what you fund.",
     },
     {
-      icon: <DollarSign className="h-8 w-8" />,
-      title: "Lower Operational Costs",
+      icon: <DollarSign className="h-11 w-11" />,
+      title: "Get Paid Without the Wait",
       description:
-        "Less back-and-forth with borrowers, fewer staff hours chasing docs. Draw admins can handle 2–3× more loans with the same team.",
+        "Skip the backlog. Inspections are approved in minutes, keeping cash flowing to crews, subs, and suppliers.",
     },
     {
-      icon: <AlertTriangle className="h-8 w-8" />,
-      title: "Early Issue Detection",
+      icon: <FileText className="h-11 w-11" />,
+      title: "On Demand Inspections",
       description:
-        "Progress tracking can flag schedule slips or overdrawn budgets before they spiral. Fewer defaults, fewer stalled projects.",
+        "No waiting for inspectors. With self-guided AR capture, your team completes inspections when the work is done.",
     },
     {
-      icon: <FileText className="h-8 w-8" />,
-      title: "Audit Readiness",
+      icon: <AlertTriangle className="h-11 w-11" />,
+      title: "Spot Issues Early",
       description:
-        "Automated logs of inspections, photos, and approvals. Simplifies examiner reviews and internal audits; no missing paperwork risk.",
+        "Live progress tracking flags delays and budget overdraws before they derail your schedule.",
     },
   ]
 
@@ -335,10 +335,9 @@ const faqs = [
       <section id="why-gaudi" className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-6">Revolutionizing Construction Lending</h2>
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-6">Revolutionizing Draw Inspections</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Our AI computer vision platform eliminates inspection delays in the $10B construction lending market,
-              transforming weeks of waiting into instant verification.
+              Gaudi reimagines construction inspections with augmented reality, instant verification, and fraud-proof reporting, turning weeks of delay into minutes of progress.
             </p>
           </div>
 
@@ -416,7 +415,7 @@ const faqs = [
           <div className="text-center mb-16">
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-6">Why Gaudi?</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Transform your construction lending operations with measurable results that impact your bottom line.
+              Gaudi bridges the gap: delivering certainty and faster returns for lenders, while accelerating progress for builders.
             </p>
           </div>
 
@@ -581,7 +580,7 @@ const faqs = [
             <div className="md:col-span-2">
               <h3 className="font-playfair text-2xl font-bold mb-4">Gaudi AI</h3>
               <p className="text-background/80 mb-6 max-w-md">
-                Revolutionizing construction with AI-powered solutions. Build smarter, faster, and more efficiently.
+                Gaudi reimagines construction inspections with augmented reality, instant verification, and fraud-proof reporting.
               </p>
               <div className="flex gap-4">
                 <Button variant="ghost" size="sm" className="text-background hover:bg-background/10">
