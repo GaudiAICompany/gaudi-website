@@ -275,7 +275,7 @@ const faqs = [
                   rel="noopener noreferrer"
                   className="flex items-center"
                 >
-                  Book Demo
+                  Reserva una Demo
                 </a>
               </Button>
             </div>
