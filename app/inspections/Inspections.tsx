@@ -18,9 +18,9 @@ import {
   FileText,
   CheckCircle2 
 } from "lucide-react"
-import ImageModal from "./ImageModal"
+import ImageModal from "../ImageModal"
 
-export default function LandingPage({
+export default function Inspections({
   functionApiBase,
   functionApiKey,
 }: {
@@ -126,7 +126,7 @@ export default function LandingPage({
     {
       title: "AR-Guided Capture",
       description:
-        "Gaudi uses augmented reality to guide on-site crews through step-by-step capture based on your project’s blueprints and milestones. No inspections skipped, no angles missed.  The result? 100% complete, fully verified reports, every time.",
+        "Gaudi uses augmented reality to guide on-site crews through step-by-step capture based on your project's blueprints and milestones. No inspections skipped, no angles missed.  The result? 100% complete, fully verified reports, every time.",
       wireframe: "/mobile-ar-inspection-wireframe.png",
     },
     {
@@ -186,7 +186,7 @@ const faqs = [
   {
     question: "Do I need a trained inspector to use Gaudi?",
     answer:
-      "No. Any team member on site with a smartphone and a hard hat can use Gaudi. Gaudi’s AR-guided prompts ensure every capture is accurate and complete. Gaudi works offline. Inspectors capture everything on-site, and files sync automatically once back online.",
+      "No. Any team member on site with a smartphone and a hard hat can use Gaudi. Gaudi's AR-guided prompts ensure every capture is accurate and complete. Gaudi works offline. Inspectors capture everything on-site, and files sync automatically once back online.",
   },
   {
     question: "Is this accepted by banks and regulators?",
@@ -196,7 +196,7 @@ const faqs = [
   {
     question: "How does Gaudi prevent fraud?",
     answer:
-      "Every capture is geo-tagged, timestamped, and cryptographically verified. Photos can’t be reused, edited, or faked. Reports are digitally signed and immutable." +
+      "Every capture is geo-tagged, timestamped, and cryptographically verified. Photos can't be reused, edited, or faked. Reports are digitally signed and immutable." +
       "Every file is encrypted at capture, optimized for upload, and stored immutably in the cloud. Lenders control retention settings, while role-based access ensures only authorized users can view reports.",
   },
   {

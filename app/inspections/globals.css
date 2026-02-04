@@ -156,22 +156,3 @@ html {
 .bg-gray-50 {
   background-color: #f9fafb;
 }
-
-/* Custom dark background for sections */
-.bg-section-dark {
-  background-color: #020202;
-}
-
-/* Carousel animation */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-80%);
-  }
-}
-
-.animate-scroll {
-  animation: scroll 15s linear infinite;
-}
