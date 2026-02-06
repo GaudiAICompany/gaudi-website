@@ -33,11 +33,11 @@ const baseUrlForMeta =
   "https://heygaudi.ai"
 
 export const metadata = {
-  title: "AI-Powered Construction Scheduling Waitlist | Gaudi AI",
+  title: "AI-Powered Construction Scheduling | Gaudi AI",
   description:
     "From chaos to clarity: automated schedules that improve in real time.",
   openGraph: {
-    title: "AI-Powered Construction Scheduling Waitlist | Gaudi AI",
+    title: "AI-Powered Construction Scheduling | Gaudi AI",
     description:
       "From chaos to clarity: automated schedules that improve in real time.",
     url: `${baseUrlForMeta}/waitlist/scheduling`,
