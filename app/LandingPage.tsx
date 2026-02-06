@@ -274,6 +274,11 @@ export default function LandingPage({
                     Inspections
                   </a>
                 </li>
+                <li>
+                  <a href="/waitlist/scheduling" className="hover:text-background transition-colors">
+                    Construction Scheduling
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
