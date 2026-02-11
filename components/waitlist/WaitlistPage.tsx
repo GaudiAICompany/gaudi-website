@@ -37,6 +37,7 @@ export default function WaitlistPage({
   functionApiBase: string
   functionApiKey: string
 }) {
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -68,14 +69,33 @@ export default function WaitlistPage({
     }
   }
 
+  const splitName = (fullName: string) => {
+    const parts = fullName.trim().split(/\s+/)
+  
+    if (parts.length === 0) {
+      return { firstName: "", lastName: "" }
+    }
+  
+    if (parts.length === 1) {
+      return { firstName: parts[0], lastName: "" }
+    }
+  
+    return {
+      firstName: parts[0],
+      lastName: parts.slice(1).join(" ")
+    };
+  }
+  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     const url = `${functionApiBase}/api/capture_cta_email?code=${functionApiKey}`
+    const { firstName, lastName } = splitName(name);
     const payload = {
       email,
-      firstName: "Waitlist",
-      lastName: config.slug,
+      firstName: firstName,
+      lastName: lastName,
       company: "Waitlist",
       message: `Waitlist signup for ${config.title}`,
     }
@@ -162,15 +182,26 @@ export default function WaitlistPage({
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-lg">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={submitted}
-                className="flex-1 h-12 px-4 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 rounded-sm focus-visible:ring-2 focus-visible:ring-[#cc6943]/50 focus-visible:border-[#cc6943]/50 transition-all"
-              />
+              <div className="flex gap-3">
+                <Input
+                  type="text"
+                  placeholder="Full Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  disabled={submitted}
+                  className="!h-12 px-4 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 rounded-sm focus-visible:ring-2 focus-visible:ring-[#cc6943]/50 focus-visible:border-[#cc6943]/50 transition-all"
+                />
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={submitted}
+                  className="!h-12 px-4 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 rounded-sm focus-visible:ring-2 focus-visible:ring-[#cc6943]/50 focus-visible:border-[#cc6943]/50 transition-all"
+                />
+              </div>
               <Button
                 type="submit"
                 disabled={submitted || loading}
