@@ -267,7 +267,7 @@ export default function LandingPage({
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Case Studies</h4>
+              <h4 className="font-semibold mb-4">Construction Case Studies</h4>
               <ul className="space-y-2 text-background/80">
                 <li>
                   <a href="/inspections" className="hover:text-background transition-colors">
@@ -276,7 +276,12 @@ export default function LandingPage({
                 </li>
                 <li>
                   <a href="/waitlist/scheduling" className="hover:text-background transition-colors">
-                    Construction Scheduling
+                    Scheduling
+                  </a>
+                </li>
+                <li>
+                  <a href="/waitlist/punchlist" className="hover:text-background transition-colors">
+                    Punch lists
                   </a>
                 </li>
               </ul>
