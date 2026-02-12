@@ -4,8 +4,9 @@ import { getWaitlistConfig } from "@/lib/waitlist-config"
 import WaitlistPage from "@/components/waitlist/WaitlistPage"
 import { Metadata } from "next"
 
+// TODO: reformat this, so not scheduiling specific
 export default function WaitlistSchedulingPage() {
-  const config = getWaitlistConfig("punchlist")
+  const config = getWaitlistConfig("bids")
   const functionApiBase = process.env.FUNCTION_API_BASE || ""
   const functionApiKey = process.env.FUNCTION_API_KEY || ""
 
@@ -35,14 +36,14 @@ const baseUrlForMeta =
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Automated Punch List Detection for Construction | Gaudi AI",
+    title: "AI-powered Bid Leveling | Gaudi AI",
     description:
-      "Let the power of AI handle your punch list for you. Never miss a government code, lose design or client context, or manually track and verify punch list items again.",
+        "Stop reformatting PDFs and emails. Auto-create a bid package, gather quotes, and compare everything instantly in one standardized view.",
     openGraph: {
-      title: "Automated Punch List Detection for Construction | Gaudi AI",
+      title: "AI-powered Bid Leveling | Gaudi AI",
       description:
-        "Let the power of AI handle your punch list for you. Never miss a government code, lose design or client context, or manually track and verify punch list items again.",
-      url: `${baseUrlForMeta}/waitlist/punchlist`,
+        "Stop reformatting PDFs and emails. Auto-create a bid package, gather quotes, and compare everything instantly in one standardized view.",
+      url: `${baseUrlForMeta}/waitlist/bids`,
       siteName: "Gaudi AI",
     },
   }

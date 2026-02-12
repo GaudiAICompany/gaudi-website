@@ -36,6 +36,15 @@ const waitlistProducts: Record<string, WaitlistProductConfig> = {
     image: "/estimator.png",
     releaseDate: "Early Access: Weekly invites",
     shareOneLiner: "Join the waitlist to never worry about a punch list item again. The future of construction is now!",
+  },
+  bids: {
+    slug: "bids",
+    title: "Compare bids",
+    title2: "Apples to apples. Instantly",
+    subtitle: "Stop reformatting PDFs and emails. Auto-create a bid package, gather quotes, and compare everything instantly in one standardized view.",
+    image: "/bids.png",
+    releaseDate: "Early Access: Weekly invites",
+    shareOneLiner: "Join the waitlist to never worry about a punch list item again. The future of construction is now!",
   }
 }
 
