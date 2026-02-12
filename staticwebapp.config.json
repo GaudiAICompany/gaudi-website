@@ -1,10 +1,5 @@
 {
-  "responseOverrides": {
-    "/contact/begum.vcf": {
-      "headers": {
-        "Content-Type": "text/vcard",
-        "Content-Disposition": "inline"
-      }
-    }
+  "mimeTypes": {
+    ".vcf": "text/x-vcard"
   }
 }
