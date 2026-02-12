@@ -207,13 +207,13 @@ export default function WaitlistPage({
                 disabled={submitted || loading}
                 className="h-12 px-6 bg-[#cc6943]/60 hover:bg-[#cc6943]/90 text-white font-medium rounded-sm shrink-0 transition-all"
               >
-                {submitted ? "You're on the list" : loading ? "Joining..." : "Get early access"}
+                {submitted ? "You're on the list" : loading ? "Joining..." : "Join the waitlist"}
                 {!submitted && !loading && <ArrowRight className="ml-2 h-4 w-4" />}
               </Button>
             </form>
 
             {submitted && (
-              <p className="text-sm text-emerald-400/90">Thanks! We&apos;ll notify you at launch.</p>
+              <p className="text-sm text-emerald-400/90">You're in! 48 contractors are already waiting. We'll email when it's your turn.</p>
             )}
           </div>
 
