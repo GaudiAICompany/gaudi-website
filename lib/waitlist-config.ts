@@ -32,8 +32,8 @@ const waitlistProducts: Record<string, WaitlistProductConfig> = {
     slug: "estimations",
     title: "Your AI estimator",
     title2: "Never misses scope",
-    subtitle: "Missing scope and outdated pricing kill bids. Gaudi captures every line item, pulls current pricing, delivers accurate estimates. 1 job or a 100: same quality & speed.",
-    image: "/punchlist.png",
+    subtitle: "Missed scope and outdated pricing kill bids. Gaudi captures every line item, pulls current pricing, delivers accurate estimates. 1 job or a 100: same quality & speed.",
+    image: "/estimator.png",
     releaseDate: "Early Access: Weekly invites",
     shareOneLiner: "Join the waitlist to never worry about a punch list item again. The future of construction is now!",
   }
