@@ -9,7 +9,7 @@ ORG:Gaudi AI
 TITLE:Founder
 TEL;TYPE=CELL:+17736335032
 EMAIL:begum@heygaudi.ai
-URL:heygaudi.ai
+URL:https://heygaudi.ai
 END:VCARD`
 
   return new Response(vcard, {
