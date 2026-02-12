@@ -97,7 +97,7 @@ export default function WaitlistPage({
       firstName: firstName,
       lastName: lastName,
       company: "Waitlist",
-      message: `Waitlist signup for ${config.title}`,
+      message: `Waitlist signup for ${config.slug}`,
     }
     try {
       const res = await fetch(url, {
