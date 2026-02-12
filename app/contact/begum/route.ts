@@ -1,5 +1,3 @@
-export const dynamic = "force-static"
-
 export function GET() {
     const vcard = `BEGIN:VCARD
 VERSION:3.0
