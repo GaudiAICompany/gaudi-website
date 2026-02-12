@@ -237,7 +237,7 @@ export default function WaitlistPage({
               </div>
             </div>
             <p className="-mt-10 text-sm font-medium tracking-widest uppercase text-zinc-500">
-              Release: {config.releaseDate}
+              {config.releaseDate}
             </p>
           </div>
         </main>
