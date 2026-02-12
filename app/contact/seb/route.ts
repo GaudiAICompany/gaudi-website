@@ -14,7 +14,7 @@ END:VCARD`
 
   return new Response(vcard, {
     headers: {
-      "Content-Type": "text/vcard; charset=utf-8",
+      "Content-Type": "text/x-vcard; charset=utf-8",
       "Content-Disposition": "inline; filename=sebastian.vcf",
       "Cache-Control": "public, max-age=31536000, immutable",
     },
