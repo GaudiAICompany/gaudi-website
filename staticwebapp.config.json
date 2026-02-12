@@ -1,5 +1,17 @@
 {
   "mimeTypes": {
     ".vcf": "text/x-vcard"
-  }
+  },
+  "routes": [
+    {
+        "route": "/contact/begum",
+        "redirect": "/begum.vcf",
+        "statusCode": 302
+    },
+    {
+    "route": "/contact/seb",
+    "redirect": "/seb.vcf",
+    "statusCode": 302
+    }
+  ]
 }
