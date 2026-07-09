@@ -40,7 +40,7 @@ export default function Careers() {
                 Contact
               </a>
               <Button size="sm" asChild className="bg-white text-slate-900 hover:bg-white/90">
-                <a href="mailto:hiring@heygaudi.ai">
+                <a href="mailto:careers@heygaudi.ai">
                   Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
@@ -135,7 +135,7 @@ export default function Careers() {
                 <h3 className="font-semibold text-white mb-4">Contact</h3>
                 <div className="flex flex-col gap-3">
                   <a
-                    href="mailto:hiring@heygaudi.ai"
+                    href="mailto:careers@heygaudi.ai"
                     className="inline-flex items-center gap-3 text-gray-300 hover:text-primary transition-colors"
                   >
                     <Mail className="h-4 w-4 text-primary" /> careers@heygaudi.ai
@@ -171,7 +171,7 @@ export default function Careers() {
                 </div>
 
                 <Button asChild size="lg" className="mt-8 bg-primary hover:bg-primary/90 text-white h-12 font-medium">
-                  <a href="mailto:hiring@heygaudi.ai">
+                  <a href="mailto:careers@heygaudi.ai">
                     Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
