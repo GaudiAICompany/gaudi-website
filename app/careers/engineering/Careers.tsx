@@ -40,7 +40,7 @@ export default function Careers() {
                 Contact
               </a>
               <Button size="sm" asChild className="bg-white text-slate-900 hover:bg-white/90">
-                <a href="mailto:hiring@heygaudi.ai">
+                <a href="mailto:careers@heygaudi.ai">
                   Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
@@ -64,8 +64,7 @@ export default function Careers() {
             We&apos;re Hiring
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed text-pretty">
-            Join Gaudi AI and help build real AI products for the construction industry. We value what you can build over
-            where you came from.
+            Join Gaudi AI and help build real AI products for the construction industry.
           </p>
         </div>
       </section>
@@ -73,7 +72,7 @@ export default function Careers() {
       {/* Job Posting */}
       <section className="pb-28">
         <div className="max-w-3xl mx-auto px-6">
-          <p className="mb-6 text-sm font-medium uppercase tracking-widest text-primary text-center">1 Open Position</p>
+          <p className="mb-6 text-sm font-medium uppercase tracking-widest text-primary text-center">2 Open Positions</p>
 
           <Card className="border-2 border-primary/20" style={{ background: "rgba(255, 255, 255, 0.06)" }}>
             <CardContent className="p-8 md:p-12">
@@ -136,10 +135,10 @@ export default function Careers() {
                 <h3 className="font-semibold text-white mb-4">Contact</h3>
                 <div className="flex flex-col gap-3">
                   <a
-                    href="mailto:hiring@heygaudi.ai"
+                    href="mailto:careers@heygaudi.ai"
                     className="inline-flex items-center gap-3 text-gray-300 hover:text-primary transition-colors"
                   >
-                    <Mail className="h-4 w-4 text-primary" /> hiring@heygaudi.ai
+                    <Mail className="h-4 w-4 text-primary" /> careers@heygaudi.ai
                   </a>
                   <a
                     href="https://wa.me/16084404036"
@@ -172,7 +171,7 @@ export default function Careers() {
                 </div>
 
                 <Button asChild size="lg" className="mt-8 bg-primary hover:bg-primary/90 text-white h-12 font-medium">
-                  <a href="mailto:hiring@heygaudi.ai">
+                  <a href="mailto:careers@heygaudi.ai">
                     Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
