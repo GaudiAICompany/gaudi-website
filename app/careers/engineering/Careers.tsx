@@ -89,9 +89,6 @@ export default function Careers() {
                   <span className="inline-flex items-center gap-2">
                     <Clock className="h-4 w-4 text-primary" /> Full-time · Immediate start
                   </span>
-                  <span className="inline-flex items-center gap-2">
-                    <ArrowRight className="h-4 w-4 text-primary" /> ~$2,600 USD/month
-                  </span>
                 </div>
               </div>
 
@@ -123,8 +120,8 @@ export default function Careers() {
                 <div className="grid sm:grid-cols-2 gap-4 pt-2">
                   <div className="rounded-md border border-white/10 bg-white/5 p-4">
                     <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">Compensation</p>
-                    <p className="text-white font-medium">~$2,600 USD/month</p>
-                    <p className="text-sm text-gray-400">Adjustable based on experience and profile.</p>
+                    <p className="text-white font-medium">~$2,000 - $3,000USD/month</p>
+                    <p className="text-sm text-gray-400">Based on experience and profile.</p>
                   </div>
                   <div className="rounded-md border border-white/10 bg-white/5 p-4">
                     <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">Schedule</p>
