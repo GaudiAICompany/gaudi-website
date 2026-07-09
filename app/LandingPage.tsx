@@ -320,7 +320,7 @@ export default function LandingPage({
             <div>
               <h4 className="font-semibold mb-4">Connect</h4>
               <div className="flex gap-4">
-                <a href="https://www.linkedin.com/in/sebastian-piedra-rodriguez/" className="text-background/80 hover:text-background transition-colors">
+                <a href="https://www.linkedin.com/company/gaudiai/" className="text-background/80 hover:text-background transition-colors">
                   <Linkedin className="h-5 w-5" />
                 </a>
                 <a href="mailto:contact@heygaudi.ai" className="text-background/80 hover:text-background transition-colors">

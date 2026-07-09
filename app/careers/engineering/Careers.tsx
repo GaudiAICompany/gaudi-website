@@ -40,7 +40,7 @@ export default function Careers() {
                 Contact
               </a>
               <Button size="sm" asChild className="bg-white text-slate-900 hover:bg-white/90">
-                <a href="mailto:seb@heygaudi.ai">
+                <a href="mailto:hiring@heygaudi.ai">
                   Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
@@ -139,10 +139,10 @@ export default function Careers() {
                 <h3 className="font-semibold text-white mb-4">Contact</h3>
                 <div className="flex flex-col gap-3">
                   <a
-                    href="mailto:seb@heygaudi.ai"
+                    href="mailto:hiring@heygaudi.ai"
                     className="inline-flex items-center gap-3 text-gray-300 hover:text-primary transition-colors"
                   >
-                    <Mail className="h-4 w-4 text-primary" /> seb@heygaudi.ai
+                    <Mail className="h-4 w-4 text-primary" /> hiring@heygaudi.ai
                   </a>
                   <a
                     href="https://wa.me/16084404036"
@@ -175,7 +175,7 @@ export default function Careers() {
                 </div>
 
                 <Button asChild size="lg" className="mt-8 bg-primary hover:bg-primary/90 text-white h-12 font-medium">
-                  <a href="mailto:seb@heygaudi.ai">
+                  <a href="mailto:hiring@heygaudi.ai">
                     Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
@@ -190,7 +190,7 @@ export default function Careers() {
         <span className="text-xs font-medium tracking-widest uppercase text-gray-500">Connect</span>
         <div className="flex gap-3">
           <a
-            href="https://www.linkedin.com/in/sebastian-piedra-rodriguez/"
+            href="https://www.linkedin.com/company/gaudiai/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center w-10 h-10 rounded-sm border border-white/10 bg-white/5 text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/10 transition-all"
