@@ -120,7 +120,7 @@ export default function Careers() {
                 <div className="grid sm:grid-cols-2 gap-4 pt-2">
                   <div className="rounded-md border border-white/10 bg-white/5 p-4">
                     <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">Compensation</p>
-                    <p className="text-white font-medium">~$2,000 - $3,000USD/month</p>
+                    <p className="text-white font-medium">~$2,000 - $3,000 USD/month</p>
                     <p className="text-sm text-gray-400">Based on experience and profile.</p>
                   </div>
                   <div className="rounded-md border border-white/10 bg-white/5 p-4">
