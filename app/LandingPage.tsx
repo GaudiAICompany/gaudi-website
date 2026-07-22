@@ -87,12 +87,6 @@ export default function LandingPage({
             </a>
             <div className="hidden md:flex flex-1 items-center justify-end space-x-8">
               <button
-                onClick={() => scrollToSection("hero")}
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                Home
-              </button>
-              <button
                 onClick={() => scrollToSection("about")}
                 className="text-sm font-medium transition-colors text-white/90 hover:text-white"
               >
@@ -115,7 +109,7 @@ export default function LandingPage({
                 onClick={() => scrollToSection("contact")}
                 className="bg-white text-slate-900 hover:bg-white/90"
               >
-                Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                Contact Us <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -133,21 +127,20 @@ export default function LandingPage({
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
-          <h1 className="font-playfair text-6xl md:text-7xl font-bold mb-6 leading-tight">
-            Building the Future of
-            <span className="block text-primary">Construction</span>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-balance">
+            The AI <span className="font-serif italic font-normal text-primary">back office</span> for contractors
           </h1>
-          <p className="text-lg md:text-xl mb-12 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Bringing AI to the physical world with construction workflow automations
+          <p className="text-lg md:text-xl mb-12 text-gray-200 max-w-2xl mx-auto leading-relaxed text-pretty">
+            Gaudi automates the back-office work that slows construction teams down — estimating, bid leveling, proposal generation, and document review — so your team spends less time on admin.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               size="lg"
-              onClick={() => scrollToSection("about")}
+              onClick={() => scrollToSection("contact")}
               className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
             >
-              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+              Contact Us <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </div>
@@ -332,6 +325,15 @@ export default function LandingPage({
 
           <div className="border-t border-background/20 pt-8 text-center text-background/60">
             <p>&copy; 2026 Gaudi AI. All rights reserved.</p>
+          </div>
+        </div>
+
+        {/* Bottom brand strip */}
+        <div className="mt-12 border-t border-background/20">
+          <div className="max-w-7xl mx-auto px-6 py-12 flex items-center justify-center">
+            <span className="select-none font-bold leading-none tracking-tight text-background/90 text-6xl sm:text-7xl md:text-8xl lg:text-9xl">
+              Gaudi<span className="text-primary">.</span>
+            </span>
           </div>
         </div>
       </footer>

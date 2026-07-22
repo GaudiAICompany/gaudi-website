@@ -1,28 +1,27 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import Script from 'next/script';
-import { Playfair_Display, Source_Sans_3 } from "next/font/google"
+import { DM_Sans } from "next/font/google"
 import "./globals.css"
 
-const playfair = Playfair_Display({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-playfair",
-  weight: ["400", "700"],
-})
-
-const sourceSans = Source_Sans_3({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-source-sans",
-  weight: ["400", "600"],
+  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
 })
 
 export const metadata: Metadata = {
-  title: "Gaudi AI",
+  title: "Gaudi AI — The AI back office for contractors",
   description:
-    "Transform your construction projects with cutting-edge AI technology. Build smarter, faster, and more efficiently.",
+    "Gaudi is the AI back office for construction teams. Automate estimating, bid leveling, proposal generation, document review, and project updates.",
   generator: "v0.app",
+}
+
+export const viewport: Viewport = {
+  themeColor: "#c35a25",
+  width: "device-width",
+  initialScale: 1,
 }
 
 export default function RootLayout({
@@ -31,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSans.variable} antialiased`}>
+    <html lang="en" className={`${dmSans.variable} antialiased bg-section-dark`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RDKTVR94C3"
