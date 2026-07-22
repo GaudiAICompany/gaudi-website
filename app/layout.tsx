@@ -1,28 +1,21 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import Script from 'next/script';
-import { Playfair_Display, Source_Sans_3 } from "next/font/google"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
 import "./globals.css"
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-playfair",
-  weight: ["400", "700"],
-})
-
-const sourceSans = Source_Sans_3({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-source-sans",
-  weight: ["400", "600"],
-})
-
 export const metadata: Metadata = {
-  title: "Gaudi AI",
+  title: "Gaudi AI — The AI back office for construction teams",
   description:
-    "Transform your construction projects with cutting-edge AI technology. Build smarter, faster, and more efficiently.",
+    "Gaudi automates the back-office workflows that slow construction teams down — estimating, bid leveling, proposal generation, document review, and project updates. Turn plans, specs, and bids into structured, actionable output.",
   generator: "v0.app",
+}
+
+export const viewport: Viewport = {
+  themeColor: "#c35a25",
+  width: "device-width",
+  initialScale: 1,
 }
 
 export default function RootLayout({
@@ -31,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSans.variable} antialiased`}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} antialiased bg-background`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RDKTVR94C3"
