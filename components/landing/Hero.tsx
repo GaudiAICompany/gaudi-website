@@ -116,7 +116,7 @@ export default function Hero() {
           </div>
 
           {/* Floating status chip */}
-          <div className="absolute -bottom-4 -left-4 hidden items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-xs font-medium shadow-lg sm:flex">
+          <div className="absolute -bottom-4 -right-4 hidden items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-xs font-medium shadow-lg sm:flex">
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10">
               <Check className="h-3 w-3 text-primary" />
             </span>
