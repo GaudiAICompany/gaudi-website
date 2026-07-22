@@ -4,86 +4,79 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Gaudi AI palette: warm off-white, charcoal, single rust accent #c35a25 */
-  --background: #f6f4f1; /* Warm off-white / paper */
-  --foreground: #1c1a18; /* Charcoal */
-  --card: #ffffff; /* White document cards */
-  --card-foreground: #1c1a18;
+  /* Updated color tokens to new earthy palette: #333333, #cc6943, #a9a99b */
+  --background: #ffffff; /* White */
+  --foreground: #333333; /* Dark charcoal gray */
+  --card: #f9fafb; /* Light Gray */
+  --card-foreground: #333333;
   --popover: #ffffff;
-  --popover-foreground: #1c1a18;
-  --primary: #c35a25; /* Gaudi rust/terracotta accent */
+  --popover-foreground: #333333;
+  --primary: #cc6943; /* Warm orange/rust for primary actions */
   --primary-foreground: #ffffff;
-  --secondary: #efece7; /* Subtle warm gray */
-  --secondary-foreground: #1c1a18;
-  --muted: #efece7;
-  --muted-foreground: #6b655e; /* Muted warm gray for secondary text */
-  --accent: #c35a25;
-  --accent-foreground: #ffffff;
+  --secondary: #f9fafb; /* Light Gray */
+  --secondary-foreground: #333333;
+  --muted: #f9fafb;
+  --muted-foreground: #a9a99b; /* Muted sage green/gray */
+  --accent: #a9a99b; /* Sage green for sophisticated highlights */
+  --accent-foreground: #333333;
   --destructive: #be123c;
   --destructive-foreground: #ffffff;
-  --border: #e3ded7; /* Thin warm borders */
-  --input: #e3ded7;
-  --ring: rgba(195, 90, 37, 0.4);
-  --chart-1: #c35a25;
-  --chart-2: #1c1a18;
-  --chart-3: #a89f93;
-  --chart-4: #d98c5f;
-  --chart-5: #6b655e;
+  --border: #e5e7eb; /* Light border */
+  --input: #f9fafb;
+  --ring: rgba(204, 105, 67, 0.5); /* Primary with opacity */
+  --chart-1: #cc6943;
+  --chart-2: #a9a99b;
+  --chart-3: #333333;
+  --chart-4: #6b7280;
+  --chart-5: #f9fafb;
   --radius: 0.5rem;
-  /* Dark "command center" section */
-  --section-dark: #161412;
-  --section-dark-foreground: #f6f4f1;
   --sidebar: #ffffff;
-  --sidebar-foreground: #1c1a18;
-  --sidebar-primary: #c35a25;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #efece7;
-  --sidebar-accent-foreground: #1c1a18;
-  --sidebar-border: #e3ded7;
-  --sidebar-ring: rgba(195, 90, 37, 0.4);
+  --sidebar-foreground: #333333;
+  --sidebar-primary: #f9fafb;
+  --sidebar-primary-foreground: #333333;
+  --sidebar-accent: #a9a99b;
+  --sidebar-accent-foreground: #333333;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: rgba(204, 105, 67, 0.5);
 }
 
 .dark {
-  --background: #161412;
-  --foreground: #f6f4f1;
-  --card: #1f1c19;
-  --card-foreground: #f6f4f1;
-  --popover: #1f1c19;
-  --popover-foreground: #f6f4f1;
-  --primary: #c35a25;
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+  --primary: #cc6943;
   --primary-foreground: #ffffff;
-  --secondary: #26221e;
-  --secondary-foreground: #f6f4f1;
-  --muted: #26221e;
-  --muted-foreground: #a89f93;
-  --accent: #c35a25;
-  --accent-foreground: #ffffff;
+  --secondary: #334155;
+  --secondary-foreground: #f8fafc;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: #a9a99b;
+  --accent-foreground: #333333;
   --destructive: #be123c;
   --destructive-foreground: #ffffff;
-  --border: #2f2a25;
-  --input: #2f2a25;
-  --ring: rgba(195, 90, 37, 0.4);
-  --chart-1: #c35a25;
-  --chart-2: #f6f4f1;
-  --chart-3: #a89f93;
-  --chart-4: #d98c5f;
-  --chart-5: #6b655e;
+  --border: #334155;
+  --input: #334155;
+  --ring: rgba(204, 105, 67, 0.5);
+  --chart-1: #cc6943;
+  --chart-2: #a9a99b;
+  --chart-3: #333333;
+  --chart-4: #94a3b8;
+  --chart-5: #334155;
   --radius: 0.5rem;
-  --section-dark: #161412;
-  --section-dark-foreground: #f6f4f1;
-  --sidebar: #1f1c19;
-  --sidebar-foreground: #f6f4f1;
-  --sidebar-primary: #c35a25;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #26221e;
-  --sidebar-accent-foreground: #f6f4f1;
-  --sidebar-border: #2f2a25;
-  --sidebar-ring: rgba(195, 90, 37, 0.4);
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #334155;
+  --sidebar-primary-foreground: #f8fafc;
+  --sidebar-accent: #a9a99b;
+  --sidebar-accent-foreground: #333333;
+  --sidebar-border: #334155;
+  --sidebar-ring: rgba(204, 105, 67, 0.5);
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -108,8 +101,6 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --color-section-dark: var(--section-dark);
-  --color-section-dark-foreground: var(--section-dark-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -133,37 +124,54 @@
   }
 }
 
+/* Added custom styles for video background and smooth scrolling */
+.video-overlay {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-/* Blueprint grid used sparingly on dark sections */
-.blueprint-grid {
-  background-image:
-    linear-gradient(to right, rgba(246, 244, 241, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(246, 244, 241, 0.06) 1px, transparent 1px);
-  background-size: 44px 44px;
+/* Added navigation visibility styles for different backgrounds */
+.nav-adaptive {
+  transition: all 0.3s ease;
 }
 
-/* Muted logo strip animation for backed-by / pedigree */
+.nav-on-light {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+}
+
+.nav-on-light .nav-text {
+  color: #333333;
+}
+
+.nav-on-dark .nav-text {
+  color: #ffffff;
+}
+
+/* Added light gray background utility for alternating sections */
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+/* Custom dark background for sections */
+.bg-section-dark {
+  background-color: #020202;
+}
+
+/* Carousel animation */
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-80%);
   }
 }
 
 .animate-scroll {
-  animation: scroll 32s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .animate-scroll {
-    animation: none;
-  }
+  animation: scroll 15s linear infinite;
 }
