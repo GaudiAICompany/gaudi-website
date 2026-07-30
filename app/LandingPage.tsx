@@ -4,7 +4,24 @@ import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Mail, Linkedin, Twitter, CheckCircle2 } from "lucide-react"
+import {
+  ArrowRight,
+  Mail,
+  Linkedin,
+  Twitter,
+  CheckCircle2,
+  CalendarClock,
+  ClipboardList,
+  Calculator,
+  Scale,
+  Building2,
+  Upload,
+  Cpu,
+  Sparkles,
+  HardHat,
+  Clock,
+  ShieldCheck,
+} from "lucide-react"
 
 export default function LandingPage({
   functionApiBase,
@@ -87,23 +104,29 @@ export default function LandingPage({
             </a>
             <div className="hidden md:flex flex-1 items-center justify-end space-x-8">
               <button
-                onClick={() => scrollToSection("hero")}
+                onClick={() => scrollToSection("product")}
                 className="text-sm font-medium transition-colors text-white/90 hover:text-white"
               >
-                Home
+                Product
+              </button>
+              <button
+                onClick={() => scrollToSection("how-it-works")}
+                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
+              >
+                How it Works
+              </button>
+              <button
+                onClick={() => scrollToSection("why-gaudi")}
+                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
+              >
+                Why Gaudi
               </button>
               <button
                 onClick={() => scrollToSection("about")}
                 className="text-sm font-medium transition-colors text-white/90 hover:text-white"
               >
-                Team
+                Company
               </button>
-              <a
-                href="/careers/engineering"
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                Careers
-              </a>
               <button
                 onClick={() => scrollToSection("contact")}
                 className="text-sm font-medium transition-colors text-white/90 hover:text-white"
@@ -149,6 +172,106 @@ export default function LandingPage({
             >
               Learn More <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Section */}
+      <section id="product" className="bg-section-dark py-24 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-sm font-semibold uppercase tracking-widest text-primary">Product</span>
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
+              One Platform for Every Construction Workflow
+            </h2>
+            <p className="text-lg text-gray-300 leading-relaxed text-pretty">
+              Gaudi automates the manual, time-consuming work across your projects, so your teams can focus on building instead of paperwork.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: CalendarClock, title: "Scheduling", desc: "Generate and maintain accurate project schedules that adapt as conditions change.", href: "/waitlist/scheduling" },
+              { icon: ClipboardList, title: "Punch Lists", desc: "Capture, assign, and close out punch list items with AI-assisted tracking.", href: "/waitlist/punchlist" },
+              { icon: Calculator, title: "Estimates", desc: "Produce fast, reliable cost estimates from your plans and specs.", href: "/waitlist/estimations" },
+              { icon: Scale, title: "Bid Leveling", desc: "Compare bids apples-to-apples and surface the details that matter.", href: "/waitlist/bids" },
+              { icon: Building2, title: "Draw Inspections", desc: "Streamline draw inspections with verified, AR-guided field capture.", href: "/inspections" },
+            ].map((item, index) => (
+              <a
+                key={index}
+                href={item.href}
+                className="group rounded-lg border border-white/10 bg-white/5 p-8 transition-colors hover:border-primary/40 hover:bg-white/10"
+              >
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                  <item.icon className="h-6 w-6" />
+                </div>
+                <h3 className="mb-2 text-xl font-semibold text-white">{item.title}</h3>
+                <p className="text-gray-300 leading-relaxed">{item.desc}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it Works Section */}
+      <section id="how-it-works" className="bg-section-dark py-24 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-sm font-semibold uppercase tracking-widest text-primary">How it Works</span>
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
+              From Field Data to Finished Work in Three Steps
+            </h2>
+            <p className="text-lg text-gray-300 leading-relaxed text-pretty">
+              Gaudi fits into the way your teams already work, turning everyday project inputs into automated, verified outputs.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: Upload, step: "01", title: "Connect Your Data", desc: "Bring in your plans, specs, schedules, and field captures. No complex setup required." },
+              { icon: Cpu, step: "02", title: "Let Gaudi Work", desc: "Our AI processes your inputs, automating estimates, schedules, punch lists, and inspections." },
+              { icon: Sparkles, step: "03", title: "Get Verified Results", desc: "Review complete, accurate outputs you can trust and share across your team instantly." },
+            ].map((item, index) => (
+              <div key={index} className="relative rounded-lg border border-white/10 bg-white/5 p-8">
+                <div className="mb-5 flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                    <item.icon className="h-6 w-6" />
+                  </div>
+                  <span className="font-playfair text-3xl font-bold text-white/30">{item.step}</span>
+                </div>
+                <h3 className="mb-2 text-xl font-semibold text-white">{item.title}</h3>
+                <p className="text-gray-300 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Gaudi Section */}
+      <section id="why-gaudi" className="bg-section-dark py-24 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-sm font-semibold uppercase tracking-widest text-primary">Why Gaudi</span>
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
+              Built by People Who Know Construction
+            </h2>
+            <p className="text-lg text-gray-300 leading-relaxed text-pretty">
+              We pair deep field experience with world-class AI to deliver tools that actually work on the jobsite.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: HardHat, title: "Industry Expertise", desc: "Built by people who have managed projects and operated properties in the real world." },
+              { icon: Clock, title: "Save Time", desc: "Automate hours of manual work so your crews can focus on building." },
+              { icon: ShieldCheck, title: "Verified Accuracy", desc: "Trustworthy, complete outputs that hold up in the field and on the books." },
+              { icon: Calculator, title: "Cut Costs", desc: "Reduce rework, catch issues early, and keep every project on budget." },
+            ].map((item, index) => (
+              <div key={index} className="rounded-lg border border-white/10 bg-white/5 p-8">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                  <item.icon className="h-6 w-6" />
+                </div>
+                <h3 className="mb-2 text-lg font-semibold text-white">{item.title}</h3>
+                <p className="text-gray-300 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -307,7 +430,12 @@ export default function LandingPage({
               <ul className="space-y-2 text-background/80">
                 <li>
                   <a href="#about" className="hover:text-background transition-colors">
-                    About
+                    Team
+                  </a>
+                </li>
+                <li>
+                  <a href="/careers/engineering" className="hover:text-background transition-colors">
+                    Careers
                   </a>
                 </li>
                 <li>
