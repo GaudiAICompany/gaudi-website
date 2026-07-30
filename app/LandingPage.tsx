@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
+import { SiteNav } from "@/components/site-nav"
 import {
   ArrowRight,
   Mail,
@@ -92,58 +93,7 @@ export default function LandingPage({
   return (
     <div className="min-h-screen bg-section-dark text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
-            <a href="/" className="transition-colors">
-              <img
-                src="/logo_text.png"
-                alt="Gaudi AI Logo"
-                className="h-6 w-auto filter brightness-0 invert"
-              />
-            </a>
-            <div className="hidden md:flex flex-1 items-center justify-end space-x-8">
-              <button
-                onClick={() => scrollToSection("product")}
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                Product
-              </button>
-              <button
-                onClick={() => scrollToSection("how-it-works")}
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                How it Works
-              </button>
-              <button
-                onClick={() => scrollToSection("why-gaudi")}
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                Why Gaudi
-              </button>
-              <button
-                onClick={() => scrollToSection("about")}
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                Company
-              </button>
-              <button
-                onClick={() => scrollToSection("contact")}
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                Contact
-              </button>
-              <Button
-                size="sm"
-                onClick={() => scrollToSection("contact")}
-                className="bg-white text-slate-900 hover:bg-white/90"
-              >
-                Learn More <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <SiteNav />
 
       {/* Hero Section */}
       <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden pt-16">

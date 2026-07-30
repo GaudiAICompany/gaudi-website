@@ -2,52 +2,22 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { SiteNav } from "@/components/site-nav"
 import { ArrowRight, Mail, Linkedin, Phone, MapPin, Clock } from "lucide-react"
 
 export default function Careers() {
   return (
     <div className="min-h-screen bg-section-dark text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
-            <a href="/" className="transition-colors">
-              <img src="/logo_text.png" alt="Gaudi AI Logo" className="h-6 w-auto filter brightness-0 invert" />
+      <SiteNav
+        cta={
+          <Button size="sm" asChild className="bg-white text-slate-900 hover:bg-white/90">
+            <a href="mailto:careers@heygaudi.ai">
+              Apply Now <ArrowRight className="ml-2 h-4 w-4" />
             </a>
-            <div className="hidden md:flex flex-1 items-center justify-end space-x-8">
-              <a
-                href="/"
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                Home
-              </a>
-              <a
-                href="/#about"
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                Team
-              </a>
-              <a
-                href="/careers/engineering"
-                className="text-sm font-medium transition-colors text-white"
-              >
-                Careers
-              </a>
-              <a
-                href="/#contact"
-                className="text-sm font-medium transition-colors text-white/90 hover:text-white"
-              >
-                Contact
-              </a>
-              <Button size="sm" asChild className="bg-white text-slate-900 hover:bg-white/90">
-                <a href="mailto:careers@heygaudi.ai">
-                  Apply Now <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+          </Button>
+        }
+      />
 
       {/* Hiring Banner */}
       <section className="relative pt-32 pb-16 overflow-hidden">
