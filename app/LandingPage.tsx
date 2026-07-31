@@ -406,8 +406,8 @@ export default function LandingPage({
             </CardContent>
           </Card>
 
-          <div className="mt-16 pt-16 border-t border-slate-700 text-center">
-              <p className="text-gray-300 mb-6">More Questions? Reach out directly:</p>
+          <div className="mt-16 text-center">
+              <p className="text-gray-300 mb-6">Have more questions? Reach out directly:</p>
             <a href="mailto:contact@heygaudi.ai" className="text-primary hover:text-primary/80 font-medium">
               contact@heygaudi.ai
             </a>
@@ -429,7 +429,7 @@ export default function LandingPage({
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Construction Case Studies</h4>
+                <h4 className="font-semibold mb-4">Product</h4>
               <ul className="space-y-2 text-background/80">
                 <li>
                   <a href="/waitlist/scheduling" className="hover:text-background transition-colors">
