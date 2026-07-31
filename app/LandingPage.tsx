@@ -117,11 +117,11 @@ export default function LandingPage({
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
           <h1 className="font-playfair text-6xl md:text-7xl font-bold mb-6 leading-tight">
-            Building the Future of
-            <span className="block text-primary">Construction</span>
+            <span className="text-primary">AI back office</span>
+            <span className="block text-white">for construction teams.</span>
           </h1>
-          <p className="text-lg md:text-xl mb-12 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Bringing AI to the physical world with construction workflow automations
+          <p className="text-xl md:text-2xl mb-12 text-gray-200 max-w-2xl mx-auto leading-relaxed">
+            We handle the hassle. You handle the build.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -130,7 +130,7 @@ export default function LandingPage({
               onClick={() => scrollToSection("contact")}
               className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
             >
-              Contact Us <ArrowRight className="ml-2 h-4 w-4" />
+              Try it out <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </div>
