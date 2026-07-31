@@ -202,17 +202,6 @@ export default function LandingPage({
             })}
           </div>
 
-          {/* Try it out button */}
-          <div className="mt-12 flex justify-center">
-            <Button
-              size="lg"
-              onClick={() => handleTryItOut("I'd like to try out Gaudi AI")}
-              className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
-            >
-              Try it out <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-
           {/* Closing CTA */}
           <div className="mt-16 pt-4 text-center">
             <p className="text-gray-300 mb-6 text-pretty">
@@ -220,9 +209,8 @@ export default function LandingPage({
             </p>
             <Button
               size="lg"
-              variant="outline"
               onClick={handleGetInTouch}
-              className="border-white/20 bg-transparent text-white hover:bg-white/10 px-8 h-12 font-medium"
+              className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
             >
               Get in touch <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
