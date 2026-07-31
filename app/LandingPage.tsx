@@ -119,10 +119,10 @@ export default function LandingPage({
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               size="lg"
-              onClick={() => scrollToSection("about")}
+              onClick={() => scrollToSection("contact")}
               className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
             >
-              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+              Contact Us <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </div>
@@ -295,7 +295,7 @@ export default function LandingPage({
               aria-controls="contact-panel-call"
               onClick={() => setContactTab("call")}
               className={`flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                contactTab === "call" ? "bg-white/20 text-white" : "text-gray-400 hover:text-white"
+                contactTab === "call" ? "bg-primary text-white" : "text-gray-400 hover:text-white"
               }`}
             >
               Book a call
@@ -308,7 +308,7 @@ export default function LandingPage({
               aria-controls="contact-panel-message"
               onClick={() => setContactTab("message")}
               className={`flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                contactTab === "message" ? "bg-white/20 text-white" : "text-gray-400 hover:text-white"
+                contactTab === "message" ? "bg-primary text-white" : "text-gray-400 hover:text-white"
               }`}
             >
               Send a message
@@ -361,8 +361,8 @@ export default function LandingPage({
                     <Input name="company" placeholder="Company Name" type="text" className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80" required />
                     <textarea
                       name="message"
-                      placeholder="Tell us about your use case..."
-                      className="w-full p-3 border border-white/20 rounded-md resize-none h-25 bg-white/12 text-white placeholder-white/80"
+                      placeholder="How can we help?"
+                      className="flex w-full rounded-md border border-white/20 bg-white/12 px-3 py-2 text-base md:text-sm text-white placeholder-white/80 resize-none h-25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     />
                     <Button
                       type="submit"
@@ -378,7 +378,7 @@ export default function LandingPage({
           </Card>
 
           <div className="mt-16 pt-16 border-t border-slate-700 text-center">
-            <p className="text-gray-300 mb-6">Questions? Reach out directly:</p>
+              <p className="text-gray-300 mb-6">More Questions? Reach out directly:</p>
             <a href="mailto:contact@heygaudi.ai" className="text-primary hover:text-primary/80 font-medium">
               contact@heygaudi.ai
             </a>
