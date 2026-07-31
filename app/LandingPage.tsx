@@ -491,7 +491,7 @@ export default function LandingPage({
             </div>
           </div>
 
-          <div className="border-t border-background/20 pt-8 text-center text-background/60">
+          <div className="pt-8 text-center text-background/60">
             <p>&copy; 2026 Gaudi AI. All rights reserved.</p>
           </div>
         </div>
