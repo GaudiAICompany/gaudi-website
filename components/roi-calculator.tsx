@@ -94,7 +94,8 @@ export function RoiCalculator({
     { key: "winRate", label: "Win Rate", min: 1, max: 60, step: 1, format: (v) => `${v}%` },
   ]
 
-  const secondaryResults = [
+  const results = [
+    { label: "Potential Revenue Unlocked per Month", value: formatCurrency(grossProfitIncrease) },
     { label: "Cost Savings per Bid", value: formatPercent(costSavingsPerBid) },
     { label: "Time Savings per Bid", value: formatPercent(timeSavingsPerBid) },
     {
@@ -111,7 +112,7 @@ export function RoiCalculator({
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
+    <div className="flex flex-col gap-6">
       {/* Inputs — one soft-edged panel of sliders */}
       <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
         <div className="flex flex-col gap-8">
@@ -141,32 +142,26 @@ export function RoiCalculator({
         </div>
       </div>
 
-      {/* Outputs — a hero figure with supporting metrics */}
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col justify-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
-          <span className="text-sm font-semibold uppercase tracking-widest text-primary">
-            Potential Revenue Unlocked per Month
-          </span>
-          <span className="mt-2 font-playfair text-4xl font-bold text-primary md:text-5xl">
-            {formatCurrency(grossProfitIncrease)}
-          </span>
-        </div>
-
-        <div className="grid flex-1 grid-cols-3 gap-4">
-          {secondaryResults.map((result) => (
+      {/* Outputs — four equal-weight cards in a single row */}
+      <div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {results.map((result) => (
             <div
               key={result.label}
-              className="flex flex-col justify-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center"
+              className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center"
             >
-              <span className="font-playfair text-3xl font-bold text-primary md:text-4xl">{result.value}</span>
+              <span className="font-playfair text-3xl font-bold text-primary">{result.value}</span>
               <span className="mt-2 text-xs leading-snug text-gray-300">{result.label}</span>
             </div>
           ))}
         </div>
+        <p className="mt-4 text-center text-xs text-gray-400">
+          Based on additional bids won, not guaranteed monthly cash.
+        </p>
       </div>
 
       {/* Try it out CTA */}
-      <div className="lg:col-span-2 flex justify-center pt-2">
+      <div className="flex justify-center pt-2">
         <Button
           type="button"
           size="lg"
