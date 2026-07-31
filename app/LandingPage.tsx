@@ -14,10 +14,12 @@ import {
   Twitter,
   CheckCircle2,
   CalendarClock,
-  ClipboardList,
+  ClipboardCheck,
   Calculator,
   Scale,
   Building2,
+  Ruler,
+  MessageSquare,
   Upload,
   Cpu,
   Sparkles,
@@ -83,6 +85,12 @@ export default function LandingPage({
     }
   }
 
+  const handleGetInTouch = () => {
+    setContactTab("call")
+    setContactSubmitted(false)
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+  }
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -142,32 +150,59 @@ export default function LandingPage({
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-sm font-semibold uppercase tracking-widest text-primary">Product</span>
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
-              One Platform for Every Construction Workflow
+              AI Agent That Delivers Finished Work
             </h2>
             <p className="text-lg text-gray-300 leading-relaxed text-pretty">
-              Gaudi automates the manual, time-consuming work across your projects, so your teams can focus on building instead of paperwork.
+              Gaudi delivers completed, auditable work, calibrated to your business without asking you to change how you operate.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* Sub-label above workflow icons */}
+          <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-gray-400 mb-8">
+            Automate Your Workflow
+          </p>
+
+          {/* Circular workflow icon buttons */}
+          <div className="flex flex-wrap items-start justify-center gap-x-8 gap-y-10 max-w-4xl mx-auto">
             {[
-              { icon: CalendarClock, title: "Scheduling", desc: "Generate and maintain accurate project schedules that adapt as conditions change.", href: "/waitlist/scheduling" },
-              { icon: ClipboardList, title: "Punch Lists", desc: "Capture, assign, and close out punch list items with AI-assisted tracking.", href: "/waitlist/punchlist" },
-              { icon: Calculator, title: "Estimates", desc: "Produce fast, reliable cost estimates from your plans and specs.", href: "/waitlist/estimations" },
-              { icon: Scale, title: "Bid Leveling", desc: "Compare bids apples-to-apples and surface the details that matter.", href: "/waitlist/bids" },
-              { icon: Building2, title: "Draw Inspections", desc: "Streamline draw inspections with verified, AR-guided field capture.", href: "/inspections" },
+              { icon: Ruler, title: "Material Takeoff", rgb: "204, 105, 67" },
+              { icon: Calculator, title: "Estimates", rgb: "74, 107, 138" },
+              { icon: Scale, title: "Bid Leveling", rgb: "169, 169, 155" },
+              { icon: CalendarClock, title: "Scheduling", rgb: "204, 105, 67" },
+              { icon: ClipboardCheck, title: "Punch Lists", rgb: "74, 107, 138" },
+              { icon: MessageSquare, title: "Proactive Client Updates", rgb: "169, 169, 155" },
+              { icon: Building2, title: "Draw Inspections", rgb: "204, 105, 67" },
             ].map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="group rounded-lg border border-white/10 bg-white/5 p-8 transition-colors hover:border-primary/40 hover:bg-white/10"
-              >
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                  <item.icon className="h-6 w-6" />
+              <div key={index} className="flex w-24 flex-col items-center text-center">
+                <div
+                  className="flex h-[68px] w-[68px] items-center justify-center rounded-full border"
+                  style={{
+                    backgroundColor: `rgba(${item.rgb}, 0.12)`,
+                    borderColor: `rgba(${item.rgb}, 0.3)`,
+                    color: `rgb(${item.rgb})`,
+                  }}
+                >
+                  <item.icon className="h-7 w-7" />
                 </div>
-                <h3 className="mb-2 text-xl font-semibold text-white">{item.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{item.desc}</p>
-              </a>
+                <span className="mt-3 text-sm font-medium leading-snug text-gray-200 text-balance">
+                  {item.title}
+                </span>
+              </div>
             ))}
+          </div>
+
+          {/* Closing CTA */}
+          <div className="mt-16 border-t border-white/10 pt-12 text-center">
+            <p className="text-gray-300 mb-6 text-pretty">
+              Looking for something different that&apos;s not here? We can still help.
+            </p>
+            <Button
+              size="lg"
+              onClick={handleGetInTouch}
+              className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
+            >
+              Get in touch <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
         </div>
       </section>
