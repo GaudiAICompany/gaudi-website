@@ -129,7 +129,7 @@ export default function LandingPage({
       </section>
 
       {/* Product Section */}
-      <section id="product" className="bg-section-dark py-24 border-t border-white/10">
+      <section id="product" className="bg-section-dark py-24">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-sm font-semibold uppercase tracking-widest text-primary">Product</span>
@@ -229,7 +229,7 @@ export default function LandingPage({
       </section>
 
       {/* About Section */}
-      <section id="about" className="bg-section-dark py-8">
+      <section id="about" className="bg-section-dark py-24 border-t border-white/10">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto">
             <span className="text-sm font-semibold uppercase tracking-widest text-primary">Company</span>
@@ -299,7 +299,7 @@ export default function LandingPage({
       </section>
 
       {/* CTA Section */}
-      <section id="contact" className="bg-section-dark py-24">
+      <section id="contact" className="bg-section-dark py-24 border-t border-white/10">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-6 text-white">
