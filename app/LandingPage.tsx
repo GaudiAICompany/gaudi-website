@@ -274,6 +274,9 @@ export default function LandingPage({
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
               Calculate your ROI
             </h2>
+            <p className="text-lg text-gray-300 leading-relaxed text-pretty">
+              For your bidding and estimating workflow
+            </p>
           </div>
           <RoiCalculator onTryItOut={handleTryItOut} />
         </div>
