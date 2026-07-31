@@ -245,6 +245,26 @@ export default function LandingPage({
               >
                 Join Us
               </a>
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <a
+                  href="https://www.linkedin.com/in/sebastian-piedra-rodriguez"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-gray-300 transition-colors hover:text-white"
+                >
+                  <Linkedin className="h-4 w-4" aria-hidden="true" />
+                  Sebastian Piedra Rodriguez
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/begumcital"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-gray-300 transition-colors hover:text-white"
+                >
+                  <Linkedin className="h-4 w-4" aria-hidden="true" />
+                  Begum Cital
+                </a>
+              </div>
             </div>
             <div className="relative h-96 rounded-lg overflow-hidden">
               <img src="/team.jpeg" alt="Gaudi AI team" className="absolute inset-0 w-full h-full object-cover" />
@@ -253,7 +273,7 @@ export default function LandingPage({
         </div>
                   {/* Stats Carousel */}
             <div className="mt-20 relative max-w-4xl mx-auto">
-            <p className="text-sm font-semibold uppercase tracking-widest text-gray-400 text-center mb-8">Our backgrounds</p>
+            <p className="text-sm font-semibold uppercase tracking-widest text-gray-300 text-center mb-8">Our backgrounds</p>
             <div className="overflow-hidden">
               <div className="flex gap-0 animate-scroll">
                 {[...stats, ...stats, ...stats].map((stat, index) => (
