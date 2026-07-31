@@ -20,7 +20,6 @@ import {
   Building2,
   Ruler,
   MessageSquare,
-  Play,
   Upload,
   Cpu,
   Sparkles,
@@ -201,20 +200,17 @@ export default function LandingPage({
                 </div>
               )
             })}
+          </div>
 
-            {/* CTA icon */}
-            <button
-              type="button"
-              onClick={() => scrollToSection("contact")}
-              className="group flex w-28 flex-col items-center text-center"
+          {/* Try it out button */}
+          <div className="mt-12 flex justify-center">
+            <Button
+              size="lg"
+              onClick={() => scrollToSection("why-gaudi")}
+              className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
             >
-              <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full bg-primary text-white transition-transform group-hover:scale-105">
-                <Play className="h-9 w-9" fill="currentColor" />
-              </div>
-              <span className="mt-3 text-sm font-medium leading-snug text-primary text-balance">
-                Try it out
-              </span>
-            </button>
+              Try it out <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
 
           {/* Closing CTA */}
@@ -224,8 +220,9 @@ export default function LandingPage({
             </p>
             <Button
               size="lg"
+              variant="outline"
               onClick={handleGetInTouch}
-              className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
+              className="border-white/20 bg-transparent text-white hover:bg-white/10 px-8 h-12 font-medium"
             >
               Get in touch <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
