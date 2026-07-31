@@ -163,7 +163,7 @@ export default function LandingPage({
           </p>
 
           {/* Circular workflow icon buttons */}
-          <div className="flex flex-wrap items-start justify-center gap-x-8 gap-y-10 max-w-4xl mx-auto">
+          <div className="flex flex-wrap items-start justify-center gap-x-8 gap-y-10 max-w-[288px] sm:max-w-xl mx-auto">
             {[
               { icon: Ruler, title: "Material Takeoff", rgb: "204, 105, 67", href: undefined },
               { icon: Calculator, title: "Estimates", rgb: "74, 107, 138", href: "/waitlist/estimations" },
@@ -206,7 +206,7 @@ export default function LandingPage({
           <div className="mt-12 flex justify-center">
             <Button
               size="lg"
-              onClick={() => scrollToSection("why-gaudi")}
+              onClick={() => handleTryItOut("I'd like to try out Gaudi AI")}
               className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
             >
               Try it out <ArrowRight className="ml-2 h-4 w-4" />
