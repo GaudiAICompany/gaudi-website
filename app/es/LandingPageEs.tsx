@@ -13,10 +13,12 @@ import {
   Linkedin,
   CheckCircle2,
   CalendarClock,
-  ClipboardList,
+  ClipboardCheck,
   Calculator,
   Scale,
   Building2,
+  Ruler,
+  MessageSquare,
   Upload,
   Cpu,
   Sparkles,
@@ -81,6 +83,12 @@ export default function LandingPageEs({
     }
   }
 
+  const handleGetInTouch = () => {
+    setContactTab("call")
+    setContactSubmitted(false)
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+  }
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -139,32 +147,70 @@ export default function LandingPageEs({
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-sm font-semibold uppercase tracking-widest text-primary">Producto</span>
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
-              Una Plataforma para Cada Flujo de Trabajo en Construcción
+              Un Agente de IA Que Entrega Trabajo Terminado
             </h2>
             <p className="text-lg text-gray-300 leading-relaxed text-pretty">
-              Gaudi automatiza el trabajo manual y tedioso de todos tus proyectos, para que tus equipos se concentren en construir en lugar de en el papeleo.
+              Gaudi entrega trabajo completo y auditable, calibrado para tu negocio sin pedirte que cambies tu forma de operar.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* Sub-label above workflow icons */}
+          <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-gray-400 mb-8">
+            Automatiza Tu Flujo de Trabajo
+          </p>
+
+          {/* Circular workflow icon buttons */}
+          <div className="flex flex-wrap items-start justify-center gap-x-8 gap-y-10 max-w-[288px] sm:max-w-xl mx-auto">
             {[
-              { icon: CalendarClock, title: "Programación", desc: "Genera y mantén cronogramas de proyecto precisos que se adaptan a medida que cambian las condiciones.", href: "/waitlist/scheduling" },
-              { icon: ClipboardList, title: "Listas de Pendientes", desc: "Captura, asigna y cierra elementos de listas de pendientes con seguimiento asistido por IA.", href: "/waitlist/punchlist" },
-              { icon: Calculator, title: "Presupuestos", desc: "Genera estimaciones de costos rápidas y confiables a partir de tus planos y especificaciones.", href: "/waitlist/estimations" },
-              { icon: Scale, title: "Nivelación de Ofertas", desc: "Compara ofertas en igualdad de condiciones y destaca los detalles que importan.", href: "/waitlist/bids" },
-              { icon: Building2, title: "Inspecciones de Desembolso", desc: "Agiliza las inspecciones de desembolso con captura en campo verificada y guiada por AR.", href: "/inspections" },
-            ].map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="group rounded-lg border border-white/10 bg-white/5 p-8 transition-colors hover:border-primary/40 hover:bg-white/10"
-              >
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                  <item.icon className="h-6 w-6" />
+              { icon: Ruler, title: "Cómputo de Materiales", rgb: "204, 105, 67", href: undefined },
+              { icon: Calculator, title: "Presupuestos", rgb: "74, 107, 138", href: "/waitlist/estimations" },
+              { icon: Scale, title: "Nivelación de Ofertas", rgb: "169, 169, 155", href: "/waitlist/bids" },
+              { icon: CalendarClock, title: "Programación", rgb: "204, 105, 67", href: "/waitlist/scheduling" },
+              { icon: ClipboardCheck, title: "Listas de Pendientes", rgb: "74, 107, 138", href: "/waitlist/punchlist" },
+              { icon: MessageSquare, title: "Actualizaciones Proactivas al Cliente", rgb: "169, 169, 155", href: undefined },
+              { icon: Building2, title: "Inspecciones de Desembolso", rgb: "204, 105, 67", href: "/inspections" },
+            ].map((item, index) => {
+              const circle = (
+                <>
+                  <div
+                    className="flex h-[88px] w-[88px] items-center justify-center rounded-full border transition-transform group-hover:scale-105"
+                    style={{
+                      backgroundColor: `rgba(${item.rgb}, 0.12)`,
+                      borderColor: `rgba(${item.rgb}, 0.3)`,
+                      color: `rgb(${item.rgb})`,
+                    }}
+                  >
+                    <item.icon className="h-9 w-9" />
+                  </div>
+                  <span className="mt-3 text-sm font-medium leading-snug text-gray-200 text-balance">
+                    {item.title}
+                  </span>
+                </>
+              )
+              return item.href ? (
+                <a key={index} href={item.href} className="group flex w-28 flex-col items-center text-center">
+                  {circle}
+                </a>
+              ) : (
+                <div key={index} className="flex w-28 flex-col items-center text-center">
+                  {circle}
                 </div>
-                <h3 className="mb-2 text-xl font-semibold text-white">{item.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{item.desc}</p>
-              </a>
-            ))}
+              )
+            })}
+          </div>
+
+          {/* Closing CTA */}
+          <div className="mt-16 pt-4 text-center">
+            <p className="text-gray-300 mb-6 text-pretty">
+              ¿Buscas algo diferente que no está aquí? Aún podemos ayudarte.
+            </p>
+            <Button
+              size="lg"
+              onClick={handleGetInTouch}
+              className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
+            >
+              Ponte en contacto <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
         </div>
       </section>
@@ -210,6 +256,9 @@ export default function LandingPageEs({
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
               Calcula tu ROI
             </h2>
+            <p className="text-lg text-gray-300 leading-relaxed text-pretty">
+              Para tu flujo de trabajo de ofertas y presupuestos
+            </p>
           </div>
           <RoiCalculator onTryItOut={handleTryItOut} lang="es" />
         </div>
