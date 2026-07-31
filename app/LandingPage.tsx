@@ -362,7 +362,7 @@ export default function LandingPage({
                     <textarea
                       name="message"
                       placeholder="How can we help?"
-                      className="flex w-full rounded-md border border-white/20 bg-white/12 px-3 py-2 text-base md:text-sm text-white placeholder-white/80 resize-none h-25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex w-full rounded-md border border-white/20 bg-white/12 px-3 py-2 text-base md:text-sm text-white placeholder:text-muted-foreground resize-none h-25 focus-visible:outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px]"
                     />
                     <Button
                       type="submit"
