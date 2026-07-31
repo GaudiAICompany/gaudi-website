@@ -114,7 +114,9 @@ export function RoiCalculator({
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       {/* Inputs — one soft-edged panel of sliders */}
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+      <div>
+        <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-400">Before Gaudi</h3>
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
         <div className="flex flex-col gap-8">
           {sliders.map((slider) => (
             <div key={slider.key}>
@@ -140,19 +142,23 @@ export function RoiCalculator({
             </div>
           ))}
         </div>
+        </div>
       </div>
 
       {/* Outputs — four equally-weighted cards */}
-      <div className="grid grid-cols-2 gap-4">
-        {results.map((result) => (
-          <div
-            key={result.label}
-            className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center"
-          >
-            <span className="font-playfair text-3xl font-bold text-primary">{result.value}</span>
-            <span className="mt-2 text-xs leading-snug text-gray-300">{result.label}</span>
-          </div>
-        ))}
+      <div>
+        <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-400">After Gaudi</h3>
+        <div className="grid grid-cols-2 gap-4">
+          {results.map((result) => (
+            <div
+              key={result.label}
+              className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center"
+            >
+              <span className="font-playfair text-4xl font-bold text-primary md:text-5xl">{result.value}</span>
+              <span className="mt-3 text-sm leading-snug text-gray-300">{result.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Try it out CTA */}
