@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { SiteNav } from "@/components/site-nav"
+import { CalendlyInline } from "@/components/calendly-inline"
 import {
   ArrowRight,
   Mail,
@@ -34,6 +35,7 @@ export default function LandingPage({
 
   const [email, setEmail] = useState("")
   const [contactSubmitted, setContactSubmitted] = useState(false)
+  const [contactTab, setContactTab] = useState<"call" | "message">("call")
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -279,47 +281,99 @@ export default function LandingPage({
             </p>
           </div>
 
+          {/* Segmented tab control */}
+          <div
+            role="tablist"
+            aria-label="Contact options"
+            className="mx-auto mb-6 flex w-full max-w-xs items-center gap-1 rounded-full bg-white/10 p-1"
+          >
+            <button
+              type="button"
+              role="tab"
+              id="contact-tab-call"
+              aria-selected={contactTab === "call"}
+              aria-controls="contact-panel-call"
+              onClick={() => setContactTab("call")}
+              className={`flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                contactTab === "call" ? "bg-white/20 text-white" : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Book a call
+            </button>
+            <button
+              type="button"
+              role="tab"
+              id="contact-tab-message"
+              aria-selected={contactTab === "message"}
+              aria-controls="contact-panel-message"
+              onClick={() => setContactTab("message")}
+              className={`flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                contactTab === "message" ? "bg-white/20 text-white" : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Send a message
+            </button>
+          </div>
+
           <Card className="p-12 border-2 border-primary/20" style={{ background: 'rgba(255, 255, 255, 0.10)' }}>
             <CardContent className="p-0">
-              {contactSubmitted ? (
-                <div className="flex flex-col items-center justify-center text-center py-12" role="status" aria-live="polite">
-                  <CheckCircle2 className="h-12 w-12 text-primary mb-4" />
-                  <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                  <p className="text-gray-300 mb-6">Thanks for reaching out. Our team will get back to you shortly.</p>
-                  <Button onClick={() => setContactSubmitted(false)} className="bg-primary hover:bg-primary/90 text-white">
-                    Send Another Message
-                  </Button>
-                </div>
-              ) : (
-                <form className="space-y-6" onSubmit={handleContactSubmit}>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <Input name="firstName" placeholder="First Name" type="text" className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80" required />
-                    <Input name="lastName" placeholder="Last Name" type="text" className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80" required />
+              {/* Book a call panel */}
+              <div
+                role="tabpanel"
+                id="contact-panel-call"
+                aria-labelledby="contact-tab-call"
+                hidden={contactTab !== "call"}
+              >
+                {contactTab === "call" && <CalendlyInline className="rounded-md overflow-hidden" />}
+              </div>
+
+              {/* Send a message panel */}
+              <div
+                role="tabpanel"
+                id="contact-panel-message"
+                aria-labelledby="contact-tab-message"
+                hidden={contactTab !== "message"}
+              >
+                {contactSubmitted ? (
+                  <div className="flex flex-col items-center justify-center text-center py-12" role="status" aria-live="polite">
+                    <CheckCircle2 className="h-12 w-12 text-primary mb-4" />
+                    <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
+                    <p className="text-gray-300 mb-6">Thanks for reaching out. Our team will get back to you shortly.</p>
+                    <Button onClick={() => setContactSubmitted(false)} className="bg-primary hover:bg-primary/90 text-white">
+                      Send Another Message
+                    </Button>
                   </div>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80"
-                    required
-                  />
-                  <Input name="company" placeholder="Company Name" type="text" className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80" required />
-                  <textarea
-                    name="message"
-                    placeholder="Tell us about your use case..."
-                    className="w-full p-3 border border-white/20 rounded-md resize-none h-25 bg-white/12 text-white placeholder-white/80"
-                  />
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full bg-primary hover:bg-primary/90 text-white h-12 font-medium"
-                  >
-                    Get in Touch <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </form>
-              )}
+                ) : (
+                  <form className="space-y-6" onSubmit={handleContactSubmit}>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <Input name="firstName" placeholder="First Name" type="text" className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80" required />
+                      <Input name="lastName" placeholder="Last Name" type="text" className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80" required />
+                    </div>
+                    <Input
+                      name="email"
+                      type="email"
+                      placeholder="Email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80"
+                      required
+                    />
+                    <Input name="company" placeholder="Company Name" type="text" className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80" required />
+                    <textarea
+                      name="message"
+                      placeholder="Tell us about your use case..."
+                      className="w-full p-3 border border-white/20 rounded-md resize-none h-25 bg-white/12 text-white placeholder-white/80"
+                    />
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full bg-primary hover:bg-primary/90 text-white h-12 font-medium"
+                    >
+                      Get in Touch <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </form>
+                )}
+              </div>
             </CardContent>
           </Card>
 

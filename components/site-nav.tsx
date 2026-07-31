@@ -48,8 +48,8 @@ export function SiteNav({ cta }: { cta?: React.ReactNode }) {
             ))}
             {cta ?? (
               <Button size="sm" asChild className="bg-white text-slate-900 hover:bg-white/90">
-                <a href="/#about" onClick={(e) => handleClick(e, "about")}>
-                  Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                <a href="/#contact" onClick={(e) => handleClick(e, "contact")}>
+                  Contact Us <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
             )}
