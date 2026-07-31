@@ -10,7 +10,7 @@ const HOURLY_SALARY = SALARY / YEARLY_HOURS // ~48.08
 const DAILY_SITE_COST = 500
 const HOURS_PER_DAY_NOT_ON_SITE = 5
 const GAUDI_HOURS_PER_BID = 0.5
-const GAUDI_BID_MULTIPLIER = 5
+const GAUDI_BID_MULTIPLIER = 10
 const GAUDI_COST_PER_ESTIMATE = 150
 
 type Field = "bidsPerMonth" | "hoursPerBid" | "avgBidValue" | "winRate"
@@ -53,10 +53,8 @@ export function RoiCalculator() {
   const gRoi = gTotalMonthlyCost > 0 ? (gProfit / gTotalMonthlyCost) * 100 : 0
 
   // Outputs
-  const costSavings = totalMonthlyCost > 0 ? ((totalMonthlyCost - gTotalMonthlyCost) / totalMonthlyCost) * 100 : 0
-  const hoursBefore = hoursPerBid * bidsPerMonth
-  const hoursAfter = GAUDI_HOURS_PER_BID * gBidsSubmitted
-  const timeSavings = hoursBefore > 0 ? ((hoursBefore - hoursAfter) / hoursBefore) * 100 : 0
+  const costSavingsPerBid = totalCostPerBid > 0 ? ((totalCostPerBid - gTotalCostPerBid) / totalCostPerBid) * 100 : 0
+  const timeSavingsPerBid = hoursPerBid > 0 ? ((hoursPerBid - GAUDI_HOURS_PER_BID) / hoursPerBid) * 100 : 0
   const grossProfitIncrease = gProfit - profit
   const roiMultipleProfitable = profit > 0 && roi > 0
   const roiMultiple = roiMultipleProfitable ? gRoi / roi : 0
@@ -78,9 +76,9 @@ export function RoiCalculator() {
   ]
 
   const results = [
-    { label: "Cost Savings", value: formatPercent(costSavings) },
-    { label: "Time Savings", value: formatPercent(timeSavings) },
-    { label: "Gross Profit Increase", value: formatCurrency(grossProfitIncrease) },
+    { label: "Cost Savings per Bid (%)", value: formatPercent(costSavingsPerBid) },
+    { label: "Time Savings per Bid (%)", value: formatPercent(timeSavingsPerBid) },
+    { label: "Monthly Gross Profit Increase ($)", value: formatCurrency(grossProfitIncrease) },
     {
       label: "ROI Multiple Increase",
       value: roiMultipleProfitable ? `${roiMultiple.toFixed(0)}x` : "Now profitable",
