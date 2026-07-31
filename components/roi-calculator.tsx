@@ -114,9 +114,11 @@ export function RoiCalculator({
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       {/* Inputs — one soft-edged panel of sliders */}
-      <div>
-        <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-400">Before Gaudi</h3>
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+      <div className="flex flex-col">
+        <h3 className="mb-3 text-center text-sm font-semibold uppercase tracking-widest text-gray-400">
+          Before Gaudi
+        </h3>
+        <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8">
         <div className="flex flex-col gap-8">
           {sliders.map((slider) => (
             <div key={slider.key}>
@@ -146,9 +148,11 @@ export function RoiCalculator({
       </div>
 
       {/* Outputs — four equally-weighted cards */}
-      <div>
-        <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-400">After Gaudi</h3>
-        <div className="grid grid-cols-2 gap-4">
+      <div className="flex flex-col">
+        <h3 className="mb-3 text-center text-sm font-semibold uppercase tracking-widest text-gray-400">
+          After Gaudi
+        </h3>
+        <div className="grid flex-1 grid-cols-2 grid-rows-2 gap-4">
           {results.map((result) => (
             <div
               key={result.label}
