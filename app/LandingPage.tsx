@@ -234,14 +234,17 @@ export default function LandingPage({
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-8 text-white">
-                Who We Are
+                Meet the Team
               </h2>
-              <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+              <p className="text-lg text-gray-300 mb-8 leading-relaxed">
                 Gaudi is built by people who have managed construction projects, owned and operated properties and shipped AI products used by Fortune 500 companies. We’ve worked inside leading tech companies and research institutions, but we know how construction really works because we’ve lived it.
               </p>
-              <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                We’re building AI tools that save time, cut headaches, and help every crew and project run smoother. If you build for a living, Gaudi is here to make your job easier.
-              </p>
+              <a
+                href="/careers/engineering"
+                className="inline-flex items-center justify-center rounded-md border border-white/20 bg-white/5 px-6 h-11 font-medium text-white transition-colors hover:border-primary/40 hover:bg-white/10"
+              >
+                Join Us
+              </a>
             </div>
             <div className="relative h-96 rounded-lg overflow-hidden">
               <img src="/team.jpeg" alt="Gaudi AI team" className="absolute inset-0 w-full h-full object-cover" />
