@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from "react"
 
-const CALENDLY_URL = "https://calendly.com/begumcital/gaudi-ai-intro-call-website?month=2026-07"
+// Dark-theme the embed via Calendly's supported URL params (hex without #):
+// background matches our dark card surface, text light, accent = brand orange.
+const CALENDLY_URL =
+  "https://calendly.com/begumcital/gaudi-ai-intro-call-website?month=2026-07&hide_gdpr_banner=1&background_color=141414&text_color=ffffff&primary_color=cc6943"
 const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js"
 
 type CalendlyGlobal = {
@@ -50,7 +53,7 @@ export function CalendlyInline({ className }: { className?: string }) {
     <div
       ref={containerRef}
       className={className}
-      style={{ minWidth: "280px", height: "620px" }}
+      style={{ minWidth: "280px", height: "620px", backgroundColor: "#141414" }}
     />
   )
 }
