@@ -209,7 +209,7 @@ export default function LandingPage({
       <section id="why-gaudi" className="bg-section-dark py-24 border-t border-white/10">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-sm font-semibold uppercase tracking-widest text-primary">ROI Calculator</span>
+            <span className="text-sm font-semibold uppercase tracking-widest text-primary">Why Gaudi</span>
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
               See what Gaudi actually saves you
             </h2>
