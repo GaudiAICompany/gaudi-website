@@ -230,45 +230,44 @@ export default function LandingPage({
 
       {/* About Section */}
       <section id="about" className="bg-section-dark py-8">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-8 text-white">
-                Meet the Team
-              </h2>
-              <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                Gaudi is built by people who have managed construction projects, owned and operated properties and shipped AI products used by Fortune 500 companies. We’ve worked inside leading tech companies and research institutions, but we know how construction really works because we’ve lived it.
-              </p>
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-8 text-white">
+              Meet the Team
+            </h2>
+            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+              Gaudi is built by people who have managed construction projects, owned and operated properties and shipped AI products used by Fortune 500 companies. We’ve worked inside leading tech companies and research institutions, but we know how construction really works because we’ve lived it.
+            </p>
+            <div className="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
               <a
-                href="/careers/engineering"
-                className="inline-flex items-center justify-center rounded-md border border-white/20 bg-white/5 px-6 h-11 font-medium text-white transition-colors hover:border-primary/40 hover:bg-white/10"
+                href="https://www.linkedin.com/in/sebastian-piedra-rodriguez"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-gray-300 transition-colors hover:text-white"
               >
-                Join Us
+                <Linkedin className="h-4 w-4" aria-hidden="true" />
+                Sebastian Piedra Rodriguez
               </a>
-              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-                <a
-                  href="https://www.linkedin.com/in/sebastian-piedra-rodriguez"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-gray-300 transition-colors hover:text-white"
-                >
-                  <Linkedin className="h-4 w-4" aria-hidden="true" />
-                  Sebastian Piedra Rodriguez
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/begumcital"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-gray-300 transition-colors hover:text-white"
-                >
-                  <Linkedin className="h-4 w-4" aria-hidden="true" />
-                  Begum Cital
-                </a>
-              </div>
+              <a
+                href="https://www.linkedin.com/in/begumcital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-gray-300 transition-colors hover:text-white"
+              >
+                <Linkedin className="h-4 w-4" aria-hidden="true" />
+                Begum Cital
+              </a>
             </div>
-            <div className="relative h-96 rounded-lg overflow-hidden">
-              <img src="/team.jpeg" alt="Gaudi AI team" className="absolute inset-0 w-full h-full object-cover" />
-            </div>
+            <Button
+              asChild
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-white px-8 h-12 font-medium"
+            >
+              <a href="/careers/engineering">Join Us</a>
+            </Button>
+          </div>
+          <div className="relative h-96 rounded-lg overflow-hidden mt-16">
+            <img src="/team.jpeg" alt="Gaudi AI team" className="absolute inset-0 w-full h-full object-cover" />
           </div>
         </div>
                   {/* Stats Carousel */}
