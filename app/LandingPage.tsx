@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { SiteNav } from "@/components/site-nav"
 import { CalendlyInline } from "@/components/calendly-inline"
+import { RoiCalculator } from "@/components/roi-calculator"
 import {
   ArrowRight,
   Mail,
@@ -20,9 +21,6 @@ import {
   Upload,
   Cpu,
   Sparkles,
-  HardHat,
-  Clock,
-  ShieldCheck,
 } from "lucide-react"
 
 export default function LandingPage({
@@ -203,28 +201,10 @@ export default function LandingPage({
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-sm font-semibold uppercase tracking-widest text-primary">Why Gaudi</span>
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
-              Built by People Who Know Construction
+              ROI Calculator
             </h2>
-            <p className="text-lg text-gray-300 leading-relaxed text-pretty">
-              We pair deep field experience with world-class AI to deliver tools that actually work on the jobsite.
-            </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: HardHat, title: "Industry Expertise", desc: "Built by people who have managed projects and operated properties in the real world." },
-              { icon: Clock, title: "Save Time", desc: "Automate hours of manual work so your crews can focus on building." },
-              { icon: ShieldCheck, title: "Verified Accuracy", desc: "Trustworthy, complete outputs that hold up in the field and on the books." },
-              { icon: Calculator, title: "Cut Costs", desc: "Reduce rework, catch issues early, and keep every project on budget." },
-            ].map((item, index) => (
-              <div key={index} className="rounded-lg border border-white/10 bg-white/5 p-8">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                  <item.icon className="h-6 w-6" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">{item.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+          <RoiCalculator />
         </div>
       </section>
 
