@@ -143,23 +143,22 @@ export function RoiCalculator({
 
       {/* Outputs — a hero figure with supporting metrics */}
       <div className="flex flex-col gap-4">
-        <div className="flex flex-1 flex-col justify-center rounded-2xl border border-primary/30 bg-primary/10 p-8">
+        <div className="flex flex-col justify-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
           <span className="text-sm font-semibold uppercase tracking-widest text-primary">
-            Monthly Gross Profit Increase
+            Potential Revenue Unlocked per Month
           </span>
-          <span className="mt-3 font-playfair text-5xl font-bold text-white md:text-6xl">
+          <span className="mt-2 font-playfair text-4xl font-bold text-primary md:text-5xl">
             {formatCurrency(grossProfitIncrease)}
           </span>
-          <span className="mt-2 text-sm text-gray-300">Additional profit per month with Gaudi</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid flex-1 grid-cols-3 gap-4">
           {secondaryResults.map((result) => (
             <div
               key={result.label}
-              className="flex flex-col justify-center rounded-2xl border border-white/10 bg-white/5 p-5 text-center"
+              className="flex flex-col justify-center rounded-2xl border border-white/10 bg-white/5 p-6 text-center"
             >
-              <span className="font-playfair text-2xl font-bold text-primary md:text-3xl">{result.value}</span>
+              <span className="font-playfair text-3xl font-bold text-primary md:text-4xl">{result.value}</span>
               <span className="mt-2 text-xs leading-snug text-gray-300">{result.label}</span>
             </div>
           ))}
