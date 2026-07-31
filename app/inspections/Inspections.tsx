@@ -19,6 +19,7 @@ import {
   CheckCircle2 
 } from "lucide-react"
 import ImageModal from "../ImageModal"
+import { SiteNav } from "@/components/site-nav"
 
 export default function Inspections({
   functionApiBase,
@@ -29,7 +30,6 @@ export default function Inspections({
 }) {
   const [email, setEmail] = useState("")
   const [activeStep, setActiveStep] = useState(0)
-  const [navOnLight, setNavOnLight] = useState(false)
   const [contactSubmitted, setContactSubmitted] = useState(false)
 
   const handleContactSubmit = async (e: React.FormEvent) => {
@@ -77,13 +77,6 @@ export default function Inspections({
 
   }
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
-  }
-
   const trackCTA = (label: string) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'cta_click', {
@@ -109,12 +102,6 @@ export default function Inspections({
       })
 
       setActiveStep(newActiveStep)
-
-      const heroSection = document.getElementById("hero")
-      if (heroSection) {
-        const heroRect = heroSection.getBoundingClientRect()
-        setNavOnLight(heroRect.bottom <= 100)
-      }
     }
 
     window.addEventListener("scroll", handleScroll)
@@ -208,81 +195,8 @@ const faqs = [
 
   return (
     <div className="min-h-screen">
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          navOnLight ? "bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm" : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
-            <a href="#" className="transition-colors">
-              <img
-                src="/logo_text.png" // Replace with your actual image path
-                alt="Gaudi AI Logo"
-                className={`h-6 w-auto ${navOnLight ? "filter-none" : "filter brightness-0 invert"}`}
-              />
-            </a>
-            <div className="hidden md:flex items-center space-x-8">
-              <button
-                onClick={() => scrollToSection("hero")}
-                className={`text-sm font-medium transition-colors ${
-                  navOnLight ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white"
-                }`}
-              >
-                Home
-              </button>
-              <button
-                onClick={() => scrollToSection("why-gaudi")}
-                className={`text-sm font-medium transition-colors ${
-                  navOnLight ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white"
-                }`}
-              >
-                How It Works
-              </button>
-              <button
-                onClick={() => scrollToSection("benefits")}
-                className={`text-sm font-medium transition-colors ${
-                  navOnLight ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white"
-                }`}
-              >
-                Benefits
-              </button>
-              <button
-                onClick={() => scrollToSection("faq")}
-                className={`text-sm font-medium transition-colors ${
-                  navOnLight ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white"
-                }`}
-              >
-                FAQ
-              </button>
-              <button
-                onClick={() => scrollToSection("contact")}
-                className={`text-sm font-medium transition-colors ${
-                  navOnLight ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white"
-                }`}
-              >
-                Contact Us
-              </button>
-              <Button
-                size="sm"
-                onClick={() => {trackCTA("top-banner-book-demo")}}
-                className={
-                  navOnLight ? "bg-primary text-white hover:bg-primary/90" : "bg-white text-slate-900 hover:bg-white/90"
-                }
-              >
-                <a
-                  href={`https://cal.com/gaudiai?email=${encodeURIComponent(email)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center"
-                >
-                  Book Demo
-                </a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Shared site navigation (same menu as the landing page) */}
+      <SiteNav />
 
       <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden pt-16">
         <div className="absolute inset-0 z-0">

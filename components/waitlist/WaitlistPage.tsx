@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useState } from "react"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, Share2, Linkedin, Twitter, Facebook } from "lucide-react"
+import { SiteNav } from "@/components/site-nav"
 import type { WaitlistProductConfig } from "@/lib/waitlist-config"
 
 function getShareUrl(
@@ -145,18 +145,10 @@ export default function WaitlistPage({
       <div className="absolute bottom-0 right-0 w-56 h-px bg-white/10" />
       <div className="absolute bottom-0 right-0 w-px h-56 bg-white/10" />
 
-      <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Top bar / nav */}
-        <header className="px-6 md:px-12 py-6">
-          <Link href="/" className="inline-block">
-            <img
-              src="/logo_text.png"
-              alt="Gaudi AI"
-              className="h-6 w-auto filter brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
-            />
-          </Link>
-        </header>
+      {/* Shared site navigation (same menu as the landing page) */}
+      <SiteNav />
 
+      <div className="relative z-10 min-h-screen flex flex-col pt-16">
         {/* Main content */}
         <main className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-16 px-4 md:px-6 pb-24">
           {/* Left: Title, subtitle, form */}
