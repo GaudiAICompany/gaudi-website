@@ -27,9 +27,12 @@ const formatPercent = (value: number) => `${value.toFixed(0)}%`
 
 export function RoiCalculator({
   onTryItOut,
+  lang = "en",
 }: {
   onTryItOut?: (message: string) => void
+  lang?: "en" | "es"
 }) {
+  const es = lang === "es"
   const [inputs, setInputs] = useState({
     bidsPerMonth: 4,
     hoursPerBid: 4,
@@ -81,33 +84,54 @@ export function RoiCalculator({
     step: number
     format: (v: number) => string
   }[] = [
-    { key: "bidsPerMonth", label: "Bids per Month", min: 1, max: 20, step: 1, format: (v) => `${v}` },
-    { key: "hoursPerBid", label: "Hours Spent per Bid", min: 1, max: 60, step: 1, format: (v) => `${v} hrs` },
+    {
+      key: "bidsPerMonth",
+      label: es ? "Licitaciones por Mes" : "Bids per Month",
+      min: 1,
+      max: 20,
+      step: 1,
+      format: (v) => `${v}`,
+    },
+    {
+      key: "hoursPerBid",
+      label: es ? "Horas por Licitación" : "Hours Spent per Bid",
+      min: 1,
+      max: 60,
+      step: 1,
+      format: (v) => `${v} ${es ? "h" : "hrs"}`,
+    },
     {
       key: "avgBidValue",
-      label: "Avg. Bid Value",
+      label: es ? "Valor Promedio de Licitación" : "Avg. Bid Value",
       min: 10000,
       max: 500000,
       step: 5000,
       format: (v) => formatCurrency(v),
     },
-    { key: "winRate", label: "Win Rate", min: 1, max: 60, step: 1, format: (v) => `${v}%` },
+    { key: "winRate", label: es ? "Tasa de Éxito" : "Win Rate", min: 1, max: 60, step: 1, format: (v) => `${v}%` },
   ]
 
   const results = [
-    { label: "Potential Revenue Unlocked per Month", value: formatCurrency(grossProfitIncrease) },
-    { label: "Cost Savings per Bid", value: formatPercent(costSavingsPerBid) },
-    { label: "Time Savings per Bid", value: formatPercent(timeSavingsPerBid) },
     {
-      label: "ROI Multiple Increase",
-      value: roiMultipleProfitable ? `${roiMultiple.toFixed(0)}x` : "Now profitable",
+      label: es ? "Ingresos Potenciales Desbloqueados por Mes" : "Potential Revenue Unlocked per Month",
+      value: formatCurrency(grossProfitIncrease),
+    },
+    { label: es ? "Ahorro de Costos por Licitación" : "Cost Savings per Bid", value: formatPercent(costSavingsPerBid) },
+    { label: es ? "Ahorro de Tiempo por Licitación" : "Time Savings per Bid", value: formatPercent(timeSavingsPerBid) },
+    {
+      label: es ? "Aumento del Múltiplo de ROI" : "ROI Multiple Increase",
+      value: roiMultipleProfitable ? `${roiMultiple.toFixed(0)}x` : es ? "Ahora rentable" : "Now profitable",
     },
   ]
 
   const handleTryItOut = () => {
-    const message = `I have ${bidsPerMonth} bids per month and spend ${hoursPerBid} hours per bid. My average bid value is ${formatCurrency(
-      avgBidValue,
-    )} and win rate is ${winRate}%. Help me save time and increase my ROI.`
+    const message = es
+      ? `Tengo ${bidsPerMonth} licitaciones al mes y dedico ${hoursPerBid} horas por licitación. El valor promedio de mi licitación es ${formatCurrency(
+          avgBidValue,
+        )} y mi tasa de éxito es del ${winRate}%. Ayúdenme a ahorrar tiempo y aumentar mi ROI.`
+      : `I have ${bidsPerMonth} bids per month and spend ${hoursPerBid} hours per bid. My average bid value is ${formatCurrency(
+          avgBidValue,
+        )} and win rate is ${winRate}%. Help me save time and increase my ROI.`
     onTryItOut?.(message)
   }
 
@@ -116,7 +140,7 @@ export function RoiCalculator({
       {/* Inputs — one soft-edged panel of sliders */}
       <div className="flex flex-col">
         <h3 className="mb-3 text-center text-sm font-semibold uppercase tracking-widest text-gray-400">
-          Before Gaudi
+          {es ? "Antes de Gaudi" : "Before Gaudi"}
         </h3>
         <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8">
         <div className="flex flex-col gap-8">
@@ -150,7 +174,7 @@ export function RoiCalculator({
       {/* Outputs — four equally-weighted cards */}
       <div className="flex flex-col">
         <h3 className="mb-3 text-center text-sm font-semibold uppercase tracking-widest text-gray-400">
-          After Gaudi
+          {es ? "Después de Gaudi" : "After Gaudi"}
         </h3>
         <div className="grid flex-1 grid-cols-2 grid-rows-2 gap-4">
           {results.map((result) => (
@@ -173,7 +197,7 @@ export function RoiCalculator({
           onClick={handleTryItOut}
           className="bg-primary hover:bg-primary/90 text-white h-12 px-8 font-medium"
         >
-          Try it out <ArrowRight className="ml-2 h-4 w-4" />
+          {es ? "Pruébalo" : "Try it out"} <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
     </div>

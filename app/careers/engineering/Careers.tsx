@@ -10,6 +10,7 @@ export default function Careers() {
     <div className="min-h-screen bg-section-dark text-white">
       {/* Navigation */}
       <SiteNav
+        langToggle={false}
         cta={
           <Button size="sm" asChild className="bg-white text-slate-900 hover:bg-white/90">
             <a href="mailto:careers@heygaudi.ai">
