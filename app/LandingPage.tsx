@@ -211,7 +211,7 @@ export default function LandingPage({
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-sm font-semibold uppercase tracking-widest text-primary">Why Gaudi</span>
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
-              See what Gaudi actually saves you
+              Calculate your ROI
             </h2>
           </div>
           <RoiCalculator onTryItOut={handleTryItOut} />
