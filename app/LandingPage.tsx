@@ -249,14 +249,20 @@ export default function LandingPage({
           </div>
         </div>
                   {/* Stats Carousel */}
-            <div className="mt-20 pt-6 relative border-t border-white/20 max-w-4xl mx-auto">
+            <div className="mt-20 relative max-w-4xl mx-auto">
+            <p className="text-sm font-semibold uppercase tracking-widest text-gray-400 text-center mb-8">Our backgrounds</p>
             <div className="overflow-hidden">
               <div className="flex gap-0 animate-scroll">
                 {[...stats, ...stats, ...stats].map((stat, index) => (
                   <div key={index} className="flex-shrink-0 w-40 text-center">
                     <div className="h-12 flex items-center justify-center mb-2">
                       {stat.image ? (
-                        <img src={stat.image} alt={stat.label || 'stat-image'} className="mx-auto max-h-12 object-contain" />
+                        <img
+                          src={stat.image}
+                          alt={stat.label || 'stat-image'}
+                          className="mx-auto max-h-12 object-contain"
+                          style={{ filter: 'grayscale(1) brightness(1.1) opacity(0.6)' }}
+                        />
                       ) : (
                         <div className="text-3xl md:text-4xl font-bold text-primary">{stat.value}</div>
                       )}
