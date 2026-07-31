@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState } from "react"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
 // Hardcoded constants (calculation-only, never shown in the UI)
 const SALARY = 100000
@@ -15,17 +16,30 @@ const GAUDI_COST_PER_ESTIMATE = 150
 
 type Field = "bidsPerMonth" | "hoursPerBid" | "avgBidValue" | "winRate"
 
-export function RoiCalculator() {
+const formatCurrency = (value: number) =>
+  value.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  })
+
+const formatPercent = (value: number) => `${value.toFixed(0)}%`
+
+export function RoiCalculator({
+  onTryItOut,
+}: {
+  onTryItOut?: (message: string) => void
+}) {
   const [inputs, setInputs] = useState({
     bidsPerMonth: 4,
-    hoursPerBid: 20,
+    hoursPerBid: 4,
     avgBidValue: 100000,
     winRate: 5,
   })
 
   const handleChange = (field: Field, value: string) => {
-    const num = value === "" ? 0 : Number(value)
-    setInputs((prev) => ({ ...prev, [field]: Number.isNaN(num) ? 0 : Math.max(0, num) }))
+    const num = Number(value)
+    setInputs((prev) => ({ ...prev, [field]: Number.isNaN(num) ? 0 : num }))
   }
 
   const { bidsPerMonth, hoursPerBid, avgBidValue, winRate } = inputs
@@ -59,79 +73,109 @@ export function RoiCalculator() {
   const roiMultipleProfitable = profit > 0 && roi > 0
   const roiMultiple = roiMultipleProfitable ? gRoi / roi : 0
 
-  const formatCurrency = (value: number) =>
-    value.toLocaleString("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 0,
-    })
-
-  const formatPercent = (value: number) => `${value.toFixed(0)}%`
-
-  const fields: { key: Field; label: string; prefix?: string; suffix?: string; step?: number }[] = [
-    { key: "bidsPerMonth", label: "Bids per Month (#)", step: 1 },
-    { key: "hoursPerBid", label: "Hours Spent per Bid (#)", step: 1 },
-    { key: "avgBidValue", label: "Avg. Bid Value ($)", prefix: "$", step: 1000 },
-    { key: "winRate", label: "Win Rate (%)", suffix: "%", step: 1 },
+  const sliders: {
+    key: Field
+    label: string
+    min: number
+    max: number
+    step: number
+    format: (v: number) => string
+  }[] = [
+    { key: "bidsPerMonth", label: "Bids per Month", min: 1, max: 20, step: 1, format: (v) => `${v}` },
+    { key: "hoursPerBid", label: "Hours Spent per Bid", min: 1, max: 60, step: 1, format: (v) => `${v} hrs` },
+    {
+      key: "avgBidValue",
+      label: "Avg. Bid Value",
+      min: 10000,
+      max: 500000,
+      step: 5000,
+      format: (v) => formatCurrency(v),
+    },
+    { key: "winRate", label: "Win Rate", min: 1, max: 60, step: 1, format: (v) => `${v}%` },
   ]
 
-  const results = [
-    { label: "Cost Savings per Bid (%)", value: formatPercent(costSavingsPerBid) },
-    { label: "Time Savings per Bid (%)", value: formatPercent(timeSavingsPerBid) },
-    { label: "Monthly Gross Profit Increase ($)", value: formatCurrency(grossProfitIncrease) },
+  const secondaryResults = [
+    { label: "Cost Savings per Bid", value: formatPercent(costSavingsPerBid) },
+    { label: "Time Savings per Bid", value: formatPercent(timeSavingsPerBid) },
     {
       label: "ROI Multiple Increase",
       value: roiMultipleProfitable ? `${roiMultiple.toFixed(0)}x` : "Now profitable",
     },
   ]
 
+  const handleTryItOut = () => {
+    const message = `I have ${bidsPerMonth} bids per month and spend ${hoursPerBid} hours per bid. My average bid value is ${formatCurrency(
+      avgBidValue,
+    )} and win rate is ${winRate}%. Help me save time and increase my ROI.`
+    onTryItOut?.(message)
+  }
+
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      {/* Inputs */}
-      <div className="rounded-lg border border-white/10 bg-white/5 p-8">
-        <div className="grid gap-6 sm:grid-cols-2">
-          {fields.map((field) => (
-            <div key={field.key}>
-              <label htmlFor={field.key} className="mb-2 block text-sm font-medium text-gray-300">
-                {field.label}
-              </label>
-              <div className="relative">
-                {field.prefix && (
-                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    {field.prefix}
-                  </span>
-                )}
-                <Input
-                  id={field.key}
-                  type="number"
-                  min={0}
-                  step={field.step}
-                  value={inputs[field.key]}
-                  onChange={(e) => handleChange(field.key, e.target.value)}
-                  className={`bg-white/5 text-white ${field.prefix ? "pl-7" : ""} ${field.suffix ? "pr-8" : ""}`}
-                />
-                {field.suffix && (
-                  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    {field.suffix}
-                  </span>
-                )}
+      {/* Inputs — one soft-edged panel of sliders */}
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+        <div className="flex flex-col gap-8">
+          {sliders.map((slider) => (
+            <div key={slider.key}>
+              <div className="mb-3 flex items-baseline justify-between gap-4">
+                <label htmlFor={slider.key} className="text-sm font-medium text-gray-300">
+                  {slider.label}
+                </label>
+                <span className="font-playfair text-lg font-bold text-primary tabular-nums">
+                  {slider.format(inputs[slider.key])}
+                </span>
               </div>
+              <input
+                id={slider.key}
+                type="range"
+                min={slider.min}
+                max={slider.max}
+                step={slider.step}
+                value={inputs[slider.key]}
+                onChange={(e) => handleChange(slider.key, e.target.value)}
+                className="h-2 w-full cursor-pointer appearance-none rounded-full bg-white/15 accent-primary"
+                aria-label={slider.label}
+              />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Outputs */}
-      <div className="grid grid-cols-2 gap-6">
-        {results.map((result) => (
-          <div
-            key={result.label}
-            className="flex flex-col justify-center rounded-lg border border-white/10 bg-white/5 p-6 text-center"
-          >
-            <span className="font-playfair text-3xl font-bold text-primary">{result.value}</span>
-            <span className="mt-2 text-sm text-gray-300">{result.label}</span>
-          </div>
-        ))}
+      {/* Outputs — a hero figure with supporting metrics */}
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-1 flex-col justify-center rounded-2xl border border-primary/30 bg-primary/10 p-8">
+          <span className="text-sm font-semibold uppercase tracking-widest text-primary">
+            Monthly Gross Profit Increase
+          </span>
+          <span className="mt-3 font-playfair text-5xl font-bold text-white md:text-6xl">
+            {formatCurrency(grossProfitIncrease)}
+          </span>
+          <span className="mt-2 text-sm text-gray-300">Additional profit per month with Gaudi</span>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          {secondaryResults.map((result) => (
+            <div
+              key={result.label}
+              className="flex flex-col justify-center rounded-2xl border border-white/10 bg-white/5 p-5 text-center"
+            >
+              <span className="font-playfair text-2xl font-bold text-primary md:text-3xl">{result.value}</span>
+              <span className="mt-2 text-xs leading-snug text-gray-300">{result.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Try it out CTA */}
+      <div className="lg:col-span-2 flex justify-center pt-2">
+        <Button
+          type="button"
+          size="lg"
+          onClick={handleTryItOut}
+          className="bg-primary hover:bg-primary/90 text-white h-12 px-8 font-medium"
+        >
+          Try it out <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
       </div>
     </div>
   )

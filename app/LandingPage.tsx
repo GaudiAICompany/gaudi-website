@@ -32,8 +32,16 @@ export default function LandingPage({
 }) {
 
   const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
   const [contactSubmitted, setContactSubmitted] = useState(false)
   const [contactTab, setContactTab] = useState<"call" | "message">("call")
+
+  const handleTryItOut = (prefilledMessage: string) => {
+    setContactTab("message")
+    setContactSubmitted(false)
+    setMessage(prefilledMessage)
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+  }
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -42,6 +50,7 @@ export default function LandingPage({
     const emailInput = form.querySelector('input[name="email"]') as HTMLInputElement
     const firstNameInput = form.querySelector('input[name="firstName"]') as HTMLInputElement
     const lastNameInput = form.querySelector('input[name="lastName"]') as HTMLInputElement
+    const phoneInput = form.querySelector('input[name="phone"]') as HTMLInputElement
     const companyInput = form.querySelector('input[name="company"]') as HTMLInputElement
     const messageInput = form.querySelector('textarea[name="message"]') as HTMLTextAreaElement
 
@@ -49,6 +58,7 @@ export default function LandingPage({
       email: emailInput?.value || "",
       firstName: firstNameInput?.value || "",
       lastName: lastNameInput?.value || "",
+      phone: phoneInput?.value || "",
       company: companyInput?.value || "",
       message: messageInput?.value || "",
     }
@@ -199,12 +209,12 @@ export default function LandingPage({
       <section id="why-gaudi" className="bg-section-dark py-24 border-t border-white/10">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-sm font-semibold uppercase tracking-widest text-primary">Why Gaudi</span>
+            <span className="text-sm font-semibold uppercase tracking-widest text-primary">ROI Calculator</span>
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-6 text-white text-balance">
-              ROI Calculator
+              See what Gaudi actually saves you
             </h2>
           </div>
-          <RoiCalculator />
+          <RoiCalculator onTryItOut={handleTryItOut} />
         </div>
       </section>
 
@@ -367,10 +377,18 @@ export default function LandingPage({
                       className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80"
                       required
                     />
+                    <Input
+                      name="phone"
+                      type="tel"
+                      placeholder="Phone number"
+                      className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80"
+                    />
                     <Input name="company" placeholder="Company Name" type="text" className="bg-white/12 border-white/20 text-white h-12 placeholder-white/80" required />
                     <textarea
                       name="message"
                       placeholder="How can we help?"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
                       className="flex w-full rounded-md border border-white/20 bg-white/12 px-3 py-2 text-base md:text-sm text-white placeholder:text-muted-foreground resize-none h-25 focus-visible:outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px]"
                     />
                     <Button
