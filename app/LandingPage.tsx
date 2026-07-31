@@ -20,6 +20,7 @@ import {
   Building2,
   Ruler,
   MessageSquare,
+  Play,
   Upload,
   Cpu,
   Sparkles,
@@ -165,34 +166,59 @@ export default function LandingPage({
           {/* Circular workflow icon buttons */}
           <div className="flex flex-wrap items-start justify-center gap-x-8 gap-y-10 max-w-4xl mx-auto">
             {[
-              { icon: Ruler, title: "Material Takeoff", rgb: "204, 105, 67" },
-              { icon: Calculator, title: "Estimates", rgb: "74, 107, 138" },
-              { icon: Scale, title: "Bid Leveling", rgb: "169, 169, 155" },
-              { icon: CalendarClock, title: "Scheduling", rgb: "204, 105, 67" },
-              { icon: ClipboardCheck, title: "Punch Lists", rgb: "74, 107, 138" },
-              { icon: MessageSquare, title: "Proactive Client Updates", rgb: "169, 169, 155" },
-              { icon: Building2, title: "Draw Inspections", rgb: "204, 105, 67" },
-            ].map((item, index) => (
-              <div key={index} className="flex w-24 flex-col items-center text-center">
-                <div
-                  className="flex h-[68px] w-[68px] items-center justify-center rounded-full border"
-                  style={{
-                    backgroundColor: `rgba(${item.rgb}, 0.12)`,
-                    borderColor: `rgba(${item.rgb}, 0.3)`,
-                    color: `rgb(${item.rgb})`,
-                  }}
-                >
-                  <item.icon className="h-7 w-7" />
+              { icon: Ruler, title: "Material Takeoff", rgb: "204, 105, 67", href: undefined },
+              { icon: Calculator, title: "Estimates", rgb: "74, 107, 138", href: "/waitlist/estimations" },
+              { icon: Scale, title: "Bid Leveling", rgb: "169, 169, 155", href: "/waitlist/bids" },
+              { icon: CalendarClock, title: "Scheduling", rgb: "204, 105, 67", href: "/waitlist/scheduling" },
+              { icon: ClipboardCheck, title: "Punch Lists", rgb: "74, 107, 138", href: "/waitlist/punchlist" },
+              { icon: MessageSquare, title: "Proactive Client Updates", rgb: "169, 169, 155", href: undefined },
+              { icon: Building2, title: "Draw Inspections", rgb: "204, 105, 67", href: "/inspections" },
+            ].map((item, index) => {
+              const circle = (
+                <>
+                  <div
+                    className="flex h-[88px] w-[88px] items-center justify-center rounded-full border transition-transform group-hover:scale-105"
+                    style={{
+                      backgroundColor: `rgba(${item.rgb}, 0.12)`,
+                      borderColor: `rgba(${item.rgb}, 0.3)`,
+                      color: `rgb(${item.rgb})`,
+                    }}
+                  >
+                    <item.icon className="h-9 w-9" />
+                  </div>
+                  <span className="mt-3 text-sm font-medium leading-snug text-gray-200 text-balance">
+                    {item.title}
+                  </span>
+                </>
+              )
+              return item.href ? (
+                <a key={index} href={item.href} className="group flex w-28 flex-col items-center text-center">
+                  {circle}
+                </a>
+              ) : (
+                <div key={index} className="flex w-28 flex-col items-center text-center">
+                  {circle}
                 </div>
-                <span className="mt-3 text-sm font-medium leading-snug text-gray-200 text-balance">
-                  {item.title}
-                </span>
+              )
+            })}
+
+            {/* CTA icon */}
+            <button
+              type="button"
+              onClick={() => scrollToSection("contact")}
+              className="group flex w-28 flex-col items-center text-center"
+            >
+              <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full bg-primary text-white transition-transform group-hover:scale-105">
+                <Play className="h-9 w-9" fill="currentColor" />
               </div>
-            ))}
+              <span className="mt-3 text-sm font-medium leading-snug text-primary text-balance">
+                Try it out
+              </span>
+            </button>
           </div>
 
           {/* Closing CTA */}
-          <div className="mt-16 border-t border-white/10 pt-12 text-center">
+          <div className="mt-16 pt-4 text-center">
             <p className="text-gray-300 mb-6 text-pretty">
               Looking for something different that&apos;s not here? We can still help.
             </p>
