@@ -232,7 +232,8 @@ export default function LandingPage({
       <section id="about" className="bg-section-dark py-8">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-8 text-white">
+            <span className="text-sm font-semibold uppercase tracking-widest text-primary">Company</span>
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold mt-4 mb-8 text-white">
               Meet the Team
             </h2>
             <p className="text-lg text-gray-300 mb-8 leading-relaxed">
