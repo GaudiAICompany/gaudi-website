@@ -1,26 +1,18 @@
 import type React from "react"
 import type { Metadata } from "next"
 import Script from 'next/script';
-import { Geist, Newsreader } from "next/font/google"
+import { Hanken_Grotesk } from "next/font/google"
 import "./globals.css"
 
-// assumption: Swiss-neutral sans for headings + body (Geist), understated and
-// modern. See .claude/skills/brand-visual/assumptions.md
-const geist = Geist({
+// area.us uses "AreaSansDisplay" — a clean geometric grotesque shown at huge
+// sizes with very light weights. Hanken Grotesk is the closest free match:
+// geometric, slightly rounded terminals, and a full weight range (200–800)
+// that lets big display headlines go thin the way Area's do.
+const hanken = Hanken_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-geist",
-  weight: ["400", "500", "600", "700"],
-})
-
-// assumption: clean, readable serif italic for emphasis moments — pairs with
-// Geist and reads as a distinct beat without feeling ornate.
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-newsreader",
-  weight: ["400", "500"],
-  style: ["italic"],
+  variable: "--font-hanken",
+  weight: ["200", "300", "400", "500", "600", "700"],
 })
 
 export const metadata: Metadata = {
@@ -36,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${newsreader.variable} antialiased bg-background`}>
+    <html lang="en" className={`${hanken.variable} antialiased bg-background`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RDKTVR94C3"
