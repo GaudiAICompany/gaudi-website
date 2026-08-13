@@ -5,17 +5,18 @@ Each is reversible. Only `#C35A25` (primary/brand accent) is a confirmed brand v
 
 ## Landing page rebuild (app/LandingPage.tsx + components/landing/*)
 
-### Color (in app/globals.css `:root`) — REVISED again to "Blueprint & Site"
-Supersedes the neutral off-white direction, which read too close to the original
-beige (user: "start over on the color scheme... a confident, non-neutral palette
-like area.us, real contrast and intention, not a default light theme"). Only
-`#C35A25` remains a confirmed brand value; the pine/stone system is an assumption.
-- **Section dark `#0e1a15` (deep pine ink).** Why: area.us anchors on a deep, saturated green rather than plain black — a confident non-neutral base. Powers the hero, conversion band, closing CTA, and footer.
-- **Background `#e7e8e2` (cool concrete stone).** Why: an unmistakably COOL gray (the opposite of beige) that evokes concrete/site material; provides real contrast against the pine dark sections and crisp white cards.
-- **Foreground `#12201a` (pine ink text).** Why: tints text toward the brand green instead of flat black; AA+ on stone and white.
-- **Muted text `#53605a` (sage-gray).** Why: WCAG AA on both stone and white; carries the green undertone.
-- **Card `#ffffff`**, **secondary/tiles `#d7d9d1`**, **border `#cfd2ca`.** Why: crisp white cards pop hard on cool stone (area.us panel pattern); one cool-neutral family.
-- **Primary `#C35A25` with `--primary-foreground: #0a0f0c` (dark ink on orange).** Why: area.us uses dark-on-color CTAs for bold, high-contrast buttons; also improves contrast vs. white-on-orange. Single accent, still locked.
+### Color (in app/globals.css `:root`) — REVISED again to "Site Green"
+Supersedes the stone/pine direction, which still read gray/dull because the light
+sections were a flat cool gray and green only appeared in near-black strips (user:
+"still the same colorscheme and it looks bad"). New direction confirmed via
+AskUserQuestions: WHITE base + BOLD forest-green panels (area.us uses its brand
+color as large confident surface fills on white, not just dark strips). Colors
+only — no layout changes. Only `#C35A25` is a confirmed brand value.
+- **Background `#ffffff` (pure white).** Why: a genuinely bright base, not the gray that made prior versions feel unchanged.
+- **Section/panel green `#14472f` (bold forest green).** Why: clearly reads as green (not near-black); used as large surface panels — hero photo overlay, the how-it-works diagram panel, the conversion band, the Solutions cards, the closing CTA, and the footer.
+- **Foreground `#14211b` (forest ink)**, **muted `#5b6660` (sage-gray).** Why: green-tinted dark text, AA+ on white.
+- **Card `#ffffff`**, **secondary/tiles `#eef2ec` (soft sage)**, **border `#e4e8e2`.** Why: quiet neutrals on white so the green panels and orange do the talking.
+- **Primary `#C35A25`, white foreground.** Why: bold orange CTAs read strongly on both white and the forest-green panels. Single accent, still locked.
 
 ### Typography (app/layout.tsx) — REVISED for sharper letterforms + bigger scale
 Supersedes Bricolage/Instrument Serif (user: "letterforms too rounded, need sharper

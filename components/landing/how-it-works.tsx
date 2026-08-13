@@ -64,7 +64,7 @@ export function HowItWorks() {
 
         <div className="mt-12 grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
           {/* Diagram */}
-          <div className="rounded-3xl border border-border bg-secondary/50 p-5 sm:p-8">
+          <div className="rounded-3xl bg-section-dark p-5 text-section-dark-foreground sm:p-8">
             {/* Desktop diagram */}
             <div className="relative hidden h-[420px] w-full lg:block">
               <svg
@@ -78,7 +78,7 @@ export function HowItWorks() {
                     key={`in-${i}`}
                     d={`M 26 ${y} C 40 ${y}, 40 50, 50 50`}
                     fill="none"
-                    stroke="var(--color-border)"
+                    stroke="rgba(255,255,255,0.28)"
                     strokeWidth="0.5"
                     vectorEffect="non-scaling-stroke"
                   />
@@ -88,7 +88,7 @@ export function HowItWorks() {
                     key={`out-${i}`}
                     d={`M 50 50 C 62 50, 62 ${y}, 74 ${y}`}
                     fill="none"
-                    stroke="var(--color-border)"
+                    stroke="rgba(255,255,255,0.28)"
                     strokeWidth="0.5"
                     vectorEffect="non-scaling-stroke"
                   />
@@ -134,11 +134,11 @@ export function HowItWorks() {
                   <NodeCard key={n.label} {...n} />
                 ))}
               </div>
-              <ArrowDown className="size-5 text-muted-foreground" aria-hidden="true" />
+              <ArrowDown className="size-5 text-section-dark-foreground/60" aria-hidden="true" />
               <div className="flex size-24 flex-col items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
                 <span className="font-sans text-lg font-extrabold tracking-tight">Gaudi</span>
               </div>
-              <ArrowDown className="size-5 text-muted-foreground" aria-hidden="true" />
+              <ArrowDown className="size-5 text-section-dark-foreground/60" aria-hidden="true" />
               <div className="grid w-full gap-3">
                 {outputs.map((n) => (
                   <NodeCard key={n.label} {...n} />

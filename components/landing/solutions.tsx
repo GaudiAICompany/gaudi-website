@@ -30,13 +30,13 @@ export function Solutions() {
           {cards.map((card) => (
             <div
               key={card.role}
-              className="flex flex-col rounded-3xl border border-border bg-card p-7 transition-colors hover:border-primary/40"
+              className="flex flex-col rounded-3xl bg-section-dark p-7 text-section-dark-foreground"
             >
-              <span className="flex size-12 items-center justify-center rounded-2xl bg-secondary text-primary">
+              <span className="flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
                 <card.icon className="size-6" />
               </span>
-              <h3 className="mt-6 font-sans text-xl font-bold text-foreground">{card.role}</h3>
-              <p className="mt-2 text-pretty leading-relaxed text-muted-foreground">{card.line}</p>
+              <h3 className="mt-6 font-sans text-xl font-bold">{card.role}</h3>
+              <p className="mt-2 text-pretty leading-relaxed text-section-dark-foreground/75">{card.line}</p>
             </div>
           ))}
         </div>

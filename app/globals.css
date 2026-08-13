@@ -4,40 +4,41 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* "Blueprint & Site": deep pine ink + cool concrete stone + Gaudi orange.
-     Only #C35A25 is a confirmed brand value; the pine/stone system is a
-     confident, high-contrast direction inspired by area.us (deep green base,
-     concrete panels, dark-on-color CTAs) — deliberately NOT a warm neutral.
+  /* "Site Green": bright white base + bold forest-green panels + Gaudi orange.
+     area.us uses its brand color as large confident surface panels on a white
+     base (not just dark strips). Only #C35A25 is a confirmed brand value; the
+     forest-green system is an assumption.
      See .claude/skills/brand-visual/assumptions.md */
-  --background: #e7e8e2; /* cool concrete stone (light sections) */
-  --foreground: #12201a; /* deep pine ink text */
-  --card: #ffffff; /* crisp white card, pops on stone */
-  --card-foreground: #12201a;
+  --background: #ffffff; /* pure bright white base */
+  --foreground: #14211b; /* deep forest-ink text */
+  --card: #ffffff; /* white card */
+  --card-foreground: #14211b;
   --popover: #ffffff;
-  --popover-foreground: #12201a;
+  --popover-foreground: #14211b;
   --primary: #c35a25; /* confirmed Gaudi orange */
-  --primary-foreground: #0a0f0c; /* dark pine-ink on orange (AA + bold, area-style) */
-  --secondary: #d7d9d1; /* deeper stone for tiles/chips */
-  --secondary-foreground: #12201a;
-  --muted: #d7d9d1;
-  --muted-foreground: #53605a; /* sage-gray muted text (AA on stone + white) */
+  --primary-foreground: #ffffff; /* white on orange (bold CTA) */
+  --secondary: #eef2ec; /* soft sage tile on white */
+  --secondary-foreground: #14211b;
+  --muted: #eef2ec;
+  --muted-foreground: #5b6660; /* sage-gray muted text (AA on white) */
   --accent: #c35a25; /* locked single accent = brand */
-  --accent-foreground: #0a0f0c;
+  --accent-foreground: #ffffff;
   --destructive: #be123c;
   --destructive-foreground: #ffffff;
-  --border: #cfd2ca; /* cool stone border */
-  --input: #cfd2ca;
+  --border: #e4e8e2; /* soft cool border on white */
+  --input: #e4e8e2;
   --ring: rgba(195, 90, 37, 0.5); /* primary with opacity */
   --chart-1: #c35a25;
-  --chart-2: #12201a;
-  --chart-3: #53605a;
-  --chart-4: #8f9a8f;
-  --chart-5: #d7d9d1;
+  --chart-2: #1c5a3f;
+  --chart-3: #5b6660;
+  --chart-4: #8fa598;
+  --chart-5: #eef2ec;
   --radius: 1rem;
 
-  /* Deep pine ink for the dark hero + dark sections (conversion band, closing, footer) */
-  --section-dark: #0e1a15;
-  --section-dark-foreground: #edf0e8;
+  /* Bold forest green for the hero + feature panels + footer.
+     Clearly green (not near-black) so panels read as confident brand color. */
+  --section-dark: #14472f;
+  --section-dark-foreground: #eef3ec;
   --sidebar: #ffffff;
   --sidebar-foreground: #333333;
   --sidebar-primary: #f9fafb;
