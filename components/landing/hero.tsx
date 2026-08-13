@@ -49,7 +49,7 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
               Your next best hire
             </p>
 
-            <h1 className="text-balance font-sans text-5xl font-bold leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
+            <h1 className="text-balance font-sans text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
               The AI <RotatingWord /> that helps you win more work.
             </h1>
 

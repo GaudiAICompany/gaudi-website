@@ -17,12 +17,12 @@ Only `#C35A25` is a confirmed brand value.
 - **Primary `#C35A25`, white foreground.** Single accent, still locked — all buttons, icons, and italic emphasis.
 - Footer wordmark fill neutralized to `#2c2c2a` (was a green tint).
 
-### Typography (app/layout.tsx) — REVISED for sharper letterforms + bigger scale
-Supersedes Bricolage/Instrument Serif (user: "letterforms too rounded, need sharper
-geometric; italic accent too narrow — pick a wider italic set larger; headlines
-big and bold like area.us").
-- **Headings + body: Space Grotesk.** Why: sharp, geometric grotesk with squared terminals — far less rounded than Bricolage. Headlines set large (hero up to `text-7xl`, sections `text-5xl`–`text-6xl`) with tight negative tracking for area-style clarity.
-- **Serif accent: Fraunces (variable, italic).** Why: a wide, high-contrast expressive serif italic — replaces the narrow Instrument Serif. Set ~1.08–1.14em relative to the headline so italic emphasis ("estimator", "already lands", "real", "own numbers?") reads as a real visual beat. Two families total.
+### Typography (app/layout.tsx) — FINAL: "Swiss neutral" (Geist + Newsreader)
+Supersedes Space Grotesk/Fraunces (user: "update the fonts again i dont love this
+style"). Direction confirmed via AskUserQuestions: Swiss-neutral sans, keep an
+italic accent.
+- **Headings + body: Geist.** Why: clean, modern, neutral Swiss sans (Linear/Vercel feel). Headlines stay large (hero up to `text-7xl`, sections `text-5xl`–`text-6xl`) but tracking relaxed to `-0.02em` and weight to `semibold` since Geist is already tight/geometric.
+- **Serif accent: Newsreader (italic).** Why: a readable, understated serif italic that pairs with Geist without feeling ornate — replaces the quirky Fraunces. Used for emphasis words ("sub coordinator", "already lands", "real", "own numbers?"). Two families total.
 
 ### Shape
 - **`--radius: 1rem`, pills for buttons/inputs, `rounded-3xl` panels.** Why: Area reference is explicitly liked for its rounded corners; radius chosen generous to match.

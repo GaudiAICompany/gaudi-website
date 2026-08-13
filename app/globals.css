@@ -122,8 +122,8 @@
   --color-section-dark: var(--section-dark);
   --color-section-dark-foreground: var(--section-dark-foreground);
 
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
 
   --radius-xs: calc(var(--radius) - 8px);
   --radius-2xl: calc(var(--radius) + 8px);
