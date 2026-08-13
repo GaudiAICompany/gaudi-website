@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react"
 import { ConversionForm } from "./conversion-form"
 
-const ROTATING = ["estimator", "sub coordinator"]
+const ROTATING = ["estimator", "sub coordinator", "takeoff specialist"]
+
+// Longest option reserves the width so a longer word never bumps the headline
+// onto a new row — the rotating word always sits right after "The AI".
+const LONGEST = ROTATING.reduce((a, b) => (b.length > a.length ? b : a), "")
 
 function RotatingWord() {
   const [index, setIndex] = useState(0)
@@ -14,11 +18,11 @@ function RotatingWord() {
   }, [])
 
   return (
-    <span className="relative inline-flex align-baseline text-primary">
-      <span
-        key={index}
-        className="animate-word-in whitespace-nowrap font-serif text-[1.14em] font-medium italic leading-[0.9]"
-      >
+    <span className="relative inline-grid align-baseline font-serif text-[1.14em] font-medium italic leading-[0.9] text-primary">
+      <span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-nowrap">
+        {LONGEST}
+      </span>
+      <span key={index} className="animate-word-in col-start-1 row-start-1 whitespace-nowrap">
         {ROTATING[index]}
       </span>
     </span>
@@ -52,8 +56,11 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
               Your next best hire
             </p>
 
-            <h1 className="text-balance font-sans text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
-              The AI <RotatingWord /> that helps you win more work.
+            <h1 className="font-sans text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+              <span className="whitespace-nowrap">
+                The AI <RotatingWord />
+              </span>{" "}
+              that helps you win more work.
             </h1>
 
             <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/75">
@@ -65,17 +72,17 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
               <ConversionForm apiBase={apiBase} apiKey={apiKey} tone="dark" buttonLabel="Get started on a free estimate" />
             </div>
 
-            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/70">
-              <span className="inline-flex items-center gap-2 font-semibold text-white">
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/70">
+              <span className="inline-flex items-center gap-2 whitespace-nowrap font-semibold text-white">
                 <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-primary-foreground">
                   Free
                 </span>
-                Your first 5 estimates are on us
+                First 5 estimates
               </span>
               <span className="hidden h-4 w-px bg-white/25 sm:block" />
-              <span>Then just $150 each, unlimited edits included</span>
+              <span className="whitespace-nowrap">then $150 each</span>
               <span className="hidden h-4 w-px bg-white/25 sm:block" />
-              <span className="inline-flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
                 <svg viewBox="0 0 20 20" className="size-4 text-primary" fill="currentColor" aria-hidden="true">
                   <path
                     fillRule="evenodd"
@@ -83,7 +90,7 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
                     clipRule="evenodd"
                   />
                 </svg>
-                No credit card required
+                No credit card
               </span>
             </div>
           </div>
