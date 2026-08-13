@@ -1,25 +1,27 @@
 import type React from "react"
 import type { Metadata } from "next"
 import Script from 'next/script';
-import { Bricolage_Grotesque, Instrument_Serif } from "next/font/google"
+import { Space_Grotesk, Fraunces } from "next/font/google"
 import "./globals.css"
 
-// assumption: heading + body face, not yet an approved brand decision.
-// See .claude/skills/brand-visual/assumptions.md
-const bricolage = Bricolage_Grotesque({
+// assumption: sharp, geometric grotesk for headings + body (user asked for
+// less rounded letterforms). See .claude/skills/brand-visual/assumptions.md
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-bricolage",
-  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700"],
 })
 
-// assumption: serif used only for italic emphasis + wordmark accents.
-const instrumentSerif = Instrument_Serif({
+// assumption: wide, expressive serif italic for emphasis moments — set larger
+// so the italic reads as a real visual beat, not a narrow aside.
+const fraunces = Fraunces({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-instrument-serif",
-  weight: ["400"],
+  variable: "--font-fraunces",
+  weight: "variable",
   style: ["normal", "italic"],
+  axes: ["opsz", "SOFT", "WONK"],
 })
 
 export const metadata: Metadata = {
@@ -35,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${instrumentSerif.variable} antialiased bg-background`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${fraunces.variable} antialiased bg-background`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RDKTVR94C3"

@@ -22,7 +22,7 @@ export function Solutions() {
   return (
     <section id="solutions" className="px-4 py-20 sm:px-6 lg:py-28">
       <div className="mx-auto max-w-7xl">
-        <h2 className="max-w-3xl text-balance font-sans text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl">
+        <h2 className="max-w-4xl text-balance font-sans text-4xl font-bold leading-[1.0] tracking-[-0.02em] text-foreground sm:text-5xl lg:text-6xl">
           Built for general contractors, estimators, and developers.
         </h2>
 

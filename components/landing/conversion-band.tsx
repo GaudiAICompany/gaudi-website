@@ -7,8 +7,8 @@ export function ConversionBand({ apiBase, apiKey }: { apiBase: string; apiKey: s
         <div className="overflow-hidden rounded-3xl bg-section-dark px-6 py-12 text-section-dark-foreground sm:px-12 sm:py-16">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_0.9fr] lg:gap-12">
             <div>
-              <h2 className="text-balance font-sans text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                Try it on a real set of plans.
+              <h2 className="text-balance font-sans text-4xl font-bold leading-[1.0] tracking-[-0.02em] sm:text-5xl">
+                Try it on a <span className="font-serif text-[1.08em] font-medium italic text-primary">real</span> set of plans.
               </h2>
               <p className="mt-4 max-w-md text-lg leading-relaxed text-section-dark-foreground/70">
                 Send us your next RFP and get a complete estimate back. Your first 5 are free.

@@ -5,21 +5,24 @@ Each is reversible. Only `#C35A25` (primary/brand accent) is a confirmed brand v
 
 ## Landing page rebuild (app/LandingPage.tsx + components/landing/*)
 
-### Color (in app/globals.css `:root`) — REVISED to Area-inspired modern palette
-Supersedes the earlier warm-cream direction (user request: "replace the beige/cream
-background with a more modern palette inspired by area.us; dark high-contrast hero
-with clean section breaks"). Only `#C35A25` remains a confirmed brand value.
-- **Background `#f4f4f1` (clean cool-neutral off-white).** Why: area.us uses near-white section breaks rather than a flat warm neutral. Used as the light section base.
-- **Foreground `#131211` (near-black).** Why: high-contrast text on the light base (AA+).
-- **Muted text `#63625c` (neutral gray).** Why: WCAG AA on the light base; dropped the warm tint.
-- **Secondary surface `#ebebe6`** and **border `#e1e1db`.** Why: neutral, one-family surfaces for cards/chips/tiles.
-- **Card `#ffffff` (crisp white).** Why: clean lift above the neutral base, matching Area's white floating cards.
-- **Section dark `#0e0d0b` (near-black).** Why: powers the high-contrast photographic hero, the mid-page conversion band, the closing CTA, and the footer. Hero uses the contractor photo behind a left→right dark gradient with a glass stat card (Area pattern).
-- **Single accent = brand `#C35A25`.** Still locked (max 1 accent).
+### Color (in app/globals.css `:root`) — REVISED again to "Blueprint & Site"
+Supersedes the neutral off-white direction, which read too close to the original
+beige (user: "start over on the color scheme... a confident, non-neutral palette
+like area.us, real contrast and intention, not a default light theme"). Only
+`#C35A25` remains a confirmed brand value; the pine/stone system is an assumption.
+- **Section dark `#0e1a15` (deep pine ink).** Why: area.us anchors on a deep, saturated green rather than plain black — a confident non-neutral base. Powers the hero, conversion band, closing CTA, and footer.
+- **Background `#e7e8e2` (cool concrete stone).** Why: an unmistakably COOL gray (the opposite of beige) that evokes concrete/site material; provides real contrast against the pine dark sections and crisp white cards.
+- **Foreground `#12201a` (pine ink text).** Why: tints text toward the brand green instead of flat black; AA+ on stone and white.
+- **Muted text `#53605a` (sage-gray).** Why: WCAG AA on both stone and white; carries the green undertone.
+- **Card `#ffffff`**, **secondary/tiles `#d7d9d1`**, **border `#cfd2ca`.** Why: crisp white cards pop hard on cool stone (area.us panel pattern); one cool-neutral family.
+- **Primary `#C35A25` with `--primary-foreground: #0a0f0c` (dark ink on orange).** Why: area.us uses dark-on-color CTAs for bold, high-contrast buttons; also improves contrast vs. white-on-orange. Single accent, still locked.
 
-### Typography (app/layout.tsx)
-- **Headings + body: Bricolage Grotesque.** Why: characterful, contemporary grotesque that reads as craftsmanlike/direct (brand voice) and avoids the generic serif-display cliché. Not an approved brand face.
-- **Serif accent: Instrument Serif (italic only).** Why: used solely for the rotating hero word and single-word emphasis, echoing the Staxen serif-italic signature and the brand-voice note about italic emphasis. Two families total.
+### Typography (app/layout.tsx) — REVISED for sharper letterforms + bigger scale
+Supersedes Bricolage/Instrument Serif (user: "letterforms too rounded, need sharper
+geometric; italic accent too narrow — pick a wider italic set larger; headlines
+big and bold like area.us").
+- **Headings + body: Space Grotesk.** Why: sharp, geometric grotesk with squared terminals — far less rounded than Bricolage. Headlines set large (hero up to `text-7xl`, sections `text-5xl`–`text-6xl`) with tight negative tracking for area-style clarity.
+- **Serif accent: Fraunces (variable, italic).** Why: a wide, high-contrast expressive serif italic — replaces the narrow Instrument Serif. Set ~1.08–1.14em relative to the headline so italic emphasis ("estimator", "already lands", "real", "own numbers?") reads as a real visual beat. Two families total.
 
 ### Shape
 - **`--radius: 1rem`, pills for buttons/inputs, `rounded-3xl` panels.** Why: Area reference is explicitly liked for its rounded corners; radius chosen generous to match.
