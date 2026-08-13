@@ -90,17 +90,9 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
                     clipRule="evenodd"
                   />
                 </svg>
-                No credit card
+                No credit card required
               </span>
             </div>
-          </div>
-
-          {/* Floating stat card, Area-style glass panel */}
-          <div className="mt-12 inline-flex items-center gap-4 rounded-2xl border border-white/15 bg-white/[0.07] p-4 pr-6 backdrop-blur-md lg:absolute lg:bottom-10 lg:right-10 lg:mt-0">
-            <p className="font-sans text-4xl font-extrabold tracking-tight text-primary">5 min</p>
-            <p className="max-w-[13rem] text-sm leading-snug text-white/80">
-              A complete estimate back, down from days of takeoffs.
-            </p>
           </div>
         </div>
       </div>
