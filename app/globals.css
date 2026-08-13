@@ -4,41 +4,38 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* "Site Green": bright white base + bold forest-green panels + Gaudi orange.
-     area.us uses its brand color as large confident surface panels on a white
-     base (not just dark strips). Only #C35A25 is a confirmed brand value; the
-     forest-green system is an assumption.
+  /* Clean neutral: white base + charcoal panels + Gaudi orange accent.
+     No green anywhere. Only #C35A25 is a confirmed brand value.
      See .claude/skills/brand-visual/assumptions.md */
   --background: #ffffff; /* pure bright white base */
-  --foreground: #14211b; /* deep forest-ink text */
+  --foreground: #1a1a1a; /* charcoal text */
   --card: #ffffff; /* white card */
-  --card-foreground: #14211b;
+  --card-foreground: #1a1a1a;
   --popover: #ffffff;
-  --popover-foreground: #14211b;
+  --popover-foreground: #1a1a1a;
   --primary: #c35a25; /* confirmed Gaudi orange */
   --primary-foreground: #ffffff; /* white on orange (bold CTA) */
-  --secondary: #eef2ec; /* soft sage tile on white */
-  --secondary-foreground: #14211b;
-  --muted: #eef2ec;
-  --muted-foreground: #5b6660; /* sage-gray muted text (AA on white) */
+  --secondary: #f4f4f3; /* soft neutral tile on white */
+  --secondary-foreground: #1a1a1a;
+  --muted: #f4f4f3;
+  --muted-foreground: #666663; /* neutral gray muted text (AA on white) */
   --accent: #c35a25; /* locked single accent = brand */
   --accent-foreground: #ffffff;
   --destructive: #be123c;
   --destructive-foreground: #ffffff;
-  --border: #e4e8e2; /* soft cool border on white */
-  --input: #e4e8e2;
+  --border: #e6e6e3; /* soft neutral border on white */
+  --input: #e6e6e3;
   --ring: rgba(195, 90, 37, 0.5); /* primary with opacity */
   --chart-1: #c35a25;
-  --chart-2: #1c5a3f;
-  --chart-3: #5b6660;
-  --chart-4: #8fa598;
-  --chart-5: #eef2ec;
+  --chart-2: #1a1a1a;
+  --chart-3: #666663;
+  --chart-4: #a3a39d;
+  --chart-5: #f4f4f3;
   --radius: 1rem;
 
-  /* Bold forest green for the hero + feature panels + footer.
-     Clearly green (not near-black) so panels read as confident brand color. */
-  --section-dark: #14472f;
-  --section-dark-foreground: #eef3ec;
+  /* Neutral charcoal for the hero + feature panels + footer. No green. */
+  --section-dark: #1c1c1a;
+  --section-dark-foreground: #f4f4f3;
   --sidebar: #ffffff;
   --sidebar-foreground: #333333;
   --sidebar-primary: #f9fafb;

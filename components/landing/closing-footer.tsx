@@ -124,7 +124,7 @@ export function SiteFooter() {
 
       {/* Oversized, full-bleed wordmark clipped by the page edge (Sable-style typographic treatment) */}
       <div aria-hidden="true" className="pointer-events-none select-none px-4 sm:px-6">
-        <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#1c2f27] sm:text-[26vw]">
+        <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#2c2c2a] sm:text-[26vw]">
           Gaudi AI
         </span>
       </div>

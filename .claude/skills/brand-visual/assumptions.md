@@ -5,18 +5,17 @@ Each is reversible. Only `#C35A25` (primary/brand accent) is a confirmed brand v
 
 ## Landing page rebuild (app/LandingPage.tsx + components/landing/*)
 
-### Color (in app/globals.css `:root`) — REVISED again to "Site Green"
-Supersedes the stone/pine direction, which still read gray/dull because the light
-sections were a flat cool gray and green only appeared in near-black strips (user:
-"still the same colorscheme and it looks bad"). New direction confirmed via
-AskUserQuestions: WHITE base + BOLD forest-green panels (area.us uses its brand
-color as large confident surface fills on white, not just dark strips). Colors
-only — no layout changes. Only `#C35A25` is a confirmed brand value.
-- **Background `#ffffff` (pure white).** Why: a genuinely bright base, not the gray that made prior versions feel unchanged.
-- **Section/panel green `#14472f` (bold forest green).** Why: clearly reads as green (not near-black); used as large surface panels — hero photo overlay, the how-it-works diagram panel, the conversion band, the Solutions cards, the closing CTA, and the footer.
-- **Foreground `#14211b` (forest ink)**, **muted `#5b6660` (sage-gray).** Why: green-tinted dark text, AA+ on white.
-- **Card `#ffffff`**, **secondary/tiles `#eef2ec` (soft sage)**, **border `#e4e8e2`.** Why: quiet neutrals on white so the green panels and orange do the talking.
-- **Primary `#C35A25`, white foreground.** Why: bold orange CTAs read strongly on both white and the forest-green panels. Single accent, still locked.
+### Color (in app/globals.css `:root`) — FINAL: "White + Charcoal + Orange"
+Supersedes the "Site Green" direction — user rejected green outright ("i dnt like
+this at all. remove the green background"). No green anywhere now. Clean neutral
+scheme: white base, warm charcoal dark moments, Gaudi orange as the single accent.
+Only `#C35A25` is a confirmed brand value.
+- **Background `#ffffff` (pure white).** Bright, restrained base.
+- **Section dark `#1c1c1a` (warm charcoal).** Why: the only dark tone; used for the hero photo overlay, the conversion band, the closing CTA, and the footer as intentional dark moments. No green tint.
+- **Foreground `#1a1a1a` (charcoal)**, **muted `#666663` (neutral gray).** AA+ on white.
+- **Card `#ffffff`**, **secondary/tiles `#f4f4f3` (soft neutral)**, **border `#e6e6e3`.** Quiet neutrals so orange does the talking. The how-it-works diagram sits on a `secondary/60` panel; Solutions cards are white with orange icons.
+- **Primary `#C35A25`, white foreground.** Single accent, still locked — all buttons, icons, and italic emphasis.
+- Footer wordmark fill neutralized to `#2c2c2a` (was a green tint).
 
 ### Typography (app/layout.tsx) — REVISED for sharper letterforms + bigger scale
 Supersedes Bricolage/Instrument Serif (user: "letterforms too rounded, need sharper
