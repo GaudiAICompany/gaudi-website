@@ -58,7 +58,7 @@ export function Contact() {
 
 export function SiteFooter() {
   return (
-    <footer className="bg-section-dark text-section-dark-foreground">
+    <footer className="relative overflow-hidden bg-section-dark text-section-dark-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col gap-10 py-14 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
@@ -116,15 +116,17 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Large wordmark */}
-        <div className="border-t border-section-dark-foreground/15 py-10">
-          <p className="text-center font-sans text-[18vw] font-extrabold leading-none tracking-tighter text-section-dark-foreground/10 sm:text-[16vw] lg:text-[13vw]">
-            GAUDI AI
-          </p>
-          <p className="mt-4 text-center text-sm text-section-dark-foreground/50">
-            &copy; {new Date().getFullYear()} Gaudi AI. All rights reserved.
-          </p>
+        {/* Copyright sits above the oversized wordmark */}
+        <div className="flex items-center justify-between border-t border-section-dark-foreground/15 py-6 text-sm text-section-dark-foreground/50">
+          <p>&copy; {new Date().getFullYear()} Gaudi AI. All rights reserved.</p>
         </div>
+      </div>
+
+      {/* Oversized, full-bleed wordmark clipped by the page edge (Sable-style typographic treatment) */}
+      <div aria-hidden="true" className="pointer-events-none select-none px-4 sm:px-6">
+        <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#2a251f] sm:text-[26vw]">
+          Gaudi AI
+        </span>
       </div>
     </footer>
   )
