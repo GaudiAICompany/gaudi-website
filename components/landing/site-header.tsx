@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ChevronDown, Menu, X } from "lucide-react"
 
 type MenuItem = { label: string; href: string; desc?: string }
@@ -56,19 +56,35 @@ function NavDropdown({ label, items, onDark }: { label: string; items: MenuItem[
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const headerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const onScroll = () => {
+      const hero = document.getElementById("hero")
+      const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0
+      if (hero) {
+        // Keep the bar dark as long as any part of the hero is still behind the
+        // nav; only switch to the light background once the hero's bottom edge
+        // has scrolled above the bottom of the nav bar.
+        setScrolled(hero.getBoundingClientRect().bottom <= headerBottom)
+      } else {
+        setScrolled(window.scrollY > 8)
+      }
+    }
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+    window.addEventListener("resize", onScroll)
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
   }, [])
 
-  // At the top of the page the bar floats over the dark hero, so nav needs light text.
+  // While the hero is still behind the bar it floats over the dark image, so nav needs light text.
   const onDark = !scrolled
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header ref={headerRef} className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
         <div
           className={`flex items-center justify-between gap-4 rounded-full px-4 py-2 transition-all sm:px-5 ${
