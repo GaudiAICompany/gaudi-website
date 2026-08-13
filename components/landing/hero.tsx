@@ -18,7 +18,7 @@ function RotatingWord() {
   }, [])
 
   return (
-    <span className="relative inline-grid align-baseline font-sans font-light leading-[0.9] text-primary">
+    <span className="relative inline-grid align-baseline font-serif text-[1.1em] font-medium italic leading-[0.9] text-primary">
       <span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-nowrap">
         {LONGEST}
       </span>

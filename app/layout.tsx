@@ -1,18 +1,26 @@
 import type React from "react"
 import type { Metadata } from "next"
 import Script from 'next/script';
-import { Hanken_Grotesk } from "next/font/google"
+import { Hanken_Grotesk, Newsreader } from "next/font/google"
 import "./globals.css"
 
-// area.us uses "AreaSansDisplay" — a clean geometric grotesque shown at huge
-// sizes with very light weights. Hanken Grotesk is the closest free match:
-// geometric, slightly rounded terminals, and a full weight range (200–800)
-// that lets big display headlines go thin the way Area's do.
+// Large, confident display type is a clean geometric grotesque (Hanken Grotesk)
+// shown at big sizes with light weights.
 const hanken = Hanken_Grotesk({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-hanken",
   weight: ["200", "300", "400", "500", "600", "700"],
+})
+
+// A warm serif italic (Newsreader) is used only for the emphasis word inside
+// headlines — a single distinct beat against the grotesque display type.
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-newsreader",
+  weight: ["400", "500"],
+  style: ["italic"],
 })
 
 export const metadata: Metadata = {
@@ -28,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${hanken.variable} antialiased bg-background`}>
+    <html lang="en" className={`${hanken.variable} ${newsreader.variable} antialiased bg-background`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RDKTVR94C3"

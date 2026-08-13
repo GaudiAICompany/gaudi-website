@@ -13,7 +13,7 @@ export function ClosingCta() {
           <div className="absolute inset-0 bg-section-dark/75" />
           <div className="relative flex flex-col items-start gap-6 px-6 py-16 text-section-dark-foreground sm:px-14 sm:py-24">
             <h2 className="max-w-3xl text-balance font-sans text-4xl font-light leading-[0.95] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
-              Ready to see your <span className="text-primary">own numbers?</span>
+              Ready to see your <span className="font-serif text-[1.08em] font-medium italic text-primary">own numbers?</span>
             </h2>
             <a
               href="#hero"
@@ -124,7 +124,7 @@ export function SiteFooter() {
 
       {/* Oversized, full-bleed wordmark clipped by the page edge (Sable-style typographic treatment) */}
       <div aria-hidden="true" className="pointer-events-none select-none px-4 sm:px-6">
-        <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#005c3f] sm:text-[26vw]">
+        <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#2f2620] sm:text-[26vw]">
           Gaudi AI
         </span>
       </div>

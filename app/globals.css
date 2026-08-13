@@ -4,46 +4,47 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* area.us design language: pure white base, near-black type, a deep green
-     brand mark (#007651) on dark panels, warm taupe-gray feature cards, and a
-     single warm pop. Gaudi orange (#C35A25) is that pop — the locked accent. */
-  --background: #ffffff; /* pure bright white base, like area.us */
-  --foreground: #0a0a0a; /* near-black type (Area sets text pure black) */
-  --card: #ffffff; /* white card */
-  --card-foreground: #0a0a0a;
+  /* Gaudi palette, built outward from the brand orange (#C35A25) as the anchor:
+     a warm espresso ink for dark panels + text, a near-white warm background,
+     sand/greige neutrals, and ochre as a single supporting warm accent.
+     No green anywhere — one loud voice (orange), everything else in support. */
+  --background: #faf8f5; /* warm off-white (kept close to white, not cream) */
+  --foreground: #201a16; /* espresso ink text — warm-biased near-black */
+  --card: #ffffff; /* clean white card lifts off the warm background */
+  --card-foreground: #201a16;
   --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --primary: #c35a25; /* confirmed Gaudi orange — the required accent / CTA */
+  --popover-foreground: #201a16;
+  --primary: #c35a25; /* confirmed Gaudi orange — the anchor accent / CTA */
   --primary-foreground: #ffffff; /* white on orange (bold CTA) */
-  --secondary: #d2d1cc; /* warm taupe-gray feature panels, sampled from area.us */
-  --secondary-foreground: #0a0a0a;
-  --muted: #ececea; /* lighter taupe wash for subtle tiles */
-  --muted-foreground: #57574f; /* warm gray muted text (AA on white) */
-  --accent: #c35a25; /* locked single accent = Gaudi orange */
-  --accent-foreground: #ffffff;
-  --destructive: #be123c;
+  --secondary: #ece6de; /* sand/greige feature panels */
+  --secondary-foreground: #201a16;
+  --muted: #f2ede6; /* lighter sand wash for subtle tiles */
+  --muted-foreground: #6b615a; /* warm gray muted text (AA on background) */
+  --accent: #e0a24e; /* ochre — the single supporting warm accent */
+  --accent-foreground: #201a16;
+  --destructive: #b23b1e;
   --destructive-foreground: #ffffff;
-  --border: #e2e1dc; /* warm neutral hairline border on white */
-  --input: #e2e1dc;
+  --border: #e4dcd1; /* warm sand hairline border */
+  --input: #e4dcd1;
   --ring: rgba(195, 90, 37, 0.5); /* primary with opacity */
-  --chart-1: #c35a25;
-  --chart-2: #007651;
-  --chart-3: #0a0a0a;
-  --chart-4: #57574f;
-  --chart-5: #d2d1cc;
+  --chart-1: #c35a25; /* orange */
+  --chart-2: #e0a24e; /* ochre */
+  --chart-3: #201a16; /* espresso ink */
+  --chart-4: #9e4419; /* ember (deep clay) */
+  --chart-5: #cdbfae; /* muted sand */
   --radius: 1.25rem;
 
-  /* Deep green brand panel for the hero backdrop + footer, matching Area's
-     signature green mark. Off-white foreground for warmth on the green. */
-  --section-dark: #007651;
-  --section-dark-foreground: #f6f5f0;
+  /* Espresso ink panel for the hero backdrop, conversion band, and footer.
+     Warm off-white foreground for readable, warm contrast on the ink. */
+  --section-dark: #201a16;
+  --section-dark-foreground: #f5f1ec;
   --sidebar: #ffffff;
-  --sidebar-foreground: #0a0a0a;
-  --sidebar-primary: #f6f5f0;
-  --sidebar-primary-foreground: #0a0a0a;
-  --sidebar-accent: #d2d1cc;
-  --sidebar-accent-foreground: #0a0a0a;
-  --sidebar-border: #e2e1dc;
+  --sidebar-foreground: #201a16;
+  --sidebar-primary: #f5f1ec;
+  --sidebar-primary-foreground: #201a16;
+  --sidebar-accent: #ece6de;
+  --sidebar-accent-foreground: #201a16;
+  --sidebar-border: #e4dcd1;
   --sidebar-ring: rgba(195, 90, 37, 0.5);
 }
 
@@ -56,25 +57,25 @@
   --popover-foreground: #f6f5f0;
   --primary: #d06c39;
   --primary-foreground: #ffffff;
-  --secondary: #26261f;
-  --secondary-foreground: #f6f5f0;
-  --muted: #26261f;
-  --muted-foreground: #a8a89e;
-  --accent: #d06c39;
-  --accent-foreground: #ffffff;
-  --destructive: #be123c;
+  --secondary: #2a231d;
+  --secondary-foreground: #f6f2ec;
+  --muted: #2a231d;
+  --muted-foreground: #ada398;
+  --accent: #e0a24e;
+  --accent-foreground: #201a16;
+  --destructive: #c9482a;
   --destructive-foreground: #ffffff;
-  --border: #2c2c25;
-  --input: #2c2c25;
+  --border: #322922;
+  --input: #322922;
   --ring: rgba(208, 108, 57, 0.5);
   --chart-1: #d06c39;
-  --chart-2: #12a377;
-  --chart-3: #f6f5f0;
-  --chart-4: #a8a89e;
-  --chart-5: #26261f;
+  --chart-2: #e0a24e;
+  --chart-3: #f6f2ec;
+  --chart-4: #b8825a;
+  --chart-5: #2a231d;
   --radius: 1.25rem;
-  --section-dark: #00593d;
-  --section-dark-foreground: #f6f5f0;
+  --section-dark: #17120f;
+  --section-dark-foreground: #f6f2ec;
   --sidebar: #171716;
   --sidebar-foreground: #f6f5f0;
   --sidebar-primary: #26261f;
@@ -126,7 +127,7 @@
   --color-section-dark-foreground: var(--section-dark-foreground);
 
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
 
   --radius-xs: calc(var(--radius) - 8px);
   --radius-2xl: calc(var(--radius) + 8px);

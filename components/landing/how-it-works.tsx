@@ -58,7 +58,7 @@ export function HowItWorks() {
         <div className="max-w-2xl">
           <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">How it works</p>
           <h2 className="text-balance font-sans text-4xl font-light leading-[0.98] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl">
-            Send it the way it <span className="text-primary">already lands</span> in your inbox.
+            Send it the way it <span className="font-serif text-[1.08em] font-medium italic text-primary">already lands</span> in your inbox.
           </h2>
         </div>
 
