@@ -15,7 +15,10 @@ function RotatingWord() {
 
   return (
     <span className="relative inline-flex align-baseline text-primary">
-      <span key={index} className="animate-word-in font-serif text-[1.14em] font-medium italic leading-[0.9]">
+      <span
+        key={index}
+        className="animate-word-in whitespace-nowrap font-serif text-[1.14em] font-medium italic leading-[0.9]"
+      >
         {ROTATING[index]}
       </span>
     </span>
@@ -62,10 +65,26 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
               <ConversionForm apiBase={apiBase} apiKey={apiKey} tone="dark" buttonLabel="Get started on a free estimate" />
             </div>
 
-            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70">
-              <span className="font-semibold text-white">5 first estimates free</span>
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/70">
+              <span className="inline-flex items-center gap-2 font-semibold text-white">
+                <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-primary-foreground">
+                  Free
+                </span>
+                Your first 5 estimates are on us
+              </span>
               <span className="hidden h-4 w-px bg-white/25 sm:block" />
-              <span>Then $150 per estimate, edits included</span>
+              <span>Then just $150 each, unlimited edits included</span>
+              <span className="hidden h-4 w-px bg-white/25 sm:block" />
+              <span className="inline-flex items-center gap-1.5">
+                <svg viewBox="0 0 20 20" className="size-4 text-primary" fill="currentColor" aria-hidden="true">
+                  <path
+                    fillRule="evenodd"
+                    d="M16.7 5.3a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0L3.3 9.7a1 1 0 1 1 1.4-1.4l3.3 3.29 6.8-6.8a1 1 0 0 1 1.4 0Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                No credit card required
+              </span>
             </div>
           </div>
 
