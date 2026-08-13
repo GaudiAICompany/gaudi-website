@@ -16,7 +16,7 @@ const solutions: MenuItem[] = [
   { label: "Developers", href: "#solutions", desc: "Know your real costs before you commit." },
 ]
 
-function NavDropdown({ label, items }: { label: string; items: MenuItem[] }) {
+function NavDropdown({ label, items, onDark }: { label: string; items: MenuItem[]; onDark: boolean }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -25,7 +25,9 @@ function NavDropdown({ label, items }: { label: string; items: MenuItem[] }) {
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+        className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+          onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
+        }`}
       >
         {label}
         <ChevronDown className={`size-4 transition-transform ${open ? "rotate-180" : ""}`} />
@@ -62,6 +64,9 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // At the top of the page the bar floats over the dark hero, so nav needs light text.
+  const onDark = !scrolled
+
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
@@ -70,17 +75,27 @@ export function SiteHeader() {
             scrolled ? "border border-border bg-card/90 shadow-sm backdrop-blur-md" : "border border-transparent"
           }`}
         >
-          <a href="#hero" className="flex items-center gap-2 font-sans text-lg font-extrabold tracking-tight text-foreground">
-            Gaudi<span className="text-primary"> AI</span>
+          <a href="#hero" className="flex items-center" aria-label="Gaudi AI home">
+            <img src="/logo_text.png" alt="Gaudi AI" className="h-6 w-auto sm:h-7" />
           </a>
 
           <nav className="hidden items-center gap-1 lg:flex">
-            <NavDropdown label="Products" items={products} />
-            <NavDropdown label="Solutions" items={solutions} />
-            <a href="#pricing" className="rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground">
+            <NavDropdown label="Products" items={products} onDark={onDark} />
+            <NavDropdown label="Solutions" items={solutions} onDark={onDark} />
+            <a
+              href="#pricing"
+              className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+                onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
+              }`}
+            >
               Pricing
             </a>
-            <a href="#how-it-works" className="rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground">
+            <a
+              href="#how-it-works"
+              className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+                onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
+              }`}
+            >
               Resources
             </a>
           </nav>
@@ -88,7 +103,11 @@ export function SiteHeader() {
           <div className="hidden items-center gap-2 lg:flex">
             <a
               href="#contact"
-              className="inline-flex h-10 items-center justify-center rounded-full border border-border bg-transparent px-4 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
+              className={`inline-flex h-10 items-center justify-center rounded-full border px-4 text-sm font-semibold transition-colors ${
+                onDark
+                  ? "border-white/25 text-white hover:bg-white/10"
+                  : "border-border text-foreground hover:bg-secondary"
+              }`}
             >
               Contact Sales
             </a>
@@ -102,7 +121,9 @@ export function SiteHeader() {
 
           <button
             type="button"
-            className="inline-flex size-10 items-center justify-center rounded-full text-foreground lg:hidden"
+            className={`inline-flex size-10 items-center justify-center rounded-full transition-colors lg:hidden ${
+              onDark ? "text-white" : "text-foreground"
+            }`}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}

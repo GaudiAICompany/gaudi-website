@@ -4,38 +4,39 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Brand: only #C35A25 is confirmed. Warm neutrals + charcoal are assumptions
-     derived from the brand-visual references (Area, Staxen, Mikatalo).
+  /* Brand: only #C35A25 is confirmed. Neutral palette is a modern, high-contrast
+     direction inspired by area.us — near-white sections + near-black dark hero,
+     replacing the earlier warm-cream direction.
      See .claude/skills/brand-visual/assumptions.md */
-  --background: #f6f1e9; /* assumption: warm paper background */
-  --foreground: #201d18; /* assumption: warm near-black text */
-  --card: #fffdf8; /* assumption: warm off-white card */
-  --card-foreground: #201d18;
-  --popover: #fffdf8;
-  --popover-foreground: #201d18;
+  --background: #f4f4f1; /* clean cool-neutral off-white */
+  --foreground: #131211; /* near-black text */
+  --card: #ffffff; /* crisp white card */
+  --card-foreground: #131211;
+  --popover: #ffffff;
+  --popover-foreground: #131211;
   --primary: #c35a25; /* confirmed brand accent */
   --primary-foreground: #ffffff;
-  --secondary: #ece4d6; /* assumption: warm sand secondary surface */
-  --secondary-foreground: #201d18;
-  --muted: #ece4d6;
-  --muted-foreground: #6f665a; /* assumption: warm muted text (AA on paper) */
+  --secondary: #ebebe6; /* light neutral surface */
+  --secondary-foreground: #131211;
+  --muted: #ebebe6;
+  --muted-foreground: #63625c; /* neutral muted text (AA on light) */
   --accent: #c35a25; /* locked single accent = brand */
   --accent-foreground: #ffffff;
   --destructive: #be123c;
   --destructive-foreground: #ffffff;
-  --border: #e2d8c6; /* assumption: warm border */
-  --input: #e2d8c6;
+  --border: #e1e1db; /* neutral border */
+  --input: #e1e1db;
   --ring: rgba(195, 90, 37, 0.45); /* primary with opacity */
   --chart-1: #c35a25;
-  --chart-2: #201d18;
-  --chart-3: #6f665a;
-  --chart-4: #a4917a;
-  --chart-5: #ece4d6;
-  --radius: 1rem; /* assumption: generous rounding per Area reference */
+  --chart-2: #131211;
+  --chart-3: #63625c;
+  --chart-4: #9a978f;
+  --chart-5: #ebebe6;
+  --radius: 1rem; /* generous rounding per Area reference */
 
-  /* Warm charcoal for dark moments (footer, product explainer) */
-  --section-dark: #191510;
-  --section-dark-foreground: #f6f1e9;
+  /* Near-black for the dark hero + dark sections (footer, closing CTA) */
+  --section-dark: #0e0d0b;
+  --section-dark-foreground: #f4f4f1;
   --sidebar: #ffffff;
   --sidebar-foreground: #333333;
   --sidebar-primary: #f9fafb;

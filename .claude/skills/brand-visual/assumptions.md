@@ -5,14 +5,17 @@ Each is reversible. Only `#C35A25` (primary/brand accent) is a confirmed brand v
 
 ## Landing page rebuild (app/LandingPage.tsx + components/landing/*)
 
-### Color (in app/globals.css `:root`)
-- **Background `#f6f1e9` (warm paper).** Why: references.md favorites (Area, Staxen) use warm, light, welcoming backgrounds with rounded corners. Chosen slightly warmer/lighter than the generic "cream" cliché. Used as the page base.
-- **Foreground `#201d18` (warm near-black).** Why: high-contrast, warm-toned text to pair with paper background (AA+). Used for headings/body.
-- **Muted text `#6f665a`.** Why: warm gray that keeps WCAG AA on the paper background. Used for subheads/secondary copy.
-- **Secondary surface `#ece4d6` (warm sand)** and **border `#e2d8c6`.** Why: keep one warm neutral family (anti-visual-slop: one palette per project). Used for cards/chips/icon tiles/borders.
-- **Card `#fffdf8` (warm off-white).** Why: subtle lift above the paper base.
-- **Section dark `#191510` (warm charcoal).** Why: Mikatalo reference pairs orange with black/white; used for the mid-page conversion band and footer as distinct visual moments. Text on it is the paper color.
-- **Single accent = brand `#C35A25`.** Locked per anti-visual-slop 5.3 (max 1 accent, saturation restraint). No green/teal secondary introduced despite Area's green logo, to keep the accent lock.
+### Color (in app/globals.css `:root`) — REVISED to Area-inspired modern palette
+Supersedes the earlier warm-cream direction (user request: "replace the beige/cream
+background with a more modern palette inspired by area.us; dark high-contrast hero
+with clean section breaks"). Only `#C35A25` remains a confirmed brand value.
+- **Background `#f4f4f1` (clean cool-neutral off-white).** Why: area.us uses near-white section breaks rather than a flat warm neutral. Used as the light section base.
+- **Foreground `#131211` (near-black).** Why: high-contrast text on the light base (AA+).
+- **Muted text `#63625c` (neutral gray).** Why: WCAG AA on the light base; dropped the warm tint.
+- **Secondary surface `#ebebe6`** and **border `#e1e1db`.** Why: neutral, one-family surfaces for cards/chips/tiles.
+- **Card `#ffffff` (crisp white).** Why: clean lift above the neutral base, matching Area's white floating cards.
+- **Section dark `#0e0d0b` (near-black).** Why: powers the high-contrast photographic hero, the mid-page conversion band, the closing CTA, and the footer. Hero uses the contractor photo behind a left→right dark gradient with a glass stat card (Area pattern).
+- **Single accent = brand `#C35A25`.** Still locked (max 1 accent).
 
 ### Typography (app/layout.tsx)
 - **Headings + body: Bricolage Grotesque.** Why: characterful, contemporary grotesque that reads as craftsmanlike/direct (brand voice) and avoids the generic serif-display cliché. Not an approved brand face.
