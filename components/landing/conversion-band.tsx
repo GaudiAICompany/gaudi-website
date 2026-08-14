@@ -2,7 +2,7 @@ import { ConversionForm } from "./conversion-form"
 
 export function ConversionBand({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
   return (
-    <section id="pricing" className="px-4 py-6 sm:px-6">
+    <section id="get-started" className="px-4 py-6 sm:px-6">
       <div className="mx-auto max-w-7xl">
         <div className="overflow-hidden rounded-3xl bg-section-dark px-6 py-12 text-section-dark-foreground sm:px-12 sm:py-16">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_0.9fr] lg:gap-12">
