@@ -143,3 +143,34 @@ per user request ("let the visual do the explaining").
   request line too.
 - **Reduced right-side copy** to two labeled idea cards: "Gaudi runs it" and
   "Review, not redo" (minimal supporting lines).
+
+### Sixth pass (per user feedback)
+- **Title** → "Any format, any channel. *Just ask for what you need.*" (second
+  sentence = Newsreader italic primary). Container widened max-w-6xl → 7xl.
+- **Left zone label** → "Send Gaudi your project information." Input tiles
+  slightly shorter (8.5rem → 7.5rem) and column 340 → 280px to make room for the
+  new transition graphic.
+- **Chaos→order transition graphic.** New `ScribbleFlow` inline SVG replaces the
+  plain arrow between inputs and Gaudi: a dense tangled muted-foreground scrawl
+  (4 overlapping paths) that untangles into a single clean primary circle + a
+  short arrow feeding the Gaudi mark. Pure line-art metaphor (no photos), per the
+  user's chaos-to-a-single-circle reference images. Horizontal on desktop,
+  centered horizontal (w-56) on mobile.
+- **Branded GC estimate + sample prompts.** Reverted to a static (server)
+  component — dropped "use client"/useState and the tab switcher. `EstimateDoc`
+  now uses Rivera's OWN brand: a navy (#1e3a5f) letterhead bar with white text +
+  monogram, navy title/total, "Ready to send" stamp — clearly the contractor's
+  document, not Gaudi's. This is the ONE intentional extra color (contained to
+  the mock doc; text-white only on that navy). Beside it, `SAMPLE_PROMPTS` shows
+  four example asks tagged Spec lookup / Scheduling / Quantities / Financials
+  (xl:column beside the doc, 2-col grid below it on smaller screens) — several
+  examples, not one.
+- **New bottom row** (separate from the main flow, `mt-6 grid lg:grid-cols-2`):
+  (a) `AuditCard` "Trace any number. Change anything." — a blueprint thumbnail
+  with a highlighted region + "page A-3" caption, a Search connector, and the
+  editable $965 value (dashed box + pencil, "Edit → Gaudi relearns"). (b)
+  `SubsCard` "Package it. Send it out for quotes." — a Folder package listing
+  Plans/Scope/Specs PDFs, a Send icon, and a recipient list (Lone Star Electric
+  = Quoted $18,400 via Check; Delta Mechanical / Austin Voltage = Invited).
+- Old `output-estimate.png` stays deleted; no new image assets needed (reused
+  input-blueprint.png in the audit card).
