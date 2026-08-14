@@ -48,8 +48,24 @@ per user request ("let the visual do the explaining").
   out." with "One estimate" as the Newsreader italic orange accent) plus three
   tiny zone labels (However it lands / Gaudi runs it / Priced & ready) and
   "Sorts the chaos". No paragraphs, no numbered steps.
-- **Layout.** Kept the sand `secondary/50` rounded-3xl panel and the orange
-  Gaudi hub with the existing flow-pulse dots. Desktop = horizontal flow with
-  orange arrows between zones; mobile = stacked with down arrows. Uses only
-  confirmed/logged tokens (orange accent, sand panel, warm border, Geist +
-  Newsreader). No new colors introduced.
+- **Layout.** Kept the sand `secondary/50` rounded-3xl panel. Desktop =
+  horizontal flow with orange arrows between zones; mobile = stacked with down
+  arrows. Uses only confirmed/logged tokens (orange accent, sand panel, warm
+  border, Geist + Newsreader). No new colors introduced.
+
+### Second pass (per user feedback)
+- **More/varied inputs.** Expanded to 6 fragments — added a call-while-driving
+  photo, a printed PDF contract, and a client/sub email thread — so the left
+  side reads as genuinely fragmented, not four similar photos. Desktop is an
+  overlapping tilted collage; mobile is a 2/3-col grid.
+- **Modern color grading.** Regenerated all input photos with modern, true-to-
+  color, neutral-white-balance grading (explicitly NOT sepia/vintage).
+- **Modernized hub.** Replaced the circular badge with a rounded-squircle
+  (rounded-[26px]) primary tile + an animated equalizer indicator (reusing
+  animate-flow-pulse). Sublabel: "Structured project context".
+- **Conversational output.** Reframed the right side from a static document into
+  an "Ask Gaudi" chat card: channel chips (Text / Call / Email), a user request
+  bubble ("...material takeoff on the Myra Ave project"), a Gaudi reply embedding
+  the actual estimate output image, and a follow-up request bubble ("...estimate
+  on the Market Street apartment complex"). Headline updated to "Everything in.
+  *Just ask* for what you need."
