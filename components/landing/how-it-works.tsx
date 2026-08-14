@@ -64,7 +64,7 @@ function VoiceOverlay() {
 
 function Channels() {
   return (
-    <div className="grid grid-cols-2 gap-3 [grid-auto-rows:9rem]">
+    <div className="grid grid-cols-2 gap-3 [grid-auto-rows:11rem]">
       <ChannelTile
         src="/images/how-it-works/input-call.png"
         alt="Contractor taking a call from the truck"
@@ -108,7 +108,7 @@ function Channels() {
    circle carrying the actual logo. A stroke gradient carries the eye from grey
    chaos to brand order. */
 
-function ChaosToOrder({ className }: { className?: string }) {
+function ChaosToOrder({ className, outgoing = false }: { className?: string; outgoing?: boolean }) {
   return (
     <div className={cn("flex items-center", className)}>
       <svg
@@ -137,6 +137,14 @@ function ChaosToOrder({ className }: { className?: string }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo_text.png" alt="Gaudi" className="w-24" />
       </div>
+
+      {/* outgoing connector, joined directly to the circle so the flow reads continuous */}
+      {outgoing && (
+        <>
+          <span className="h-[2.75px] w-9 rounded-full bg-primary" aria-hidden="true" />
+          <ArrowRight className="-ml-1.5 size-7 shrink-0 text-primary" aria-hidden="true" />
+        </>
+      )}
     </div>
   )
 }
@@ -148,7 +156,7 @@ function ChaosToOrder({ className }: { className?: string }) {
 const DOC_LINES = [
   { name: '1/2" drywall, 4×8 · 68 sheets', src: "Sheet A-3 · walls", val: "$965" },
   { name: "2×4×8 SPF studs · 320 ct", src: "Sheet S-2 · framing", val: "$1,280" },
-  { name: "Interior latex paint · 14 gal", src: "Finish schedule", val: "$742" },
+  { name: "Interior latex paint · 14 gal", src: "Sheet A-6 · finishes", val: "$742" },
 ]
 
 function EstimateDoc() {
@@ -261,15 +269,15 @@ function AuditCard() {
 
       <div className="mt-6 flex items-center gap-4 sm:gap-5">
         {/* the source */}
-        <div className="relative w-44 shrink-0 overflow-hidden rounded-xl ring-1 ring-border sm:w-52">
+        <div className="relative w-52 shrink-0 overflow-hidden rounded-xl ring-1 ring-border sm:w-60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/how-it-works/input-blueprint.png"
             alt="Blueprint page A-3, the source of the drywall quantity"
-            className="h-36 w-full object-cover"
+            className="h-44 w-full object-cover"
           />
           <span
-            className="absolute left-6 top-10 h-9 w-24 rounded border-2 border-primary bg-primary/10"
+            className="absolute left-8 top-12 h-11 w-28 rounded border-2 border-primary bg-primary/10"
             aria-hidden="true"
           />
           <span className="absolute inset-x-0 bottom-0 bg-foreground/75 px-2 py-1 text-[10px] font-medium text-background">
@@ -379,22 +387,21 @@ export function HowItWorks() {
 
         <div className="mt-14 rounded-3xl border border-border bg-card p-6 sm:p-10">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Intake to estimate</p>
-          <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">
-            Everything in. One estimate out.
-          </h3>
+          <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">Send it over.</h3>
+          <p className="mt-2 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+            Forward the RFP, plans, and photos, however they land in your inbox.
+          </p>
 
           {/* Desktop flow */}
           <div className="mt-8 hidden items-center gap-5 lg:flex xl:gap-6">
-            <div className="w-[300px] shrink-0">
+            <div className="w-[340px] shrink-0">
               <ZoneLabel>Send Gaudi your project information</ZoneLabel>
               <Channels />
             </div>
 
             <div className="shrink-0">
-              <ChaosToOrder />
+              <ChaosToOrder outgoing />
             </div>
-
-            <ArrowRight className="size-7 shrink-0 text-primary" aria-hidden="true" />
 
             <div className="min-w-0 flex-1">
               <ZoneLabel>Client-ready results</ZoneLabel>
