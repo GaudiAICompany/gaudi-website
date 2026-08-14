@@ -103,30 +103,28 @@ function Channels() {
 }
 
 /* ------------------- Transition: chaos resolves into Gaudi ---------------- */
-/* A single continuous line: it starts as a tangled scrawl on the input side and
-   unwinds, left to right, into one smooth loop, the resolution point, clearly
-   labeled Gaudi. A stroke gradient carries the eye from grey chaos to brand
-   order. No separate disc, icon, or glow, so it reads as one flowing metaphor
-   and its background stays flush with the rest of the panel. */
+/* A single continuous line: a tangled scrawl on the input side unwinds, left to
+   right, into one clean thread that resolves into the Gaudi mark, a bordered
+   circle carrying the actual logo. A stroke gradient carries the eye from grey
+   chaos to brand order. */
 
 function ChaosToOrder({ className }: { className?: string }) {
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("flex items-center", className)}>
       <svg
-        viewBox="0 0 200 124"
-        className="h-28 w-auto"
+        viewBox="0 0 150 120"
+        className="h-24 w-28 shrink-0"
         role="img"
-        aria-label="One tangled line unwinding into a single clean loop labeled Gaudi"
+        aria-label="Tangled inputs unwinding into a single clean line that resolves into Gaudi"
       >
         <defs>
           <linearGradient id="chaosToOrder" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="currentColor" className="text-muted-foreground/45" />
-            <stop offset="55%" stopColor="currentColor" className="text-primary/70" />
             <stop offset="100%" stopColor="currentColor" className="text-primary" />
           </linearGradient>
         </defs>
         <path
-          d="M10,60 C22,38 48,44 42,62 C36,82 14,74 28,52 C44,26 74,40 60,64 C50,84 32,76 46,56 C58,38 74,50 68,62 C86,52 96,66 116,62 C116,43 131,28 150,28 C169,28 184,43 184,62 C184,81 169,96 150,96 C131,96 116,81 116,62"
+          d="M10,60 C22,38 48,44 42,62 C36,82 14,74 28,52 C44,26 74,40 60,64 C50,84 32,76 46,56 C58,38 74,50 68,62 C92,54 122,58 150,60"
           fill="none"
           stroke="url(#chaosToOrder)"
           strokeWidth="2.75"
@@ -134,9 +132,11 @@ function ChaosToOrder({ className }: { className?: string }) {
           strokeLinejoin="round"
         />
       </svg>
-      <span className="pointer-events-none absolute left-[75%] top-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[15px] font-semibold tracking-tight text-foreground">
-        Gaudi
-      </span>
+
+      <div className="-ml-2 flex size-32 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-card">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo_text.png" alt="Gaudi" className="w-24" />
+      </div>
     </div>
   )
 }
@@ -377,43 +377,46 @@ export function HowItWorks() {
           </h2>
         </div>
 
-        <div className="mt-14 rounded-3xl border border-border bg-secondary/50 p-6 sm:p-10">
+        <div className="mt-14 rounded-3xl border border-border bg-card p-6 sm:p-10">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Intake to estimate</p>
+          <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">
+            Everything in. One estimate out.
+          </h3>
+
           {/* Desktop flow */}
-          <div className="hidden items-center gap-5 lg:flex xl:gap-6">
+          <div className="mt-8 hidden items-center gap-5 lg:flex xl:gap-6">
             <div className="w-[300px] shrink-0">
               <ZoneLabel>Send Gaudi your project information</ZoneLabel>
               <Channels />
             </div>
 
             <div className="shrink-0">
-              <ZoneLabel>Gaudi runs it</ZoneLabel>
               <ChaosToOrder />
             </div>
 
             <ArrowRight className="size-7 shrink-0 text-primary" aria-hidden="true" />
 
             <div className="min-w-0 flex-1">
-              <ZoneLabel>Client-ready result</ZoneLabel>
+              <ZoneLabel>Client-ready results</ZoneLabel>
               <OutputZone />
             </div>
           </div>
 
           {/* Mobile / tablet flow */}
-          <div className="flex flex-col items-center gap-5 lg:hidden">
+          <div className="mt-8 flex flex-col items-center gap-5 lg:hidden">
             <div className="w-full max-w-md">
               <ZoneLabel>Send Gaudi your project information</ZoneLabel>
               <Channels />
             </div>
 
             <div>
-              <ZoneLabel>Gaudi runs it</ZoneLabel>
               <ChaosToOrder />
             </div>
 
             <ArrowDown className="size-6 text-primary" aria-hidden="true" />
 
             <div className="w-full max-w-md">
-              <ZoneLabel>Client-ready result</ZoneLabel>
+              <ZoneLabel>Client-ready results</ZoneLabel>
               <OutputZone />
             </div>
           </div>
