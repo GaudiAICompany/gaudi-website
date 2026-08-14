@@ -5,11 +5,6 @@ import { ChevronDown, Menu, X } from "lucide-react"
 
 type MenuItem = { label: string; href: string; desc?: string }
 
-const products: MenuItem[] = [
-  { label: "Estimator", href: "#how-it-works", desc: "Takeoffs, quantities, and pricing, checked automatically." },
-  { label: "Bid coordinator", href: "#how-it-works", desc: "Level bids and keep every sub on the same page." },
-]
-
 const solutions: MenuItem[] = [
   { label: "General Contractors", href: "#solutions", desc: "Win more bids without hiring more estimators." },
   { label: "Estimators", href: "#solutions", desc: "Spend your day reviewing, not re-typing." },
@@ -100,7 +95,14 @@ export function SiteHeader() {
           </a>
 
           <nav className="hidden items-center gap-1 lg:flex">
-            <NavDropdown label="Products" items={products} onDark={onDark} />
+            <a
+              href="#how-it-works"
+              className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+                onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
+              }`}
+            >
+              Product
+            </a>
             <NavDropdown label="Solutions" items={solutions} onDark={onDark} />
             <a
               href="#pricing"
@@ -155,7 +157,14 @@ export function SiteHeader() {
         {mobileOpen && (
           <div className="mt-2 rounded-2xl border border-border bg-card p-3 shadow-lg lg:hidden">
             <nav className="flex flex-col">
-              {[...products, ...solutions].map((item) => (
+              <a
+                href="#how-it-works"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              >
+                Product
+              </a>
+              {solutions.map((item) => (
                 <a
                   key={`${item.label}-m`}
                   href={item.href}
