@@ -92,3 +92,27 @@ per user request ("let the visual do the explaining").
   value is rendered as an editable box (dashed border + pencil). A footer note
   (Sparkles) states you can trace any number to its source and that Gaudi learns
   from edits going forward.
+
+### Fourth pass (per user feedback — lean visual, less UI-spec)
+- **Left = image-led, label second.** Replaced the label-heavy channel cards
+  with a `ChannelTile` masonry grid ([grid-auto-rows:6.5rem], call tile
+  row-span-2). Each tile is a large edge-to-edge photo with a bottom scrim and a
+  single small glass chip naming the channel (Call / Text / Email / Upload). The
+  photo carries the format; the chip carries the path. No format pills, no body
+  text. Call tile keeps a small waveform+0:47 overlay to signal voice.
+- **Center = Gaudí catenary arch, not a rounded square.** The brand is named
+  after Antoni Gaudí, so the hub is now his signature catenary arch as an inline
+  SVG (single simple geometric mark, allowed by anti-slop): filled-primary
+  gateway silhouette (evenodd hollow opening) + a primary-foreground keystone at
+  the crown + three stacked "course" lines inside the opening = mess passing
+  through and coming out as structured masonry. Brand-tinted drop-shadow. No
+  soundwave/equalizer. Caption: "Sorts the chaos into structure".
+- **Right = editorial answer, not a product table.** Dropped the boxed
+  divide-y table. Now: a serif-italic spoken request ("Hey Gaudi, give me a
+  takeoff on the Myra Ave project."), an "asked by text · answered in seconds"
+  line, small Ask-for-a Takeoff/Estimate/Sub-quote chips, then a big display
+  number ($41,750, text-5xl font-light) as the visual anchor with a rotated
+  "Ready to send" stamp. One real line item demonstrates specific + traceable
+  ("Traced to Blueprint pg A-3") + editable ($965 dashed box + pencil). Two
+  short margin annotations (Search / Sparkles) cover trace-to-source and
+  edit→learns. Reads as an art-directed marketing composition, not a screenshot.

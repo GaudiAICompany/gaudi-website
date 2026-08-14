@@ -1,60 +1,48 @@
 import { ArrowRight, ArrowDown, MessageSquare, Phone, Mail, Upload, Pencil, Search, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/* ----------------------------- Left: channels ---------------------------- */
+/* ------------------------- Left: input channels ------------------------- */
+/* Image-led tiles. The photo carries the meaning; a small chip names the
+   channel it arrived through, so both dimensions (format + path) stay legible. */
 
-function Thumb({ src, alt }: { src: string; alt: string }) {
-  return (
-    <div className="overflow-hidden rounded-lg ring-1 ring-border">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src || "/placeholder.svg"} alt={alt} className="h-14 w-14 object-cover" />
-    </div>
-  )
-}
-
-function FormatPill({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
-      {children}
-    </span>
-  )
-}
-
-function Waveform() {
-  const bars = [5, 11, 7, 15, 9, 17, 8, 13, 6, 12, 7, 16, 10, 6]
-  return (
-    <div className="flex h-14 items-center gap-[3px] rounded-lg bg-primary/5 px-3 ring-1 ring-border" aria-hidden="true">
-      {bars.map((h, i) => (
-        <span key={i} className="w-[3px] rounded-full bg-primary/60" style={{ height: `${h}px` }} />
-      ))}
-    </div>
-  )
-}
-
-function ChannelCard({
+function ChannelTile({
+  src,
+  alt,
   icon: Icon,
   channel,
-  formats,
+  className,
   children,
 }: {
+  src: string
+  alt: string
   icon: React.ComponentType<{ className?: string }>
   channel: string
-  formats: string[]
-  children: React.ReactNode
+  className?: string
+  children?: React.ReactNode
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-3.5">
-      <div className="mb-3 flex items-center gap-2">
-        <span className="flex size-7 items-center justify-center rounded-lg bg-primary/10">
-          <Icon className="size-3.5 text-primary" />
-        </span>
-        <span className="text-sm font-semibold text-foreground">{channel}</span>
-      </div>
-      <div className="flex items-center gap-2">{children}</div>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {formats.map((f) => (
-          <FormatPill key={f}>{f}</FormatPill>
+    <div className={cn("group relative overflow-hidden rounded-xl ring-1 ring-border", className)}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src || "/placeholder.svg"} alt={alt} className="absolute inset-0 h-full w-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-t from-foreground/55 via-foreground/5 to-transparent" />
+      <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-background/90 px-2 py-0.5 text-[10px] font-semibold text-foreground shadow-sm backdrop-blur">
+        <Icon className="size-3 text-primary" aria-hidden="true" />
+        {channel}
+      </span>
+      {children}
+    </div>
+  )
+}
+
+function VoiceOverlay() {
+  const bars = [5, 11, 7, 15, 9, 17, 8, 13, 6, 12, 7, 16, 10, 6, 9, 4]
+  return (
+    <div className="absolute inset-x-2 bottom-2" aria-hidden="true">
+      <div className="flex items-center gap-[3px] rounded-md bg-background/85 px-2 py-1.5 backdrop-blur">
+        {bars.map((h, i) => (
+          <span key={i} className="w-[2px] rounded-full bg-primary/70" style={{ height: `${h}px` }} />
         ))}
+        <span className="ml-1 text-[9px] font-medium text-muted-foreground">0:47</span>
       </div>
     </div>
   )
@@ -62,152 +50,159 @@ function ChannelCard({
 
 function Channels() {
   return (
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-      <ChannelCard icon={Phone} channel="Call & voicemail" formats={["Voice"]}>
-        <Waveform />
-        <span className="text-xs text-muted-foreground">Voicemail · 0:47</span>
-      </ChannelCard>
-
-      <ChannelCard icon={MessageSquare} channel="Text message" formats={["Photo", "Handwritten note"]}>
-        <Thumb src="/images/how-it-works/input-photo.png" alt="Job-site photo texted from the field" />
-        <Thumb src="/images/how-it-works/input-note.png" alt="Handwritten site notes with measurements" />
-      </ChannelCard>
-
-      <ChannelCard icon={Mail} channel="Email" formats={["PDF", "Blueprint", "Thread"]}>
-        <Thumb src="/images/how-it-works/input-contract.png" alt="Printed construction contract PDF" />
-        <Thumb src="/images/how-it-works/input-blueprint.png" alt="Architectural floor plan blueprint" />
-      </ChannelCard>
-
-      <ChannelCard icon={Upload} channel="Dashboard upload" formats={["Plans", "Photos", "Files"]}>
-        <div className="flex h-14 flex-1 items-center justify-center gap-2 rounded-lg border border-dashed border-primary/40 bg-primary/5 text-xs font-medium text-primary">
-          <Upload className="size-3.5" />
-          Drop plans &amp; photos
-        </div>
-      </ChannelCard>
+    <div className="grid grid-cols-2 gap-3 [grid-auto-rows:6.5rem]">
+      <ChannelTile
+        src="/images/how-it-works/input-call.png"
+        alt="Contractor taking a call from the truck"
+        icon={Phone}
+        channel="Call"
+        className="row-span-2"
+      >
+        <VoiceOverlay />
+      </ChannelTile>
+      <ChannelTile
+        src="/images/how-it-works/input-photo.png"
+        alt="Job-site photo texted from the field"
+        icon={MessageSquare}
+        channel="Text"
+      />
+      <ChannelTile
+        src="/images/how-it-works/input-blueprint.png"
+        alt="Architectural blueprint emailed in"
+        icon={Mail}
+        channel="Email"
+      />
+      <ChannelTile
+        src="/images/how-it-works/input-note.png"
+        alt="Handwritten site notes with measurements"
+        icon={MessageSquare}
+        channel="Text"
+      />
+      <ChannelTile
+        src="/images/how-it-works/input-contract.png"
+        alt="Plans and contract uploaded to the dashboard"
+        icon={Upload}
+        channel="Upload"
+      />
     </div>
   )
 }
 
-/* ------------------------------ Center: hub ------------------------------ */
+/* ---------------------------- Center: the arch --------------------------- */
+/* Gaudí's signature catenary arch — a gateway the mess passes through and
+   comes out as structured, load-bearing courses. A mark that could only be Gaudi. */
 
-function GaudiHub() {
+function GaudiArch() {
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="relative flex size-28 items-center justify-center rounded-[26px] bg-primary shadow-xl shadow-primary/25 ring-1 ring-inset ring-primary-foreground/15">
-        <span className="font-sans text-lg font-semibold tracking-tight text-primary-foreground">Gaudi</span>
-        <span className="absolute bottom-3.5 flex items-end gap-1" aria-hidden="true">
-          <span className="h-1.5 w-1 rounded-full bg-primary-foreground/70 animate-flow-pulse" />
-          <span className="h-3 w-1 rounded-full bg-primary-foreground/70 animate-flow-pulse [animation-delay:0.2s]" />
-          <span className="h-2 w-1 rounded-full bg-primary-foreground/70 animate-flow-pulse [animation-delay:0.4s]" />
-          <span className="h-3.5 w-1 rounded-full bg-primary-foreground/70 animate-flow-pulse [animation-delay:0.6s]" />
-        </span>
-      </div>
+      <svg
+        viewBox="0 0 120 150"
+        className="h-36 w-auto [filter:drop-shadow(0_12px_22px_rgba(195,90,37,0.28))]"
+        role="img"
+        aria-label="Gaudi"
+      >
+        {/* arch silhouette (legs + catenary crown, hollow opening) */}
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M18 150 L18 62 C18 30 40 14 60 14 C80 14 102 30 102 62 L102 150 Z M38 150 L38 64 C38 44 48 34 60 34 C72 34 82 44 82 64 L82 150 Z"
+          className="fill-primary"
+        />
+        {/* keystone at the crown */}
+        <path d="M60 16 L70 28 L60 40 L50 28 Z" className="fill-primary-foreground" />
+        {/* structured courses assembling inside the opening */}
+        <line x1="46" y1="132" x2="74" y2="132" strokeWidth="4" strokeLinecap="round" className="stroke-primary/80" />
+        <line x1="47" y1="120" x2="73" y2="120" strokeWidth="4" strokeLinecap="round" className="stroke-primary/45" />
+        <line x1="50" y1="108" x2="70" y2="108" strokeWidth="4" strokeLinecap="round" className="stroke-primary/25" />
+      </svg>
       <span className="text-center text-sm font-medium text-muted-foreground">
-        Structured
-        <br className="hidden lg:block" /> project context
+        Sorts the chaos
+        <br className="hidden lg:block" /> into structure
       </span>
     </div>
   )
 }
 
-/* --------------------------- Right: the output --------------------------- */
+/* --------------------------- Right: the answer --------------------------- */
+/* Editorial, not a product screenshot: a spoken request, a big result number
+   as the anchor, and margin annotations for traceable + editable/learns. */
 
-const lineItems = [
-  { name: "2×6 framing lumber", qty: "1,240 lf", total: "$3,534", source: "Blueprint · A-3", icon: Search },
-  { name: '1/2" drywall', qty: "68 sheets", total: "$965", source: "Email · Rivera", selected: true },
-  { name: "R-19 insulation", qty: "2,400 sf", total: "$2,208", source: "Site photo" },
-]
-
-function OutputTabs() {
-  const tabs = ["Takeoff", "Estimate", "Sub quote"]
+function AskChips() {
+  const asks = ["Takeoff", "Estimate", "Sub-quote"]
   return (
-    <div className="mb-3 flex gap-1.5">
-      {tabs.map((t, i) => (
+    <div className="mb-5 flex flex-wrap items-center gap-1.5 text-[11px]">
+      <span className="text-muted-foreground">Ask for a</span>
+      {asks.map((a, i) => (
         <span
-          key={t}
+          key={a}
           className={cn(
-            "rounded-full px-2.5 py-1 text-[11px] font-medium",
+            "rounded-full px-2 py-0.5 font-medium",
             i === 0 ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground",
           )}
         >
-          {t}
+          {a}
         </span>
       ))}
     </div>
   )
 }
 
-function GaudiResult() {
+function GaudiAnswer() {
   return (
-    <div className="mx-auto max-w-[420px]">
-      {/* Hey Gaudi prompt */}
-      <div className="mb-3 flex items-center gap-2 rounded-2xl border border-border bg-card px-3.5 py-2.5">
-        <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-primary text-[11px] font-semibold text-primary-foreground">
+    <div className="mx-auto max-w-[440px]">
+      {/* the spoken request */}
+      <div className="mb-2 flex items-start gap-2.5">
+        <span className="mt-1 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary text-[11px] font-semibold text-primary-foreground">
           G
         </span>
-        <p className="flex-1 text-pretty text-[13px] leading-snug text-foreground">
-          &ldquo;Hey Gaudi, give me a material takeoff on the Myra Ave project.&rdquo;
+        <p className="text-pretty font-serif text-lg italic leading-snug text-foreground/85">
+          &ldquo;Hey Gaudi, give me a takeoff on the Myra Ave project.&rdquo;
         </p>
-        <span className="hidden shrink-0 items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline-flex">
-          <MessageSquare className="size-3 text-primary" /> via text
-        </span>
       </div>
-
-      {/* Generated digital result */}
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-xl shadow-foreground/10">
-        <div className="flex items-center justify-between border-b border-border px-4 py-3">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Material takeoff</p>
-            <p className="text-sm font-semibold text-foreground">Myra Ave</p>
-          </div>
-          <OutputTabs />
-        </div>
-
-        <div className="divide-y divide-border">
-          {lineItems.map((item) => (
-            <div
-              key={item.name}
-              className={cn("px-4 py-2.5", item.selected && "bg-primary/[0.06] ring-1 ring-inset ring-primary/30")}
-            >
-              <div className="flex items-center justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="truncate text-[13px] font-medium text-foreground">{item.name}</p>
-                  <p className="text-[11px] text-muted-foreground">{item.qty}</p>
-                </div>
-
-                {item.selected ? (
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-dashed border-primary/50 bg-card px-2 py-1 text-[13px] font-semibold text-foreground">
-                    {item.total}
-                    <Pencil className="size-3 text-primary" />
-                  </span>
-                ) : (
-                  <span className="text-[13px] font-semibold text-foreground">{item.total}</span>
-                )}
-              </div>
-
-              {/* traceability chip */}
-              <div className="mt-1.5 flex items-center gap-1 text-[10px] text-muted-foreground">
-                <Search className="size-3 text-primary/70" />
-                <span>Traced to {item.source}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex items-center justify-between border-t border-border bg-secondary/40 px-4 py-2.5">
-          <span className="text-[11px] font-medium text-muted-foreground">Estimated total</span>
-          <span className="text-sm font-semibold text-foreground">$41,750</span>
-        </div>
-      </div>
-
-      {/* audit + learn note */}
-      <p className="mt-3 flex items-start gap-1.5 text-pretty text-xs leading-relaxed text-muted-foreground">
-        <Sparkles className="mt-0.5 size-3.5 shrink-0 text-primary" />
-        <span>
-          Trace any number back to the exact blueprint page or email it came from. Edit a value and Gaudi learns your
-          pricing going forward.
-        </span>
+      <p className="mb-6 pl-[2.1rem] text-[11px] font-medium text-muted-foreground">
+        <MessageSquare className="mr-1 inline size-3 text-primary" aria-hidden="true" />
+        asked by text · answered in seconds
       </p>
+
+      <AskChips />
+
+      {/* the answer — big number as the anchor */}
+      <div className="relative rounded-3xl border border-border bg-card p-6 shadow-xl shadow-primary/10">
+        <span className="absolute -right-2 -top-3 rotate-6 rounded-md border border-primary/60 bg-background px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary shadow-sm">
+          Ready to send
+        </span>
+
+        <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Material takeoff · Myra Ave</p>
+        <p className="mt-2 font-sans text-5xl font-light tracking-tight text-foreground">$41,750</p>
+        <p className="mt-1 text-sm text-muted-foreground">128 line items, priced and ready to send.</p>
+
+        {/* one real line — specific, traceable, editable */}
+        <div className="mt-5 flex items-center justify-between gap-3 rounded-xl bg-secondary/60 px-3.5 py-3">
+          <div className="min-w-0">
+            <p className="truncate text-[13px] font-medium text-foreground">1/2&quot; drywall · 68 sheets</p>
+            <p className="mt-0.5 flex items-center gap-1 text-[11px] text-muted-foreground">
+              <Search className="size-3 text-primary/70" aria-hidden="true" />
+              Traced to Blueprint pg A-3
+            </p>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-dashed border-primary/50 bg-card px-2.5 py-1.5 text-[13px] font-semibold text-foreground">
+            $965
+            <Pencil className="size-3 text-primary" aria-hidden="true" />
+          </span>
+        </div>
+      </div>
+
+      {/* margin annotations */}
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <p className="flex items-start gap-2 text-pretty text-[13px] leading-snug text-muted-foreground">
+          <Search className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+          Trace any figure back to the exact blueprint page or email it came from.
+        </p>
+        <p className="flex items-start gap-2 text-pretty text-[13px] leading-snug text-muted-foreground">
+          <Sparkles className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+          Change a value and Gaudi learns your pricing for next time.
+        </p>
+      </div>
     </div>
   )
 }
@@ -236,7 +231,7 @@ export function HowItWorks() {
         <div className="mt-14 rounded-3xl border border-border bg-secondary/50 p-6 sm:p-10">
           {/* Desktop flow */}
           <div className="hidden items-center gap-6 lg:flex">
-            <div className="w-[280px] shrink-0">
+            <div className="w-[300px] shrink-0">
               <ZoneLabel>However it arrives</ZoneLabel>
               <Channels />
             </div>
@@ -245,14 +240,14 @@ export function HowItWorks() {
 
             <div className="shrink-0">
               <ZoneLabel>Gaudi runs it</ZoneLabel>
-              <GaudiHub />
+              <GaudiArch />
             </div>
 
             <ArrowRight className="size-7 shrink-0 text-primary" aria-hidden="true" />
 
             <div className="flex-1">
               <ZoneLabel>Just ask</ZoneLabel>
-              <GaudiResult />
+              <GaudiAnswer />
             </div>
           </div>
 
@@ -267,14 +262,14 @@ export function HowItWorks() {
 
             <div>
               <ZoneLabel>Gaudi runs it</ZoneLabel>
-              <GaudiHub />
+              <GaudiArch />
             </div>
 
             <ArrowDown className="size-6 text-primary" aria-hidden="true" />
 
             <div className="w-full max-w-md">
               <ZoneLabel>Just ask</ZoneLabel>
-              <GaudiResult />
+              <GaudiAnswer />
             </div>
           </div>
         </div>
