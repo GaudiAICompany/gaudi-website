@@ -63,11 +63,6 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
               that helps you win more work.
             </h1>
 
-            <p className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-white/80">
-              Gaudi turns blueprints, RFPs, and site notes into accurate, ready-to-send estimates in minutes, so you can
-              bid faster and win more work.
-            </p>
-
             <div className="mt-8 max-w-xl">
               <ConversionForm apiBase={apiBase} apiKey={apiKey} tone="dark" buttonLabel="Get started on a free estimate" />
             </div>

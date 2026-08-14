@@ -377,10 +377,10 @@ export function HowItWorks() {
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">How it works</p>
-          <h2 className="text-balance font-sans text-4xl font-light leading-[1.04] tracking-[-0.03em] text-foreground sm:text-5xl">
-            Any format, any channel.{" "}
+          <h2 className="text-balance font-sans text-3xl font-light leading-[1.08] tracking-[-0.02em] text-foreground sm:text-4xl">
+            Gaudi turns blueprints, RFPs, and site notes into accurate, ready-to-send estimates in minutes, so you can{" "}
             <span className="font-serif text-[1.06em] font-medium italic text-primary">
-              Just ask for what you need.
+              bid faster and win more work.
             </span>
           </h2>
         </div>
@@ -388,7 +388,7 @@ export function HowItWorks() {
         <div className="mt-14 rounded-3xl border border-border bg-card p-6 sm:p-10">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Intake to estimate</p>
           <h3 className="mt-2 font-sans text-xl font-light leading-snug tracking-tight text-foreground lg:whitespace-nowrap xl:text-2xl">
-            Forward the RFP, plans, and photos, however they land in your inbox.
+            Any format, any channel. Just ask for what you need.
           </h3>
 
           {/* Desktop flow */}
