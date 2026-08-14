@@ -276,8 +276,9 @@ function AuditCard() {
             alt="Blueprint page A-3, the source of the drywall quantity"
             className="h-44 w-full object-cover"
           />
+          {/* highlight traces an interior partition wall — where 1/2" drywall is actually hung */}
           <span
-            className="absolute left-8 top-12 h-11 w-28 rounded border-2 border-primary bg-primary/10"
+            className="absolute left-[59.5%] top-[15%] h-[52%] w-2 rounded-sm border-2 border-primary bg-primary/15"
             aria-hidden="true"
           />
           <span className="absolute inset-x-0 bottom-0 bg-foreground/75 px-2 py-1 text-[10px] font-medium text-background">
