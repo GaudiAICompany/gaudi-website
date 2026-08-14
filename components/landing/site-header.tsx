@@ -42,8 +42,12 @@ function NavDropdown({ label, items, onDark }: { label: string; items: MenuItem[
                 onClick={() => setOpen(false)}
                 className="block rounded-xl px-3 py-2.5 transition-colors hover:bg-secondary"
               >
-                <span className="block text-sm font-semibold text-foreground">{item.label}</span>
-                {item.desc && <span className="mt-0.5 block text-xs leading-relaxed text-muted-foreground">{item.desc}</span>}
+                <span className="block font-sans text-sm font-semibold text-foreground">{item.label}</span>
+                {item.desc && (
+                  <span className="mt-0.5 block font-sans text-sm font-normal leading-relaxed text-muted-foreground">
+                    {item.desc}
+                  </span>
+                )}
               </a>
             ))}
           </div>
