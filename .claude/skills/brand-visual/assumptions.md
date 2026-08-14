@@ -32,3 +32,24 @@ italic accent.
 
 ### Dials used
 Visual 7, Motion 3, Density 5, Directness 8.
+
+## How-it-works redesign (components/landing/how-it-works.tsx)
+Reworked the section from a text-heavy diagram (headline + 3 feature cards +
+3 numbered text steps) into a visual-led input → processing → output infographic,
+per user request ("let the visual do the explaining").
+- **Imagery over icon+label.** Inputs are now real generated photos (messy
+  handwritten note, blueprint, job-site, phone with texts/missed call) arranged
+  as an overlapping tilted collage to *show* the variety/mess of raw inputs.
+  Output is a generated photo of a clean, finished cost estimate — showing the
+  result rather than labeling it "Estimator". Assets in
+  public/images/how-it-works/. Why: anti-visual-slop bans div fake-screenshots
+  and icon-on-every-card filler; use real product/workflow visuals.
+- **Copy cut to minimum.** One short headline ("Everything in. One estimate
+  out." with "One estimate" as the Newsreader italic orange accent) plus three
+  tiny zone labels (However it lands / Gaudi runs it / Priced & ready) and
+  "Sorts the chaos". No paragraphs, no numbered steps.
+- **Layout.** Kept the sand `secondary/50` rounded-3xl panel and the orange
+  Gaudi hub with the existing flow-pulse dots. Desktop = horizontal flow with
+  orange arrows between zones; mobile = stacked with down arrows. Uses only
+  confirmed/logged tokens (orange accent, sand panel, warm border, Geist +
+  Newsreader). No new colors introduced.

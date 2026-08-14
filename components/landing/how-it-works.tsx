@@ -1,166 +1,158 @@
-import { FileText, Map, PenLine, Ruler, Users, ArrowDown } from "lucide-react"
+import { ArrowRight, ArrowDown } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const inputs = [
-  { icon: FileText, label: "PDF", note: "RFPs & specs" },
-  { icon: Map, label: "Blueprint", note: "Plans & drawings" },
-  { icon: PenLine, label: "Handwritten note", note: "Site markups" },
-]
-
-const outputs = [
-  { icon: Ruler, label: "Estimator", note: "Takeoffs, quantities, priced" },
-  { icon: Users, label: "Bid coordinator", note: "Leveled bids, organized subs" },
-]
-
-const steps = [
   {
-    n: "1",
-    title: "Send it over.",
-    body: "Forward the RFP, plans, and photos, however they land in your inbox.",
+    src: "/images/how-it-works/input-phone.png",
+    alt: "Contractor's phone showing a stack of unread texts and a missed call",
+    className: "top-0 left-2 w-[45%] -rotate-6 z-20",
   },
   {
-    n: "2",
-    title: "Gaudi runs it.",
-    body: "Takeoffs, quantities, and current pricing, pulled and checked automatically.",
+    src: "/images/how-it-works/input-note.png",
+    alt: "Handwritten site notes with rough measurements on a legal pad",
+    className: "top-6 right-0 w-[52%] rotate-3 z-10",
   },
   {
-    n: "3",
-    title: "Review, not redo.",
-    body: "Get a complete estimate back, check it, adjust it, send it.",
+    src: "/images/how-it-works/input-blueprint.png",
+    alt: "Rolled-out construction blueprint on a table",
+    className: "bottom-0 left-0 w-[50%] rotate-3 z-30",
+  },
+  {
+    src: "/images/how-it-works/input-jobsite.png",
+    alt: "Photo from an active framing job site",
+    className: "bottom-2 right-4 w-[44%] -rotate-3 z-10",
   },
 ]
 
-function NodeCard({
-  icon: Icon,
-  label,
-  note,
+function PhotoCard({
+  src,
+  alt,
+  className,
 }: {
-  icon: typeof FileText
-  label: string
-  note: string
+  src: string
+  alt: string
+  className?: string
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-sm">
-      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary">
-        <Icon className="size-5" />
-      </span>
-      <span className="min-w-0">
-        <span className="block text-sm font-semibold text-foreground">{label}</span>
-        <span className="block truncate text-xs text-muted-foreground">{note}</span>
-      </span>
+    <figure
+      className={cn(
+        "overflow-hidden rounded-2xl border border-border bg-card p-1.5 shadow-xl shadow-foreground/10",
+        className,
+      )}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src || "/placeholder.svg"} alt={alt} className="aspect-square w-full rounded-xl object-cover" />
+    </figure>
+  )
+}
+
+function GaudiHub() {
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <div className="flex size-32 flex-col items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/30">
+        <span className="font-sans text-2xl font-bold tracking-tight">Gaudi</span>
+        <span className="mt-1.5 flex gap-1">
+          <span className="size-1.5 rounded-full bg-primary-foreground/80 animate-flow-pulse" />
+          <span className="size-1.5 rounded-full bg-primary-foreground/80 animate-flow-pulse [animation-delay:0.3s]" />
+          <span className="size-1.5 rounded-full bg-primary-foreground/80 animate-flow-pulse [animation-delay:0.6s]" />
+        </span>
+      </div>
+      <span className="text-sm font-medium text-muted-foreground">Sorts the chaos</span>
     </div>
+  )
+}
+
+function ZoneLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mb-4 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">{children}</p>
   )
 }
 
 export function HowItWorks() {
   return (
     <section id="how-it-works" className="px-4 py-20 sm:px-6 lg:py-28">
-      <div className="mx-auto max-w-7xl">
-        <div className="max-w-2xl">
+      <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-2xl text-center">
           <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">How it works</p>
-          <h2 className="text-balance font-sans text-4xl font-light leading-[0.98] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl">
-            Send it the way it <span className="font-serif text-[1.08em] font-medium italic text-primary">already lands</span> in your inbox.
+          <h2 className="text-balance font-sans text-4xl font-light leading-[1.02] tracking-[-0.03em] text-foreground sm:text-5xl">
+            Everything in. <span className="font-serif text-[1.06em] font-medium italic text-primary">One estimate</span> out.
           </h2>
         </div>
 
-        <div className="mt-12 grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
-          {/* Diagram */}
-          <div className="rounded-3xl border border-border bg-secondary/60 p-5 sm:p-8">
-            {/* Desktop diagram */}
-            <div className="relative hidden h-[420px] w-full lg:block">
-              <svg
-                className="absolute inset-0 h-full w-full"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                {[18, 50, 82].map((y, i) => (
-                  <path
-                    key={`in-${i}`}
-                    d={`M 26 ${y} C 40 ${y}, 40 50, 50 50`}
-                    fill="none"
-                    stroke="var(--color-border)"
-                    strokeWidth="0.5"
-                    vectorEffect="non-scaling-stroke"
-                  />
+        <div className="mt-14 rounded-3xl border border-border bg-secondary/50 p-6 sm:p-10">
+          {/* Desktop flow */}
+          <div className="hidden items-center gap-6 lg:flex">
+            {/* Inputs */}
+            <div className="flex-1">
+              <ZoneLabel>However it lands</ZoneLabel>
+              <div className="relative mx-auto h-[340px] max-w-[360px]">
+                {inputs.map((n) => (
+                  <PhotoCard key={n.src} src={n.src} alt={n.alt} className={cn("absolute", n.className)} />
                 ))}
-                {[33, 67].map((y, i) => (
-                  <path
-                    key={`out-${i}`}
-                    d={`M 50 50 C 62 50, 62 ${y}, 74 ${y}`}
-                    fill="none"
-                    stroke="var(--color-border)"
-                    strokeWidth="0.5"
-                    vectorEffect="non-scaling-stroke"
-                  />
-                ))}
-              </svg>
-
-              {/* input nodes */}
-              <div className="absolute left-0 top-[18%] w-56 -translate-y-1/2">
-                <NodeCard {...inputs[0]} />
-              </div>
-              <div className="absolute left-0 top-[50%] w-56 -translate-y-1/2">
-                <NodeCard {...inputs[1]} />
-              </div>
-              <div className="absolute left-0 top-[82%] w-56 -translate-y-1/2">
-                <NodeCard {...inputs[2]} />
-              </div>
-
-              {/* gaudi node */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="flex size-28 flex-col items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-                  <span className="font-sans text-xl font-extrabold tracking-tight">Gaudi</span>
-                  <span className="mt-1 flex gap-1">
-                    <span className="size-1.5 rounded-full bg-primary-foreground/80 animate-flow-pulse" />
-                    <span className="size-1.5 rounded-full bg-primary-foreground/80 animate-flow-pulse [animation-delay:0.3s]" />
-                    <span className="size-1.5 rounded-full bg-primary-foreground/80 animate-flow-pulse [animation-delay:0.6s]" />
-                  </span>
-                </div>
-              </div>
-
-              {/* output nodes */}
-              <div className="absolute right-0 top-[33%] w-60 -translate-y-1/2">
-                <NodeCard {...outputs[0]} />
-              </div>
-              <div className="absolute right-0 top-[67%] w-60 -translate-y-1/2">
-                <NodeCard {...outputs[1]} />
               </div>
             </div>
 
-            {/* Mobile / tablet diagram */}
-            <div className="flex flex-col items-center gap-4 lg:hidden">
-              <div className="grid w-full gap-3">
-                {inputs.map((n) => (
-                  <NodeCard key={n.label} {...n} />
-                ))}
-              </div>
-              <ArrowDown className="size-5 text-muted-foreground" aria-hidden="true" />
-              <div className="flex size-24 flex-col items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-                <span className="font-sans text-lg font-extrabold tracking-tight">Gaudi</span>
-              </div>
-              <ArrowDown className="size-5 text-muted-foreground" aria-hidden="true" />
-              <div className="grid w-full gap-3">
-                {outputs.map((n) => (
-                  <NodeCard key={n.label} {...n} />
-                ))}
-              </div>
+            <ArrowRight className="size-7 shrink-0 text-primary" aria-hidden="true" />
+
+            {/* Processing */}
+            <div className="shrink-0">
+              <ZoneLabel>Gaudi runs it</ZoneLabel>
+              <GaudiHub />
+            </div>
+
+            <ArrowRight className="size-7 shrink-0 text-primary" aria-hidden="true" />
+
+            {/* Output */}
+            <div className="flex-1">
+              <ZoneLabel>Priced &amp; ready</ZoneLabel>
+              <figure className="mx-auto max-w-[320px] overflow-hidden rounded-2xl border border-border bg-card p-2 shadow-xl shadow-foreground/10">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/how-it-works/output-estimate.png"
+                  alt="A finished construction cost estimate with line items, quantities, and a total"
+                  className="w-full rounded-xl object-cover"
+                />
+              </figure>
             </div>
           </div>
 
-          {/* Steps */}
-          <ol className="flex flex-col gap-6">
-            {steps.map((step) => (
-              <li key={step.n} className="flex gap-4">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-primary/40 font-sans text-sm font-bold text-primary">
-                  {step.n}
-                </span>
-                <div>
-                  <h3 className="font-sans text-lg font-bold text-foreground">{step.title}</h3>
-                  <p className="mt-1 leading-relaxed text-muted-foreground">{step.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          {/* Mobile / tablet flow */}
+          <div className="flex flex-col items-center gap-6 lg:hidden">
+            <div className="w-full max-w-sm">
+              <ZoneLabel>However it lands</ZoneLabel>
+              <div className="grid grid-cols-2 gap-3">
+                {inputs.map((n, i) => (
+                  <PhotoCard
+                    key={n.src}
+                    src={n.src}
+                    alt={n.alt}
+                    className={i % 2 === 0 ? "-rotate-2" : "rotate-2"}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <ArrowDown className="size-6 text-primary" aria-hidden="true" />
+
+            <div>
+              <ZoneLabel>Gaudi runs it</ZoneLabel>
+              <GaudiHub />
+            </div>
+
+            <ArrowDown className="size-6 text-primary" aria-hidden="true" />
+
+            <div className="w-full max-w-xs">
+              <ZoneLabel>Priced &amp; ready</ZoneLabel>
+              <figure className="overflow-hidden rounded-2xl border border-border bg-card p-2 shadow-xl shadow-foreground/10">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/how-it-works/output-estimate.png"
+                  alt="A finished construction cost estimate with line items, quantities, and a total"
+                  className="w-full rounded-xl object-cover"
+                />
+              </figure>
+            </div>
+          </div>
         </div>
       </div>
     </section>
