@@ -98,6 +98,15 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               </p>
             </div>
 
+            {/* Price zone — mirrors the self-serve card's price zone position */}
+            <div className="mt-8 border-t border-border pt-8">
+              <div className="flex items-baseline gap-2">
+                <span className="font-sans text-5xl font-light tracking-[-0.02em] lg:text-6xl">Custom</span>
+                <span className="text-sm leading-tight text-muted-foreground">pricing</span>
+              </div>
+              <p className="mt-4 text-[13px] text-muted-foreground">Talk through pricing and volume.</p>
+            </div>
+
             {/* Feature list */}
             <ul className="mt-8 space-y-3.5">
               {customFeatures.map((feature) => (
@@ -116,7 +125,6 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               >
                 Contact sales
               </a>
-              <p className="mt-3 text-center text-[13px] text-muted-foreground">Talk through pricing and volume.</p>
             </div>
           </div>
         </div>
