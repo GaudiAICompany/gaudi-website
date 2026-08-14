@@ -19,7 +19,7 @@ export default function LandingPage({
         <Hero apiBase={functionApiBase} apiKey={functionApiKey} />
         <HowItWorks />
         <ConversionBand apiBase={functionApiBase} apiKey={functionApiKey} />
-        <Pricing />
+        <Pricing apiBase={functionApiBase} apiKey={functionApiKey} />
         <ClosingCta />
         <Contact />
       </main>
