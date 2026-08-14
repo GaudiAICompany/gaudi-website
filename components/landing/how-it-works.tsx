@@ -387,10 +387,9 @@ export function HowItWorks() {
 
         <div className="mt-14 rounded-3xl border border-border bg-card p-6 sm:p-10">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Intake to estimate</p>
-          <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">Send it over.</h3>
-          <p className="mt-2 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+          <h3 className="mt-2 max-w-2xl text-pretty font-sans text-2xl font-light leading-snug tracking-tight text-foreground">
             Forward the RFP, plans, and photos, however they land in your inbox.
-          </p>
+          </h3>
 
           {/* Desktop flow */}
           <div className="mt-8 hidden items-center gap-5 lg:flex xl:gap-6">
