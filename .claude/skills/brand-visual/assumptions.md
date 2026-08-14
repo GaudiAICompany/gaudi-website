@@ -69,3 +69,26 @@ per user request ("let the visual do the explaining").
   the actual estimate output image, and a follow-up request bubble ("...estimate
   on the Market Street apartment complex"). Headline updated to "Everything in.
   *Just ask* for what you need."
+
+### Third pass (per user feedback)
+- **Left side = channels, not a photo pile.** Restructured into four labeled
+  channel cards — Call & voicemail, Text message, Email, Dashboard upload — so
+  both dimensions are legible: the channel/path (card header + icon) and the
+  format/type (format pills: Voice / Photo / Handwritten note / PDF / Blueprint /
+  Thread / Plans / Photos / Files). Voice channel renders a div waveform; upload
+  renders a dashed drop zone. Headline changed to "Any format, any channel.
+  *Just ask* for what you need."
+- **Removed white photo frames.** Dropped the `bg-card p-1` white matte around
+  each image (that framing read as dated). Thumbnails are now bare
+  `rounded-lg ring-1 ring-border` images, 56px squares.
+- **Output is a rendered digital result, not a photo.** Deleted
+  output-estimate.png. Right side is now real HTML: a "Hey Gaudi" prompt bar
+  (+ "via text" chip), output-type tabs (Takeoff active / Estimate / Sub quote)
+  to signal Gaudi builds whatever you ask, and a takeoff card with line items,
+  quantities, per-line source-trace chips, an estimated total. This is a
+  legitimate requested product preview (not banned decorative fake-chrome).
+- **Traceability + edit + learning.** Every line item shows a "Traced to
+  {Blueprint · A-3 / Email · Rivera / Site photo}" chip. The selected row's
+  value is rendered as an editable box (dashed border + pencil). A footer note
+  (Sparkles) states you can trace any number to its source and that Gaudi learns
+  from edits going forward.
