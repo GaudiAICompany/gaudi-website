@@ -87,20 +87,14 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
 
           {/* Secondary, custom card */}
           <div className="flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground lg:p-10">
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">For larger teams</p>
-            <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Custom</h3>
-            <p className="mt-2 max-w-sm text-pretty leading-relaxed text-muted-foreground">
-              For teams that need high-volume or custom plans.
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Larger teams</p>
+            <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Enterprise</h3>
 
-            {/* Price zone */}
-            <div className="mt-8 border-t border-border pt-8">
-              <div className="flex items-baseline gap-2">
-                <span className="font-sans text-5xl font-light tracking-[-0.02em] lg:text-6xl">Custom</span>
-              </div>
-              <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[13px] font-medium text-secondary-foreground">
-                <Check className="size-3.5" aria-hidden="true" />
-                Scoped to your volume
+            {/* Persona targeting — mirrors the self-serve card's built-for box */}
+            <div className="mt-5 rounded-2xl bg-secondary/60 p-5">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Built for</p>
+              <p className="mt-2.5 text-sm leading-relaxed text-foreground/85">
+                Teams that need high-volume or custom plans.
               </p>
             </div>
 
@@ -114,12 +108,16 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               ))}
             </ul>
 
-            <a
-              href="#contact"
-              className="mt-10 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-foreground/15 bg-transparent px-6 text-sm font-semibold text-foreground transition-all hover:bg-secondary active:scale-[0.98] lg:mt-auto"
-            >
-              Contact sales
-            </a>
+            {/* CTA area builds toward Contact sales as the clear next action */}
+            <div className="mt-8 lg:mt-auto lg:pt-8">
+              <a
+                href="#contact"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-foreground/15 bg-transparent px-6 text-sm font-semibold text-foreground transition-all hover:bg-secondary active:scale-[0.98]"
+              >
+                Contact sales
+              </a>
+              <p className="mt-3 text-center text-[13px] text-muted-foreground">Talk through pricing and volume.</p>
+            </div>
           </div>
         </div>
       </div>
