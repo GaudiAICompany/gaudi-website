@@ -174,3 +174,26 @@ per user request ("let the visual do the explaining").
   = Quoted $18,400 via Check; Delta Mechanical / Austin Voltage = Invited).
 - Old `output-estimate.png` stays deleted; no new image assets needed (reused
   input-blueprint.png in the audit card).
+
+### Seventh pass (per user feedback)
+- **Merged transition + hub into one visual.** Deleted `ScribbleFlow` and
+  `GaudiMind` (brain SVG + "Gaudi thinks it through" label are gone). New
+  `ChaosToOrder`: the tangled scrawl SVG unravels into a single primary thread
+  that runs directly into a solid primary disc (the disc is the resolution
+  point, with only a faint inner ring for polish, no icon/text inside). Disc
+  overlaps the SVG (-ml-5) so it reads continuous. Desktop size-28, mobile
+  size-24. "Gaudi runs it" zone label kept above it.
+- **Trimmed bottom cards.** Removed the descriptive paragraphs from AuditCard and
+  SubsCard; each is now uppercase label + one short heading + the visual example
+  (audit micro-caption shortened to "Gaudi relearns your pricing").
+- **Realistic data + fixed mismatches.** Request now matches the doc ("price the
+  Myra Ave residence" ↔ "Myra Ave Residence"). Line items are internally
+  plausible (qty×unit≈value) with real plan-style sources: 1/2" 4×8 drywall ·
+  68 sheets $965 (Sheet A-3), 2×4×8 SPF studs · 320 ct $1,280 (Sheet S-2), paint
+  14 gal $742 (Finish schedule). Subs are all electrical for an electrical
+  package (fixed the old HVAC "Delta Mechanical"): Lone Star Electric $18,400 /
+  Capitol City Electric / Delta Power & Light; files use CSI div 26 (Spec 26 05
+  00, Plans E-1 to E-4). Scheduling prompt got a concrete date (June 14).
+- **Bigger images.** Channel tiles [grid-auto-rows] 7.5rem → 9rem, column 280 →
+  300px; audit blueprint w-36/40 h-28 → w-44/52 h-36 with a larger highlight box.
+- No em dashes anywhere in the section (copy or comments).
