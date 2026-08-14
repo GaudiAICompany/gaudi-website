@@ -203,10 +203,10 @@ function EstimateDoc() {
         </div>
 
         <div className="mt-3 flex items-center justify-between">
-          <span className="inline-block rotate-[-3deg] rounded-md border border-[#1e3a5f]/40 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-[#1e3a5f]">
+          <span className="inline-flex items-center rounded-md border border-[#1e3a5f]/40 px-2 py-1 text-[9px] font-bold uppercase leading-none tracking-wider text-[#1e3a5f]">
             Ready to send
           </span>
-          <p className="text-[11px] text-muted-foreground">+ 125 more line items</p>
+          <p className="text-[11px] leading-none text-muted-foreground">+ 125 more line items</p>
         </div>
       </div>
     </div>
@@ -261,13 +261,13 @@ function OutputZone() {
 
 function AuditCard() {
   return (
-    <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+    <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 sm:p-8">
       <p className="text-xs font-semibold uppercase tracking-wider text-primary">Audit &amp; edit</p>
       <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">
         Trace any number. Edit anything.
       </h3>
 
-      <div className="mt-6 flex items-center gap-4 sm:gap-5">
+      <div className="mt-6 flex flex-1 items-center gap-4 sm:gap-5">
         {/* the source */}
         <div className="relative w-52 shrink-0 overflow-hidden rounded-xl ring-1 ring-border sm:w-60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -313,14 +313,14 @@ const SUBS = [
 
 function SubsCard() {
   return (
-    <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+    <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 sm:p-8">
       {/* label: Sub coordination */}
       <p className="text-xs font-semibold uppercase tracking-wider text-primary">Sub coordination</p>
       <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">
         Package it. Send for quotes.
       </h3>
 
-      <div className="mt-6 flex items-center gap-4 sm:gap-5">
+      <div className="mt-6 flex flex-1 items-center gap-4 sm:gap-5">
         {/* the package */}
         <div className="w-44 shrink-0 rounded-xl border border-border bg-secondary/50 p-4">
           <p className="flex items-center gap-1.5 text-[13px] font-semibold text-foreground">
