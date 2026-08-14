@@ -49,10 +49,15 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
                 <span className="font-sans text-5xl font-light tracking-[-0.02em] lg:text-6xl">$150</span>
                 <span className="text-sm leading-tight text-section-dark-foreground/60">per completed estimate</span>
               </div>
-              <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-[13px] font-medium text-primary-foreground">
-                <Check className="size-3.5" aria-hidden="true" />
-                Your first 5 estimates are free
-              </p>
+              <div className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-2">
+                <span className="inline-flex items-center gap-2 text-[15px] font-medium text-section-dark-foreground">
+                  <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-primary-foreground">
+                    Free
+                  </span>
+                  First 5 estimates
+                </span>
+                <span className="text-[13px] text-section-dark-foreground/55">No credit card required</span>
+              </div>
             </div>
 
             {/* Feature list */}
@@ -68,7 +73,6 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
             {/* Inline conversion row: email + Get started in one step */}
             <div className="mt-8 lg:mt-auto lg:pt-8">
               <ConversionForm apiBase={apiBase} apiKey={apiKey} buttonLabel="Get started" tone="dark" />
-              <p className="mt-3 px-2 text-[13px] text-section-dark-foreground/55">No credit card required.</p>
             </div>
           </div>
 
@@ -109,11 +113,6 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
             </a>
           </div>
         </div>
-
-        <p className="mx-auto mt-10 max-w-2xl text-center text-sm text-muted-foreground">
-          Both plans include the full Gaudi platform. You only ever pay for estimates you complete, no card required to
-          start.
-        </p>
       </div>
     </section>
   )
