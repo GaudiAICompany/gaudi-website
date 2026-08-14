@@ -32,7 +32,7 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
 
         <div className="mx-auto mt-14 grid max-w-5xl items-stretch gap-6 lg:grid-cols-[1.5fr_1fr]">
           {/* Primary, self-serve card */}
-          <div className="relative flex flex-col rounded-3xl border border-primary/30 bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-primary/20 lg:p-10">
+          <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">Self-serve</p>
             <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Pay per estimate</h3>
 
@@ -86,15 +86,25 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
           </div>
 
           {/* Secondary, custom card */}
-          <div className="flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground lg:p-10">
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Larger teams</p>
+          <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Larger teams</p>
             <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Enterprise</h3>
 
             {/* Persona targeting — mirrors the self-serve card's built-for box */}
             <div className="mt-5 rounded-2xl bg-secondary/60 p-5">
               <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Built for</p>
-              <p className="mt-2.5 text-sm leading-relaxed text-foreground/85">
-                Teams that need high-volume or custom plans.
+              <div className="mt-2.5 flex flex-wrap gap-2">
+                {["High-volume teams", "Custom plans"].map((persona) => (
+                  <span
+                    key={persona}
+                    className="rounded-full border border-border bg-card px-3 py-1.5 text-sm font-medium text-foreground"
+                  >
+                    {persona}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Scoped to your volume and workflow.
               </p>
             </div>
 
@@ -112,7 +122,7 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               {customFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <Check className="mt-0.5 size-[18px] shrink-0 text-primary" aria-hidden="true" />
-                  <span className="text-[15px] leading-snug text-foreground/80">{feature}</span>
+                  <span className="text-[15px] leading-snug text-foreground/85">{feature}</span>
                 </li>
               ))}
             </ul>
