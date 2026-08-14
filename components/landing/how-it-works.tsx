@@ -103,54 +103,40 @@ function Channels() {
 }
 
 /* ------------------- Transition: chaos resolves into Gaudi ---------------- */
-/* One continuous visual: a tangled scrawl on the input side unravels into a
-   single clean thread that resolves directly into the solid Gaudi disc. The
-   shape transition alone carries the meaning, no icon or label inside. */
+/* A single continuous line: it starts as a tangled scrawl on the input side and
+   unwinds, left to right, into one smooth loop, the resolution point, clearly
+   labeled Gaudi. A stroke gradient carries the eye from grey chaos to brand
+   order. No separate disc, icon, or glow, so it reads as one flowing metaphor
+   and its background stays flush with the rest of the panel. */
 
-function ChaosToOrder({ className, discSize = "size-28" }: { className?: string; discSize?: string }) {
+function ChaosToOrder({ className }: { className?: string }) {
   return (
-    <div className={cn("relative flex items-center", className)}>
+    <div className={cn("relative", className)}>
       <svg
-        viewBox="0 0 190 120"
-        className="h-24 w-40 shrink-0"
+        viewBox="0 0 200 124"
+        className="h-28 w-auto"
         role="img"
-        aria-label="Tangled, messy inputs resolving into a single clean shape"
+        aria-label="One tangled line unwinding into a single clean loop labeled Gaudi"
       >
-        {/* chaos, a dense tangled scribble */}
-        <g
-          fill="none"
-          stroke="currentColor"
-          className="text-muted-foreground/55"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M12,60 C28,30 58,26 50,54 C42,86 12,80 28,50 C44,20 86,30 68,64 C50,98 18,86 40,54 C60,24 96,36 78,68 C58,102 26,88 48,56 C64,30 90,50 72,72" />
-          <path d="M22,44 C38,36 64,42 58,58 C52,76 28,72 38,52 C48,34 80,44 70,66" />
-          <path d="M18,76 C34,68 56,72 64,56" />
-          <path d="M32,30 C44,40 42,54 32,58" />
-        </g>
-        {/* the thread untangles into one clean line */}
+        <defs>
+          <linearGradient id="chaosToOrder" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="currentColor" className="text-muted-foreground/45" />
+            <stop offset="55%" stopColor="currentColor" className="text-primary/70" />
+            <stop offset="100%" stopColor="currentColor" className="text-primary" />
+          </linearGradient>
+        </defs>
         <path
-          d="M70,60 C96,44 118,78 142,60 C160,50 176,66 190,60"
+          d="M10,60 C22,38 48,44 42,62 C36,82 14,74 28,52 C44,26 74,40 60,64 C50,84 32,76 46,56 C58,38 74,50 68,62 C86,52 96,66 116,62 C116,43 131,28 150,28 C169,28 184,43 184,62 C184,81 169,96 150,96 C131,96 116,81 116,62"
           fill="none"
-          stroke="currentColor"
-          className="text-primary"
+          stroke="url(#chaosToOrder)"
           strokeWidth="2.75"
           strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
-
-      {/* resolution point: the solid Gaudi shape */}
-      <div
-        className={cn(
-          "relative -ml-5 shrink-0 rounded-full bg-primary [filter:drop-shadow(0_14px_28px_rgba(195,90,37,0.32))]",
-          discSize,
-        )}
-        aria-hidden="true"
-      >
-        <span className="absolute inset-[10px] rounded-full ring-1 ring-primary-foreground/25" />
-      </div>
+      <span className="pointer-events-none absolute left-[75%] top-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[15px] font-semibold tracking-tight text-foreground">
+        Gaudi
+      </span>
     </div>
   )
 }
@@ -221,9 +207,9 @@ function EstimateDoc() {
 
 const SAMPLE_PROMPTS = [
   { q: "What outlets are spec'd for the kitchen?", tag: "Spec lookup" },
-  { q: "When must framing start to hit the June 14 close?", tag: "Scheduling" },
+  { q: "When is the takeoff due for the Market St bid?", tag: "Deadlines" },
   { q: "How many drywall sheets on level 2?", tag: "Quantities" },
-  { q: "What's my margin on this bid?", tag: "Financials" },
+  { q: "How much do I owe Lone Star Electric?", tag: "Payables" },
 ]
 
 function OutputZone() {
@@ -320,7 +306,8 @@ const SUBS = [
 function SubsCard() {
   return (
     <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
-      <p className="text-xs font-semibold uppercase tracking-wider text-primary">Send to subs</p>
+      {/* label: Sub coordination */}
+      <p className="text-xs font-semibold uppercase tracking-wider text-primary">Sub coordination</p>
       <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">
         Package it. Send for quotes.
       </h3>
@@ -420,7 +407,7 @@ export function HowItWorks() {
 
             <div>
               <ZoneLabel>Gaudi runs it</ZoneLabel>
-              <ChaosToOrder discSize="size-24" />
+              <ChaosToOrder />
             </div>
 
             <ArrowDown className="size-6 text-primary" aria-hidden="true" />
