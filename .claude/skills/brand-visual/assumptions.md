@@ -116,3 +116,30 @@ per user request ("let the visual do the explaining").
   ("Traced to Blueprint pg A-3") + editable ($965 dashed box + pencil). Two
   short margin annotations (Search / Sparkles) cover trace-to-source and
   edit→learns. Reads as an art-directed marketing composition, not a screenshot.
+
+### Fifth pass (per user feedback)
+- **Tighter left headline.** Section title is now "Send it *however it lands*."
+  (however it lands = Newsreader italic primary) — captures the "no reformatting
+  needed" idea in the spirit of the old step-1 copy, but short.
+- **Bigger input photos.** ChannelTile grid rows bumped 6.5rem → 8.5rem and left
+  column widened to 340px so the photos are the clear focus, not thumbnails.
+- **Center = brain, not arch.** The arch didn't communicate. Replaced GaudiArch
+  with `GaudiMind`: a brain drawn in Gaudi's structural line language (folds as
+  masonry "courses") inside the round primary hub, plus two lit synapse nodes =
+  active thinking/processing. Caption: "Gaudi thinks it through".
+- **Branded GC output document.** Replaced the abstract answer card with
+  `EstimateDoc` — a real GC letterhead the contractor could forward to a client:
+  monogram + "Rivera Construction Co. · Lic #GC-4471 · Austin, TX", doc title,
+  "Prepared for J. Okafor", $41,750, and a "Ready to send" stamp.
+- **Edit/audit made visual.** Line items now render inside the doc with an inline
+  source-trace chip on every row (Blueprint pg A-3 / Email · Rivera / Site photo)
+  and the drywall row shown mid-edit (dashed primary box + pencil, tinted). The
+  interaction lives in the card, not as caption text.
+- **Component is now interactive** ("use client" + useState). Output switcher
+  chips: Takeoff / Estimate / Sub-quote / **Ask a question**. The Q&A option
+  (`QuestionAnswer`) shows Gaudi answering a direct spec question ("20A
+  tamper-resistant GFCI outlets…") with a source citation — Gaudi as something
+  you can just ask, not only a document generator. Each tab swaps the serif
+  request line too.
+- **Reduced right-side copy** to two labeled idea cards: "Gaudi runs it" and
+  "Review, not redo" (minimal supporting lines).
