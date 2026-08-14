@@ -138,13 +138,7 @@ function ChaosToOrder({ className, outgoing = false }: { className?: string; out
         <img src="/logo_text.png" alt="Gaudi" className="w-24" />
       </div>
 
-      {/* outgoing connector, joined directly to the circle so the flow reads continuous */}
-      {outgoing && (
-        <>
-          <span className="h-[2.75px] w-9 rounded-full bg-primary" aria-hidden="true" />
-          <ArrowRight className="-ml-1.5 size-7 shrink-0 text-primary" aria-hidden="true" />
-        </>
-      )}
+      {/* outgoing connector removed */}
     </div>
   )
 }
