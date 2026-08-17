@@ -17,8 +17,7 @@ export const metadata: Metadata = {
   },
 }
 
-// ─── Replace with your real Calendly link ───────────────────────────────────
-const CALENDLY_URL = "https://calendly.com/heygaudi/intro"
+const CALENDLY_URL = "https://calendly.com/begumcital"
 const CONTACT_EMAIL = "contact@heygaudi.ai"
 
 const founders = [
