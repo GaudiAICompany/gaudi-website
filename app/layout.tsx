@@ -1,27 +1,32 @@
 import type React from "react"
 import type { Metadata } from "next"
 import Script from 'next/script';
-import { Playfair_Display, Source_Sans_3 } from "next/font/google"
+import { Geist, Newsreader } from "next/font/google"
 import "./globals.css"
 
-const playfair = Playfair_Display({
+// assumption: Swiss-neutral sans for headings + body (Geist), understated and
+// modern. See .claude/skills/brand-visual/assumptions.md
+const geist = Geist({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-playfair",
-  weight: ["400", "700"],
+  variable: "--font-geist",
+  weight: ["400", "500", "600", "700"],
 })
 
-const sourceSans = Source_Sans_3({
+// assumption: clean, readable serif italic for emphasis moments — pairs with
+// Geist and reads as a distinct beat without feeling ornate.
+const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-source-sans",
-  weight: ["400", "600"],
+  variable: "--font-newsreader",
+  weight: ["400", "500"],
+  style: ["italic"],
 })
 
 export const metadata: Metadata = {
-  title: "Gaudi AI",
+  title: "Gaudi AI | The AI estimator that helps you win more work",
   description:
-    "Transform your construction projects with cutting-edge AI technology. Build smarter, faster, and more efficiently.",
+    "Gaudi turns blueprints, RFPs, and site notes into accurate, ready-to-send estimates in minutes, so you can bid faster and win more work. $150 per estimate. First 5 free.",
   generator: "v0.app",
 }
 
@@ -31,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSans.variable} antialiased`}>
+    <html lang="en" className={`${geist.variable} ${newsreader.variable} antialiased bg-background`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RDKTVR94C3"
