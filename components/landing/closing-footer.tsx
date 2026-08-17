@@ -1,4 +1,5 @@
-import { ArrowRight, CalendarDays, Linkedin, Mail } from "lucide-react"
+import { ArrowRight, Linkedin, Mail } from "lucide-react"
+import { ContactTabs } from "@/components/landing/contact-tabs"
 
 export function ClosingCta() {
   return (
@@ -12,7 +13,7 @@ export function ClosingCta() {
           />
           <div className="absolute inset-0 bg-section-dark/75" />
           <div className="relative flex flex-col items-start gap-6 px-6 py-16 text-section-dark-foreground sm:px-14 sm:py-24">
-            <h2 className="max-w-3xl text-balance font-sans text-4xl font-bold leading-[0.98] tracking-[-0.02em] sm:text-6xl">
+            <h2 className="max-w-3xl text-balance font-sans text-4xl font-light leading-[0.95] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
               Ready to see your <span className="font-serif text-[1.08em] font-medium italic text-primary">own numbers?</span>
             </h2>
             <a
@@ -33,23 +34,14 @@ export function Contact() {
   return (
     <section id="contact" className="px-4 pb-20 sm:px-6">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col items-center gap-6 rounded-3xl border border-border bg-card px-6 py-14 text-center">
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary">Contact</p>
-          <h2 className="max-w-xl text-balance font-sans text-2xl font-bold leading-tight text-foreground sm:text-3xl">
-            Talk to us about your next bid.
-          </h2>
-          <a
-            href="https://calendly.com/heygaudi/intro"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
-          >
-            <CalendarDays className="size-4" />
-            Book a time or email us
-          </a>
-          <a href="mailto:contact@heygaudi.ai" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-            contact@heygaudi.ai
-          </a>
+        <div className="flex flex-col items-center gap-8 rounded-3xl border border-border bg-card px-6 py-14 text-center">
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-sm font-semibold uppercase tracking-wider text-primary">Contact</p>
+            <h2 className="max-w-xl text-balance font-sans text-3xl font-light leading-[1.02] tracking-[-0.02em] text-foreground sm:text-4xl">
+              Talk to us about your next bid.
+            </h2>
+          </div>
+          <ContactTabs />
         </div>
       </div>
     </section>
@@ -124,7 +116,7 @@ export function SiteFooter() {
 
       {/* Oversized, full-bleed wordmark clipped by the page edge (Sable-style typographic treatment) */}
       <div aria-hidden="true" className="pointer-events-none select-none px-4 sm:px-6">
-        <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#2c2c2a] sm:text-[26vw]">
+        <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#2f2620] sm:text-[26vw]">
           Gaudi AI
         </span>
       </div>

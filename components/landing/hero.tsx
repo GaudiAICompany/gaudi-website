@@ -18,7 +18,7 @@ function RotatingWord() {
   }, [])
 
   return (
-    <span className="relative inline-grid align-baseline font-serif text-[1.14em] font-medium italic leading-[0.9] text-primary">
+    <span className="relative inline-grid align-baseline font-serif text-[1.1em] font-medium italic leading-[0.9] text-primary">
       <span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-nowrap">
         {LONGEST}
       </span>
@@ -56,14 +56,14 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
               Your next best hire
             </p>
 
-            <h1 className="font-sans text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+            <h1 className="font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl xl:text-8xl">
               <span className="whitespace-nowrap">
                 The AI <RotatingWord />
               </span>{" "}
               that helps you win more work.
             </h1>
 
-            <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/75">
+            <p className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-white/80">
               Gaudi turns blueprints, RFPs, and site notes into accurate, ready-to-send estimates in minutes, so you can
               bid faster and win more work.
             </p>

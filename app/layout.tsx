@@ -1,20 +1,20 @@
 import type React from "react"
 import type { Metadata } from "next"
 import Script from 'next/script';
-import { Geist, Newsreader } from "next/font/google"
+import { Hanken_Grotesk, Newsreader } from "next/font/google"
 import "./globals.css"
 
-// assumption: Swiss-neutral sans for headings + body (Geist), understated and
-// modern. See .claude/skills/brand-visual/assumptions.md
-const geist = Geist({
+// Large, confident display type is a clean geometric grotesque (Hanken Grotesk)
+// shown at big sizes with light weights.
+const hanken = Hanken_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-geist",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-hanken",
+  weight: ["200", "300", "400", "500", "600", "700"],
 })
 
-// assumption: clean, readable serif italic for emphasis moments — pairs with
-// Geist and reads as a distinct beat without feeling ornate.
+// A warm serif italic (Newsreader) is used only for the emphasis word inside
+// headlines — a single distinct beat against the grotesque display type.
 const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${newsreader.variable} antialiased bg-background`}>
+    <html lang="en" className={`${hanken.variable} ${newsreader.variable} antialiased bg-background`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RDKTVR94C3"
