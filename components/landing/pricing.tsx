@@ -16,7 +16,7 @@ const customFeatures = [
 
 export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
   return (
-    <section id="pricing" className="px-4 py-20 sm:px-6 lg:py-28">
+    <section id="pricing" className="px-4 py-14 sm:px-6 lg:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">Pricing</p>

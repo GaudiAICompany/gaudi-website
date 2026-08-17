@@ -3,7 +3,7 @@ import { ContactTabs } from "@/components/landing/contact-tabs"
 
 export function ClosingCta() {
   return (
-    <section className="px-4 py-20 sm:px-6 lg:py-28">
+    <section className="px-4 py-14 sm:px-6 lg:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="relative overflow-hidden rounded-3xl border border-border">
           <img
@@ -32,7 +32,7 @@ export function ClosingCta() {
 
 export function Contact() {
   return (
-    <section id="contact" className="px-4 pb-20 sm:px-6">
+    <section id="contact" className="px-4 pb-14 sm:px-6">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col items-center gap-8 rounded-3xl border border-border bg-card px-6 py-14 text-center">
           <div className="flex flex-col items-center gap-3">

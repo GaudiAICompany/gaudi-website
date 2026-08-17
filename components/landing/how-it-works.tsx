@@ -368,7 +368,7 @@ function ZoneLabel({ children }: { children: React.ReactNode }) {
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="px-4 py-20 sm:px-6 lg:py-28">
+    <section id="how-it-works" className="px-4 py-14 sm:px-6 lg:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">How it works</p>
