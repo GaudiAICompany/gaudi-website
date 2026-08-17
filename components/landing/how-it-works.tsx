@@ -386,10 +386,10 @@ function ZoneLabel({ children }: { children: React.ReactNode }) {
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="px-4 py-14 sm:px-6 lg:py-20">
+    <section id="product" className="px-4 py-14 sm:px-6 lg:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">How it works</p>
+          <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">Product</p>
           <h2 className="text-balance font-sans text-3xl font-light leading-[1.08] tracking-[-0.02em] text-foreground sm:text-4xl">
             Gaudi turns blueprints, RFPs, and site notes into accurate, ready-to-send estimates in minutes, so you can{" "}
             <span className="font-serif text-[1.06em] font-medium italic text-primary">

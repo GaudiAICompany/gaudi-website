@@ -84,8 +84,8 @@ export function SiteFooter() {
             <div>
               <p className="text-sm font-semibold text-section-dark-foreground">Product</p>
               <ul className="mt-4 space-y-3 text-sm text-section-dark-foreground/70">
-                <li><a href="#how-it-works" className="transition-colors hover:text-section-dark-foreground">Estimator</a></li>
-                <li><a href="#how-it-works" className="transition-colors hover:text-section-dark-foreground">Bid coordinator</a></li>
+                <li><a href="/#product" className="transition-colors hover:text-section-dark-foreground">Estimator</a></li>
+                <li><a href="/#product" className="transition-colors hover:text-section-dark-foreground">Bid coordinator</a></li>
                 <li><a href="#pricing" className="transition-colors hover:text-section-dark-foreground">Pricing</a></li>
               </ul>
             </div>

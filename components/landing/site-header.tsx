@@ -47,7 +47,7 @@ export function SiteHeader() {
 
           <nav className="hidden items-center gap-1 lg:flex">
             <a
-              href="#how-it-works"
+              href="/#product"
               className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
                 onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
               }`}
@@ -63,7 +63,7 @@ export function SiteHeader() {
               Pricing
             </a>
             <a
-              href="#how-it-works"
+              href="/#product"
               className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
                 onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
               }`}
@@ -108,7 +108,7 @@ export function SiteHeader() {
           <div className="mt-2 rounded-2xl border border-border bg-card p-3 shadow-lg lg:hidden">
             <nav className="flex flex-col">
               <a
-                href="#how-it-works"
+                href="/#product"
                 onClick={() => setMobileOpen(false)}
                 className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
               >
@@ -117,7 +117,7 @@ export function SiteHeader() {
               <a href="#pricing" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
                 Pricing
               </a>
-              <a href="#how-it-works" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+              <a href="/#product" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
                 Resources
               </a>
               <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
