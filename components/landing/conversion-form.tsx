@@ -38,16 +38,47 @@ export function ConversionForm({
     if (!value.trim() || status === "loading") return
     setStatus("loading")
 
-    const payload = isMobile ? { phone: value, source: buttonLabel } : { email: value, source: buttonLabel }
+    // The capture_cta_email endpoint expects a lead record with an `email`
+    // field (plus firstName/lastName/company/message). Previously this form
+    // sent `{ email, source }` or, on mobile, `{ phone, source }` with no
+    // `email` at all, which the endpoint rejected -> status "error".
+    const trimmed = value.trim()
+    const payload = {
+      email: isMobile ? "" : trimmed,
+      phone: isMobile ? trimmed : "",
+      firstName: "",
+      lastName: "",
+      company: "Landing CTA",
+      message: `CTA submission from "${buttonLabel}"`,
+      source: buttonLabel,
+    }
+
+    const url = `${apiBase}/api/capture_cta_email?code=${apiKey}`
+
+    console.log("[v0] conversion submit start", {
+      hasApiBase: Boolean(apiBase),
+      hasApiKey: Boolean(apiKey),
+      isMobile,
+      url,
+      payload,
+    })
 
     try {
-      const url = `${apiBase}/api/capture_cta_email?code=${apiKey}`
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       })
-      if (!res.ok) throw new Error(String(res.status))
+
+      console.log("[v0] conversion submit response", { ok: res.ok, status: res.status })
+
+      if (!res.ok) {
+        const body = await res.text().catch(() => "")
+        console.error("[v0] conversion submit non-ok", { status: res.status, body })
+        throw new Error(`Request failed with status ${res.status}`)
+      }
+
+      console.log("[v0] conversion submit success")
       setStatus("success")
       setValue("")
     } catch (err) {
