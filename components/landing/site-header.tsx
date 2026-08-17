@@ -1,61 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { ChevronDown, Menu, X } from "lucide-react"
-
-type MenuItem = { label: string; href: string; desc?: string }
-
-const products: MenuItem[] = [
-  { label: "Estimator", href: "#how-it-works", desc: "Takeoffs, quantities, and pricing, checked automatically." },
-  { label: "Bid coordinator", href: "#how-it-works", desc: "Level bids and keep every sub on the same page." },
-]
-
-const solutions: MenuItem[] = [
-  { label: "General Contractors", href: "#solutions", desc: "Win more bids without hiring more estimators." },
-  { label: "Estimators", href: "#solutions", desc: "Spend your day reviewing, not re-typing." },
-  { label: "Developers", href: "#solutions", desc: "Know your real costs before you commit." },
-]
-
-function NavDropdown({ label, items, onDark }: { label: string; items: MenuItem[]; onDark: boolean }) {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button
-        type="button"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-        className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition-colors ${
-          onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
-        }`}
-      >
-        {label}
-        <ChevronDown className={`size-4 transition-transform ${open ? "rotate-180" : ""}`} />
-      </button>
-      {open && (
-        <div className="absolute left-0 top-full w-72 pt-2">
-          <div className="overflow-hidden rounded-2xl border border-border bg-popover p-2 shadow-lg">
-            {items.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="block rounded-xl px-3 py-2.5 transition-colors hover:bg-secondary"
-              >
-                <span className="block font-sans text-sm font-semibold text-foreground">{item.label}</span>
-                {item.desc && (
-                  <span className="mt-0.5 block font-sans text-sm font-normal leading-relaxed text-muted-foreground">
-                    {item.desc}
-                  </span>
-                )}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
+import { Menu, X } from "lucide-react"
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
@@ -100,8 +46,14 @@ export function SiteHeader() {
           </a>
 
           <nav className="hidden items-center gap-1 lg:flex">
-            <NavDropdown label="Products" items={products} onDark={onDark} />
-            <NavDropdown label="Solutions" items={solutions} onDark={onDark} />
+            <a
+              href="#how-it-works"
+              className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+                onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
+              }`}
+            >
+              Product
+            </a>
             <a
               href="#pricing"
               className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
@@ -155,16 +107,13 @@ export function SiteHeader() {
         {mobileOpen && (
           <div className="mt-2 rounded-2xl border border-border bg-card p-3 shadow-lg lg:hidden">
             <nav className="flex flex-col">
-              {[...products, ...solutions].map((item) => (
-                <a
-                  key={`${item.label}-m`}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-                >
-                  {item.label}
-                </a>
-              ))}
+              <a
+                href="#how-it-works"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              >
+                Product
+              </a>
               <a href="#pricing" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
                 Pricing
               </a>
