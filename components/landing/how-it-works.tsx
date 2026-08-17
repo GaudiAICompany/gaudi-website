@@ -102,43 +102,61 @@ function Channels() {
   )
 }
 
-/* ------------------- Transition: chaos resolves into Gaudi ---------------- */
-/* A single continuous line: a tangled scrawl on the input side unwinds, left to
-   right, into one clean thread that resolves into the Gaudi mark, a bordered
-   circle carrying the actual logo. A stroke gradient carries the eye from grey
-   chaos to brand order. */
+/* ------------------- Transition: inputs flow into Gaudi ---------------- */
+/* A single left-to-right arrow with the Gaudi mark seated in its middle: the
+   shaft enters from the input side, passes through the bordered brand circle,
+   and continues into an arrowhead pointing at the client-ready results. */
 
-function ChaosToOrder({ className, outgoing = false }: { className?: string; outgoing?: boolean }) {
+function ChaosToOrder({ className }: { className?: string }) {
   return (
     <div className={cn("flex items-center", className)}>
+      {/* incoming shaft from the left */}
       <svg
-        viewBox="0 0 150 120"
-        className="h-24 w-28 shrink-0"
+        viewBox="0 0 48 24"
+        className="h-6 w-12 shrink-0"
         role="img"
-        aria-label="Tangled inputs unwinding into a single clean line that resolves into Gaudi"
+        aria-label="Inputs flow left to right into Gaudi"
       >
-        <defs>
-          <linearGradient id="chaosToOrder" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="currentColor" className="text-muted-foreground/45" />
-            <stop offset="100%" stopColor="currentColor" className="text-primary" />
-          </linearGradient>
-        </defs>
+        <line
+          x1="0"
+          y1="12"
+          x2="48"
+          y2="12"
+          stroke="currentColor"
+          className="text-primary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      {/* the Gaudi mark, centered in the arrow */}
+      <div className="-mx-1 flex size-32 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-card">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo_text.png" alt="Gaudi AI" className="w-24" />
+      </div>
+
+      {/* outgoing shaft with arrowhead pointing right */}
+      <svg viewBox="0 0 56 24" className="h-6 w-14 shrink-0" role="img" aria-hidden="true">
+        <line
+          x1="0"
+          y1="12"
+          x2="48"
+          y2="12"
+          stroke="currentColor"
+          className="text-primary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
         <path
-          d="M10,60 C22,38 48,44 42,62 C36,82 14,74 28,52 C44,26 74,40 60,64 C50,84 32,76 46,56 C58,38 74,50 68,62 C92,54 122,58 150,60"
+          d="M42,5 L55,12 L42,19"
           fill="none"
-          stroke="url(#chaosToOrder)"
-          strokeWidth="2.75"
+          stroke="currentColor"
+          className="text-primary"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </svg>
-
-      <div className="-ml-2 flex size-32 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-card">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo_text.png" alt="Gaudi" className="w-24" />
-      </div>
-
-      {/* outgoing connector removed */}
     </div>
   )
 }
@@ -394,7 +412,7 @@ export function HowItWorks() {
             </div>
 
             <div className="shrink-0">
-              <ChaosToOrder outgoing />
+              <ChaosToOrder />
             </div>
 
             <div className="min-w-0 flex-1">
