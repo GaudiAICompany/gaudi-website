@@ -23,12 +23,10 @@ const CONTACT_EMAIL = "contact@heygaudi.ai"
 const founders = [
   {
     name: "Sebastian Piedra Rodriguez",
-    role: "Co-founder",
     linkedin: "https://www.linkedin.com/in/sebastian-piedra-rodriguez",
   },
   {
     name: "Begüm Cital",
-    role: "Co-founder",
     linkedin: "https://www.linkedin.com/in/begumcital",
   },
 ]
@@ -156,7 +154,7 @@ function FounderCard({
   founder,
   align,
 }: {
-  founder: { name: string; role: string; linkedin: string }
+  founder: { name: string; linkedin: string }
   align: "left" | "right"
 }) {
   return (
@@ -167,7 +165,6 @@ function FounderCard({
     >
       <div>
         <p className="font-sans text-lg font-semibold tracking-tight">{founder.name}</p>
-        <p className="text-sm text-muted-foreground">{founder.role}</p>
       </div>
       <a
         href={founder.linkedin}
