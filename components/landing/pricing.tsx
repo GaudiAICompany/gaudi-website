@@ -30,13 +30,12 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
           </p>
         </div>
 
+        {/* Both cards share one layout so they read as a matched pair; width (1.5fr vs 1fr) is the only signal of which is primary. The orange ring is intentionally hover/focus-only, never resting. */}
         <div className="mx-auto mt-14 grid max-w-5xl items-stretch gap-6 lg:grid-cols-[1.5fr_1fr]">
-          {/* Primary, self-serve card */}
           <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">Self-serve</p>
             <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Pay per estimate</h3>
 
-            {/* Persona targeting — prominent so visitors instantly self-identify */}
             <div className="mt-5 rounded-2xl bg-secondary/60 p-5">
               <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Built for</p>
               <div className="mt-2.5 flex flex-wrap gap-2">
@@ -54,7 +53,6 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               </p>
             </div>
 
-            {/* Price zone */}
             <div className="mt-8 border-t border-border pt-8">
               <div className="flex items-baseline gap-2">
                 <span className="font-sans text-5xl font-light tracking-[-0.02em] lg:text-6xl">$150</span>
@@ -69,7 +67,6 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               </div>
             </div>
 
-            {/* Feature list */}
             <ul className="mt-8 space-y-3.5">
               {primaryFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
@@ -79,18 +76,16 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               ))}
             </ul>
 
-            {/* Inline conversion row: email + Get started in one step */}
+            {/* Inline email+submit so self-serve signup is one step, not a click-through to a separate form. */}
             <div className="mt-8 lg:mt-auto lg:pt-8">
               <ConversionForm apiBase={apiBase} apiKey={apiKey} buttonLabel="Get started" tone="light" />
             </div>
           </div>
 
-          {/* Secondary, custom card */}
           <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">Larger teams</p>
             <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Enterprise</h3>
 
-            {/* Persona targeting — mirrors the self-serve card's built-for box */}
             <div className="mt-5 rounded-2xl bg-secondary/60 p-5">
               <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Built for</p>
               <div className="mt-2.5 flex flex-wrap gap-2">
@@ -108,7 +103,6 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               </p>
             </div>
 
-            {/* Price zone — mirrors the self-serve card's price zone position */}
             <div className="mt-8 border-t border-border pt-8">
               <div className="flex items-baseline gap-2">
                 <span className="font-sans text-5xl font-light tracking-[-0.02em] lg:text-6xl">Custom</span>
@@ -117,7 +111,6 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               <p className="mt-4 text-[13px] text-muted-foreground">Talk through pricing and volume.</p>
             </div>
 
-            {/* Feature list */}
             <ul className="mt-8 space-y-3.5">
               {customFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
@@ -127,7 +120,6 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
               ))}
             </ul>
 
-            {/* CTA area builds toward Contact sales as the clear next action */}
             <div className="mt-8 lg:mt-auto lg:pt-8">
               <a
                 href="#contact"

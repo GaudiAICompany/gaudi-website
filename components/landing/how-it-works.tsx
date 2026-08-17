@@ -137,8 +137,6 @@ function ChaosToOrder({ className, outgoing = false }: { className?: string; out
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo_text.png" alt="Gaudi" className="w-24" />
       </div>
-
-      {/* outgoing connector removed */}
     </div>
   )
 }
