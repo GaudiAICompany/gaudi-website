@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 }
 
-const CALENDLY_URL = "https://calendly.com/begumcital"
+const CALENDLY_URL = "https://calendly.com/begumcital/gaudi-ai-intro-call-website?back=1"
 const CONTACT_EMAIL = "contact@heygaudi.ai"
 
 const founders = [
