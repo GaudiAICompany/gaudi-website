@@ -3,12 +3,14 @@
 import { useEffect, useRef, useState } from "react"
 import { Menu, X } from "lucide-react"
 
-export function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false)
+export function SiteHeader({ solid = false }: { solid?: boolean }) {
+  const [scrolled, setScrolled] = useState(solid)
   const [mobileOpen, setMobileOpen] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    // Interior pages pass `solid` to keep the bar in its light/solid state.
+    if (solid) return
     const onScroll = () => {
       const hero = document.getElementById("hero")
       const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0
@@ -28,10 +30,10 @@ export function SiteHeader() {
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
     }
-  }, [])
+  }, [solid])
 
   // While the hero is still behind the bar it floats over the dark image, so nav needs light text.
-  const onDark = !scrolled
+  const onDark = !solid && !scrolled
 
   return (
     <header ref={headerRef} className="fixed inset-x-0 top-0 z-50">
@@ -41,7 +43,7 @@ export function SiteHeader() {
             scrolled ? "border border-border bg-card/90 shadow-sm backdrop-blur-md" : "border border-transparent"
           }`}
         >
-          <a href="#hero" className="flex items-center" aria-label="Gaudi AI home">
+          <a href="/" className="flex items-center" aria-label="Gaudi AI home">
             <img src="/logo_text.png" alt="Gaudi AI" className="h-6 w-auto sm:h-7" />
           </a>
 
@@ -55,7 +57,7 @@ export function SiteHeader() {
               Product
             </a>
             <a
-              href="#pricing"
+              href="/#pricing"
               className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
                 onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
               }`}
@@ -63,7 +65,7 @@ export function SiteHeader() {
               Pricing
             </a>
             <a
-              href="/#product"
+              href="/about"
               className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
                 onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
               }`}
@@ -74,7 +76,7 @@ export function SiteHeader() {
 
           <div className="hidden items-center gap-2 lg:flex">
             <a
-              href="#contact"
+              href="/#contact"
               className={`inline-flex h-10 items-center justify-center rounded-full border px-4 text-sm font-semibold transition-colors ${
                 onDark
                   ? "border-white/25 text-white hover:bg-white/10"
@@ -84,7 +86,7 @@ export function SiteHeader() {
               Contact Sales
             </a>
             <a
-              href="#hero"
+              href="/#hero"
               className="inline-flex h-10 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
             >
               Get started
@@ -114,22 +116,22 @@ export function SiteHeader() {
               >
                 Product
               </a>
-              <a href="#pricing" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+              <a href="/#pricing" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
                 Pricing
               </a>
-              <a href="/#product" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+              <a href="/about" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
                 Resources
               </a>
               <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
                 <a
-                  href="#contact"
+                  href="/#contact"
                   onClick={() => setMobileOpen(false)}
                   className="inline-flex h-11 items-center justify-center rounded-full border border-border px-4 text-sm font-semibold text-foreground"
                 >
                   Contact Sales
                 </a>
                 <a
-                  href="#hero"
+                  href="/#hero"
                   onClick={() => setMobileOpen(false)}
                   className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
                 >
