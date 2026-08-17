@@ -107,11 +107,6 @@ export function SiteFooter() {
             </div>
           </div>
         </div>
-
-        {/* Copyright sits above the oversized wordmark */}
-        <div className="flex items-center justify-between border-t border-section-dark-foreground/15 py-6 text-sm text-section-dark-foreground/50">
-          <p>&copy; {new Date().getFullYear()} Gaudi AI. All rights reserved.</p>
-        </div>
       </div>
 
       {/* Oversized, full-bleed wordmark clipped by the page edge (Sable-style typographic treatment) */}
@@ -120,6 +115,11 @@ export function SiteFooter() {
           Gaudi AI
         </span>
       </div>
+
+      {/* Copyright pinned to the bottom-left of the page */}
+      <p className="absolute bottom-4 left-4 text-sm text-section-dark-foreground/50 sm:left-6">
+        &copy; {new Date().getFullYear()} Gaudi AI. All rights reserved.
+      </p>
     </footer>
   )
 }
