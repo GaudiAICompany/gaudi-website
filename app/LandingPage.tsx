@@ -20,7 +20,7 @@ export default function LandingPage({
         <HowItWorks />
         <ConversionBand apiBase={functionApiBase} apiKey={functionApiKey} />
         <Pricing apiBase={functionApiBase} apiKey={functionApiKey} />
-        <ClosingCta />
+        <ClosingCta apiBase={functionApiBase} apiKey={functionApiKey} />
         <Contact />
       </main>
       <SiteFooter />

@@ -1,7 +1,8 @@
-import { ArrowRight, Linkedin, Mail } from "lucide-react"
+import { Linkedin, Mail } from "lucide-react"
 import { ContactTabs } from "@/components/landing/contact-tabs"
+import { ConversionForm, CtaTrustRow } from "@/components/landing/conversion-form"
 
-export function ClosingCta() {
+export function ClosingCta({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
   return (
     <section className="px-4 py-14 sm:px-6 lg:py-20">
       <div className="mx-auto max-w-7xl">
@@ -16,13 +17,15 @@ export function ClosingCta() {
             <h2 className="max-w-3xl text-balance font-sans text-4xl font-light leading-[0.95] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
               Ready to see your <span className="font-serif text-[1.08em] font-medium italic text-primary">own numbers?</span>
             </h2>
-            <a
-              href="#hero"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
-            >
-              Get started
-              <ArrowRight className="size-4" />
-            </a>
+            <div className="w-full max-w-xl">
+              <ConversionForm
+                apiBase={apiBase}
+                apiKey={apiKey}
+                buttonLabel="Get started on a free estimate"
+                tone="dark"
+              />
+              <CtaTrustRow className="mt-5" />
+            </div>
           </div>
         </div>
       </div>
