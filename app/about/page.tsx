@@ -49,11 +49,11 @@ export default function AboutPage() {
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">About</p>
             <div className="max-w-3xl">
               <h1 className="font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:whitespace-nowrap lg:text-7xl">
-                From the job site,{" "}
-                <span className="font-serif text-[1.06em] font-medium italic text-primary">not a lab.</span>
+                Built by people who{" "}
+                <span className="font-serif text-[1.06em] font-medium italic text-primary">build for a living.</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:whitespace-nowrap">
-                Built by people who run construction, not just software.
+                We know how construction really works because we&apos;ve lived it.
               </p>
             </div>
           </div>
@@ -79,8 +79,11 @@ export default function AboutPage() {
             <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
               <div className="lg:col-span-6">
                 <h2 className="text-balance font-sans text-3xl font-light leading-[1.1] tracking-[-0.02em] sm:text-4xl">
-                  We cut estimates from{" "}
-                  <span className="font-serif text-[1.05em] font-medium italic text-primary">days to minutes.</span>
+                  We&apos;re building AI tools that{" "}
+                  <span className="font-serif text-[1.05em] font-medium italic text-primary">
+                    save time and cut headaches
+                  </span>{" "}
+                  on every project.
                 </h2>
               </div>
               <div className="lg:col-span-6">
@@ -101,8 +104,8 @@ export default function AboutPage() {
               <div className="lg:col-span-5">
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary">Who&apos;s behind Gaudi</p>
                 <h2 className="mt-3 text-balance font-sans text-3xl font-light leading-[1.08] tracking-[-0.02em] sm:text-4xl">
-                  Contractors and AI builders,{" "}
-                  <span className="font-serif text-[1.05em] font-medium italic text-primary">on one crew.</span>
+                  Builders and AI people,{" "}
+                  <span className="font-serif text-[1.05em] font-medium italic text-primary">on the same crew.</span>
                 </h2>
               </div>
 
@@ -160,7 +163,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Contact: mirrors the landing page's contact section ───────────── */}
+        {/* ─��� Contact: mirrors the landing page's contact section ───────────── */}
         <section id="contact" className="px-4 pb-16 sm:px-6 lg:pb-24">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col items-center gap-8 rounded-3xl border border-border bg-card px-6 py-14 text-center sm:py-16">
