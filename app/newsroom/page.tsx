@@ -156,7 +156,7 @@ export default function NewsroomPage() {
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">Newsroom</p>
             <div className="max-w-3xl">
               <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
-                The Gaudi <span className="font-serif text-[1.06em] font-medium italic text-primary">Newsroom.</span>
+                Gaudi in the <span className="font-serif text-[1.06em] font-medium italic text-primary">press.</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:whitespace-nowrap">
                 Learn more about Gaudi AI, where we&apos;ve been, and where we&apos;re headed next.

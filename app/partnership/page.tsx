@@ -65,29 +65,35 @@ export default function PartnerPage() {
         {/* ── Ways to partner + pinned contact card ─────────────────────────── */}
         <section className="px-4 py-14 sm:px-6 lg:py-20">
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_20rem] lg:gap-12">
-            <div className="divide-y divide-border border-t border-border">
+            <div className="flex flex-col gap-12 sm:gap-14">
               {partnerWays.map(({ title, hook, body }) => (
-                <div key={title} className="py-8 first:pt-0 sm:py-10">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">{title}</p>
-                  <h3 className="mt-3 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-2xl">
-                    {hook}
-                  </h3>
-                  <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">{body}</p>
+                <div key={title} className="grid gap-x-6 gap-y-2 sm:grid-cols-[auto_1fr]">
+                  <p className="pt-1 font-mono text-sm text-primary sm:pt-1.5">{title}</p>
+                  <div>
+                    <h3 className="text-pretty font-sans text-2xl font-light leading-tight tracking-[-0.02em] text-foreground sm:text-3xl">
+                      {hook}
+                    </h3>
+                    <p className="mt-3 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+                      {body}
+                    </p>
+                  </div>
                 </div>
               ))}
 
               {/* Webinars — folded in as the fourth item, with an inline signup */}
-              <div className="py-8 sm:py-10">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Webinars</p>
-                <h3 className="mt-3 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-2xl">
-                  Join our next webinar.
-                </h3>
-                <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
-                  Live talks on AI for general contractors, no hype, just what works on a real job site. Get notified
-                  when the next one&apos;s scheduled.
-                </p>
-                <div className="mt-4 max-w-md">
-                  <WebinarNotify />
+              <div className="grid gap-x-6 gap-y-2 sm:grid-cols-[auto_1fr]">
+                <p className="pt-1 font-mono text-sm text-primary sm:pt-1.5">Webinars</p>
+                <div>
+                  <h3 className="text-pretty font-sans text-2xl font-light leading-tight tracking-[-0.02em] text-foreground sm:text-3xl">
+                    Join our next webinar.
+                  </h3>
+                  <p className="mt-3 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+                    Live talks on AI for general contractors, no hype, just what works on a real job site. Get notified
+                    when the next one&apos;s scheduled.
+                  </p>
+                  <div className="mt-5 max-w-md">
+                    <WebinarNotify />
+                  </div>
                 </div>
               </div>
             </div>
