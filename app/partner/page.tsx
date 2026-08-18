@@ -58,13 +58,13 @@ export default function PartnerPage() {
         <section className="px-4 pt-28 sm:px-6 lg:pt-36">
           <div className="mx-auto max-w-6xl">
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">Partnerships</p>
-            <div className="max-w-3xl">
-              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
-                Ways to work with{" "}
-                <span className="font-serif text-[1.06em] font-medium italic text-primary">Gaudi.</span>
+            <div>
+              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:whitespace-nowrap lg:text-7xl">
+                Ways to{" "}
+                <span className="font-serif text-[1.06em] font-medium italic text-primary">work with Gaudi.</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:whitespace-nowrap">
-                Webinars, education, media, and referrals &mdash; if you build for a living, let&apos;s team up.
+                Webinars, education, media, and referrals. If you build for a living, let&apos;s team up.
               </p>
             </div>
           </div>
