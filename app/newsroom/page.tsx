@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { ArrowUpRight, ArrowRight, Play } from "lucide-react"
+import { ArrowUpRight, Play, CalendarDays, Linkedin } from "lucide-react"
 import { SiteHeader } from "@/components/landing/site-header"
 import { SiteFooter } from "@/components/landing/closing-footer"
 
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 
 const MEDIA_EMAIL = "media@heygaudi.ai"
 const LINKEDIN_COMPANY = "https://www.linkedin.com/company/gaudiai/"
+const CALENDLY_URL = "https://calendly.com/begumcital/gaudi-ai-partnership-call"
 
 // Newest first. Dates pulled from the source (YouTube publish date, El Financiero
 // byline, and the RE//FORGE post's image timestamp).
@@ -153,11 +154,11 @@ export default function NewsroomPage() {
         <section className="px-4 pt-28 sm:px-6 lg:pt-36">
           <div className="mx-auto max-w-6xl">
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">Newsroom</p>
-            <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-12">
-              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:col-span-8 lg:text-7xl">
+            <div className="max-w-3xl">
+              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
                 The Gaudi <span className="font-serif text-[1.06em] font-medium italic text-primary">Newsroom.</span>
               </h1>
-              <p className="text-pretty text-lg leading-relaxed text-muted-foreground lg:col-span-4">
+              <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
                 Learn more about Gaudi AI, where we&apos;ve been, and where we&apos;re headed next.
               </p>
             </div>
@@ -173,16 +174,6 @@ export default function NewsroomPage() {
                   <NewsCard key={item.href} item={item} />
                 ))}
               </div>
-
-              <a
-                href={LINKEDIN_COMPANY}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
-              >
-                Follow Gaudi on LinkedIn
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
             </div>
 
             {/* pinned at the top per the wireframe */}
@@ -197,12 +188,33 @@ export default function NewsroomPage() {
                 </p>
                 <a
                   href={`mailto:${MEDIA_EMAIL}`}
-                  className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
+                  className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
                 >
                   Email us
                   <ArrowUpRight className="size-4" />
                 </a>
                 <p className="mt-4 text-sm text-section-dark-foreground/60">{MEDIA_EMAIL}</p>
+
+                <div className="mt-6 space-y-3 border-t border-section-dark-foreground/15 pt-6">
+                  <a
+                    href={CALENDLY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-section-dark-foreground/25 px-6 text-sm font-semibold text-section-dark-foreground transition-colors hover:border-primary hover:text-primary"
+                  >
+                    <CalendarDays className="size-4" aria-hidden="true" />
+                    Book a partnership call
+                  </a>
+                  <a
+                    href={LINKEDIN_COMPANY}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-section-dark-foreground/25 px-6 text-sm font-semibold text-section-dark-foreground transition-colors hover:border-primary hover:text-primary"
+                  >
+                    <Linkedin className="size-4" aria-hidden="true" />
+                    Follow Gaudi on LinkedIn
+                  </a>
+                </div>
               </div>
             </aside>
           </div>
