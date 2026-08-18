@@ -1,4 +1,4 @@
-import { Linkedin, Mail } from "lucide-react"
+import { Linkedin } from "lucide-react"
 import { ContactTabs } from "@/components/landing/contact-tabs"
 import { ConversionForm, CtaTrustRow } from "@/components/landing/conversion-form"
 
@@ -73,13 +73,6 @@ export function SiteFooter() {
               >
                 <Linkedin className="size-4" />
               </a>
-              <a
-                href="mailto:contact@heygaudi.ai"
-                aria-label="Email Gaudi AI"
-                className="flex size-9 items-center justify-center rounded-full border border-section-dark-foreground/20 transition-colors hover:bg-section-dark-foreground/10"
-              >
-                <Mail className="size-4" />
-              </a>
             </div>
           </div>
 
@@ -91,23 +84,13 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="transition-colors hover:text-section-dark-foreground">
+                <a href="/#contact" className="transition-colors hover:text-section-dark-foreground">
                   Contact
                 </a>
               </li>
               <li>
                 <a href="/privacy" className="transition-colors hover:text-section-dark-foreground">
                   Privacy
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/gaudiai/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-section-dark-foreground"
-                >
-                  LinkedIn
                 </a>
               </li>
             </ul>
