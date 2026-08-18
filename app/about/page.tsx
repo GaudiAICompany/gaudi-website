@@ -43,64 +43,55 @@ export default function AboutPage() {
       <SiteHeader solid />
 
       <main>
-        {/* ── Hero: centered editorial opener, sized to fit the viewport ─────── */}
+        {/* ── Intro: left-aligned to match /newsroom and /partner ───────────── */}
         <section className="px-4 pt-28 sm:px-6 lg:pt-36">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-6xl">
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">About</p>
-            <h1 className="text-balance font-sans text-5xl font-light leading-[1.0] tracking-[-0.03em] sm:text-6xl">
-              We know construction{" "}
-              <span className="font-serif text-[1.06em] font-medium italic text-primary">from the inside.</span>
-            </h1>
-            <div className="mt-8 space-y-5 text-pretty text-lg leading-relaxed text-muted-foreground">
-              <p>
-                Gaudi is built by people who have managed construction projects, owned and operated properties and
-                shipped AI products used by Fortune 500 companies. We&apos;ve worked inside leading tech companies and
-                research institutions, but we know how construction really works because we&apos;ve lived it.
-              </p>
-              <p>
-                We&apos;re building AI tools that save time, cut headaches, and help every crew and project run smoother.
-                If you build for a living, Gaudi is here to make your job easier.
-              </p>
+            <div className="max-w-3xl">
+              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
+                We know construction{" "}
+                <span className="font-serif text-[1.06em] font-medium italic text-primary">from the inside.</span>
+              </h1>
+              <div className="mt-6 space-y-4 text-pretty text-lg leading-relaxed text-muted-foreground">
+                <p>
+                  Gaudi is built by people who have managed construction projects, owned and operated properties and
+                  shipped AI products used by Fortune 500 companies. We&apos;ve worked inside leading tech companies and
+                  research institutions, but we know how construction really works because we&apos;ve lived it.
+                </p>
+                <p>
+                  We&apos;re building AI tools that save time, cut headaches, and help every crew and project run
+                  smoother. If you build for a living, Gaudi is here to make your job easier.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── Founders: editorial list, tied to the "one crew" idea ──────────── */}
-        <section className="px-4 py-4 sm:px-6">
+        {/* ── Founders: clean full-width list ────────────────────────────────── */}
+        <section className="px-4 pt-14 sm:px-6 lg:pt-20">
           <div className="mx-auto max-w-6xl">
-            <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
-              <div className="lg:col-span-5">
-                <p className="text-xs font-semibold uppercase tracking-wider text-primary">Who&apos;s behind Gaudi</p>
-                <h2 className="mt-3 text-balance font-sans text-3xl font-light leading-[1.08] tracking-[-0.02em] sm:text-4xl">
-                  Builders and AI people,{" "}
-                  <span className="font-serif text-[1.05em] font-medium italic text-primary">on the same crew.</span>
-                </h2>
-              </div>
-
-              <div className="lg:col-span-7">
-                <ul className="border-t border-border">
-                  {founders.map((founder) => (
-                    <li key={founder.name}>
-                      <a
-                        href={founder.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center justify-between gap-4 border-b border-border py-6 transition-colors"
-                      >
-                        <span className="font-sans text-2xl font-light tracking-[-0.01em] text-foreground transition-colors group-hover:text-primary sm:text-3xl">
-                          {founder.name}
-                        </span>
-                        <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors group-hover:text-primary">
-                          <Linkedin className="size-4" />
-                          <span className="hidden sm:inline">LinkedIn</span>
-                          <ArrowUpRight className="size-4" />
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <p className="text-sm font-semibold uppercase tracking-wider text-primary">Founders</p>
+            <ul className="mt-6 border-t border-border">
+              {founders.map((founder) => (
+                <li key={founder.name}>
+                  <a
+                    href={founder.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between gap-4 border-b border-border py-6 transition-colors"
+                  >
+                    <span className="font-sans text-2xl font-light tracking-[-0.01em] text-foreground transition-colors group-hover:text-primary sm:text-3xl">
+                      {founder.name}
+                    </span>
+                    <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors group-hover:text-primary">
+                      <Linkedin className="size-4" />
+                      <span className="hidden sm:inline">LinkedIn</span>
+                      <ArrowUpRight className="size-4" />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
