@@ -73,34 +73,45 @@ export default function PartnerPage() {
               Ways to partner
             </div>
 
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-6 flex flex-col gap-5">
               {partnerWays.map(({ icon: Icon, title, hook, body }) => (
-                <article key={title} className="flex flex-col rounded-3xl border border-border bg-card p-6">
-                  <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary">
+                <article
+                  key={title}
+                  className="flex flex-col gap-4 rounded-3xl border border-border bg-card p-6 sm:flex-row sm:items-start sm:gap-6 sm:p-8"
+                >
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-secondary text-primary">
                     <Icon className="size-5" aria-hidden="true" />
                   </span>
-                  <p className="mt-5 text-[11px] font-semibold uppercase tracking-wider text-primary">{title}</p>
-                  <h3 className="mt-2 text-pretty font-sans text-lg font-medium leading-snug tracking-[-0.01em] text-foreground">
-                    {hook}
-                  </h3>
-                  <p className="mt-2 text-pretty text-[15px] leading-relaxed text-muted-foreground">{body}</p>
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">{title}</p>
+                    <h3 className="mt-2 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground">
+                      {hook}
+                    </h3>
+                    <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+                      {body}
+                    </p>
+                  </div>
                 </article>
               ))}
 
               {/* Webinars — folded in as the fourth card, with an inline signup */}
-              <article className="flex flex-col rounded-3xl border border-border bg-card p-6">
-                <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary">
+              <article className="flex flex-col gap-4 rounded-3xl border border-border bg-card p-6 sm:flex-row sm:items-start sm:gap-6 sm:p-8">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-secondary text-primary">
                   <Video className="size-5" aria-hidden="true" />
                 </span>
-                <p className="mt-5 text-[11px] font-semibold uppercase tracking-wider text-primary">Webinars</p>
-                <h3 className="mt-2 text-pretty font-sans text-lg font-medium leading-snug tracking-[-0.01em] text-foreground">
-                  Join our next webinar.
-                </h3>
-                <p className="mt-2 text-pretty text-[15px] leading-relaxed text-muted-foreground">
-                  Live talks on AI for general contractors, no hype, just what works on a real job site. Get notified
-                  when the next one&apos;s scheduled.
-                </p>
-                <WebinarNotify />
+                <div className="w-full">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Webinars</p>
+                  <h3 className="mt-2 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground">
+                    Join our next webinar.
+                  </h3>
+                  <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+                    Live talks on AI for general contractors, no hype, just what works on a real job site. Get notified
+                    when the next one&apos;s scheduled.
+                  </p>
+                  <div className="max-w-md">
+                    <WebinarNotify />
+                  </div>
+                </div>
               </article>
             </div>
 
