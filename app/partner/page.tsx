@@ -34,7 +34,7 @@ const partnerWays = [
   },
   {
     title: "Podcasts & media",
-    body: "We'll join a conversation on construction, real estate, or AI.",
+    body: "Invite us on to talk construction, real estate, and AI.",
   },
   {
     title: "Individuals & referrals",
