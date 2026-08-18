@@ -166,16 +166,23 @@ export default function AboutPage() {
             <p className="text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Experience from
             </p>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 lg:gap-x-20">
-              {backers.map((b) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={b.alt}
-                  src={b.src || "/placeholder.svg"}
-                  alt={b.alt}
-                  className="h-7 w-auto opacity-55 grayscale transition-all duration-200 hover:opacity-100 hover:grayscale-0 sm:h-8"
-                />
-              ))}
+            {/* seamless left→right marquee; the track is duplicated so it loops without a gap */}
+            <div
+              className="group relative mt-12 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
+              aria-label="Experience from Amazon, Microsoft, Harvard, Goldman Sachs, and AdTheorent"
+            >
+              <div className="flex w-max animate-logo-marquee items-center group-hover:[animation-play-state:paused]">
+                {[...backers, ...backers].map((b, i) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={`${b.alt}-${i}`}
+                    src={b.src || "/placeholder.svg"}
+                    alt={i < backers.length ? b.alt : ""}
+                    aria-hidden={i >= backers.length}
+                    className="mx-10 h-11 w-auto shrink-0 opacity-60 grayscale sm:mx-16 sm:h-14 lg:h-16"
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </section>
