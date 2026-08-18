@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
-import { Linkedin, CalendarDays, ArrowUpRight } from "lucide-react"
+import { Linkedin, ArrowUpRight } from "lucide-react"
 import { SiteHeader } from "@/components/landing/site-header"
 import { SiteFooter } from "@/components/landing/closing-footer"
+import { ContactTabs } from "@/components/landing/contact-tabs"
 
 export const metadata: Metadata = {
   title: "About | Gaudi AI",
@@ -16,9 +17,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 }
-
-const CALENDLY_URL = "https://calendly.com/begumcital/gaudi-ai-intro-call-website?back=1"
-const CONTACT_EMAIL = "contact@heygaudi.ai"
 
 const founders = [
   {
@@ -187,39 +185,21 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Contact: dark closing band for rhythm contrast, single CTA ─────── */}
-        <section className="px-4 pb-16 sm:px-6 lg:pb-24">
-          <div className="mx-auto max-w-6xl">
-            <div className="relative overflow-hidden rounded-3xl bg-section-dark px-6 py-16 text-section-dark-foreground sm:px-14 sm:py-20">
-              <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-12">
-                <div className="lg:col-span-8">
-                  <p className="text-sm font-semibold uppercase tracking-wider text-primary">Contact</p>
-                  <h2 className="mt-4 text-balance font-sans text-4xl font-light leading-[0.98] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
-                    Let&apos;s talk about{" "}
-                    <span className="font-serif text-[1.06em] font-medium italic text-primary">what you&apos;re building.</span>
-                  </h2>
-                  <p className="mt-5 max-w-md text-pretty leading-relaxed text-section-dark-foreground/70">
-                    Book a time to meet the team. We&apos;d love to hear about your projects and where Gaudi can help.
-                  </p>
-                </div>
-                <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
-                  <a
-                    href={CALENDLY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
-                  >
-                    <CalendarDays className="size-4" />
-                    Book a call
-                  </a>
-                  <a
-                    href={`mailto:${CONTACT_EMAIL}`}
-                    className="text-sm text-section-dark-foreground/70 underline-offset-4 transition-colors hover:text-section-dark-foreground hover:underline"
-                  >
-                    or email {CONTACT_EMAIL}
-                  </a>
-                </div>
+        {/* ── Contact: mirrors the landing page's contact section ───────────── */}
+        <section id="contact" className="px-4 pb-16 sm:px-6 lg:pb-24">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex flex-col items-center gap-8 rounded-3xl border border-border bg-card px-6 py-14 text-center sm:py-16">
+              <div className="flex flex-col items-center gap-4">
+                <p className="text-sm font-semibold uppercase tracking-wider text-primary">Contact</p>
+                <h2 className="max-w-2xl text-balance font-sans text-3xl font-light leading-[1.02] tracking-[-0.02em] text-foreground sm:text-4xl">
+                  Let&apos;s talk about{" "}
+                  <span className="font-serif text-[1.05em] font-medium italic text-primary">what you&apos;re building.</span>
+                </h2>
+                <p className="max-w-md text-pretty leading-relaxed text-muted-foreground">
+                  Book a time to meet the team. We&apos;d love to hear about your projects and where Gaudi can help.
+                </p>
               </div>
+              <ContactTabs />
             </div>
           </div>
         </section>
