@@ -63,9 +63,8 @@ export default function PartnerPage() {
                 Ways to work with{" "}
                 <span className="font-serif text-[1.06em] font-medium italic text-primary">Gaudi.</span>
               </h1>
-              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                Webinars, education, media, and referrals. If you build for a living or serve people who do,
-                there&apos;s a way to team up.
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:whitespace-nowrap">
+                Webinars, education, media, and referrals &mdash; if you build for a living, let&apos;s team up.
               </p>
             </div>
           </div>
