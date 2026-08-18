@@ -65,43 +65,30 @@ export default function PartnerPage() {
         {/* ── Ways to partner + pinned contact card ─────────────────────────── */}
         <section className="px-4 py-14 sm:px-6 lg:py-20">
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_20rem] lg:gap-12">
-            <div>
-              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
-                Ways to partner
-              </div>
-
-              <div className="mt-6 flex flex-col gap-6">
-                {partnerWays.map(({ title, hook, body }) => (
-                  <article key={title} className="rounded-3xl border border-border bg-card p-6 sm:p-8">
-                    <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
-                      {title}
-                    </div>
-                    <h3 className="mt-3 text-pretty font-sans text-lg font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-xl">
-                      {hook}
-                    </h3>
-                    <p className="mt-2 text-pretty text-[15px] leading-relaxed text-muted-foreground">{body}</p>
-                  </article>
-                ))}
-
-                {/* Webinars — folded in as the fourth card, with an inline signup */}
-                <article className="rounded-3xl border border-border bg-card p-6 sm:p-8">
-                  <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
-                    Webinars
-                  </div>
-                  <h3 className="mt-3 text-pretty font-sans text-lg font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-xl">
-                    Join our next webinar.
+            <div className="divide-y divide-border border-t border-border">
+              {partnerWays.map(({ title, hook, body }) => (
+                <div key={title} className="py-8 first:pt-0 sm:py-10">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">{title}</p>
+                  <h3 className="mt-3 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-2xl">
+                    {hook}
                   </h3>
-                  <p className="mt-2 text-pretty text-[15px] leading-relaxed text-muted-foreground">
-                    Live talks on AI for general contractors, no hype, just what works on a real job site. Get notified
-                    when the next one&apos;s scheduled.
-                  </p>
-                  <div className="mt-4 max-w-md">
-                    <WebinarNotify />
-                  </div>
-                </article>
+                  <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">{body}</p>
+                </div>
+              ))}
+
+              {/* Webinars — folded in as the fourth item, with an inline signup */}
+              <div className="py-8 sm:py-10">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Webinars</p>
+                <h3 className="mt-3 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-2xl">
+                  Join our next webinar.
+                </h3>
+                <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+                  Live talks on AI for general contractors, no hype, just what works on a real job site. Get notified
+                  when the next one&apos;s scheduled.
+                </p>
+                <div className="mt-4 max-w-md">
+                  <WebinarNotify />
+                </div>
               </div>
             </div>
 
@@ -146,7 +133,7 @@ export default function PartnerPage() {
           </div>
         </section>
 
-        {/* ── Standalone photo, pulled out to a full-width block at the bottom ── */}
+        {/* ── Standalone photo, pulled out to a full-width block at the bottom ��─ */}
         <section className="px-4 pb-20 sm:px-6 lg:pb-28">
           <figure className="mx-auto max-w-6xl">
             <div className="relative overflow-hidden rounded-3xl ring-1 ring-border">
