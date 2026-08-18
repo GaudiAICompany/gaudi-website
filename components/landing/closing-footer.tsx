@@ -83,32 +83,35 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
-            <div>
-              <p className="text-sm font-semibold text-section-dark-foreground">Product</p>
-              <ul className="mt-4 space-y-3 text-sm text-section-dark-foreground/70">
-                <li><a href="/#product" className="transition-colors hover:text-section-dark-foreground">Estimator</a></li>
-                <li><a href="/#product" className="transition-colors hover:text-section-dark-foreground">Bid coordinator</a></li>
-                <li><a href="#pricing" className="transition-colors hover:text-section-dark-foreground">Pricing</a></li>
-              </ul>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-section-dark-foreground">Solutions</p>
-              <ul className="mt-4 space-y-3 text-sm text-section-dark-foreground/70">
-                <li><a href="#pricing" className="transition-colors hover:text-section-dark-foreground">General Contractors</a></li>
-                <li><a href="#pricing" className="transition-colors hover:text-section-dark-foreground">Estimators</a></li>
-                <li><a href="#pricing" className="transition-colors hover:text-section-dark-foreground">Developers</a></li>
-              </ul>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-section-dark-foreground">Company</p>
-              <ul className="mt-4 space-y-3 text-sm text-section-dark-foreground/70">
-                <li><a href="#contact" className="transition-colors hover:text-section-dark-foreground">Contact</a></li>
-                <li><a href="/careers/engineering" className="transition-colors hover:text-section-dark-foreground">Careers</a></li>
-                <li><a href="/privacy" className="transition-colors hover:text-section-dark-foreground">Privacy</a></li>
-              </ul>
-            </div>
-          </div>
+          <nav aria-label="Footer" className="md:pt-1">
+            <ul className="flex flex-col gap-4 text-base text-section-dark-foreground/70 sm:flex-row sm:gap-10">
+              <li>
+                <a href="/#product" className="transition-colors hover:text-section-dark-foreground">
+                  Product
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="transition-colors hover:text-section-dark-foreground">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a href="/privacy" className="transition-colors hover:text-section-dark-foreground">
+                  Privacy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/gaudiai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-section-dark-foreground"
+                >
+                  LinkedIn
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
 
