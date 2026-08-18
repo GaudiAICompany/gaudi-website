@@ -1,4 +1,3 @@
-import { Linkedin } from "lucide-react"
 import { ContactTabs } from "@/components/landing/contact-tabs"
 import { ConversionForm, CtaTrustRow } from "@/components/landing/conversion-form"
 
@@ -53,60 +52,39 @@ export function Contact() {
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-section-dark text-section-dark-foreground">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-col gap-10 py-14 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-sm">
-            <p className="font-sans text-lg font-extrabold tracking-tight">
-              Gaudi<span className="text-primary"> AI</span>
-            </p>
-            <p className="mt-3 leading-relaxed text-section-dark-foreground/70">
-              The AI estimator and bid coordinator for people who build for a living.
-            </p>
-            <div className="mt-5 flex gap-3">
-              <a
-                href="https://www.linkedin.com/company/gaudiai/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Gaudi AI on LinkedIn"
-                className="flex size-9 items-center justify-center rounded-full border border-section-dark-foreground/20 transition-colors hover:bg-section-dark-foreground/10"
-              >
-                <Linkedin className="size-4" />
+    <footer className="overflow-hidden bg-section-dark text-section-dark-foreground">
+      {/* Small, understated nav pinned top-right, with generous space beneath (Sable-style) */}
+      <div className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:pt-16">
+        <nav aria-label="Footer" className="flex justify-end">
+          <ul className="flex gap-8 text-sm text-section-dark-foreground/70 sm:gap-12">
+            <li>
+              <a href="/#product" className="transition-colors hover:text-section-dark-foreground">
+                Product
               </a>
-            </div>
-          </div>
-
-          <nav aria-label="Footer" className="md:pt-1">
-            <ul className="flex flex-col gap-4 text-base text-section-dark-foreground/70 sm:flex-row sm:gap-10">
-              <li>
-                <a href="/#product" className="transition-colors hover:text-section-dark-foreground">
-                  Product
-                </a>
-              </li>
-              <li>
-                <a href="/#contact" className="transition-colors hover:text-section-dark-foreground">
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="/privacy" className="transition-colors hover:text-section-dark-foreground">
-                  Privacy
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+            </li>
+            <li>
+              <a href="/#contact" className="transition-colors hover:text-section-dark-foreground">
+                Contact
+              </a>
+            </li>
+            <li>
+              <a href="/privacy" className="transition-colors hover:text-section-dark-foreground">
+                Privacy
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
 
-      {/* Oversized, full-bleed wordmark clipped by the page edge (Sable-style typographic treatment) */}
-      <div aria-hidden="true" className="pointer-events-none select-none px-4 sm:px-6">
-        <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#2f2620] sm:text-[26vw]">
+      {/* Dramatically oversized, muted watermark wordmark bleeding off both edges, left-aligned */}
+      <div aria-hidden="true" className="pointer-events-none mt-24 select-none pl-3 sm:mt-32 sm:pl-4">
+        <span className="block whitespace-nowrap font-sans text-[26vw] font-semibold uppercase leading-[0.78] tracking-[-0.055em] text-[#221c17]">
           Gaudi AI
         </span>
       </div>
 
-      {/* Copyright pinned to the bottom-left of the page */}
-      <p className="absolute bottom-4 left-4 text-sm text-section-dark-foreground/50 sm:left-6">
+      {/* Copyright, small and muted, directly beneath the wordmark */}
+      <p className="px-4 pb-5 pt-3 text-sm text-section-dark-foreground/50 sm:px-6">
         &copy; {new Date().getFullYear()} Gaudi AI. All rights reserved.
       </p>
     </footer>
