@@ -65,11 +65,11 @@ export default function PartnerPage() {
         {/* ── Ways to partner + pinned contact card ─────────────────────────── */}
         <section className="px-4 py-14 sm:px-6 lg:py-20">
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_20rem] lg:gap-12">
-            <div className="divide-y divide-border border-t border-border">
+            <div className="flex flex-col gap-8">
               {partnerWays.map(({ title, hook, body }) => (
-                <div key={title} className="py-8 first:pt-0 sm:py-10">
+                <div key={title}>
                   <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">{title}</p>
-                  <h3 className="mt-3 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-2xl">
+                  <h3 className="mt-2 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-2xl">
                     {hook}
                   </h3>
                   <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">{body}</p>
@@ -77,9 +77,9 @@ export default function PartnerPage() {
               ))}
 
               {/* Webinars — folded in as the fourth item, with an inline signup */}
-              <div className="py-8 sm:py-10">
+              <div>
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Webinars</p>
-                <h3 className="mt-3 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-2xl">
+                <h3 className="mt-2 text-pretty font-sans text-xl font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-2xl">
                   Join our next webinar.
                 </h3>
                 <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
