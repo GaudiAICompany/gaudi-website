@@ -64,7 +64,7 @@ function VoiceOverlay() {
 
 function Channels() {
   return (
-    <div className="grid grid-cols-2 gap-3 [grid-auto-rows:11rem]">
+    <div className="grid grid-cols-2 gap-3 [grid-auto-rows:10rem]">
       <ChannelTile
         src="/images/how-it-works/input-call.png"
         alt="Contractor taking a call from the truck"
@@ -226,38 +226,37 @@ function EstimateDoc() {
 }
 
 const SAMPLE_PROMPTS = [
-  { q: "What outlets are spec'd for the kitchen?", tag: "Spec lookup" },
-  { q: "When is the takeoff due for the Market St bid?", tag: "Deadlines" },
-  { q: "How many drywall sheets on level 2?", tag: "Quantities" },
-  { q: "How much do I owe Lone Star Electric?", tag: "Payables" },
+  "What outlets are spec'd for the kitchen?",
+  "When is the takeoff due for the Market St bid?",
+  "How many drywall sheets on level 2?",
+  "How much do I owe Lone Star Electric?",
 ]
 
 function OutputZone() {
   return (
     <div>
       {/* the spoken request that produced the document */}
-      <div className="mb-4 flex items-start gap-2.5">
+      <div className="mb-3 flex items-start gap-2.5">
         <MessageSquare className="mt-1 size-5 shrink-0 text-primary" aria-hidden="true" />
         <p className="text-pretty font-serif text-lg italic leading-snug text-foreground/85">
           &ldquo;Hey Gaudi, price the Myra Ave residence.&rdquo;
         </p>
       </div>
 
-      <div className="flex flex-col gap-5 xl:flex-row xl:items-start">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
         <div className="min-w-0 flex-1">
           <EstimateDoc />
         </div>
 
         {/* several example prompts, positioned alongside the output */}
-        <div className="xl:w-56 xl:shrink-0">
+        <div className="lg:w-52 lg:shrink-0">
           <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
             Or just ask Gaudi
           </p>
-          <ul className="grid grid-cols-2 gap-2 xl:grid-cols-1">
-            {SAMPLE_PROMPTS.map((p) => (
-              <li key={p.q} className="rounded-xl border border-border bg-card px-3 py-2">
-                <p className="text-[12.5px] leading-snug text-foreground">&ldquo;{p.q}&rdquo;</p>
-                <p className="mt-1 text-[10px] font-medium uppercase tracking-wider text-primary/80">{p.tag}</p>
+          <ul className="grid grid-cols-2 gap-2 lg:grid-cols-1">
+            {SAMPLE_PROMPTS.map((q) => (
+              <li key={q} className="rounded-xl border border-border bg-card px-3 py-2">
+                <p className="text-[12.5px] leading-snug text-foreground">&ldquo;{q}&rdquo;</p>
               </li>
             ))}
           </ul>
@@ -380,34 +379,35 @@ function SubsCard() {
 
 function ZoneLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-4 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">{children}</p>
+    <p className="mb-2.5 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+      {children}
+    </p>
   )
 }
 
 export function HowItWorks() {
   return (
-    <section id="product" className="px-4 py-14 sm:px-6 lg:py-20">
+    <section id="product" className="px-4 py-8 sm:px-6 lg:py-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">Product</p>
-          <h2 className="text-balance font-sans text-3xl font-light leading-[1.08] tracking-[-0.02em] text-foreground sm:text-4xl">
-            Gaudi turns blueprints, RFPs, and site notes into accurate, ready-to-send estimates in minutes, so you can{" "}
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">Product</p>
+          <h2 className="text-balance font-sans text-3xl font-light leading-[1.05] tracking-[-0.02em] text-foreground sm:text-4xl">
+            Blueprints and site notes into ready-to-send estimates,{" "}
             <span className="font-serif text-[1.06em] font-medium italic text-primary">
-              bid faster and win more work.
+              so you bid faster and win.
             </span>
           </h2>
         </div>
 
-        <div className="mt-14 rounded-3xl border border-border bg-card p-6 sm:p-10">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Intake to estimate</p>
-          <h3 className="mt-2 font-sans text-xl font-light leading-snug tracking-tight text-foreground lg:whitespace-nowrap xl:text-2xl">
+        <div className="mt-6 rounded-3xl border border-border bg-card p-4 sm:p-5">
+          <h3 className="font-sans text-xl font-light leading-snug tracking-tight text-foreground lg:whitespace-nowrap xl:text-2xl">
             Any format, any channel. Just ask for what you need.
           </h3>
 
           {/* Desktop flow */}
-          <div className="mt-8 hidden items-center gap-5 lg:flex xl:gap-6">
+          <div className="mt-4 hidden items-center gap-5 lg:flex xl:gap-6">
             <div className="w-[340px] shrink-0">
-              <ZoneLabel>Send Gaudi your project information</ZoneLabel>
+              <ZoneLabel>What you send</ZoneLabel>
               <Channels />
             </div>
 
@@ -422,9 +422,9 @@ export function HowItWorks() {
           </div>
 
           {/* Mobile / tablet flow */}
-          <div className="mt-8 flex flex-col items-center gap-5 lg:hidden">
+          <div className="mt-6 flex flex-col items-center gap-5 lg:hidden">
             <div className="w-full max-w-md">
-              <ZoneLabel>Send Gaudi your project information</ZoneLabel>
+              <ZoneLabel>What you send</ZoneLabel>
               <Channels />
             </div>
 
