@@ -158,7 +158,7 @@ export default function NewsroomPage() {
               <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
                 The Gaudi <span className="font-serif text-[1.06em] font-medium italic text-primary">Newsroom.</span>
               </h1>
-              <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:whitespace-nowrap">
                 Learn more about Gaudi AI, where we&apos;ve been, and where we&apos;re headed next.
               </p>
             </div>
@@ -183,9 +183,6 @@ export default function NewsroomPage() {
                 <h2 className="mt-3 text-balance font-sans text-2xl font-light leading-[1.1] tracking-[-0.02em]">
                   Want to speak with a rep from Gaudi?
                 </h2>
-                <p className="mt-3 leading-relaxed text-section-dark-foreground/70">
-                  Email the media team and we&apos;ll connect you with the right person.
-                </p>
                 <a
                   href={`mailto:${MEDIA_EMAIL}`}
                   className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
@@ -193,7 +190,7 @@ export default function NewsroomPage() {
                   Email us
                   <ArrowUpRight className="size-4" />
                 </a>
-                <p className="mt-4 text-sm text-section-dark-foreground/60">{MEDIA_EMAIL}</p>
+                <p className="mt-3 text-center text-xs text-section-dark-foreground/60">{MEDIA_EMAIL}</p>
 
                 <div className="mt-6 space-y-3 border-t border-section-dark-foreground/15 pt-6">
                   <a
