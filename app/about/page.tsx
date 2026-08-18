@@ -48,12 +48,12 @@ export default function AboutPage() {
           <div className="mx-auto max-w-6xl">
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">About</p>
             <div className="max-w-3xl">
-              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
-                Built by people who{" "}
-                <span className="font-serif text-[1.06em] font-medium italic text-primary">build for a living.</span>
+              <h1 className="font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:whitespace-nowrap lg:text-7xl">
+                From the job site,{" "}
+                <span className="font-serif text-[1.06em] font-medium italic text-primary">not a lab.</span>
               </h1>
-              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                We know how construction really works because we&apos;ve lived it.
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:whitespace-nowrap">
+                Built by people who run construction, not just software.
               </p>
             </div>
           </div>
@@ -69,11 +69,6 @@ export default function AboutPage() {
                 alt="Gaudi's founders standing together in front of an active residential construction site"
                 className="h-[280px] w-full object-cover sm:h-[380px] lg:h-[460px]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/55 via-foreground/5 to-transparent" />
-              <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-[12px] font-semibold text-foreground shadow-sm backdrop-blur sm:bottom-6 sm:left-6">
-                <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
-                On site with the Gaudi team
-              </span>
             </div>
           </div>
         </section>
@@ -84,11 +79,8 @@ export default function AboutPage() {
             <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
               <div className="lg:col-span-6">
                 <h2 className="text-balance font-sans text-3xl font-light leading-[1.1] tracking-[-0.02em] sm:text-4xl">
-                  We&apos;re building AI tools that{" "}
-                  <span className="font-serif text-[1.05em] font-medium italic text-primary">
-                    save time and cut headaches
-                  </span>{" "}
-                  on every project.
+                  We cut estimates from{" "}
+                  <span className="font-serif text-[1.05em] font-medium italic text-primary">days to minutes.</span>
                 </h2>
               </div>
               <div className="lg:col-span-6">
@@ -109,8 +101,8 @@ export default function AboutPage() {
               <div className="lg:col-span-5">
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary">Who&apos;s behind Gaudi</p>
                 <h2 className="mt-3 text-balance font-sans text-3xl font-light leading-[1.08] tracking-[-0.02em] sm:text-4xl">
-                  Builders and AI people,{" "}
-                  <span className="font-serif text-[1.05em] font-medium italic text-primary">on the same crew.</span>
+                  Contractors and AI builders,{" "}
+                  <span className="font-serif text-[1.05em] font-medium italic text-primary">on one crew.</span>
                 </h2>
               </div>
 
