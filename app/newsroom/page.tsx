@@ -200,7 +200,7 @@ export default function NewsroomPage() {
                     className="group inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-section-dark-foreground/25 px-6 text-sm font-semibold text-section-dark-foreground transition-colors hover:border-primary hover:text-primary"
                   >
                     <CalendarDays className="size-4" aria-hidden="true" />
-                    Book a partnership call
+                    Book a call
                   </a>
                   <a
                     href={LINKEDIN_COMPANY}

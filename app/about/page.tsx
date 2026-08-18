@@ -43,52 +43,50 @@ export default function AboutPage() {
       <SiteHeader solid />
 
       <main>
-        {/* ── Intro: left-aligned to match /newsroom and /partner ───────────── */}
+        {/* ── Intro: centered to match the landing page's rhythm ────────────── */}
         <section className="px-4 pt-28 sm:px-6 lg:pt-36">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">About</p>
-            <div className="max-w-3xl">
-              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
-                We know construction{" "}
-                <span className="font-serif text-[1.06em] font-medium italic text-primary">from the inside.</span>
-              </h1>
-              <div className="mt-6 space-y-4 text-pretty text-lg leading-relaxed text-muted-foreground">
-                <p>
-                  Gaudi is built by people who have managed construction projects, owned and operated properties and
-                  shipped AI products used by Fortune 500 companies. We&apos;ve worked inside leading tech companies and
-                  research institutions, but we know how construction really works because we&apos;ve lived it.
-                </p>
-                <p>
-                  We&apos;re building AI tools that save time, cut headaches, and help every crew and project run
-                  smoother. If you build for a living, Gaudi is here to make your job easier.
-                </p>
-              </div>
+            <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl">
+              We know construction{" "}
+              <span className="font-serif text-[1.06em] font-medium italic text-primary">from the inside.</span>
+            </h1>
+            <div className="mt-6 space-y-4 text-pretty text-lg leading-relaxed text-muted-foreground">
+              <p>
+                Gaudi is built by people who have managed construction projects, owned and operated properties and
+                shipped AI products used by Fortune 500 companies. We&apos;ve worked inside leading tech companies and
+                research institutions, but we know how construction really works because we&apos;ve lived it.
+              </p>
+              <p>
+                We&apos;re building AI tools that save time, cut headaches, and help every crew and project run smoother.
+                If you build for a living, Gaudi is here to make your job easier.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* ── Founders: clean full-width list ────────────────────────────────── */}
-        <section className="px-4 pt-14 sm:px-6 lg:pt-20">
-          <div className="mx-auto max-w-6xl">
-            <p className="text-sm font-semibold uppercase tracking-wider text-primary">Founders</p>
-            <ul className="mt-6 border-t border-border">
+        {/* ── Founders: centered, compact cards with small LinkedIn linkouts ─── */}
+        <section className="px-4 pt-16 sm:px-6 lg:pt-24">
+          <div className="mx-auto flex max-w-3xl flex-col items-center">
+            <p className="text-center text-sm font-semibold uppercase tracking-wider text-primary">Founders</p>
+            <ul className="mt-8 grid w-full gap-4 sm:grid-cols-2">
               {founders.map((founder) => (
                 <li key={founder.name}>
-                  <a
-                    href={founder.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center justify-between gap-4 border-b border-border py-6 transition-colors"
-                  >
-                    <span className="font-sans text-2xl font-light tracking-[-0.01em] text-foreground transition-colors group-hover:text-primary sm:text-3xl">
+                  <div className="flex h-full flex-col items-center gap-4 rounded-2xl border border-border bg-card px-6 py-7 text-center">
+                    <span className="font-sans text-xl font-light tracking-[-0.01em] text-foreground">
                       {founder.name}
                     </span>
-                    <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors group-hover:text-primary">
-                      <Linkedin className="size-4" />
-                      <span className="hidden sm:inline">LinkedIn</span>
-                      <ArrowUpRight className="size-4" />
-                    </span>
-                  </a>
+                    <a
+                      href={founder.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border px-3.5 py-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                    >
+                      <Linkedin className="size-3.5" />
+                      LinkedIn
+                      <ArrowUpRight className="size-3.5" />
+                    </a>
+                  </div>
                 </li>
               ))}
             </ul>
