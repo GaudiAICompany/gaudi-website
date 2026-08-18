@@ -38,7 +38,7 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
           {/* Primary, self-serve card */}
           <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-[clamp(1.5rem,3vw,2.5rem)] text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30">
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">Pay per estimate</p>
-            <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">General Contractors, Estimators, Developers</h3>
+            <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">GCs, Estimators, Developers</h3>
 
             {/* Price zone */}
             <div className="mt-[clamp(1rem,2.5vh,1.5rem)] border-t border-border pt-[clamp(1rem,2.5vh,1.5rem)]">
