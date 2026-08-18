@@ -25,37 +25,18 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
             <span className="font-serif text-[1.05em] font-medium italic text-primary">Nothing else.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            No subscriptions, no seats, no contracts. You pay per completed estimate, whether you run one a month or a
-            hundred.
+            No subscriptions, no seats, no contracts.
           </p>
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-5xl items-stretch gap-6 lg:grid-cols-[1.5fr_1fr]">
+        <div className="mx-auto mt-10 grid max-w-5xl items-stretch gap-6 lg:grid-cols-[1.5fr_1fr]">
           {/* Primary, self-serve card */}
           <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">Self-serve</p>
             <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Pay per estimate</h3>
 
-            {/* Persona targeting — prominent so visitors instantly self-identify */}
-            <div className="mt-5 rounded-2xl bg-secondary/60 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Built for</p>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                {["General contractors", "Estimators", "Developers"].map((persona) => (
-                  <span
-                    key={persona}
-                    className="rounded-full border border-border bg-card px-3 py-1.5 text-sm font-medium text-foreground"
-                  >
-                    {persona}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Start today, no sales call required.
-              </p>
-            </div>
-
             {/* Price zone */}
-            <div className="mt-8 border-t border-border pt-8">
+            <div className="mt-6 border-t border-border pt-6">
               <div className="flex items-baseline gap-2">
                 <span className="font-sans text-5xl font-light tracking-[-0.02em] lg:text-6xl">$150</span>
                 <span className="text-sm leading-tight text-muted-foreground">per completed estimate</span>
@@ -70,7 +51,7 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
             </div>
 
             {/* Feature list */}
-            <ul className="mt-8 space-y-3.5">
+            <ul className="mt-6 space-y-3">
               {primaryFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <Check className="mt-0.5 size-[18px] shrink-0 text-primary" aria-hidden="true" />
@@ -80,7 +61,7 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
             </ul>
 
             {/* Inline conversion row: email + Get started in one step */}
-            <div className="mt-8 lg:mt-auto lg:pt-8">
+            <div className="mt-6 lg:mt-auto lg:pt-6">
               <ConversionForm apiBase={apiBase} apiKey={apiKey} buttonLabel="Get started" tone="light" />
             </div>
           </div>
@@ -90,26 +71,8 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">Larger teams</p>
             <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Enterprise</h3>
 
-            {/* Persona targeting — mirrors the self-serve card's built-for box */}
-            <div className="mt-5 rounded-2xl bg-secondary/60 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Built for</p>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                {["High-volume teams", "Custom plans"].map((persona) => (
-                  <span
-                    key={persona}
-                    className="rounded-full border border-border bg-card px-3 py-1.5 text-sm font-medium text-foreground"
-                  >
-                    {persona}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Scoped to your volume and workflow.
-              </p>
-            </div>
-
             {/* Price zone — mirrors the self-serve card's price zone position */}
-            <div className="mt-8 border-t border-border pt-8">
+            <div className="mt-6 border-t border-border pt-6">
               <div className="flex items-baseline gap-2">
                 <span className="font-sans text-5xl font-light tracking-[-0.02em] lg:text-6xl">Custom</span>
                 <span className="text-sm leading-tight text-muted-foreground">pricing</span>
@@ -118,7 +81,7 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
             </div>
 
             {/* Feature list */}
-            <ul className="mt-8 space-y-3.5">
+            <ul className="mt-6 space-y-3">
               {customFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <Check className="mt-0.5 size-[18px] shrink-0 text-primary" aria-hidden="true" />
@@ -128,7 +91,7 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
             </ul>
 
             {/* CTA area builds toward Contact sales as the clear next action */}
-            <div className="mt-8 lg:mt-auto lg:pt-8">
+            <div className="mt-6 lg:mt-auto lg:pt-6">
               <a
                 href="#contact"
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-foreground/15 bg-transparent px-6 text-sm font-semibold text-foreground transition-all hover:bg-secondary active:scale-[0.98]"
