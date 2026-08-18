@@ -43,56 +43,24 @@ export default function AboutPage() {
       <SiteHeader solid />
 
       <main>
-        {/* ── Hero: editorial opener, open on the warm background ───────────── */}
+        {/* ── Hero: centered editorial opener, sized to fit the viewport ─────── */}
         <section className="px-4 pt-28 sm:px-6 lg:pt-36">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-3xl text-center">
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">About</p>
-            <div className="max-w-3xl">
-              <h1 className="font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:whitespace-nowrap lg:text-7xl">
-                Built by people who{" "}
-                <span className="font-serif text-[1.06em] font-medium italic text-primary">build for a living.</span>
-              </h1>
-              <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:whitespace-nowrap">
-                We know how construction really works because we&apos;ve lived it.
+            <h1 className="text-balance font-sans text-5xl font-light leading-[1.0] tracking-[-0.03em] sm:text-6xl">
+              We know construction{" "}
+              <span className="font-serif text-[1.06em] font-medium italic text-primary">from the inside.</span>
+            </h1>
+            <div className="mt-8 space-y-5 text-pretty text-lg leading-relaxed text-muted-foreground">
+              <p>
+                Gaudi is built by people who have managed construction projects, owned and operated properties and
+                shipped AI products used by Fortune 500 companies. We&apos;ve worked inside leading tech companies and
+                research institutions, but we know how construction really works because we&apos;ve lived it.
               </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Full-bleed photo band with a how-it-works-style caption chip ───── */}
-        <section className="px-4 pt-10 sm:px-6 lg:pt-14">
-          <div className="mx-auto max-w-6xl">
-            <div className="relative overflow-hidden rounded-3xl ring-1 ring-border">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/team.jpeg"
-                alt="Gaudi's founders standing together in front of an active residential construction site"
-                className="h-[280px] w-full object-cover sm:h-[380px] lg:h-[460px]"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* ── The story + credentials, open on the background (no cards) ─────── */}
-        <section className="px-4 py-16 sm:px-6 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
-              <div className="lg:col-span-6">
-                <h2 className="text-balance font-sans text-3xl font-light leading-[1.1] tracking-[-0.02em] sm:text-4xl">
-                  We&apos;re building AI tools that{" "}
-                  <span className="font-serif text-[1.05em] font-medium italic text-primary">
-                    save time and cut headaches
-                  </span>{" "}
-                  on every project.
-                </h2>
-              </div>
-              <div className="lg:col-span-6">
-                <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
-                  We&apos;ve worked inside leading tech companies and research institutions, but we know how construction
-                  really works because we&apos;ve been on the job site, owned the buildings, and lived the headaches. If
-                  you build for a living, Gaudi is here to make your day run smoother.
-                </p>
-              </div>
+              <p>
+                We&apos;re building AI tools that save time, cut headaches, and help every crew and project run smoother.
+                If you build for a living, Gaudi is here to make your job easier.
+              </p>
             </div>
           </div>
         </section>
@@ -163,7 +131,21 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ─��� Contact: mirrors the landing page's contact section ───────────── */}
+        {/* ── Team photo, moved below the experience/logo section ────────────── */}
+        <section className="px-4 pb-16 sm:px-6 lg:pb-24">
+          <div className="mx-auto max-w-6xl">
+            <div className="relative overflow-hidden rounded-3xl ring-1 ring-border">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/team.jpeg"
+                alt="Gaudi's founders standing together in front of an active residential construction site"
+                className="h-[280px] w-full object-cover sm:h-[380px] lg:h-[460px]"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* ── Contact: mirrors the landing page's contact section ───────────── */}
         <section id="contact" className="px-4 pb-16 sm:px-6 lg:pb-24">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col items-center gap-8 rounded-3xl border border-border bg-card px-6 py-14 text-center sm:py-16">
