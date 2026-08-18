@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 
 export function SiteHeader({ solid = false }: { solid?: boolean }) {
   const [scrolled, setScrolled] = useState(solid)
@@ -64,14 +64,37 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
             >
               Pricing
             </a>
-            <a
-              href="/about"
-              className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
-                onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
-              }`}
-            >
-              Resources
-            </a>
+            {/* Resources is now a dropdown; About lives inside it alongside Newsroom */}
+            <div className="group relative">
+              <button
+                type="button"
+                aria-haspopup="menu"
+                className={`inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+                  onDark ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground"
+                }`}
+              >
+                Resources
+                <ChevronDown className="size-3.5 transition-transform group-hover:rotate-180" aria-hidden="true" />
+              </button>
+              <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <div className="min-w-44 rounded-2xl border border-border bg-card p-1.5 shadow-lg" role="menu">
+                  <a
+                    href="/about"
+                    role="menuitem"
+                    className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+                  >
+                    About
+                  </a>
+                  <a
+                    href="/newsroom"
+                    role="menuitem"
+                    className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+                  >
+                    Newsroom
+                  </a>
+                </div>
+              </div>
+            </div>
           </nav>
 
           <div className="hidden items-center gap-2 lg:flex">
@@ -119,8 +142,14 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
               <a href="/#pricing" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
                 Pricing
               </a>
-              <a href="/about" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+              <p className="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Resources
+              </p>
+              <a href="/about" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+                About
+              </a>
+              <a href="/newsroom" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+                Newsroom
               </a>
               <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
                 <a
