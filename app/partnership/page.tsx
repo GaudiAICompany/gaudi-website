@@ -4,15 +4,15 @@ import { SiteHeader } from "@/components/landing/site-header"
 import { SiteFooter } from "@/components/landing/closing-footer"
 
 export const metadata: Metadata = {
-  title: "Partner | Gaudi AI",
+  title: "Partnerships | Gaudi AI",
   description:
     "Partner with Gaudi AI, the AI estimator and bid coordinator for people who build for a living, on webinars, education, media, and referrals.",
-  alternates: { canonical: "/partner" },
+  alternates: { canonical: "/partnership" },
   openGraph: {
-    title: "Partner | Gaudi AI",
+    title: "Partnerships | Gaudi AI",
     description:
       "Partner with Gaudi AI, the AI estimator and bid coordinator for people who build for a living, on webinars, education, media, and referrals.",
-    url: "/partner",
+    url: "/partnership",
     type: "website",
   },
 }
@@ -30,15 +30,18 @@ const sessionTopics = [
 const partnerWays = [
   {
     title: "Trade schools & associations",
-    body: "Educational sessions and early access to Gaudi for your members.",
+    hook: "Bring Gaudi to your members.",
+    body: "Run a session, share early access, or just make an introduction. We'll tailor it to your group.",
   },
   {
     title: "Podcasts & media",
-    body: "Invite us on to talk construction, real estate, and AI.",
+    hook: "Talk construction and AI with us.",
+    body: "Have a show or publication covering the space? We're an easy yes for a conversation or a quote.",
   },
   {
     title: "Individuals & referrals",
-    body: "Know a GC who'd benefit? Make the intro, we'll take it from there.",
+    hook: "Know someone who should see this?",
+    body: "Send the introduction, stay as involved as you'd like. We'll take it from there.",
   },
 ]
 
@@ -71,62 +74,52 @@ export default function PartnerPage() {
         <section className="px-4 py-14 sm:px-6 lg:py-20">
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_20rem] lg:gap-12">
             <div className="flex flex-col gap-6">
-              {/* Webinars & education — image card mirroring the newsroom NewsCard */}
-              <article className="grid gap-5 rounded-3xl border border-border bg-card p-4 sm:grid-cols-[1fr_1fr] sm:p-5 lg:gap-8">
-                <div className="order-2 flex flex-col sm:order-1">
-                  <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
-                    Webinars &amp; education
-                  </div>
-                  <h2 className="mt-3 text-pretty font-sans text-lg font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-xl">
-                    Talks that cut through the AI hype.
-                  </h2>
-                  <p className="mt-2 text-pretty text-[15px] leading-relaxed text-muted-foreground">{webinarsBody}</p>
+              {/* Webinars & education — text-only card */}
+              <article className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+                <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
+                  Webinars &amp; education
+                </div>
+                <h2 className="mt-3 text-pretty font-sans text-lg font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-xl">
+                  Talks that cut through the AI hype.
+                </h2>
+                <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+                  {webinarsBody}
+                </p>
 
-                  <div className="mt-5 sm:mt-auto sm:pt-5">
-                    <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      Example sessions
-                    </p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {sessionTopics.map((topic) => (
-                        <span
-                          key={topic}
-                          className="rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-[13px] font-medium text-foreground"
-                        >
-                          {topic}
-                        </span>
-                      ))}
-                    </div>
+                <div className="mt-5">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    Example sessions
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {sessionTopics.map((topic) => (
+                      <span
+                        key={topic}
+                        className="rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-[13px] font-medium text-foreground"
+                      >
+                        {topic}
+                      </span>
+                    ))}
                   </div>
                 </div>
-
-                <figure className="relative order-1 overflow-hidden rounded-2xl ring-1 ring-border sm:order-2 sm:h-full">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/newsroom/lacreia-presenting.png"
-                    alt="Sebastian presenting an estimation agent demo on stage at LACREIA in Los Angeles"
-                    className="aspect-[16/10] w-full object-cover sm:aspect-auto sm:h-full sm:min-h-[240px]"
-                  />
-                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/75 to-transparent p-4 text-sm font-medium text-background">
-                    Sebastian presenting at LACREIA, Los Angeles.
-                  </figcaption>
-                </figure>
               </article>
 
-              {/* Ways to partner — editorial divided list, no icon badges */}
+              {/* Ways to partner — hook + body per option */}
               <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
                 <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                   <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
                   Ways to partner
                 </div>
                 <div className="mt-2 divide-y divide-border">
-                  {partnerWays.map(({ title, body }) => (
-                    <div
-                      key={title}
-                      className="grid gap-1 py-5 last:pb-0 sm:grid-cols-[minmax(0,15rem)_1fr] sm:items-baseline sm:gap-8"
-                    >
-                      <h3 className="font-sans text-lg font-medium tracking-[-0.01em] text-foreground">{title}</h3>
-                      <p className="text-pretty text-[15px] leading-relaxed text-muted-foreground">{body}</p>
+                  {partnerWays.map(({ title, hook, body }) => (
+                    <div key={title} className="py-6 last:pb-0">
+                      <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">{title}</p>
+                      <h3 className="mt-2 text-pretty font-sans text-xl font-medium tracking-[-0.01em] text-foreground">
+                        {hook}
+                      </h3>
+                      <p className="mt-2 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+                        {body}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -172,6 +165,23 @@ export default function PartnerPage() {
               </div>
             </aside>
           </div>
+        </section>
+
+        {/* ── Standalone photo, pulled out to a full-width block at the bottom ── */}
+        <section className="px-4 pb-20 sm:px-6 lg:pb-28">
+          <figure className="mx-auto max-w-6xl">
+            <div className="relative overflow-hidden rounded-3xl ring-1 ring-border">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/newsroom/lacreia-presenting.png"
+                alt="Sebastian presenting an estimation agent demo on stage at LACREIA in Los Angeles"
+                className="h-[280px] w-full object-cover sm:h-[420px] lg:h-[500px]"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/75 to-transparent p-5 text-sm font-medium text-background sm:p-6">
+                Sebastian presenting at LACREIA, Los Angeles.
+              </figcaption>
+            </div>
+          </figure>
         </section>
       </main>
 
