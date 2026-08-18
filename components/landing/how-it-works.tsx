@@ -130,7 +130,7 @@ function ChaosToOrder({ className }: { className?: string }) {
       </svg>
 
       {/* the Gaudi mark, centered in the arrow */}
-      <div className="-mx-1 flex size-32 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-card">
+      <div className="mx-1.5 flex size-32 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-card">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo_text.png" alt="Gaudi AI" className="w-24" />
       </div>
@@ -270,6 +270,23 @@ function OutputZone() {
 /* Visual-led. Text is trimmed to a label and one short line; the examples do
    the explaining. */
 
+// 13 most likely outlet locations, spaced along the plan's interior walls
+const OUTLET_MARKERS = [
+  { top: "20%", left: "24%" },
+  { top: "17%", left: "47%" },
+  { top: "21%", left: "70%" },
+  { top: "34%", left: "17%" },
+  { top: "37%", left: "82%" },
+  { top: "50%", left: "22%" },
+  { top: "52%", left: "58%" },
+  { top: "55%", left: "83%" },
+  { top: "66%", left: "31%" },
+  { top: "69%", left: "52%" },
+  { top: "71%", left: "75%" },
+  { top: "82%", left: "27%" },
+  { top: "84%", left: "64%" },
+]
+
 function AuditCard() {
   return (
     <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 sm:p-8">
@@ -284,16 +301,20 @@ function AuditCard() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/how-it-works/input-blueprint.png"
-            alt="Blueprint page A-3, the source of the drywall quantity"
+            alt="Blueprint page A-3, showing the 13 outlet locations Gaudi found"
             className="h-44 w-full object-cover"
           />
-          {/* highlight traces an interior partition wall — where 1/2" drywall is actually hung */}
-          <span
-            className="absolute left-[59.5%] top-[15%] h-[52%] w-2 rounded-sm border-2 border-primary bg-primary/15"
-            aria-hidden="true"
-          />
+          {/* small markers on the 13 most likely outlet locations along the walls */}
+          {OUTLET_MARKERS.map((m, i) => (
+            <span
+              key={i}
+              className="absolute size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-primary bg-primary/25"
+              style={{ top: m.top, left: m.left }}
+              aria-hidden="true"
+            />
+          ))}
           <span className="absolute inset-x-0 bottom-0 bg-foreground/75 px-2 py-1 text-[10px] font-medium text-background">
-            Sheet A-3
+            Sheet A-3 · 13 outlets
           </span>
         </div>
 
@@ -305,9 +326,10 @@ function AuditCard() {
 
         {/* the editable value */}
         <div className="flex-1 rounded-xl bg-secondary/60 p-4">
-          <p className="text-[13px] font-medium text-foreground">1/2&quot; drywall, 4×8 · 68 sheets</p>
+          <p className="text-[13px] font-medium text-foreground">Electrical outlets · 13 ct</p>
           <div className="mt-2 inline-flex items-center gap-2 rounded-lg border border-dashed border-primary/60 bg-primary/5 px-3 py-2">
-            <span className="text-lg font-semibold text-foreground">$965</span>
+            <span className="text-sm text-muted-foreground">$25 × 13 =</span>
+            <span className="text-lg font-semibold text-foreground">$325</span>
             <Pencil className="size-3.5 text-primary" aria-hidden="true" />
           </div>
           <p className="mt-2 text-[11px] text-muted-foreground">Gaudi relearns your pricing</p>
