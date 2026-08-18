@@ -32,8 +32,8 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
         <div className="mx-auto mt-10 grid max-w-5xl items-stretch gap-6 lg:grid-cols-[1.5fr_1fr]">
           {/* Primary, self-serve card */}
           <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Self-serve</p>
-            <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Pay per estimate</h3>
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Pay per estimate</p>
+            <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">General Contractors, Estimators, Developers</h3>
 
             {/* Price zone */}
             <div className="mt-6 border-t border-border pt-6">
@@ -68,7 +68,7 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
 
           {/* Secondary, custom card */}
           <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Larger teams</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Custom needs</p>
             <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Enterprise</h3>
 
             {/* Price zone — mirrors the self-serve card's price zone position */}
