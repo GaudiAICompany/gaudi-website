@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { ArrowUpRight, GraduationCap, Mic, Users, Check, CalendarDays, Linkedin } from "lucide-react"
+import { ArrowUpRight, CalendarDays, Linkedin } from "lucide-react"
 import { SiteHeader } from "@/components/landing/site-header"
 import { SiteFooter } from "@/components/landing/closing-footer"
 
@@ -23,30 +23,27 @@ const CALENDLY_URL = "https://calendly.com/begumcital/gaudi-ai-partnership-call"
 
 const sessionTopics = [
   "How AI estimating actually works",
-  "What GCs should know before adopting AI",
-  "Live walkthroughs for association members",
+  "Adopting AI on the job site",
+  "Live member walkthroughs",
 ]
 
 const partnerWays = [
   {
-    icon: GraduationCap,
     title: "Trade schools & associations",
-    body: "We partner with trade schools, contractor associations, and investor groups to run educational sessions and give members early access to Gaudi.",
+    body: "Educational sessions and early access to Gaudi for your members.",
   },
   {
-    icon: Mic,
     title: "Podcasts & media",
-    body: "Have a podcast or publication covering construction, real estate, or AI? We're glad to join a conversation or contribute expertise.",
+    body: "We'll join a conversation on construction, real estate, or AI.",
   },
   {
-    icon: Users,
     title: "Individuals & referrals",
-    body: "If you know GCs, estimators, or developers who'd benefit from Gaudi, make the introduction. We'll handle the rest.",
+    body: "Know a GC who'd benefit? Make the intro, we'll take it from there.",
   },
 ]
 
 const webinarsBody =
-  "We run educational sessions and talks on AI for general contractors, cutting through the hype to show what actually works on real job sites. If your trade school, association, or investor group would like a session for your members, we'd be glad to put one together."
+  "We run talks on AI for general contractors. No hype, just what works on a real job site. Want a session for your group? We'll put one together."
 
 export default function PartnerPage() {
   return (
@@ -86,18 +83,20 @@ export default function PartnerPage() {
                   </h2>
                   <p className="mt-2 text-pretty text-[15px] leading-relaxed text-muted-foreground">{webinarsBody}</p>
 
-                  <div className="mt-4 rounded-2xl border border-border bg-secondary/50 p-4 sm:mt-auto">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  <div className="mt-5 sm:mt-auto sm:pt-5">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                       Example sessions
                     </p>
-                    <ul className="mt-3 space-y-2.5">
+                    <div className="mt-3 flex flex-wrap gap-2">
                       {sessionTopics.map((topic) => (
-                        <li key={topic} className="flex items-start gap-3">
-                          <Check className="mt-0.5 size-[18px] shrink-0 text-primary" aria-hidden="true" />
-                          <span className="text-[15px] leading-snug text-foreground">{topic}</span>
-                        </li>
+                        <span
+                          key={topic}
+                          className="rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-[13px] font-medium text-foreground"
+                        >
+                          {topic}
+                        </span>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 </div>
 
@@ -114,20 +113,20 @@ export default function PartnerPage() {
                 </figure>
               </article>
 
-              {/* Ways to partner */}
-              <div className="rounded-3xl border border-border bg-card p-6 sm:p-7">
+              {/* Ways to partner — editorial divided list, no icon badges */}
+              <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
                 <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                   <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
                   Ways to partner
                 </div>
-                <div className="mt-6 grid gap-5 sm:grid-cols-2">
-                  {partnerWays.map(({ icon: Icon, title, body }) => (
-                    <div key={title} className="flex flex-col rounded-2xl border border-border bg-secondary/40 p-5">
-                      <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary">
-                        <Icon className="size-5" aria-hidden="true" />
-                      </span>
-                      <h3 className="mt-5 font-sans text-lg font-semibold tracking-tight text-foreground">{title}</h3>
-                      <p className="mt-2 text-pretty text-[15px] leading-relaxed text-muted-foreground">{body}</p>
+                <div className="mt-2 divide-y divide-border">
+                  {partnerWays.map(({ title, body }) => (
+                    <div
+                      key={title}
+                      className="grid gap-1 py-5 last:pb-0 sm:grid-cols-[minmax(0,15rem)_1fr] sm:items-baseline sm:gap-8"
+                    >
+                      <h3 className="font-sans text-lg font-medium tracking-[-0.01em] text-foreground">{title}</h3>
+                      <p className="text-pretty text-[15px] leading-relaxed text-muted-foreground">{body}</p>
                     </div>
                   ))}
                 </div>
