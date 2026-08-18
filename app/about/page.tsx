@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Linkedin, CalendarDays, Mail } from "lucide-react"
+import { Linkedin, CalendarDays, ArrowUpRight } from "lucide-react"
 import { SiteHeader } from "@/components/landing/site-header"
 import { SiteFooter } from "@/components/landing/closing-footer"
 
@@ -31,6 +31,13 @@ const founders = [
   },
 ]
 
+// Credibility pulled straight from the founders' background — proof, not decoration.
+const credentials = [
+  "Managed construction projects on real job sites",
+  "Owned and operated income properties",
+  "Shipped AI products used by Fortune 500 companies",
+]
+
 const backers = [
   { src: "/amzn.png", alt: "Amazon" },
   { src: "/msft.png", alt: "Microsoft" },
@@ -44,117 +51,151 @@ export default function AboutPage() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader solid />
 
-      <main className="px-4 pt-28 sm:px-6 lg:pt-32">
-        <div className="mx-auto max-w-6xl">
-          {/* Intro — asymmetric editorial split */}
-          <section className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-12">
-            <div className="lg:col-span-7">
-              <p className="mb-5 text-sm font-semibold uppercase tracking-wider text-primary">About</p>
-              <h1 className="text-balance font-sans text-4xl font-light leading-[1.02] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
+      <main>
+        {/* ── Hero: editorial opener, open on the warm background ───────────── */}
+        <section className="px-4 pt-28 sm:px-6 lg:pt-36">
+          <div className="mx-auto max-w-6xl">
+            <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">About</p>
+            <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-12">
+              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:col-span-8 lg:text-7xl">
                 Built by people who{" "}
-                <span className="font-serif text-[1.08em] font-medium italic text-primary">build for a living.</span>
+                <span className="font-serif text-[1.06em] font-medium italic text-primary">build for a living.</span>
               </h1>
-            </div>
-            <div className="lg:col-span-5">
-              <div className="mb-5 h-px w-16 bg-primary/50" />
-              <p className="text-pretty text-lg leading-relaxed">
-                <span className="text-foreground">
-                  Gaudi is built by people who have managed construction projects, owned and operated properties and
-                  shipped AI products used by Fortune 500 companies.
-                </span>{" "}
-                <span className="text-muted-foreground">
-                  We&apos;ve worked inside leading tech companies and research institutions, but we know how
-                  construction really works because we&apos;ve lived it. We&apos;re building AI tools that save time, cut
-                  headaches, and help every crew and project run smoother. If you build for a living, Gaudi is here to
-                  make your job easier.
-                </span>
+              <p className="text-pretty text-lg leading-relaxed text-muted-foreground lg:col-span-4">
+                We know how construction really works — because we&apos;ve lived it.
               </p>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Founders — image + text panel, Cascade-style */}
-          <section className="mt-16 lg:mt-24">
-            <div className="overflow-hidden rounded-3xl border border-border bg-secondary/50">
-              <div className="grid lg:grid-cols-2">
-                {/* Photo */}
-                <div className="relative min-h-[300px] lg:min-h-[420px]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/team.jpeg"
-                    alt="Gaudi's founders standing in front of an active residential construction site"
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
+        {/* ── Full-bleed photo band with a how-it-works-style caption chip ───── */}
+        <section className="px-4 pt-10 sm:px-6 lg:pt-14">
+          <div className="mx-auto max-w-6xl">
+            <div className="relative overflow-hidden rounded-3xl ring-1 ring-border">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/team.jpeg"
+                alt="Gaudi's founders standing together in front of an active residential construction site"
+                className="h-[280px] w-full object-cover sm:h-[380px] lg:h-[460px]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/55 via-foreground/5 to-transparent" />
+              <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-[12px] font-semibold text-foreground shadow-sm backdrop-blur sm:bottom-6 sm:left-6">
+                <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
+                On site with the Gaudi team
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* ── The story + credentials, open on the background (no cards) ─────── */}
+        <section className="px-4 py-16 sm:px-6 lg:py-24">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+              <div className="lg:col-span-6">
+                <h2 className="text-balance font-sans text-3xl font-light leading-[1.1] tracking-[-0.02em] sm:text-4xl">
+                  We&apos;re building AI tools that{" "}
+                  <span className="font-serif text-[1.05em] font-medium italic text-primary">
+                    save time and cut headaches
+                  </span>{" "}
+                  on every project.
+                </h2>
+              </div>
+              <div className="lg:col-span-6">
+                <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
+                  We&apos;ve worked inside leading tech companies and research institutions, but we know how construction
+                  really works because we&apos;ve been on the job site, owned the buildings, and lived the headaches. If
+                  you build for a living, Gaudi is here to make your day run smoother.
+                </p>
+              </div>
+            </div>
+
+            {/* credential strip — thin primary rule above each, separated by hairlines */}
+            <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-3">
+              {credentials.map((credential) => (
+                <div key={credential} className="bg-background p-6 sm:p-8">
+                  <div className="h-0.5 w-10 bg-primary" aria-hidden="true" />
+                  <p className="mt-4 text-pretty text-base leading-snug text-foreground">{credential}</p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                {/* Founders */}
-                <div className="flex flex-col justify-center gap-8 p-8 sm:p-12">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-primary">Who&apos;s behind Gaudi</p>
-                    <h2 className="mt-3 text-balance font-sans text-2xl font-light leading-[1.1] tracking-[-0.02em] sm:text-3xl">
-                      Builders and AI people,{" "}
-                      <span className="font-serif text-[1.06em] font-medium italic text-primary">on the same crew.</span>
-                    </h2>
-                  </div>
+        {/* ── Founders: editorial list, tied to the "one crew" idea ──────────── */}
+        <section className="px-4 py-4 sm:px-6">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+              <div className="lg:col-span-5">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary">Who&apos;s behind Gaudi</p>
+                <h2 className="mt-3 text-balance font-sans text-3xl font-light leading-[1.08] tracking-[-0.02em] sm:text-4xl">
+                  Builders and AI people,{" "}
+                  <span className="font-serif text-[1.05em] font-medium italic text-primary">on the same crew.</span>
+                </h2>
+              </div>
 
-                  <div className="flex flex-col gap-3">
-                    {founders.map((founder) => (
-                      <div
-                        key={founder.name}
-                        className="flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-4 pl-5 transition-colors hover:border-primary/40"
+              <div className="lg:col-span-7">
+                <ul className="border-t border-border">
+                  {founders.map((founder) => (
+                    <li key={founder.name}>
+                      <a
+                        href={founder.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center justify-between gap-4 border-b border-border py-6 transition-colors"
                       >
-                        <p className="font-sans text-base font-semibold tracking-tight sm:text-lg">{founder.name}</p>
-                        <a
-                          href={founder.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${founder.name} on LinkedIn`}
-                          className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full border border-border bg-background px-4 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
-                        >
+                        <span className="font-sans text-2xl font-light tracking-[-0.01em] text-foreground transition-colors group-hover:text-primary sm:text-3xl">
+                          {founder.name}
+                        </span>
+                        <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors group-hover:text-primary">
                           <Linkedin className="size-4" />
                           <span className="hidden sm:inline">LinkedIn</span>
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                          <ArrowUpRight className="size-4" />
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Backed by — contained card for presence */}
-          <section className="mt-16 lg:mt-24">
-            <div className="rounded-3xl border border-border bg-card p-8 sm:p-10">
-              <p className="text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Backed by experience from
-              </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16">
-                {backers.map((b) => (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={b.alt}
-                    src={b.src || "/placeholder.svg"}
-                    alt={b.alt}
-                    className="h-8 w-auto opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0"
-                  />
-                ))}
-              </div>
+        {/* ── Backed-by logo wall, open on the background ────────────────────── */}
+        <section className="px-4 py-16 sm:px-6 lg:py-24">
+          <div className="mx-auto max-w-6xl">
+            <p className="text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Experience from
+            </p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 lg:gap-x-20">
+              {backers.map((b) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={b.alt}
+                  src={b.src || "/placeholder.svg"}
+                  alt={b.alt}
+                  className="h-7 w-auto opacity-55 grayscale transition-all duration-200 hover:opacity-100 hover:grayscale-0 sm:h-8"
+                />
+              ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Contact — elevated card matching the pricing cards */}
-          <section className="mb-24 mt-16 lg:mt-24">
-            <div className="rounded-3xl border border-border bg-card p-8 shadow-2xl shadow-foreground/10 sm:p-12">
-              <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-primary">Contact</p>
-                  <h2 className="mt-3 text-balance font-sans text-3xl font-light leading-[1.05] tracking-[-0.02em] sm:text-4xl">
-                    Let&apos;s talk.
+        {/* ── Contact: dark closing band for rhythm contrast, single CTA ─────── */}
+        <section className="px-4 pb-16 sm:px-6 lg:pb-24">
+          <div className="mx-auto max-w-6xl">
+            <div className="relative overflow-hidden rounded-3xl bg-section-dark px-6 py-16 text-section-dark-foreground sm:px-14 sm:py-20">
+              <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-12">
+                <div className="lg:col-span-8">
+                  <p className="text-sm font-semibold uppercase tracking-wider text-primary">Contact</p>
+                  <h2 className="mt-4 text-balance font-sans text-4xl font-light leading-[0.98] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
+                    Let&apos;s talk about{" "}
+                    <span className="font-serif text-[1.06em] font-medium italic text-primary">what you&apos;re building.</span>
                   </h2>
-                  <p className="mt-4 max-w-md text-pretty leading-relaxed text-muted-foreground">
-                    Book a time to meet the team, or send us a note. We&apos;d love to hear what you&apos;re building.
+                  <p className="mt-5 max-w-md text-pretty leading-relaxed text-section-dark-foreground/70">
+                    Book a time to meet the team. We&apos;d love to hear about your projects and where Gaudi can help.
                   </p>
                 </div>
-                <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+                <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
                   <a
                     href={CALENDLY_URL}
                     target="_blank"
@@ -166,16 +207,15 @@ export default function AboutPage() {
                   </a>
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}
-                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-border px-7 font-semibold text-foreground transition-colors hover:bg-secondary"
+                    className="text-sm text-section-dark-foreground/70 underline-offset-4 transition-colors hover:text-section-dark-foreground hover:underline"
                   >
-                    <Mail className="size-4" />
-                    Email us
+                    or email {CONTACT_EMAIL}
                   </a>
                 </div>
               </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </main>
 
       <SiteFooter />
