@@ -422,7 +422,8 @@ export function HowItWorks() {
         </div>
 
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 sm:p-5">
-          <h3 className="font-sans text-xl font-light leading-snug tracking-tight text-foreground lg:whitespace-nowrap xl:text-2xl">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Intake to estimate</p>
+          <h3 className="mt-2 font-sans text-xl font-light leading-snug tracking-tight text-foreground lg:whitespace-nowrap xl:text-2xl">
             Any format, any channel. Just ask for what you need.
           </h3>
 
