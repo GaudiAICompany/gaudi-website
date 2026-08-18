@@ -29,13 +29,6 @@ const founders = [
   },
 ]
 
-// Credibility pulled straight from the founders' background — proof, not decoration.
-const credentials = [
-  "Managed construction projects on real job sites",
-  "Owned and operated income properties",
-  "Shipped AI products used by Fortune 500 companies",
-]
-
 const backers = [
   { src: "/amzn.png", alt: "Amazon" },
   { src: "/msft.png", alt: "Microsoft" },
@@ -54,13 +47,13 @@ export default function AboutPage() {
         <section className="px-4 pt-28 sm:px-6 lg:pt-36">
           <div className="mx-auto max-w-6xl">
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">About</p>
-            <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-12">
-              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:col-span-8 lg:text-7xl">
+            <div className="max-w-3xl">
+              <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
                 Built by people who{" "}
                 <span className="font-serif text-[1.06em] font-medium italic text-primary">build for a living.</span>
               </h1>
-              <p className="text-pretty text-lg leading-relaxed text-muted-foreground lg:col-span-4">
-                We know how construction really works — because we&apos;ve lived it.
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+                We know how construction really works because we&apos;ve lived it.
               </p>
             </div>
           </div>
@@ -105,16 +98,6 @@ export default function AboutPage() {
                   you build for a living, Gaudi is here to make your day run smoother.
                 </p>
               </div>
-            </div>
-
-            {/* credential strip — thin primary rule above each, separated by hairlines */}
-            <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-3">
-              {credentials.map((credential) => (
-                <div key={credential} className="bg-background p-6 sm:p-8">
-                  <div className="h-0.5 w-10 bg-primary" aria-hidden="true" />
-                  <p className="mt-4 text-pretty text-base leading-snug text-foreground">{credential}</p>
-                </div>
-              ))}
             </div>
           </div>
         </section>
