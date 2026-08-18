@@ -92,6 +92,13 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
                   >
                     Newsroom
                   </a>
+                  <a
+                    href="/partner"
+                    role="menuitem"
+                    className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+                  >
+                    Partner
+                  </a>
                 </div>
               </div>
             </div>
@@ -150,6 +157,9 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
               </a>
               <a href="/newsroom" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
                 Newsroom
+              </a>
+              <a href="/partner" onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+                Partner
               </a>
               <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
                 <a
