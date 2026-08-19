@@ -14,7 +14,7 @@ const customFeatures = [
   "Custom workflows and integrations",
 ]
 
-export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
+export function Pricing() {
   return (
     <section id="pricing" className="px-4 py-20 sm:px-6 lg:py-28">
       <div className="mx-auto max-w-7xl">
@@ -78,7 +78,7 @@ export function Pricing({ apiBase, apiKey }: { apiBase: string; apiKey: string }
 
             {/* Inline email+submit so self-serve signup is one step, not a click-through to a separate form. */}
             <div className="mt-8 lg:mt-auto lg:pt-8">
-              <ConversionForm apiBase={apiBase} apiKey={apiKey} buttonLabel="Get started" tone="light" />
+              <ConversionForm buttonLabel="Get started" tone="light" />
             </div>
           </div>
 

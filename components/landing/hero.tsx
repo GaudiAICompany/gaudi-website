@@ -29,7 +29,7 @@ function RotatingWord() {
   )
 }
 
-export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
+export function Hero() {
   return (
     <section id="hero" className="px-2 pt-2 sm:px-3 sm:pt-3">
       <div className="relative isolate overflow-hidden rounded-[1.75rem] bg-section-dark text-section-dark-foreground sm:rounded-[2.25rem]">
@@ -64,7 +64,7 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
             </h1>
 
             <div className="mt-8 max-w-xl">
-              <ConversionForm apiBase={apiBase} apiKey={apiKey} tone="dark" buttonLabel="Get started on a free estimate" />
+              <ConversionForm tone="dark" buttonLabel="Get started on a free estimate" />
             </div>
 
             <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/70">

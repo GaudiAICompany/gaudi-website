@@ -21,12 +21,16 @@ jobs:
           lfs: false
       - name: Install dependencies
         run: npm install
-      - name: Create .env.production
-        run: |
-          echo "FUNCTION_API_BASE=${{ secrets.FUNCTION_API_BASE }}" >> .env.production
-          echo "FUNCTION_API_KEY=${{ secrets.FUNCTION_API_KEY }}" >> .env.production
+      # This has to be set HERE, not in Azure. The site is a static export, so
+      # `next build` compiles NEXT_PUBLIC_* values straight into the JS bundle --
+      # by the time Azure serves it there is no process left to read a setting.
+      # Static Web App application settings only reach managed functions, and this
+      # app no longer has any. It is a variable rather than a secret because a
+      # public endpoint URL is not one; no secrets are needed to build this site.
       - name: Build and export static site
         run: npm run build
+        env:
+          NEXT_PUBLIC_LEAD_CAPTURE_URL: ${{ vars.NEXT_PUBLIC_LEAD_CAPTURE_URL }}
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1

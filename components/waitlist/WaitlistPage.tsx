@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, Share2, Linkedin, Twitter, Facebook } from "lucide-react"
 import type { WaitlistProductConfig } from "@/lib/waitlist-config"
+import { captureLead } from "@/lib/capture-lead"
 
 function getShareUrl(
   platform: "twitter" | "linkedin" | "facebook",
@@ -29,18 +30,16 @@ function getShareUrl(
 export default function WaitlistPage({
   config,
   baseUrl,
-  functionApiBase,
-  functionApiKey,
 }: {
   config: WaitlistProductConfig
   baseUrl: string
-  functionApiBase: string
-  functionApiKey: string
 }) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  // Holds the failed request id so a visitor can quote it to support.
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const [imageError, setImageError] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -90,30 +89,28 @@ export default function WaitlistPage({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    const url = `${functionApiBase}/api/capture_cta_email?code=${functionApiKey}`
+    setSubmitError(null)
     const { firstName, lastName } = splitName(name);
-    const payload = {
+
+    const result = await captureLead({
       email,
       firstName: firstName,
       lastName: lastName,
-      company: "Waitlist",
+      // No company field on this form, and `company` now becomes the tenant's
+      // display name downstream -- `source` is where the waitlist tag belongs.
       message: `Waitlist signup for ${config.slug}`,
+      source: `waitlist:${config.slug}`,
+    })
+
+    if (result.ok) {
+      setSubmitted(true)
+      setEmail("")
+    } else {
+      // Previously a failure left the form in its idle state with nothing logged
+      // beyond a thrown fetch, so a dead endpoint looked like a no-op click.
+      setSubmitError(result.requestId)
     }
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      if (res.ok) {
-        setSubmitted(true)
-        setEmail("")
-      }
-    } catch (err) {
-      console.error("Waitlist submission error", err)
-    } finally {
-      setLoading(false)
-    }
+    setLoading(false)
   }
 
   return (
@@ -214,6 +211,13 @@ export default function WaitlistPage({
 
             {submitted && (
               <p className="text-sm text-emerald-400/90">You're in! 48 contractors are already waiting. We'll email when it's your turn.</p>
+            )}
+
+            {submitError && (
+              <p className="text-sm text-[#cc6943]" role="alert">
+                That didn't go through. Try again, or email contact@heygaudi.ai and we'll add you.
+                <span className="block text-xs text-zinc-500">Ref: {submitError}</span>
+              </p>
             )}
           </div>
 
