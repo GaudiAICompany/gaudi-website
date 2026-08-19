@@ -18,7 +18,7 @@ const flag = (name, fallback = null) => {
 const base = (flag("base", "http://localhost:7071") || "").replace(/\/$/, "")
 const write = args.includes("--write")
 const origin = flag("origin", "https://heygaudi.ai")
-const endpoint = `${base}/api/capture_cta_email`
+const endpoint = `${base}/api/capture_cta_lead`
 
 async function call(label, init, expected) {
   const started = Date.now()
