@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, Share2, Linkedin, Twitter, Facebook } from "lucide-react"
 import type { WaitlistProductConfig } from "@/lib/waitlist-config"
-import { captureLead } from "@/lib/capture-lead"
+import { captureLead, traceableRequestId } from "@/lib/capture-lead"
 
 function getShareUrl(
   platform: "twitter" | "linkedin" | "facebook",
@@ -38,8 +38,8 @@ export default function WaitlistPage({
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
-  // Holds the failed request id so a visitor can quote it to support.
-  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState(false)
+  const [submitRef, setSubmitRef] = useState<string | null>(null)
   const [imageError, setImageError] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -89,15 +89,16 @@ export default function WaitlistPage({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    setSubmitError(null)
+    setSubmitError(false)
+    setSubmitRef(null)
     const { firstName, lastName } = splitName(name);
 
     const result = await captureLead({
       email,
       firstName: firstName,
       lastName: lastName,
-      // No company field on this form, and `company` now becomes the tenant's
-      // display name downstream -- `source` is where the waitlist tag belongs.
+      // `company` becomes the tenant's display name downstream, so the waitlist
+      // tag belongs in `source`.
       message: `Waitlist signup for ${config.slug}`,
       source: `waitlist:${config.slug}`,
     })
@@ -106,9 +107,8 @@ export default function WaitlistPage({
       setSubmitted(true)
       setEmail("")
     } else {
-      // Previously a failure left the form in its idle state with nothing logged
-      // beyond a thrown fetch, so a dead endpoint looked like a no-op click.
-      setSubmitError(result.requestId)
+      setSubmitError(true)
+      setSubmitRef(traceableRequestId(result))
     }
     setLoading(false)
   }
@@ -136,14 +136,12 @@ export default function WaitlistPage({
         }}
       />
 
-      {/* Corner accents - architectural frame */}
       <div className="absolute top-0 left-0 w-40 h-px bg-white/10" />
       <div className="absolute top-0 left-0 w-px h-40 bg-white/10" />
       <div className="absolute bottom-0 right-0 w-56 h-px bg-white/10" />
       <div className="absolute bottom-0 right-0 w-px h-56 bg-white/10" />
 
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Top bar / nav */}
         <header className="px-6 md:px-12 py-6">
           <Link href="/" className="inline-block">
             <img
@@ -154,9 +152,7 @@ export default function WaitlistPage({
           </Link>
         </header>
 
-        {/* Main content */}
         <main className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-16 px-4 md:px-6 pb-24">
-          {/* Left: Title, subtitle, form */}
           <div className="flex-1 max-w-xl w-full space-y-8">
             <div>
               <div className="space-y-2">
@@ -216,12 +212,11 @@ export default function WaitlistPage({
             {submitError && (
               <p className="text-sm text-[#cc6943]" role="alert">
                 That didn't go through. Try again, or email contact@heygaudi.ai and we'll add you.
-                <span className="block text-xs text-zinc-500">Ref: {submitError}</span>
+                {submitRef && <span className="block text-xs text-zinc-500">Ref: {submitRef}</span>}
               </p>
             )}
           </div>
 
-          {/* Right: Image + release date */}
           <div className="flex-1 max-w-2xl w-full flex flex-col items-center lg:items-end">
             <div className="relative w-full aspect-[4/3] rounded overflow-hidden">
               {!imageError ? (
@@ -246,7 +241,6 @@ export default function WaitlistPage({
           </div>
         </main>
 
-        {/* Bottom corner: Share buttons */}
         <div className="absolute bottom-6 left-6 flex flex-col gap-3">
           <span className="text-xs font-medium tracking-widest uppercase text-zinc-500">
             Share

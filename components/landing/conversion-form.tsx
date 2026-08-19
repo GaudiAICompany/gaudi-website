@@ -4,7 +4,7 @@ import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { ArrowRight, Check, Loader2 } from "lucide-react"
 
-import { captureLead } from "@/lib/capture-lead"
+import { captureLead, traceableRequestId } from "@/lib/capture-lead"
 
 type Status = "idle" | "loading" | "success" | "error"
 
@@ -40,7 +40,7 @@ export function ConversionForm({
     const payload = isMobile ? { phone: value, source: buttonLabel } : { email: value, source: buttonLabel }
 
     const result = await captureLead(payload)
-    setRequestId(result.requestId)
+    setRequestId(traceableRequestId(result))
     if (result.ok) {
       setStatus("success")
       setValue("")

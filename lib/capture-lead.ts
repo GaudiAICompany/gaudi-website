@@ -1,13 +1,6 @@
 /**
  * Single client entry point for every signup / lead CTA on the site.
  *
- * This used to build its own URL from FUNCTION_API_BASE with the function key
- * pasted into the query string, which meant the key shipped in the public HTML
- * of every page and the whole funnel died silently the day that host was
- * deleted. Now the site holds one plain URL and no credential at all: the
- * endpoint is public, and the backend that owns the database decides what
- * actually gets written.
- *
  * The URL is inlined at build time, so switching between the dev and prod
  * backends is a variable change plus a rebuild -- nothing in the site's code.
  */
@@ -34,6 +27,14 @@ export type CaptureLeadResult = {
   /** Stable machine-readable reason; null on success. */
   code: string | null
   durationMs: number
+}
+
+/**
+ * The id is only in App Insights if the request actually reached the server, so
+ * a transport failure must not hand support a reference nothing ever logged.
+ */
+export function traceableRequestId(result: CaptureLeadResult): string | null {
+  return result.status === null ? null : result.requestId
 }
 
 function newRequestId(): string {
@@ -108,8 +109,7 @@ export async function captureLead(payload: CaptureLeadPayload): Promise<CaptureL
       durationMs: Date.now() - started,
     }
 
-    // A 404 means the site is pointed at a host that does not serve this route --
-    // the exact regression that took the CTAs down before. Call it out by name.
+    // A 404 means the site is pointed at a host that does not serve this route.
     logOutcome(
       result,
       payload.source,
@@ -117,8 +117,7 @@ export async function captureLead(payload: CaptureLeadPayload): Promise<CaptureL
     )
     return result
   } catch (err) {
-    // No HTTP response at all: DNS, TLS, offline, or a blocking extension. This is
-    // the class of failure that was previously indistinguishable from a server 500.
+    // No HTTP response at all: DNS, TLS, offline, or a blocking extension.
     const result: CaptureLeadResult = {
       ok: false,
       requestId,

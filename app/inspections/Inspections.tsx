@@ -19,19 +19,20 @@ import {
   CheckCircle2 
 } from "lucide-react"
 import ImageModal from "../ImageModal"
-import { captureLead } from "@/lib/capture-lead"
+import { captureLead, traceableRequestId } from "@/lib/capture-lead"
 
 export default function Inspections() {
   const [email, setEmail] = useState("")
   const [activeStep, setActiveStep] = useState(0)
   const [navOnLight, setNavOnLight] = useState(false)
   const [contactSubmitted, setContactSubmitted] = useState(false)
-  // Holds the failed request id so a visitor can quote it to support.
-  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState(false)
+  const [submitRef, setSubmitRef] = useState<string | null>(null)
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitError(null)
+    setSubmitError(false)
+    setSubmitRef(null)
     const form = e.currentTarget
     const action = form.getAttribute("data-action")
     const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement
@@ -52,9 +53,10 @@ export default function Inspections() {
     })
 
     // captureLead already logged the reason and never throws, so a capture outage
-    // no longer takes the booking link down with it -- the visitor still gets routed.
+    // does not take the booking link down with it -- the visitor still gets routed.
     if (!result.ok) {
-      setSubmitError(result.requestId)
+      setSubmitError(true)
+      setSubmitRef(traceableRequestId(result))
     }
 
     switch (action) {
@@ -111,7 +113,7 @@ export default function Inspections() {
     }
 
     window.addEventListener("scroll", handleScroll)
-    handleScroll() // Initial call
+    handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -210,7 +212,7 @@ const faqs = [
           <div className="flex items-center justify-between h-16">
             <a href="#" className="transition-colors">
               <img
-                src="/logo_text.png" // Replace with your actual image path
+                src="/logo_text.png"
                 alt="Gaudi AI Logo"
                 className={`h-6 w-auto ${navOnLight ? "filter-none" : "filter brightness-0 invert"}`}
               />
@@ -562,7 +564,7 @@ const faqs = [
                     {submitError && (
                       <p className="text-sm text-destructive" role="alert">
                         We couldn&apos;t log your message. Try again, or email contact@heygaudi.ai.
-                        <span className="block text-xs opacity-60">Ref: {submitError}</span>
+                        {submitRef && <span className="block text-xs opacity-60">Ref: {submitRef}</span>}
                       </p>
                     )}
                   </form>
