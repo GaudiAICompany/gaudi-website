@@ -108,13 +108,12 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Copyright sits above the oversized wordmark */}
         <div className="flex items-center justify-between border-t border-section-dark-foreground/15 py-6 text-sm text-section-dark-foreground/50">
           <p>&copy; {new Date().getFullYear()} Gaudi AI. All rights reserved.</p>
         </div>
       </div>
 
-      {/* Oversized, full-bleed wordmark clipped by the page edge (Sable-style typographic treatment) */}
+      {/* Oversized wordmark, deliberately clipped by the page edge. */}
       <div aria-hidden="true" className="pointer-events-none select-none px-4 sm:px-6">
         <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#2f2620] sm:text-[26vw]">
           Gaudi AI

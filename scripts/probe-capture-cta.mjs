@@ -36,7 +36,6 @@ async function call(label, init, expected) {
     console.log(`     ${res.status}${expected ? ` (expected ${expected})` : ""} ${body}  (${Date.now() - started}ms)`)
     return pass
   } catch (err) {
-    // The failure mode that took the CTAs down: no response at all.
     console.log(`FAIL ${label}\n     no response: ${err.name}: ${err.message}`)
     return false
   }

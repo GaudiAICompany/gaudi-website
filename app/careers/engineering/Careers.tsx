@@ -7,7 +7,6 @@ import { ArrowRight, Mail, Linkedin, Phone, MapPin, Clock } from "lucide-react"
 export default function Careers() {
   return (
     <div className="min-h-screen bg-section-dark text-white">
-      {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
@@ -49,7 +48,6 @@ export default function Careers() {
         </div>
       </nav>
 
-      {/* Hiring Banner */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/15 via-transparent to-transparent" />
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -69,14 +67,12 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* Job Posting */}
       <section className="pb-28">
         <div className="max-w-3xl mx-auto px-6">
           <p className="mb-6 text-sm font-medium uppercase tracking-widest text-primary text-center">2 Open Positions</p>
 
           <Card className="border-2 border-primary/20" style={{ background: "rgba(255, 255, 255, 0.06)" }}>
             <CardContent className="p-8 md:p-12">
-              {/* Header */}
               <div className="border-b border-white/15 pb-8 mb-8">
                 <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-4 text-white text-balance">
                   AI Engineer / Full-Stack Developer
@@ -91,7 +87,6 @@ export default function Careers() {
                 </div>
               </div>
 
-              {/* Body */}
               <div className="space-y-6 text-gray-300 leading-relaxed">
                 <p className="text-lg text-white">
                   We&apos;re hiring AI Engineers in Costa Rica.
@@ -130,7 +125,6 @@ export default function Careers() {
                 </div>
               </div>
 
-              {/* Contact */}
               <div className="border-t border-white/15 pt-8 mt-8">
                 <h3 className="font-semibold text-white mb-4">Contact</h3>
                 <div className="flex flex-col gap-3">
@@ -181,7 +175,6 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* Social links - bottom left */}
       <div className="fixed bottom-6 left-6 z-40 flex flex-col gap-3">
         <span className="text-xs font-medium tracking-widest uppercase text-gray-500">Connect</span>
         <div className="flex gap-3">

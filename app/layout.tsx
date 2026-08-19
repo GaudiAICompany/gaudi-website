@@ -4,8 +4,6 @@ import Script from 'next/script';
 import { Hanken_Grotesk, Newsreader } from "next/font/google"
 import "./globals.css"
 
-// Large, confident display type is a clean geometric grotesque (Hanken Grotesk)
-// shown at big sizes with light weights.
 const hanken = Hanken_Grotesk({
   subsets: ["latin"],
   display: "swap",
@@ -13,8 +11,7 @@ const hanken = Hanken_Grotesk({
   weight: ["200", "300", "400", "500", "600", "700"],
 })
 
-// A warm serif italic (Newsreader) is used only for the emphasis word inside
-// headlines — a single distinct beat against the grotesque display type.
+// Used only for the emphasis word inside headlines.
 const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",

@@ -30,7 +30,7 @@ export function Pricing() {
           </p>
         </div>
 
-        {/* Both cards share one layout so they read as a matched pair; width (1.5fr vs 1fr) is the only signal of which is primary. The orange ring is intentionally hover/focus-only, never resting. */}
+        {/* The 1.5fr vs 1fr width is the only signal of which plan is primary; the orange ring is hover/focus-only, never resting. */}
         <div className="mx-auto mt-14 grid max-w-5xl items-stretch gap-6 lg:grid-cols-[1.5fr_1fr]">
           <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">Self-serve</p>

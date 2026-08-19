@@ -6,8 +6,7 @@ import { ArrowRight, CalendarDays, MessageSquare } from "lucide-react"
 
 type Mode = "call" | "message"
 
-// Calendly scheduling link, embedded inline. Embed styling params are appended
-// to theme the widget to the Gaudi espresso/orange palette.
+// Embed params theme the Calendly widget to the Gaudi espresso/orange palette.
 const CALENDLY_URL =
   "https://calendly.com/begumcital/gaudi-ai-intro-call-website?back=1&month=2026-08" +
   "&hide_gdpr_banner=1&background_color=201a16&text_color=f5f1ec&primary_color=c35a25"
@@ -34,7 +33,6 @@ export function ContactTabs() {
       "How can we help?",
       message,
     ].join("\n")
-    // Sends the message to contact@heygaudi.ai via the visitor's mail client.
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`
@@ -45,7 +43,6 @@ export function ContactTabs() {
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col items-center">
-      {/* Pill toggle */}
       <div
         role="tablist"
         aria-label="Contact options"
@@ -79,7 +76,6 @@ export function ContactTabs() {
         </button>
       </div>
 
-      {/* Card */}
       <div className="mt-8 w-full overflow-hidden rounded-3xl border border-border bg-section-dark p-4 sm:p-6">
         {mode === "call" ? (
           <div className="overflow-hidden rounded-2xl bg-section-dark">
@@ -185,7 +181,6 @@ export function ContactTabs() {
         )}
       </div>
 
-      {/* Static direct-contact line under both states */}
       <div className="mt-10 w-full border-t border-border pt-8 text-center">
         <p className="text-sm text-muted-foreground">More Questions? Reach out directly:</p>
         <a

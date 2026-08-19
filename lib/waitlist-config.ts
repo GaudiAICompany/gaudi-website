@@ -5,7 +5,6 @@ export type WaitlistProductConfig = {
   subtitle: string
   image: string
   releaseDate: string
-  /** One-liner used when sharing to social media */
   shareOneLiner: string
 }
 
