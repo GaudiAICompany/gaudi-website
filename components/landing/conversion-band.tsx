@@ -1,6 +1,6 @@
 import { ConversionForm } from "./conversion-form"
 
-export function ConversionBand({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
+export function ConversionBand() {
   return (
     <section id="get-started" className="px-4 py-6 sm:px-6">
       <div className="mx-auto max-w-7xl">
@@ -21,7 +21,7 @@ export function ConversionBand({ apiBase, apiKey }: { apiBase: string; apiKey: s
               </div>
             </div>
             <div>
-              <ConversionForm apiBase={apiBase} apiKey={apiKey} buttonLabel="Get started" tone="dark" />
+              <ConversionForm buttonLabel="Get started" tone="dark" />
             </div>
           </div>
         </div>

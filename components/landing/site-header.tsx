@@ -13,9 +13,8 @@ export function SiteHeader() {
       const hero = document.getElementById("hero")
       const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0
       if (hero) {
-        // Keep the bar dark as long as any part of the hero is still behind the
-        // nav; only switch to the light background once the hero's bottom edge
-        // has scrolled above the bottom of the nav bar.
+        // Keep the bar dark while any part of the hero is still behind it; switch
+        // only once the hero's bottom edge clears the bottom of the nav bar.
         setScrolled(hero.getBoundingClientRect().bottom <= headerBottom)
       } else {
         setScrolled(window.scrollY > 8)

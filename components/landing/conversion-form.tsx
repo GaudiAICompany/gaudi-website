@@ -4,23 +4,22 @@ import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { ArrowRight, Check, Loader2 } from "lucide-react"
 
+import { captureLead, traceableRequestId } from "@/lib/capture-lead"
+
 type Status = "idle" | "loading" | "success" | "error"
 
 export function ConversionForm({
-  apiBase,
-  apiKey,
   buttonLabel = "Get started",
   tone = "light",
   className = "",
 }: {
-  apiBase: string
-  apiKey: string
   buttonLabel?: string
   tone?: "light" | "dark"
   className?: string
 }) {
   const [value, setValue] = useState("")
   const [status, setStatus] = useState<Status>("idle")
+  const [requestId, setRequestId] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -40,20 +39,14 @@ export function ConversionForm({
 
     const payload = isMobile ? { phone: value, source: buttonLabel } : { email: value, source: buttonLabel }
 
-    try {
-      const url = `${apiBase}/api/capture_cta_email?code=${apiKey}`
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      if (!res.ok) throw new Error(String(res.status))
+    const result = await captureLead(payload)
+    setRequestId(traceableRequestId(result))
+    if (result.ok) {
       setStatus("success")
       setValue("")
-    } catch (err) {
-      console.error("[v0] conversion submit failed", err)
-      setStatus("error")
+      return
     }
+    setStatus("error")
   }
 
   const dark = tone === "dark"
@@ -129,9 +122,15 @@ export function ConversionForm({
         </button>
       </div>
       {status === "error" && (
-        <p className="mt-2 px-2 text-sm text-primary" role="alert">
-          That didn&apos;t go through on my end. Try again, or email contact@heygaudi.ai and I&apos;ll run it for you.
-        </p>
+        <div className="mt-2 px-2" role="alert">
+          <p className="text-sm text-primary">
+            That didn&apos;t go through on my end. Try again, or email contact@heygaudi.ai and I&apos;ll run it for you.
+          </p>
+          {/* Quoting this back to support pins the failure to one server-side trace. */}
+          {requestId && (
+            <p className="mt-1 text-xs opacity-60">Reference: {requestId}</p>
+          )}
+        </div>
       )}
     </form>
   )

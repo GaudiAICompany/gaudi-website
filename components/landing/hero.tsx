@@ -5,8 +5,7 @@ import { ConversionForm } from "./conversion-form"
 
 const ROTATING = ["estimator", "sub coordinator", "takeoff specialist"]
 
-// Longest option reserves the width so a longer word never bumps the headline
-// onto a new row — the rotating word always sits right after "The AI".
+// Reserves the width of the longest option so a longer word never bumps the headline onto a new row.
 const LONGEST = ROTATING.reduce((a, b) => (b.length > a.length ? b : a), "")
 
 function RotatingWord() {
@@ -29,11 +28,11 @@ function RotatingWord() {
   )
 }
 
-export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
+export function Hero() {
   return (
     <section id="hero" className="px-2 pt-2 sm:px-3 sm:pt-3">
       <div className="relative isolate overflow-hidden rounded-[1.75rem] bg-section-dark text-section-dark-foreground sm:rounded-[2.25rem]">
-        {/* Photographic backdrop, weighted to the right so the copy stays readable */}
+        {/* Weighted to the right so the headline copy stays readable over it. */}
         <img
           src="/hero-contractor.png"
           alt=""
@@ -64,7 +63,7 @@ export function Hero({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
             </h1>
 
             <div className="mt-8 max-w-xl">
-              <ConversionForm apiBase={apiBase} apiKey={apiKey} tone="dark" buttonLabel="Get started on a free estimate" />
+              <ConversionForm tone="dark" buttonLabel="Get started on a free estimate" />
             </div>
 
             <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/70">

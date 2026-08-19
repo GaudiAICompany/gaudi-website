@@ -5,9 +5,8 @@
 
 :root {
   /* Gaudi palette, built outward from the brand orange (#C35A25) as the anchor:
-     a warm espresso ink for dark panels + text, a near-white warm background,
-     sand/greige neutrals, and ochre as a single supporting warm accent.
-     No green anywhere — one loud voice (orange), everything else in support. */
+     warm espresso ink, near-white warm background, sand/greige neutrals, ochre as
+     the one supporting accent. No green anywhere -- one loud voice, rest in support. */
   --background: #faf8f5; /* warm off-white (kept close to white, not cream) */
   --foreground: #201a16; /* espresso ink text — warm-biased near-black */
   --card: #ffffff; /* clean white card lifts off the warm background */
@@ -34,8 +33,7 @@
   --chart-5: #cdbfae; /* muted sand */
   --radius: 1.25rem;
 
-  /* Espresso ink panel for the hero backdrop, conversion band, and footer.
-     Warm off-white foreground for readable, warm contrast on the ink. */
+  /* Espresso ink panel for the hero backdrop, conversion band, and footer. */
   --section-dark: #201a16;
   --section-dark-foreground: #f5f1ec;
   --sidebar: #ffffff;

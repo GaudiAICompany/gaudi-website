@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, Share2, Linkedin, Twitter, Facebook } from "lucide-react"
 import type { WaitlistProductConfig } from "@/lib/waitlist-config"
+import { captureLead, traceableRequestId } from "@/lib/capture-lead"
 
 function getShareUrl(
   platform: "twitter" | "linkedin" | "facebook",
@@ -29,18 +30,16 @@ function getShareUrl(
 export default function WaitlistPage({
   config,
   baseUrl,
-  functionApiBase,
-  functionApiKey,
 }: {
   config: WaitlistProductConfig
   baseUrl: string
-  functionApiBase: string
-  functionApiKey: string
 }) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
+  const [submitRef, setSubmitRef] = useState<string | null>(null)
   const [imageError, setImageError] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -90,30 +89,28 @@ export default function WaitlistPage({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    const url = `${functionApiBase}/api/capture_cta_email?code=${functionApiKey}`
+    setSubmitError(false)
+    setSubmitRef(null)
     const { firstName, lastName } = splitName(name);
-    const payload = {
+
+    const result = await captureLead({
       email,
       firstName: firstName,
       lastName: lastName,
-      company: "Waitlist",
+      // `company` becomes the tenant's display name downstream, so the waitlist
+      // tag belongs in `source`.
       message: `Waitlist signup for ${config.slug}`,
+      source: `waitlist:${config.slug}`,
+    })
+
+    if (result.ok) {
+      setSubmitted(true)
+      setEmail("")
+    } else {
+      setSubmitError(true)
+      setSubmitRef(traceableRequestId(result))
     }
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      if (res.ok) {
-        setSubmitted(true)
-        setEmail("")
-      }
-    } catch (err) {
-      console.error("Waitlist submission error", err)
-    } finally {
-      setLoading(false)
-    }
+    setLoading(false)
   }
 
   return (
@@ -139,14 +136,12 @@ export default function WaitlistPage({
         }}
       />
 
-      {/* Corner accents - architectural frame */}
       <div className="absolute top-0 left-0 w-40 h-px bg-white/10" />
       <div className="absolute top-0 left-0 w-px h-40 bg-white/10" />
       <div className="absolute bottom-0 right-0 w-56 h-px bg-white/10" />
       <div className="absolute bottom-0 right-0 w-px h-56 bg-white/10" />
 
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Top bar / nav */}
         <header className="px-6 md:px-12 py-6">
           <Link href="/" className="inline-block">
             <img
@@ -157,9 +152,7 @@ export default function WaitlistPage({
           </Link>
         </header>
 
-        {/* Main content */}
         <main className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-16 px-4 md:px-6 pb-24">
-          {/* Left: Title, subtitle, form */}
           <div className="flex-1 max-w-xl w-full space-y-8">
             <div>
               <div className="space-y-2">
@@ -215,9 +208,15 @@ export default function WaitlistPage({
             {submitted && (
               <p className="text-sm text-emerald-400/90">You're in! 48 contractors are already waiting. We'll email when it's your turn.</p>
             )}
+
+            {submitError && (
+              <p className="text-sm text-[#cc6943]" role="alert">
+                That didn't go through. Try again, or email contact@heygaudi.ai and we'll add you.
+                {submitRef && <span className="block text-xs text-zinc-500">Ref: {submitRef}</span>}
+              </p>
+            )}
           </div>
 
-          {/* Right: Image + release date */}
           <div className="flex-1 max-w-2xl w-full flex flex-col items-center lg:items-end">
             <div className="relative w-full aspect-[4/3] rounded overflow-hidden">
               {!imageError ? (
@@ -242,7 +241,6 @@ export default function WaitlistPage({
           </div>
         </main>
 
-        {/* Bottom corner: Share buttons */}
         <div className="absolute bottom-6 left-6 flex flex-col gap-3">
           <span className="text-xs font-medium tracking-widest uppercase text-zinc-500">
             Share

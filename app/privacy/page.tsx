@@ -1,8 +1,3 @@
-// app/privacy/page.tsx
-// Next.js App Router + TypeScript
-// A clean, accessible Privacy Policy page scaffold you can drop into your project.
-// ──────────────────────────────────────────────────────────────────────────────
-
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,10 +21,6 @@ export const metadata: Metadata = {
     },
 };
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Types & Helpers
-// ──────────────────────────────────────────────────────────────────────────────
-
 type Section = {
     title: string;
     body: string[]; // paragraphs
@@ -44,13 +35,8 @@ function slugify(input: string) {
         .replace(/-+/g, "-");
 }
 
-// Last updated date (change this)
 const LAST_UPDATED = "2025-08-24"; // YYYY-MM-DD
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Replace these placeholder sections with your own policy. Keep the structure and
-// add/remove sections freely. Each string in `body` becomes a paragraph.
-// ──────────────────────────────────────────────────────────────────────────────
 
 const sections: Section[] = [
     {
@@ -133,14 +119,9 @@ const sections: Section[] = [
     },
 ];
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Page Component
-// ──────────────────────────────────────────────────────────────────────────────
-
 export default function PrivacyPage() {
     return (
         <main className="min-h-screen w-full bg-white text-slate-900">
-            {/* Header */}
             <header className="border-b bg-gray-50/60">
                 <div className="mx-auto max-w-5xl px-6 py-10">
                     <div className="flex justify-center mb-6">
@@ -162,9 +143,7 @@ export default function PrivacyPage() {
                 </div>
             </header>
 
-            {/* Body */}
             <div className="mx-auto max-w-5xl px-6 py-12 grid grid-cols-1 md:grid-cols-[260px_minmax(0,1fr)] gap-10">
-                {/* Table of Contents */}
                 <aside className="md:sticky md:top-6 md:self-start border rounded-2xl p-5 bg-gray-50">
                     <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-700 ">Contents</h2>
                     <ul className="mt-4 space-y-2">
@@ -181,7 +160,6 @@ export default function PrivacyPage() {
                     </ul>
                 </aside>
 
-                {/* Main Content */}
                 <article className="prose prose-slate max-w-none">
                     {sections.map((s) => {
                         const id = slugify(s.title);
@@ -195,7 +173,6 @@ export default function PrivacyPage() {
                         );
                     })}
 
-                    {/* Optional: Contact card */}
                     <div className="not-prose mt-12">
                         <div className="rounded-2xl border bg-gray-50 p-6">
                             <h3 className="text-lg font-semibold">Questions?</h3>
@@ -205,7 +182,6 @@ export default function PrivacyPage() {
                 </article>
             </div>
 
-            {/* Footer hint */}
             <footer className="mx-auto max-w-5xl px-6 pb-14 text-sm text-slate-500">
                 <p>
                     This page is provided for informational purposes only and does not constitute legal advice. Consult qualified counsel to tailor your policy.

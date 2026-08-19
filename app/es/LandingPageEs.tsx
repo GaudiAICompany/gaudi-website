@@ -19,49 +19,44 @@ import {
   CheckCircle2 
 } from "lucide-react"
 import ImageModal from "../ImageModal"
+import { captureLead, traceableRequestId } from "@/lib/capture-lead"
 
-export default function LandingPageEs({
-  functionApiBase,
-  functionApiKey,
-}: {
-  functionApiBase: string
-  functionApiKey: string
-}) {
+export default function LandingPageEs() {
   const [email, setEmail] = useState("")
   const [activeStep, setActiveStep] = useState(0)
   const [navOnLight, setNavOnLight] = useState(false)
   const [contactSubmitted, setContactSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
+  const [submitRef, setSubmitRef] = useState<string | null>(null)
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setSubmitError(false)
+    setSubmitRef(null)
     const form = e.currentTarget
     const action = form.getAttribute("data-action")
     const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement
     const email = emailInput?.value || ''
-    const url = `${functionApiBase}/api/capture_cta_email?code=${functionApiKey}`
-
     const firstNameInput = form.querySelector('input[name="firstName"]') as HTMLInputElement
     const lastNameInput = form.querySelector('input[name="lastName"]') as HTMLInputElement
     const companyInput = form.querySelector('input[name="company"]') as HTMLInputElement
     const messageInput = form.querySelector('textarea[name="message"]') as HTMLTextAreaElement
 
     // TODO: add location
-    const payload = {
+    const result = await captureLead({
       email,
       firstName: firstNameInput?.value || '',
       lastName: lastNameInput?.value || '',
       company: companyInput?.value || '',
       message: messageInput?.value || '',
-    }
+      source: action || 'contact-form',
+    })
 
-    const lead_record_res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-
-    if (!lead_record_res.ok) {
-      return console.error(`Function call failed: ${lead_record_res.status}`, { status: lead_record_res.status });
+    // captureLead already logged the reason and never throws, so a capture outage
+    // does not take the booking link down with it -- the visitor still gets routed.
+    if (!result.ok) {
+      setSubmitError(true)
+      setSubmitRef(traceableRequestId(result))
     }
 
     switch (action) {
@@ -118,7 +113,7 @@ export default function LandingPageEs({
     }
 
     window.addEventListener("scroll", handleScroll)
-    handleScroll() // Initial call
+    handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -216,7 +211,7 @@ const faqs = [
           <div className="flex items-center justify-between h-16">
             <a href="#" className="transition-colors">
               <img
-                src="/logo_text.png" // Replace with your actual image path
+                src="/logo_text.png"
                 alt="Gaudi AI Logo"
                 className={`h-6 w-auto ${navOnLight ? "filter-none" : "filter brightness-0 invert"}`}
               />
@@ -565,6 +560,12 @@ const faqs = [
                     >
                       Enviar Mensaje <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
+                    {submitError && (
+                      <p className="text-sm text-destructive" role="alert">
+                        No pudimos registrar tu mensaje. Intenta de nuevo o escribe a contact@heygaudi.ai.
+                        {submitRef && <span className="block text-xs opacity-60">Ref: {submitRef}</span>}
+                      </p>
+                    )}
                   </form>
                 )}
               </CardContent>

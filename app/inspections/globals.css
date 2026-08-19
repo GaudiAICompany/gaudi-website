@@ -4,7 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens to new earthy palette: #333333, #cc6943, #a9a99b */
   --background: #ffffff; /* White */
   --foreground: #333333; /* Dark charcoal gray */
   --card: #f9fafb; /* Light Gray */
@@ -124,7 +123,6 @@
   }
 }
 
-/* Added custom styles for video background and smooth scrolling */
 .video-overlay {
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
 }
@@ -133,7 +131,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Added navigation visibility styles for different backgrounds */
 .nav-adaptive {
   transition: all 0.3s ease;
 }
@@ -152,7 +149,6 @@ html {
   color: #ffffff;
 }
 
-/* Added light gray background utility for alternating sections */
 .bg-gray-50 {
   background-color: #f9fafb;
 }
