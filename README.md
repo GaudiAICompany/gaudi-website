@@ -16,16 +16,16 @@ npm run dev            # http://localhost:3000
 ```
 
 That's enough for everything except the signup CTAs. Those POST to
-`capture_cta_email`, which lives in
+`capture_cta_lead`, which lives in
 [gaudi-agents-functions](https://github.com/GaudiAICompany/gaudi-agents-functions),
 not here, so point the site at one:
 
 ```bash
 # .env.local
-NEXT_PUBLIC_LEAD_CAPTURE_URL=https://<backend-host>/api/capture_cta_email
+NEXT_PUBLIC_LEAD_CAPTURE_URL=https://<backend-host>/api/capture_cta_lead
 ```
 
-Against a backend running locally that's `http://localhost:7071/api/capture_cta_email`,
+Against a backend running locally that's `http://localhost:7071/api/capture_cta_lead`,
 after `func host start` in a clone of that repo. Leave the variable unset and the
 CTAs fail immediately with `endpoint_unconfigured` in the console rather than
 looking like a network error.
@@ -58,7 +58,7 @@ touch config:
 
 | Variable | Required | Read by | Notes |
 | --- | --- | --- | --- |
-| `NEXT_PUBLIC_LEAD_CAPTURE_URL` | **yes** | `lib/capture-lead.ts` | Full URL of the backend's `capture_cta_email` endpoint. A plain address, not a credential. Unset ⇒ every CTA fails fast with `code=endpoint_unconfigured`. |
+| `NEXT_PUBLIC_LEAD_CAPTURE_URL` | **yes** | `lib/capture-lead.ts` | Full URL of the backend's `capture_cta_lead` endpoint. A plain address, not a credential. Unset ⇒ every CTA fails fast with `code=endpoint_unconfigured`. |
 | `NEXT_PUBLIC_SITE_URL` | no | `app/waitlist/*/page.tsx` | Canonical origin for share links and OG metadata. Set nowhere today; falls back to `https://heygaudi.ai`. |
 | `VERCEL_URL` | no | `app/waitlist/*/page.tsx` | Second fallback for the canonical origin. Never set on Azure. |
 
@@ -72,7 +72,7 @@ the dev and prod backends is that one value plus a rebuild — no code changes.
 
 ## 🔌 What the backend expects
 
-The endpoint is live at `/api/capture_cta_email` on the `agentic-back-office-dev`
+The endpoint is live at `/api/capture_cta_lead` on the `agentic-back-office-dev`
 function app. It takes no key: the backend owns the database credentials and
 decides what actually gets written, and this repo holds a URL and nothing else.
 
