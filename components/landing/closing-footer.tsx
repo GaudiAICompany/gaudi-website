@@ -31,14 +31,16 @@ export function Contact() {
   return (
     <section id="contact" className="px-4 pb-14 sm:px-6">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col items-center gap-8 rounded-3xl border border-border bg-card px-6 py-14 text-center">
-          <div className="flex flex-col items-center gap-3">
+        {/* Locked to a single screen so the booking widget lands whole in view;
+            the Calendly panel takes whatever height the heading leaves behind. */}
+        <div className="flex flex-col items-center gap-8 rounded-3xl border border-border bg-card px-6 py-14 text-center lg:h-[calc(100vh-5rem)] lg:min-h-[42rem] lg:max-h-[58rem] lg:gap-5 lg:py-8">
+          <div className="flex shrink-0 flex-col items-center gap-3">
             <p className="text-sm font-semibold uppercase tracking-wider text-primary">Contact</p>
             <h2 className="max-w-xl text-balance font-sans text-3xl font-light leading-[1.02] tracking-[-0.02em] text-foreground sm:text-4xl">
               Talk to us about your next bid.
             </h2>
           </div>
-          <ContactTabs />
+          <ContactTabs fill />
         </div>
       </div>
     </section>

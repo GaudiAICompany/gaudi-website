@@ -96,7 +96,7 @@ export function ConversionForm({
           <Check className="size-4" />
         </span>
         <p className="text-sm leading-relaxed">
-          You&apos;re in. I&apos;ll reach out with your first estimate. Check your inbox for next steps.
+          You&apos;re on the list. I&apos;ll reach out shortly to set up your first estimate.
         </p>
       </div>
     )

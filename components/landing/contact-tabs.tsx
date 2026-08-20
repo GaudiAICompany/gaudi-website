@@ -4,6 +4,8 @@ import type React from "react"
 import { useState } from "react"
 import { ArrowRight, CalendarDays, MessageSquare } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+
 type Mode = "call" | "message"
 
 // Embed params theme the Calendly widget to the Gaudi espresso/orange palette.
@@ -13,7 +15,9 @@ const CALENDLY_URL =
 
 const CONTACT_EMAIL = "contact@heygaudi.ai"
 
-export function ContactTabs() {
+// `fill` lets a height-constrained parent (the landing page's contact section)
+// hand the leftover height to the booking panel instead of a fixed iframe height.
+export function ContactTabs({ fill = false }: { fill?: boolean }) {
   const [mode, setMode] = useState<Mode>("call")
 
   const [firstName, setFirstName] = useState("")
@@ -42,11 +46,11 @@ export function ContactTabs() {
     "h-12 w-full rounded-xl border border-section-dark-foreground/15 bg-section-dark-foreground/[0.06] px-4 text-base text-section-dark-foreground outline-none transition-colors placeholder:text-section-dark-foreground/45 focus:border-primary/60"
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col items-center">
+    <div className={cn("mx-auto flex w-full max-w-2xl flex-col items-center", fill && "min-h-0 flex-1")}>
       <div
         role="tablist"
         aria-label="Contact options"
-        className="inline-flex items-center gap-1 rounded-full border border-border bg-card p-1"
+        className="inline-flex shrink-0 items-center gap-1 rounded-full border border-border bg-card p-1"
       >
         <button
           role="tab"
@@ -76,13 +80,19 @@ export function ContactTabs() {
         </button>
       </div>
 
-      <div className="mt-8 w-full overflow-hidden rounded-3xl border border-border bg-section-dark p-4 sm:p-6">
+      <div
+        className={cn(
+          "w-full overflow-hidden rounded-3xl border border-border bg-section-dark",
+          // When filling a locked height, trim the chrome so the widget keeps the space.
+          fill ? "mt-5 flex min-h-0 flex-1 flex-col p-3" : "mt-8 p-4 sm:p-6",
+        )}
+      >
         {mode === "call" ? (
-          <div className="overflow-hidden rounded-2xl bg-section-dark">
+          <div className={cn("overflow-hidden rounded-2xl bg-section-dark", fill && "min-h-0 flex-1")}>
             <iframe
               title="Book a call with Gaudi AI"
               src={CALENDLY_URL}
-              className="h-[640px] w-full border-0 sm:h-[720px]"
+              className={cn("w-full border-0", fill ? "h-full min-h-[20rem]" : "h-[640px] sm:h-[720px]")}
               loading="lazy"
             />
           </div>
@@ -181,7 +191,7 @@ export function ContactTabs() {
         )}
       </div>
 
-      <div className="mt-10 w-full border-t border-border pt-8 text-center">
+      <div className={cn("w-full shrink-0 border-t border-border text-center", fill ? "mt-4 pt-4" : "mt-10 pt-8")}>
         <p className="text-sm text-muted-foreground">More Questions? Reach out directly:</p>
         <a
           href={`mailto:${CONTACT_EMAIL}`}

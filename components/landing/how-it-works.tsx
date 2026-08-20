@@ -1,17 +1,14 @@
 import {
-  ArrowRight,
   ArrowDown,
+  ArrowRight,
+  CornerDownRight,
+  MessageCircle,
   MessageSquare,
   Phone,
   Mail,
   Upload,
   Pencil,
   Search,
-  Check,
-  Send,
-  FileText,
-  Building2,
-  Folder,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -60,9 +57,9 @@ function VoiceOverlay() {
   )
 }
 
-function Channels() {
+function Channels({ className }: { className?: string }) {
   return (
-    <div className="grid grid-cols-2 gap-3 [grid-auto-rows:10rem]">
+    <div className={cn("grid grid-cols-2 gap-3", className)}>
       <ChannelTile
         src="/images/how-it-works/input-call.png"
         alt="Contractor taking a call from the truck"
@@ -218,13 +215,6 @@ function EstimateDoc() {
   )
 }
 
-const SAMPLE_PROMPTS = [
-  "What outlets are spec'd for the kitchen?",
-  "When is the takeoff due for the Market St bid?",
-  "How many drywall sheets on level 2?",
-  "How much do I owe Lone Star Electric?",
-]
-
 function OutputZone() {
   return (
     <div>
@@ -235,24 +225,7 @@ function OutputZone() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-        <div className="min-w-0 flex-1">
-          <EstimateDoc />
-        </div>
-
-        <div className="lg:w-52 lg:shrink-0">
-          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Or just ask Gaudi
-          </p>
-          <ul className="grid grid-cols-2 gap-2 lg:grid-cols-1">
-            {SAMPLE_PROMPTS.map((q) => (
-              <li key={q} className="rounded-xl border border-border bg-card px-3 py-2">
-                <p className="text-[12.5px] leading-snug text-foreground">&ldquo;{q}&rdquo;</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <EstimateDoc />
     </div>
   )
 }
@@ -325,57 +298,54 @@ function AuditCard() {
   )
 }
 
-const SUBS = [
-  { name: "Lone Star Electric", quoted: true, val: "$18,400" },
-  { name: "Capitol City Electric", quoted: false },
-  { name: "Delta Power & Light", quoted: false },
+// Each thread is one question reaching Gaudi over a different channel, with the
+// channel called out in the corner the way the "What you send" tiles do.
+const ASK_THREADS = [
+  {
+    channel: "Email",
+    icon: Mail,
+    question: "How many drywall sheets on level 2?",
+    answer: "68 sheets, 1/2\" 4×8 · Sheet A-3",
+  },
+  {
+    channel: "WhatsApp",
+    icon: MessageCircle,
+    question: "How much do I owe Lone Star Electric?",
+    answer: "$18,400 on the Myra Ave electrical package",
+  },
+  {
+    channel: "Text",
+    icon: MessageSquare,
+    question: "What outlets are spec'd for the kitchen?",
+    answer: "13 outlets · Sheet A-3 · walls",
+  },
 ]
 
-function SubsCard() {
+function JustAskCard() {
   return (
     <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 sm:p-8">
-      <p className="text-xs font-semibold uppercase tracking-wider text-primary">Sub coordination</p>
+      <p className="text-xs font-semibold uppercase tracking-wider text-primary">Just ask Gaudi</p>
       <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">
-        Package it. Send for quotes.
+        Wherever you already text.
       </h3>
 
-      <div className="mt-6 flex flex-1 items-center gap-4 sm:gap-5">
-        <div className="w-44 shrink-0 rounded-xl border border-border bg-secondary/50 p-4">
-          <p className="flex items-center gap-1.5 text-[13px] font-semibold text-foreground">
-            <Folder className="size-4 text-primary" aria-hidden="true" />
-            Electrical package
-          </p>
-          <ul className="mt-2.5 space-y-1.5">
-            {["Plans E-1 to E-4.pdf", "Scope of work.pdf", "Spec 26 05 00.pdf"].map((f) => (
-              <li key={f} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                <FileText className="size-3 shrink-0" aria-hidden="true" />
-                <span className="truncate">{f}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <Send className="size-5 shrink-0 text-primary" aria-hidden="true" />
-
-        <div className="flex-1 space-y-2">
-          {SUBS.map((s) => (
-            <div key={s.name} className="flex items-center justify-between gap-2 rounded-lg bg-secondary/50 px-3 py-2.5">
-              <span className="flex min-w-0 items-center gap-2 text-[12px] text-foreground">
-                <Building2 className="size-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
-                <span className="truncate">{s.name}</span>
+      <ul className="mt-6 flex flex-1 flex-col justify-center gap-2.5">
+        {ASK_THREADS.map((t) => (
+          <li key={t.channel} className="rounded-xl border border-border bg-secondary/40 px-3 py-2.5">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-background px-2 py-0.5 text-[10px] font-semibold text-foreground shadow-sm">
+                <t.icon className="size-3 text-primary" aria-hidden="true" />
+                {t.channel}
               </span>
-              {s.quoted ? (
-                <span className="inline-flex shrink-0 items-center gap-1 text-[11px] font-semibold text-primary">
-                  <Check className="size-3" aria-hidden="true" />
-                  {s.val}
-                </span>
-              ) : (
-                <span className="shrink-0 text-[11px] text-muted-foreground">Invited</span>
-              )}
+              <p className="text-[13px] leading-snug text-foreground">&ldquo;{t.question}&rdquo;</p>
             </div>
-          ))}
-        </div>
-      </div>
+            <p className="mt-1 flex items-start gap-1.5 text-[11px] leading-snug text-muted-foreground">
+              <CornerDownRight className="mt-px size-3 shrink-0 text-primary" aria-hidden="true" />
+              {t.answer}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -404,32 +374,38 @@ export function HowItWorks() {
           </h2>
         </div>
 
-        <div className="mt-6 rounded-3xl border border-border bg-card p-4 sm:p-5">
+        {/* Locked to a single screen on desktop so the whole intake-to-estimate
+            flow reads without scrolling; the channel tiles absorb the slack. */}
+        <div className="mt-6 flex flex-col rounded-3xl border border-border bg-card p-4 sm:p-5 lg:h-[calc(100vh-5rem)] lg:min-h-[36rem] lg:max-h-[54rem]">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Intake to estimate</p>
           <h3 className="mt-2 font-sans text-xl font-light leading-snug tracking-tight text-foreground lg:whitespace-nowrap xl:text-2xl">
             Any format, any channel. Just ask for what you need.
           </h3>
 
-          <div className="mt-4 hidden items-center gap-5 lg:flex xl:gap-6">
-            <div className="w-[340px] shrink-0">
+          <div className="mt-4 hidden min-h-0 flex-1 items-stretch gap-5 lg:flex xl:gap-6">
+            <div className="flex w-[340px] shrink-0 flex-col">
               <ZoneLabel>What you send</ZoneLabel>
-              <Channels />
+              <Channels className="min-h-0 flex-1 [grid-auto-rows:minmax(0,1fr)]" />
             </div>
 
-            <div className="shrink-0">
+            <div className="flex shrink-0 items-center">
               <ChaosToOrder />
             </div>
 
-            <div className="min-w-0 flex-1">
+            <div className="flex min-w-0 flex-1 flex-col">
               <ZoneLabel>Client-ready results</ZoneLabel>
-              <OutputZone />
+              <div className="flex min-h-0 flex-1 items-center">
+                <div className="w-full">
+                  <OutputZone />
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="mt-6 flex flex-col items-center gap-5 lg:hidden">
             <div className="w-full max-w-md">
               <ZoneLabel>What you send</ZoneLabel>
-              <Channels />
+              <Channels className="[grid-auto-rows:10rem]" />
             </div>
 
             <div>
@@ -447,7 +423,17 @@ export function HowItWorks() {
 
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <AuditCard />
-          <SubsCard />
+          <JustAskCard />
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <a
+            href="/product/coming-next"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-border bg-card px-6 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
+          >
+            Explore more capabilities coming soon
+            <ArrowRight className="size-4 text-primary" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>
