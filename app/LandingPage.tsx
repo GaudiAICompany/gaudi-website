@@ -5,22 +5,16 @@ import { ConversionBand } from "@/components/landing/conversion-band"
 import { Pricing } from "@/components/landing/pricing"
 import { ClosingCta, Contact, SiteFooter } from "@/components/landing/closing-footer"
 
-export default function LandingPage({
-  functionApiBase,
-  functionApiKey,
-}: {
-  functionApiBase: string
-  functionApiKey: string
-}) {
+export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-        <Hero apiBase={functionApiBase} apiKey={functionApiKey} />
+        <Hero />
         <HowItWorks />
-        <ConversionBand apiBase={functionApiBase} apiKey={functionApiKey} />
-        <Pricing apiBase={functionApiBase} apiKey={functionApiKey} />
-        <ClosingCta apiBase={functionApiBase} apiKey={functionApiKey} />
+        <ConversionBand />
+        <Pricing />
+        <ClosingCta />
         <Contact />
       </main>
       <SiteFooter />

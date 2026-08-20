@@ -11,7 +11,6 @@ export default function ImageModal({ src, alt }: ImageModalProps) {
 
   return (
     <>
-      {/* Thumbnail */}
       <img
         src={src}
         alt={alt}
@@ -19,7 +18,6 @@ export default function ImageModal({ src, alt }: ImageModalProps) {
         onClick={() => setIsOpen(true)}
       />
 
-      {/* Modal Portal */}
       {isOpen &&
         createPortal(
           <div

@@ -1,6 +1,6 @@
 import { ConversionForm, CtaTrustRow } from "./conversion-form"
 
-export function ConversionBand({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
+export function ConversionBand() {
   return (
     <section id="get-started" className="px-4 py-6 sm:px-6">
       <div className="mx-auto max-w-7xl">
@@ -15,12 +15,7 @@ export function ConversionBand({ apiBase, apiKey }: { apiBase: string; apiKey: s
               </p>
             </div>
             <div>
-              <ConversionForm
-                apiBase={apiBase}
-                apiKey={apiKey}
-                buttonLabel="Get started on a free estimate"
-                tone="dark"
-              />
+              <ConversionForm buttonLabel="Get started on a free estimate" tone="dark" />
               <CtaTrustRow className="mt-5" />
             </div>
           </div>

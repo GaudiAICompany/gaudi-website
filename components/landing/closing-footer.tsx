@@ -1,7 +1,7 @@
 import { ContactTabs } from "@/components/landing/contact-tabs"
 import { ConversionForm, CtaTrustRow } from "@/components/landing/conversion-form"
 
-export function ClosingCta({ apiBase, apiKey }: { apiBase: string; apiKey: string }) {
+export function ClosingCta() {
   return (
     <section className="px-4 py-14 sm:px-6 lg:py-20">
       <div className="mx-auto max-w-7xl">
@@ -17,12 +17,7 @@ export function ClosingCta({ apiBase, apiKey }: { apiBase: string; apiKey: strin
               Ready to see your <span className="font-serif text-[1.08em] font-medium italic text-primary">own numbers?</span>
             </h2>
             <div className="w-full max-w-xl">
-              <ConversionForm
-                apiBase={apiBase}
-                apiKey={apiKey}
-                buttonLabel="Get started on a free estimate"
-                tone="dark"
-              />
+              <ConversionForm buttonLabel="Get started on a free estimate" tone="dark" />
               <CtaTrustRow className="mt-5" />
             </div>
           </div>

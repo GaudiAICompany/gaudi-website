@@ -16,8 +16,6 @@ import {
 import { cn } from "@/lib/utils"
 
 /* ------------------------- Left: input channels ------------------------- */
-/* Image-led tiles. The photo is the focus and carries the meaning; a small
-   chip names the channel it arrived through, so both dimensions stay legible. */
 
 function ChannelTile({
   src,
@@ -103,9 +101,6 @@ function Channels() {
 }
 
 /* ------------------- Transition: inputs flow into Gaudi ---------------- */
-/* A single left-to-right arrow with the Gaudi mark seated in its middle: the
-   shaft enters from the input side, passes through the bordered brand circle,
-   and continues into an arrowhead pointing at the client-ready results. */
 
 function ChaosToOrder({ className }: { className?: string }) {
   return (
@@ -162,8 +157,6 @@ function ChaosToOrder({ className }: { className?: string }) {
 }
 
 /* --------------------------- Right: the answer --------------------------- */
-/* A fully branded GC document, Rivera's own letterhead and color, so it clearly
-   reads as something they would forward straight to a client. */
 
 const DOC_LINES = [
   { name: '1/2" drywall, 4×8 · 68 sheets', src: "Sheet A-3 · walls", val: "$965" },
@@ -235,7 +228,6 @@ const SAMPLE_PROMPTS = [
 function OutputZone() {
   return (
     <div>
-      {/* the spoken request that produced the document */}
       <div className="mb-3 flex items-start gap-2.5">
         <MessageSquare className="mt-1 size-5 shrink-0 text-primary" aria-hidden="true" />
         <p className="text-pretty font-serif text-lg italic leading-snug text-foreground/85">
@@ -248,7 +240,6 @@ function OutputZone() {
           <EstimateDoc />
         </div>
 
-        {/* several example prompts, positioned alongside the output */}
         <div className="lg:w-52 lg:shrink-0">
           <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
             Or just ask Gaudi
@@ -267,8 +258,6 @@ function OutputZone() {
 }
 
 /* ---------------------- Bottom row: audit + distribute ------------------- */
-/* Visual-led. Text is trimmed to a label and one short line; the examples do
-   the explaining. */
 
 // 13 most likely outlet locations, spaced along the plan's interior walls
 const OUTLET_MARKERS = [
@@ -296,7 +285,6 @@ function AuditCard() {
       </h3>
 
       <div className="mt-6 flex flex-1 items-center gap-4 sm:gap-5">
-        {/* the source */}
         <div className="relative w-52 shrink-0 overflow-hidden rounded-xl ring-1 ring-border sm:w-60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -318,13 +306,11 @@ function AuditCard() {
           </span>
         </div>
 
-        {/* traced to */}
         <div className="flex flex-col items-center text-primary" aria-hidden="true">
           <Search className="size-4" />
           <div className="my-1 h-px w-8 bg-primary/40 sm:w-10" />
         </div>
 
-        {/* the editable value */}
         <div className="flex-1 rounded-xl bg-secondary/60 p-4">
           <p className="text-[13px] font-medium text-foreground">Electrical outlets · 13 ct</p>
           <div className="mt-2 inline-flex items-center gap-2 rounded-lg border border-dashed border-primary/60 bg-primary/5 px-3 py-2">
@@ -348,14 +334,12 @@ const SUBS = [
 function SubsCard() {
   return (
     <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 sm:p-8">
-      {/* label: Sub coordination */}
       <p className="text-xs font-semibold uppercase tracking-wider text-primary">Sub coordination</p>
       <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">
         Package it. Send for quotes.
       </h3>
 
       <div className="mt-6 flex flex-1 items-center gap-4 sm:gap-5">
-        {/* the package */}
         <div className="w-44 shrink-0 rounded-xl border border-border bg-secondary/50 p-4">
           <p className="flex items-center gap-1.5 text-[13px] font-semibold text-foreground">
             <Folder className="size-4 text-primary" aria-hidden="true" />
@@ -373,7 +357,6 @@ function SubsCard() {
 
         <Send className="size-5 shrink-0 text-primary" aria-hidden="true" />
 
-        {/* the recipients */}
         <div className="flex-1 space-y-2">
           {SUBS.map((s) => (
             <div key={s.name} className="flex items-center justify-between gap-2 rounded-lg bg-secondary/50 px-3 py-2.5">
@@ -427,7 +410,6 @@ export function HowItWorks() {
             Any format, any channel. Just ask for what you need.
           </h3>
 
-          {/* Desktop flow */}
           <div className="mt-4 hidden items-center gap-5 lg:flex xl:gap-6">
             <div className="w-[340px] shrink-0">
               <ZoneLabel>What you send</ZoneLabel>
@@ -444,7 +426,6 @@ export function HowItWorks() {
             </div>
           </div>
 
-          {/* Mobile / tablet flow */}
           <div className="mt-6 flex flex-col items-center gap-5 lg:hidden">
             <div className="w-full max-w-md">
               <ZoneLabel>What you send</ZoneLabel>
@@ -464,7 +445,6 @@ export function HowItWorks() {
           </div>
         </div>
 
-        {/* Bottom row, separate from the primary input to output flow */}
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <AuditCard />
           <SubsCard />

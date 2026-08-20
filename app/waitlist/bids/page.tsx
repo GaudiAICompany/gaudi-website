@@ -7,8 +7,6 @@ import { Metadata } from "next"
 // TODO: reformat this, so not scheduiling specific
 export default function WaitlistSchedulingPage() {
   const config = getWaitlistConfig("bids")
-  const functionApiBase = process.env.FUNCTION_API_BASE || ""
-  const functionApiKey = process.env.FUNCTION_API_KEY || ""
 
   if (!config) {
     notFound()
@@ -23,8 +21,6 @@ export default function WaitlistSchedulingPage() {
     <WaitlistPage
       config={config}
       baseUrl={baseUrl}
-      functionApiBase={functionApiBase}
-      functionApiKey={functionApiKey}
     />
   )
 }
