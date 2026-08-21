@@ -4,8 +4,6 @@ import type React from "react"
 import { useState } from "react"
 import { ArrowRight, CalendarDays, MessageSquare } from "lucide-react"
 
-import { cn } from "@/lib/utils"
-
 type Mode = "call" | "message"
 
 // Embed params theme the Calendly widget to the Gaudi espresso/orange palette.
@@ -15,9 +13,7 @@ const CALENDLY_URL =
 
 const CONTACT_EMAIL = "contact@heygaudi.ai"
 
-// `fill` lets a height-constrained parent (the landing page's contact section)
-// hand the leftover height to the booking panel instead of a fixed iframe height.
-export function ContactTabs({ fill = false }: { fill?: boolean }) {
+export function ContactTabs() {
   const [mode, setMode] = useState<Mode>("call")
 
   const [firstName, setFirstName] = useState("")
@@ -46,21 +42,20 @@ export function ContactTabs({ fill = false }: { fill?: boolean }) {
     "h-12 w-full rounded-xl border border-section-dark-foreground/15 bg-section-dark-foreground/[0.06] px-4 text-base text-section-dark-foreground outline-none transition-colors placeholder:text-section-dark-foreground/45 focus:border-primary/60"
 
   return (
-    <div className={cn("mx-auto flex w-full max-w-2xl flex-col items-center", fill && "min-h-0 flex-1")}>
+    <div className="mx-auto flex w-full max-w-2xl flex-col items-center [zoom:0.75]">
       <div
         role="tablist"
         aria-label="Contact options"
-        className="inline-flex shrink-0 items-center gap-1 rounded-full border border-border bg-card p-1"
+        className="inline-flex items-center gap-1 rounded-full border border-border bg-card p-1"
       >
         <button
           role="tab"
           aria-selected={mode === "call"}
           onClick={() => setMode("call")}
-          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${
-            mode === "call"
+          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${mode === "call"
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:text-foreground"
-          }`}
+            }`}
         >
           <CalendarDays className="size-4" />
           Book a call
@@ -69,35 +64,30 @@ export function ContactTabs({ fill = false }: { fill?: boolean }) {
           role="tab"
           aria-selected={mode === "message"}
           onClick={() => setMode("message")}
-          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${
-            mode === "message"
+          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${mode === "message"
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:text-foreground"
-          }`}
+            }`}
         >
           <MessageSquare className="size-4" />
           Send a message
         </button>
       </div>
 
-      <div
-        className={cn(
-          "w-full overflow-hidden rounded-3xl border border-border bg-section-dark",
-          // When filling a locked height, trim the chrome so the widget keeps the space.
-          fill ? "mt-5 flex min-h-0 flex-1 flex-col p-3" : "mt-8 p-4 sm:p-6",
-        )}
-      >
+      <div className="mt-8 w-full">
         {mode === "call" ? (
-          <div className={cn("overflow-hidden rounded-2xl bg-section-dark", fill && "min-h-0 flex-1")}>
-            <iframe
-              title="Book a call with Gaudi AI"
-              src={CALENDLY_URL}
-              className={cn("w-full border-0", fill ? "h-full min-h-[20rem]" : "h-[640px] sm:h-[720px]")}
-              loading="lazy"
-            />
+          <div className="mx-auto w-fit overflow-hidden rounded-lg">
+            <div className="h-[622px] w-[799px] overflow-hidden [zoom:0.35] sm:[zoom:0.45] md:[zoom:0.55] lg:[zoom:0.65] xl:[zoom:0.75] 2xl:[zoom:0.85]">
+              <iframe
+                title="Book a call with Gaudi AI"
+                src={CALENDLY_URL}
+                loading="lazy"
+                className="-ml-[151px] -mt-[68px] h-[720px] w-[1100px] border-0"
+              />
+            </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-1 sm:p-2">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 overflow-hidden rounded-3xl border border-border bg-section-dark p-5 sm:p-8">
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="firstName" className="sr-only">
@@ -191,7 +181,7 @@ export function ContactTabs({ fill = false }: { fill?: boolean }) {
         )}
       </div>
 
-      <div className={cn("w-full shrink-0 border-t border-border text-center", fill ? "mt-4 pt-4" : "mt-10 pt-8")}>
+      <div className="mt-10 w-full border-t border-border pt-8 text-center">
         <p className="text-sm text-muted-foreground">More Questions? Reach out directly:</p>
         <a
           href={`mailto:${CONTACT_EMAIL}`}
