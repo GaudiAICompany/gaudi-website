@@ -1,17 +1,14 @@
 import {
-  ArrowRight,
   ArrowDown,
+  ArrowRight,
+  CornerDownRight,
+  MessageCircle,
   MessageSquare,
   Phone,
   Mail,
   Upload,
   Pencil,
   Search,
-  Check,
-  Send,
-  FileText,
-  Building2,
-  Folder,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -60,9 +57,9 @@ function VoiceOverlay() {
   )
 }
 
-function Channels() {
+function Channels({ className }: { className?: string }) {
   return (
-    <div className="grid grid-cols-2 gap-3 [grid-auto-rows:11rem]">
+    <div className={cn("grid grid-cols-2 gap-3", className)}>
       <ChannelTile
         src="/images/how-it-works/input-call.png"
         alt="Contractor taking a call from the truck"
@@ -100,37 +97,58 @@ function Channels() {
   )
 }
 
-/* ------------------- Transition: chaos resolves into Gaudi ---------------- */
+/* ------------------- Transition: inputs flow into Gaudi ---------------- */
 
-function ChaosToOrder({ className, outgoing = false }: { className?: string; outgoing?: boolean }) {
+function ChaosToOrder({ className }: { className?: string }) {
   return (
     <div className={cn("flex items-center", className)}>
+      {/* incoming shaft from the left */}
       <svg
-        viewBox="0 0 150 120"
-        className="h-24 w-28 shrink-0"
+        viewBox="0 0 48 24"
+        className="h-6 w-12 shrink-0"
         role="img"
-        aria-label="Tangled inputs unwinding into a single clean line that resolves into Gaudi"
+        aria-label="Inputs flow left to right into Gaudi"
       >
-        <defs>
-          <linearGradient id="chaosToOrder" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="currentColor" className="text-muted-foreground/45" />
-            <stop offset="100%" stopColor="currentColor" className="text-primary" />
-          </linearGradient>
-        </defs>
+        <line
+          x1="0"
+          y1="12"
+          x2="48"
+          y2="12"
+          stroke="currentColor"
+          className="text-primary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      {/* the Gaudi mark, centered in the arrow */}
+      <div className="mx-1.5 flex size-32 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-card">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo_text.png" alt="Gaudi AI" className="w-24" />
+      </div>
+
+      {/* outgoing shaft with arrowhead pointing right */}
+      <svg viewBox="0 0 56 24" className="h-6 w-14 shrink-0" role="img" aria-hidden="true">
+        <line
+          x1="0"
+          y1="12"
+          x2="48"
+          y2="12"
+          stroke="currentColor"
+          className="text-primary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
         <path
-          d="M10,60 C22,38 48,44 42,62 C36,82 14,74 28,52 C44,26 74,40 60,64 C50,84 32,76 46,56 C58,38 74,50 68,62 C92,54 122,58 150,60"
+          d="M42,5 L55,12 L42,19"
           fill="none"
-          stroke="url(#chaosToOrder)"
-          strokeWidth="2.75"
+          stroke="currentColor"
+          className="text-primary"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </svg>
-
-      <div className="-ml-2 flex size-32 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-card">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo_text.png" alt="Gaudi" className="w-24" />
-      </div>
     </div>
   )
 }
@@ -197,47 +215,39 @@ function EstimateDoc() {
   )
 }
 
-const SAMPLE_PROMPTS = [
-  { q: "What outlets are spec'd for the kitchen?", tag: "Spec lookup" },
-  { q: "When is the takeoff due for the Market St bid?", tag: "Deadlines" },
-  { q: "How many drywall sheets on level 2?", tag: "Quantities" },
-  { q: "How much do I owe Lone Star Electric?", tag: "Payables" },
-]
-
 function OutputZone() {
   return (
     <div>
-      <div className="mb-4 flex items-start gap-2.5">
+      <div className="mb-3 flex items-start gap-2.5">
         <MessageSquare className="mt-1 size-5 shrink-0 text-primary" aria-hidden="true" />
         <p className="text-pretty font-serif text-lg italic leading-snug text-foreground/85">
           &ldquo;Hey Gaudi, price the Myra Ave residence.&rdquo;
         </p>
       </div>
 
-      <div className="flex flex-col gap-5 xl:flex-row xl:items-start">
-        <div className="min-w-0 flex-1">
-          <EstimateDoc />
-        </div>
-
-        <div className="xl:w-56 xl:shrink-0">
-          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Or just ask Gaudi
-          </p>
-          <ul className="grid grid-cols-2 gap-2 xl:grid-cols-1">
-            {SAMPLE_PROMPTS.map((p) => (
-              <li key={p.q} className="rounded-xl border border-border bg-card px-3 py-2">
-                <p className="text-[12.5px] leading-snug text-foreground">&ldquo;{p.q}&rdquo;</p>
-                <p className="mt-1 text-[10px] font-medium uppercase tracking-wider text-primary/80">{p.tag}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <EstimateDoc />
     </div>
   )
 }
 
 /* ---------------------- Bottom row: audit + distribute ------------------- */
+
+// 13 most likely outlet locations, spaced along the plan's interior walls
+const OUTLET_MARKERS = [
+  { top: "20%", left: "24%" },
+  { top: "17%", left: "47%" },
+  { top: "21%", left: "70%" },
+  { top: "34%", left: "17%" },
+  { top: "37%", left: "82%" },
+  { top: "50%", left: "22%" },
+  { top: "52%", left: "58%" },
+  { top: "55%", left: "83%" },
+  { top: "66%", left: "31%" },
+  { top: "69%", left: "52%" },
+  { top: "71%", left: "75%" },
+  { top: "82%", left: "27%" },
+  { top: "84%", left: "64%" },
+]
 
 function AuditCard() {
   return (
@@ -252,16 +262,20 @@ function AuditCard() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/how-it-works/input-blueprint.png"
-            alt="Blueprint page A-3, the source of the drywall quantity"
+            alt="Blueprint page A-3, showing the 13 outlet locations Gaudi found"
             className="h-44 w-full object-cover"
           />
-          {/* highlight traces an interior partition wall — where 1/2" drywall is actually hung */}
-          <span
-            className="absolute left-[59.5%] top-[15%] h-[52%] w-2 rounded-sm border-2 border-primary bg-primary/15"
-            aria-hidden="true"
-          />
+          {/* small markers on the 13 most likely outlet locations along the walls */}
+          {OUTLET_MARKERS.map((m, i) => (
+            <span
+              key={i}
+              className="absolute size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-primary bg-primary/25"
+              style={{ top: m.top, left: m.left }}
+              aria-hidden="true"
+            />
+          ))}
           <span className="absolute inset-x-0 bottom-0 bg-foreground/75 px-2 py-1 text-[10px] font-medium text-background">
-            Sheet A-3
+            Sheet A-3 · 13 outlets
           </span>
         </div>
 
@@ -271,9 +285,10 @@ function AuditCard() {
         </div>
 
         <div className="flex-1 rounded-xl bg-secondary/60 p-4">
-          <p className="text-[13px] font-medium text-foreground">1/2&quot; drywall, 4×8 · 68 sheets</p>
+          <p className="text-[13px] font-medium text-foreground">Electrical outlets · 13 ct</p>
           <div className="mt-2 inline-flex items-center gap-2 rounded-lg border border-dashed border-primary/60 bg-primary/5 px-3 py-2">
-            <span className="text-lg font-semibold text-foreground">$965</span>
+            <span className="text-sm text-muted-foreground">$25 × 13 =</span>
+            <span className="text-lg font-semibold text-foreground">$325</span>
             <Pencil className="size-3.5 text-primary" aria-hidden="true" />
           </div>
           <p className="mt-2 text-[11px] text-muted-foreground">Gaudi relearns your pricing</p>
@@ -283,57 +298,54 @@ function AuditCard() {
   )
 }
 
-const SUBS = [
-  { name: "Lone Star Electric", quoted: true, val: "$18,400" },
-  { name: "Capitol City Electric", quoted: false },
-  { name: "Delta Power & Light", quoted: false },
+// Each thread is one question reaching Gaudi over a different channel, with the
+// channel called out in the corner the way the "What you send" tiles do.
+const ASK_THREADS = [
+  {
+    channel: "Email",
+    icon: Mail,
+    question: "How many drywall sheets on level 2?",
+    answer: "68 sheets, 1/2\" 4×8 · Sheet A-3",
+  },
+  {
+    channel: "WhatsApp",
+    icon: MessageCircle,
+    question: "How much do I owe Lone Star Electric?",
+    answer: "$18,400 on the Myra Ave electrical package",
+  },
+  {
+    channel: "Text",
+    icon: MessageSquare,
+    question: "What outlets are spec'd for the kitchen?",
+    answer: "13 outlets · Sheet A-3 · walls",
+  },
 ]
 
-function SubsCard() {
+function JustAskCard() {
   return (
     <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 sm:p-8">
-      <p className="text-xs font-semibold uppercase tracking-wider text-primary">Sub coordination</p>
+      <p className="text-xs font-semibold uppercase tracking-wider text-primary">Just ask Gaudi</p>
       <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">
-        Package it. Send for quotes.
+        Wherever you already text.
       </h3>
 
-      <div className="mt-6 flex flex-1 items-center gap-4 sm:gap-5">
-        <div className="w-44 shrink-0 rounded-xl border border-border bg-secondary/50 p-4">
-          <p className="flex items-center gap-1.5 text-[13px] font-semibold text-foreground">
-            <Folder className="size-4 text-primary" aria-hidden="true" />
-            Electrical package
-          </p>
-          <ul className="mt-2.5 space-y-1.5">
-            {["Plans E-1 to E-4.pdf", "Scope of work.pdf", "Spec 26 05 00.pdf"].map((f) => (
-              <li key={f} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                <FileText className="size-3 shrink-0" aria-hidden="true" />
-                <span className="truncate">{f}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <Send className="size-5 shrink-0 text-primary" aria-hidden="true" />
-
-        <div className="flex-1 space-y-2">
-          {SUBS.map((s) => (
-            <div key={s.name} className="flex items-center justify-between gap-2 rounded-lg bg-secondary/50 px-3 py-2.5">
-              <span className="flex min-w-0 items-center gap-2 text-[12px] text-foreground">
-                <Building2 className="size-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
-                <span className="truncate">{s.name}</span>
+      <ul className="mt-6 flex flex-1 flex-col justify-center gap-2.5">
+        {ASK_THREADS.map((t) => (
+          <li key={t.channel} className="rounded-xl border border-border bg-secondary/40 px-3 py-2.5">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-background px-2 py-0.5 text-[10px] font-semibold text-foreground shadow-sm">
+                <t.icon className="size-3 text-primary" aria-hidden="true" />
+                {t.channel}
               </span>
-              {s.quoted ? (
-                <span className="inline-flex shrink-0 items-center gap-1 text-[11px] font-semibold text-primary">
-                  <Check className="size-3" aria-hidden="true" />
-                  {s.val}
-                </span>
-              ) : (
-                <span className="shrink-0 text-[11px] text-muted-foreground">Invited</span>
-              )}
+              <p className="text-[13px] leading-snug text-foreground">&ldquo;{t.question}&rdquo;</p>
             </div>
-          ))}
-        </div>
-      </div>
+            <p className="mt-1 flex items-start gap-1.5 text-[11px] leading-snug text-muted-foreground">
+              <CornerDownRight className="mt-px size-3 shrink-0 text-primary" aria-hidden="true" />
+              {t.answer}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -342,50 +354,58 @@ function SubsCard() {
 
 function ZoneLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-4 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">{children}</p>
+    <p className="mb-2.5 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+      {children}
+    </p>
   )
 }
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="px-4 py-20 sm:px-6 lg:py-28">
+    <section id="product" className="px-4 py-8 sm:px-6 lg:py-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">How it works</p>
-          <h2 className="text-balance font-sans text-3xl font-light leading-[1.08] tracking-[-0.02em] text-foreground sm:text-4xl">
-            Gaudi turns blueprints, RFPs, and site notes into accurate, ready-to-send estimates in minutes, so you can{" "}
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">Product</p>
+          <h2 className="text-balance font-sans text-3xl font-light leading-[1.05] tracking-[-0.02em] text-foreground sm:text-4xl">
+            Blueprints and site notes into ready-to-send estimates,{" "}
             <span className="font-serif text-[1.06em] font-medium italic text-primary">
-              bid faster and win more work.
+              so you bid faster and win.
             </span>
           </h2>
         </div>
 
-        <div className="mt-14 rounded-3xl border border-border bg-card p-6 sm:p-10">
+        {/* Locked to a single screen on desktop so the whole intake-to-estimate
+            flow reads without scrolling; the channel tiles absorb the slack. */}
+        <div className="mt-6 flex flex-col rounded-3xl border border-border bg-card p-4 sm:p-5 lg:h-[calc(100vh-5rem)] lg:min-h-[36rem] lg:max-h-[54rem]">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Intake to estimate</p>
           <h3 className="mt-2 font-sans text-xl font-light leading-snug tracking-tight text-foreground lg:whitespace-nowrap xl:text-2xl">
             Any format, any channel. Just ask for what you need.
           </h3>
 
-          <div className="mt-8 hidden items-center gap-5 lg:flex xl:gap-6">
-            <div className="w-[340px] shrink-0">
-              <ZoneLabel>Send Gaudi your project information</ZoneLabel>
-              <Channels />
+          <div className="mt-4 hidden min-h-0 flex-1 items-stretch gap-5 lg:flex xl:gap-6">
+            <div className="flex w-[340px] shrink-0 flex-col">
+              <ZoneLabel>What you send</ZoneLabel>
+              <Channels className="min-h-0 flex-1 [grid-auto-rows:minmax(0,1fr)]" />
             </div>
 
-            <div className="shrink-0">
-              <ChaosToOrder outgoing />
+            <div className="flex shrink-0 items-center">
+              <ChaosToOrder />
             </div>
 
-            <div className="min-w-0 flex-1">
+            <div className="flex min-w-0 flex-1 flex-col">
               <ZoneLabel>Client-ready results</ZoneLabel>
-              <OutputZone />
+              <div className="flex min-h-0 flex-1 items-center">
+                <div className="w-full">
+                  <OutputZone />
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col items-center gap-5 lg:hidden">
+          <div className="mt-6 flex flex-col items-center gap-5 lg:hidden">
             <div className="w-full max-w-md">
-              <ZoneLabel>Send Gaudi your project information</ZoneLabel>
-              <Channels />
+              <ZoneLabel>What you send</ZoneLabel>
+              <Channels className="[grid-auto-rows:10rem]" />
             </div>
 
             <div>
@@ -403,7 +423,17 @@ export function HowItWorks() {
 
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <AuditCard />
-          <SubsCard />
+          <JustAskCard />
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <a
+            href="/product/coming-next"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-border bg-card px-6 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
+          >
+            Explore more capabilities coming soon
+            <ArrowRight className="size-4 text-primary" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>

@@ -42,7 +42,7 @@ export function ContactTabs() {
     "h-12 w-full rounded-xl border border-section-dark-foreground/15 bg-section-dark-foreground/[0.06] px-4 text-base text-section-dark-foreground outline-none transition-colors placeholder:text-section-dark-foreground/45 focus:border-primary/60"
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col items-center">
+    <div className="mx-auto flex w-full max-w-2xl flex-col items-center [zoom:0.75]">
       <div
         role="tablist"
         aria-label="Contact options"
@@ -52,11 +52,10 @@ export function ContactTabs() {
           role="tab"
           aria-selected={mode === "call"}
           onClick={() => setMode("call")}
-          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${
-            mode === "call"
+          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${mode === "call"
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:text-foreground"
-          }`}
+            }`}
         >
           <CalendarDays className="size-4" />
           Book a call
@@ -65,29 +64,30 @@ export function ContactTabs() {
           role="tab"
           aria-selected={mode === "message"}
           onClick={() => setMode("message")}
-          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${
-            mode === "message"
+          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${mode === "message"
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:text-foreground"
-          }`}
+            }`}
         >
           <MessageSquare className="size-4" />
           Send a message
         </button>
       </div>
 
-      <div className="mt-8 w-full overflow-hidden rounded-3xl border border-border bg-section-dark p-4 sm:p-6">
+      <div className="mt-8 w-full">
         {mode === "call" ? (
-          <div className="overflow-hidden rounded-2xl bg-section-dark">
-            <iframe
-              title="Book a call with Gaudi AI"
-              src={CALENDLY_URL}
-              className="h-[640px] w-full border-0 sm:h-[720px]"
-              loading="lazy"
-            />
+          <div className="mx-auto w-fit overflow-hidden rounded-lg">
+            <div className="h-[622px] w-[799px] overflow-hidden [zoom:0.35] sm:[zoom:0.45] md:[zoom:0.55] lg:[zoom:0.65] xl:[zoom:0.75] 2xl:[zoom:0.85]">
+              <iframe
+                title="Book a call with Gaudi AI"
+                src={CALENDLY_URL}
+                loading="lazy"
+                className="-ml-[151px] -mt-[68px] h-[720px] w-[1100px] border-0"
+              />
+            </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-1 sm:p-2">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 overflow-hidden rounded-3xl border border-border bg-section-dark p-5 sm:p-8">
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="firstName" className="sr-only">

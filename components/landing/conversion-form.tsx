@@ -8,6 +8,36 @@ import { captureLead, traceableRequestId } from "@/lib/capture-lead"
 
 type Status = "idle" | "loading" | "success" | "error"
 
+// Shared trust row that sits directly beneath a ConversionForm pill:
+// FREE pill · First 5 estimates | then $150 each | ✓ No credit card required.
+export function CtaTrustRow({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-section-dark-foreground/70 ${className}`}
+    >
+      <span className="inline-flex items-center gap-2 whitespace-nowrap font-semibold text-section-dark-foreground">
+        <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-primary-foreground">
+          Free
+        </span>
+        First 5 estimates
+      </span>
+      <span className="hidden h-4 w-px bg-section-dark-foreground/25 sm:block" />
+      <span className="whitespace-nowrap">then $150 each</span>
+      <span className="hidden h-4 w-px bg-section-dark-foreground/25 sm:block" />
+      <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+        <svg viewBox="0 0 20 20" className="size-4 text-primary" fill="currentColor" aria-hidden="true">
+          <path
+            fillRule="evenodd"
+            d="M16.7 5.3a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0L3.3 9.7a1 1 0 1 1 1.4-1.4l3.3 3.29 6.8-6.8a1 1 0 0 1 1.4 0Z"
+            clipRule="evenodd"
+          />
+        </svg>
+        No credit card required
+      </span>
+    </div>
+  )
+}
+
 export function ConversionForm({
   buttonLabel = "Get started",
   tone = "light",
@@ -66,7 +96,7 @@ export function ConversionForm({
           <Check className="size-4" />
         </span>
         <p className="text-sm leading-relaxed">
-          You&apos;re in. I&apos;ll reach out with your first estimate. Check your inbox for next steps.
+          You&apos;re on the list. I&apos;ll reach out shortly to set up your first estimate.
         </p>
       </div>
     )

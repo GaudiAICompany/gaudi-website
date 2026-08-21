@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ConversionForm } from "./conversion-form"
+import { ConversionForm, CtaTrustRow } from "./conversion-form"
 
 const ROTATING = ["estimator", "sub coordinator", "takeoff specialist"]
 
@@ -12,7 +12,7 @@ function RotatingWord() {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
-    const id = setInterval(() => setIndex((i) => (i + 1) % ROTATING.length), 2600)
+    const id = setInterval(() => setIndex((i) => (i + 1) % ROTATING.length), 1600)
     return () => clearInterval(id)
   }, [])
 
@@ -66,27 +66,7 @@ export function Hero() {
               <ConversionForm tone="dark" buttonLabel="Get started on a free estimate" />
             </div>
 
-            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/70">
-              <span className="inline-flex items-center gap-2 whitespace-nowrap font-semibold text-white">
-                <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-primary-foreground">
-                  Free
-                </span>
-                First 5 estimates
-              </span>
-              <span className="hidden h-4 w-px bg-white/25 sm:block" />
-              <span className="whitespace-nowrap">then $150 each</span>
-              <span className="hidden h-4 w-px bg-white/25 sm:block" />
-              <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-                <svg viewBox="0 0 20 20" className="size-4 text-primary" fill="currentColor" aria-hidden="true">
-                  <path
-                    fillRule="evenodd"
-                    d="M16.7 5.3a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0L3.3 9.7a1 1 0 1 1 1.4-1.4l3.3 3.29 6.8-6.8a1 1 0 0 1 1.4 0Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                No credit card required
-              </span>
-            </div>
+            <CtaTrustRow className="mt-5" />
           </div>
         </div>
       </div>

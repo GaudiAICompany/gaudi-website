@@ -1,4 +1,4 @@
-import { ConversionForm } from "./conversion-form"
+import { ConversionForm, CtaTrustRow } from "./conversion-form"
 
 export function ConversionBand() {
   return (
@@ -13,15 +13,10 @@ export function ConversionBand() {
               <p className="mt-4 max-w-md text-lg leading-relaxed text-section-dark-foreground/70">
                 Send us your next RFP and get a complete estimate back. Your first 5 are free.
               </p>
-              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-                <span className="rounded-full bg-section-dark-foreground/10 px-3 py-1 font-semibold">
-                  5 first estimates free
-                </span>
-                <span className="text-section-dark-foreground/70">$150 per estimate. Includes edits.</span>
-              </div>
             </div>
             <div>
-              <ConversionForm buttonLabel="Get started" tone="dark" />
+              <ConversionForm buttonLabel="Get started on a free estimate" tone="dark" />
+              <CtaTrustRow className="mt-5" />
             </div>
           </div>
         </div>

@@ -176,9 +176,23 @@ html {
   animation: flowPulse 2.4s ease-in-out infinite;
 }
 
+/* Logo marquee — a duplicated track sliding left→right on a loop */
+@keyframes logoMarquee {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.animate-logo-marquee {
+  animation: logoMarquee 32s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-word-in,
-  .animate-flow-pulse {
+  .animate-flow-pulse,
+  .animate-logo-marquee {
     animation: none;
   }
   html {

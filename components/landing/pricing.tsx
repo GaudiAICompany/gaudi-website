@@ -16,46 +16,34 @@ const customFeatures = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="px-4 py-20 sm:px-6 lg:py-28">
-      <div className="mx-auto max-w-7xl">
+    <section
+      id="pricing"
+      className="flex min-h-[100svh] flex-col justify-center px-4 py-[clamp(1rem,4vh,5rem)] sm:px-6"
+    >
+      <div className="mx-auto w-full max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">Pricing</p>
-          <h2 className="text-balance font-sans text-4xl font-light leading-[0.98] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl">
+          <p className="mb-[clamp(0.5rem,1.5vh,1rem)] text-sm font-semibold uppercase tracking-wider text-primary">
+            Pricing
+          </p>
+          <h2 className="text-balance font-sans text-[clamp(1.75rem,min(4.5vw,7vh),3.75rem)] font-light leading-[0.98] tracking-[-0.03em] text-foreground">
             Pay for what you use.{" "}
             <span className="font-serif text-[1.05em] font-medium italic text-primary">Nothing else.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            No subscriptions, no seats, no contracts. You pay per completed estimate, whether you run one a month or a
-            hundred.
+          <p className="mx-auto mt-[clamp(0.75rem,2vh,1.25rem)] max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
+            No subscriptions, no seats, no contracts.
           </p>
         </div>
 
-        {/* The 1.5fr vs 1fr width is the only signal of which plan is primary; the orange ring is hover/focus-only, never resting. */}
-        <div className="mx-auto mt-14 grid max-w-5xl items-stretch gap-6 lg:grid-cols-[1.5fr_1fr]">
-          <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Self-serve</p>
-            <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Pay per estimate</h3>
+        <div className="mx-auto mt-[clamp(1.5rem,4vh,2.5rem)] grid max-w-5xl items-stretch justify-center gap-6 lg:grid-cols-2">
+          {/* Primary, self-serve card */}
+          <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-[clamp(1.5rem,3vw,2.5rem)] text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30">
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Pay per estimate</p>
+            <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">GCs, Estimators, Developers</h3>
 
-            <div className="mt-5 rounded-2xl bg-secondary/60 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Built for</p>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                {["General contractors", "Estimators", "Developers"].map((persona) => (
-                  <span
-                    key={persona}
-                    className="rounded-full border border-border bg-card px-3 py-1.5 text-sm font-medium text-foreground"
-                  >
-                    {persona}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Start today, no sales call required.
-              </p>
-            </div>
-
-            <div className="mt-8 border-t border-border pt-8">
+            {/* Price zone */}
+            <div className="mt-[clamp(1rem,2.5vh,1.5rem)] border-t border-border pt-[clamp(1rem,2.5vh,1.5rem)]">
               <div className="flex items-baseline gap-2">
-                <span className="font-sans text-5xl font-light tracking-[-0.02em] lg:text-6xl">$150</span>
+                <span className="font-sans text-[clamp(2.25rem,min(5vw,6vh),3.75rem)] font-light tracking-[-0.02em]">$150</span>
                 <span className="text-sm leading-tight text-muted-foreground">per completed estimate</span>
               </div>
               <div className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-2">
@@ -67,7 +55,8 @@ export function Pricing() {
               </div>
             </div>
 
-            <ul className="mt-8 space-y-3.5">
+            {/* Feature list */}
+            <ul className="mt-[clamp(1rem,2.5vh,1.5rem)] space-y-[clamp(0.5rem,1.5vh,0.75rem)]">
               {primaryFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <Check className="mt-0.5 size-[18px] shrink-0 text-primary" aria-hidden="true" />
@@ -77,41 +66,27 @@ export function Pricing() {
             </ul>
 
             {/* Inline email+submit so self-serve signup is one step, not a click-through to a separate form. */}
-            <div className="mt-8 lg:mt-auto lg:pt-8">
+            <div className="mt-[clamp(1rem,2.5vh,1.5rem)] lg:mt-auto lg:pt-6">
               <ConversionForm buttonLabel="Get started" tone="light" />
             </div>
           </div>
 
-          <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-8 text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30 lg:p-10">
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Larger teams</p>
+          {/* Secondary, custom card */}
+          <div className="group relative flex flex-col rounded-3xl border border-border bg-card p-[clamp(1.5rem,3vw,2.5rem)] text-card-foreground shadow-2xl shadow-foreground/10 ring-1 ring-transparent transition-all duration-200 hover:border-primary/40 hover:ring-primary/30 focus-within:border-primary/40 focus-within:ring-primary/30">
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Custom needs</p>
             <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Enterprise</h3>
 
-            <div className="mt-5 rounded-2xl bg-secondary/60 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Built for</p>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                {["High-volume teams", "Custom plans"].map((persona) => (
-                  <span
-                    key={persona}
-                    className="rounded-full border border-border bg-card px-3 py-1.5 text-sm font-medium text-foreground"
-                  >
-                    {persona}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Scoped to your volume and workflow.
-              </p>
-            </div>
-
-            <div className="mt-8 border-t border-border pt-8">
+            {/* Price zone — mirrors the self-serve card's price zone position */}
+            <div className="mt-[clamp(1rem,2.5vh,1.5rem)] border-t border-border pt-[clamp(1rem,2.5vh,1.5rem)]">
               <div className="flex items-baseline gap-2">
-                <span className="font-sans text-5xl font-light tracking-[-0.02em] lg:text-6xl">Custom</span>
+                <span className="font-sans text-[clamp(2.25rem,min(5vw,6vh),3.75rem)] font-light tracking-[-0.02em]">Custom</span>
                 <span className="text-sm leading-tight text-muted-foreground">pricing</span>
               </div>
               <p className="mt-4 text-[13px] text-muted-foreground">Talk through pricing and volume.</p>
             </div>
 
-            <ul className="mt-8 space-y-3.5">
+            {/* Feature list */}
+            <ul className="mt-[clamp(1rem,2.5vh,1.5rem)] space-y-[clamp(0.5rem,1.5vh,0.75rem)]">
               {customFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <Check className="mt-0.5 size-[18px] shrink-0 text-primary" aria-hidden="true" />
@@ -120,7 +95,8 @@ export function Pricing() {
               ))}
             </ul>
 
-            <div className="mt-8 lg:mt-auto lg:pt-8">
+            {/* CTA area builds toward Contact sales as the clear next action */}
+            <div className="mt-[clamp(1rem,2.5vh,1.5rem)] lg:mt-auto lg:pt-6">
               <a
                 href="#contact"
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-foreground/15 bg-transparent px-6 text-sm font-semibold text-foreground transition-all hover:bg-secondary active:scale-[0.98]"
