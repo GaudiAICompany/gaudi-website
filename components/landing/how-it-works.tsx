@@ -1,5 +1,4 @@
 import {
-  ArrowDown,
   ArrowRight,
   CornerDownRight,
   MessageCircle,
@@ -99,21 +98,30 @@ function Channels({ className }: { className?: string }) {
 
 /* ------------------- Transition: inputs flow into Gaudi ---------------- */
 
-function ChaosToOrder({ className }: { className?: string }) {
+// The arrow has to follow the layout: side-by-side zones on desktop, stacked on
+// mobile, so it never points at something that is actually above or below it.
+function ChaosToOrder({
+  orientation = "horizontal",
+  className,
+}: {
+  orientation?: "horizontal" | "vertical"
+  className?: string
+}) {
+  const vertical = orientation === "vertical"
   return (
-    <div className={cn("flex items-center", className)}>
-      {/* incoming shaft from the left */}
+    <div className={cn("flex items-center", vertical && "flex-col", className)}>
+      {/* incoming shaft, from the left on desktop / from above on mobile */}
       <svg
-        viewBox="0 0 48 24"
-        className="h-6 w-12 shrink-0"
+        viewBox={vertical ? "0 0 24 48" : "0 0 48 24"}
+        className={cn("shrink-0", vertical ? "h-12 w-6" : "h-6 w-12")}
         role="img"
-        aria-label="Inputs flow left to right into Gaudi"
+        aria-label={vertical ? "Inputs flow down into Gaudi" : "Inputs flow left to right into Gaudi"}
       >
         <line
-          x1="0"
-          y1="12"
-          x2="48"
-          y2="12"
+          x1={vertical ? "12" : "0"}
+          y1={vertical ? "0" : "12"}
+          x2={vertical ? "12" : "48"}
+          y2={vertical ? "48" : "12"}
           stroke="currentColor"
           className="text-primary"
           strokeWidth="2.5"
@@ -122,25 +130,35 @@ function ChaosToOrder({ className }: { className?: string }) {
       </svg>
 
       {/* the Gaudi mark, centered in the arrow */}
-      <div className="mx-1.5 flex size-32 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-card">
+      <div
+        className={cn(
+          "flex size-32 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-card",
+          vertical ? "my-1.5" : "mx-1.5",
+        )}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo_text.png" alt="Gaudi AI" className="w-24" />
       </div>
 
-      {/* outgoing shaft with arrowhead pointing right */}
-      <svg viewBox="0 0 56 24" className="h-6 w-14 shrink-0" role="img" aria-hidden="true">
+      {/* outgoing shaft, arrowhead pointing at wherever the results sit */}
+      <svg
+        viewBox={vertical ? "0 0 24 56" : "0 0 56 24"}
+        className={cn("shrink-0", vertical ? "h-14 w-6" : "h-6 w-14")}
+        role="img"
+        aria-hidden="true"
+      >
         <line
-          x1="0"
-          y1="12"
-          x2="48"
-          y2="12"
+          x1={vertical ? "12" : "0"}
+          y1={vertical ? "0" : "12"}
+          x2={vertical ? "12" : "48"}
+          y2={vertical ? "48" : "12"}
           stroke="currentColor"
           className="text-primary"
           strokeWidth="2.5"
           strokeLinecap="round"
         />
         <path
-          d="M42,5 L55,12 L42,19"
+          d={vertical ? "M5,42 L12,55 L19,42" : "M42,5 L55,12 L42,19"}
           fill="none"
           stroke="currentColor"
           className="text-primary"
@@ -409,10 +427,8 @@ export function HowItWorks() {
             </div>
 
             <div>
-              <ChaosToOrder />
+              <ChaosToOrder orientation="vertical" />
             </div>
-
-            <ArrowDown className="size-6 text-primary" aria-hidden="true" />
 
             <div className="w-full max-w-md">
               <ZoneLabel>Client-ready results</ZoneLabel>
