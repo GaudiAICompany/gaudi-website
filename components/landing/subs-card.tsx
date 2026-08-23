@@ -14,8 +14,8 @@ export function SubsCard() {
         Package it. Send for quotes.
       </h3>
 
-      <div className="mt-6 flex flex-1 items-center gap-4 sm:gap-5">
-        <div className="w-44 shrink-0 rounded-xl border border-border bg-secondary/50 p-4">
+      <div className="mt-6 flex flex-1 flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
+        <div className="w-full shrink-0 rounded-xl border border-border bg-secondary/50 p-4 sm:w-44">
           <p className="flex items-center gap-1.5 text-[13px] font-semibold text-foreground">
             <Folder className="size-4 text-primary" aria-hidden="true" />
             Electrical package
@@ -30,9 +30,9 @@ export function SubsCard() {
           </ul>
         </div>
 
-        <Send className="size-5 shrink-0 text-primary" aria-hidden="true" />
+        <Send className="size-5 shrink-0 self-center text-primary" aria-hidden="true" />
 
-        <div className="flex-1 space-y-2">
+        <div className="min-w-0 flex-1 space-y-2">
           {SUBS.map((s) => (
             <div key={s.name} className="flex items-center justify-between gap-2 rounded-lg bg-secondary/50 px-3 py-2.5">
               <span className="flex min-w-0 items-center gap-2 text-[12px] text-foreground">

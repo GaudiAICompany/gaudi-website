@@ -257,8 +257,8 @@ function AuditCard() {
         Trace any number. Edit anything.
       </h3>
 
-      <div className="mt-6 flex flex-1 items-center gap-4 sm:gap-5">
-        <div className="relative w-52 shrink-0 overflow-hidden rounded-xl ring-1 ring-border sm:w-60">
+      <div className="mt-6 flex flex-1 flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
+        <div className="relative w-full shrink-0 overflow-hidden rounded-xl ring-1 ring-border sm:w-60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/how-it-works/input-blueprint.png"
@@ -284,7 +284,7 @@ function AuditCard() {
           <div className="my-1 h-px w-8 bg-primary/40 sm:w-10" />
         </div>
 
-        <div className="flex-1 rounded-xl bg-secondary/60 p-4">
+        <div className="min-w-0 flex-1 rounded-xl bg-secondary/60 p-4">
           <p className="text-[13px] font-medium text-foreground">Electrical outlets · 13 ct</p>
           <div className="mt-2 inline-flex items-center gap-2 rounded-lg border border-dashed border-primary/60 bg-primary/5 px-3 py-2">
             <span className="text-sm text-muted-foreground">$25 × 13 =</span>

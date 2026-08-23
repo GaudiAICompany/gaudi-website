@@ -55,8 +55,10 @@ export function Hero() {
               Your next best hire
             </p>
 
-            <h1 className="font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl xl:text-8xl">
-              <span className="whitespace-nowrap">
+            {/* Fluid below `sm` so the reserved width of the longest rotating word
+                ("takeoff specialist") always fits a phone without clipping. */}
+            <h1 className="font-sans text-[clamp(2rem,10.5vw,3rem)] font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl xl:text-8xl">
+              <span className="sm:whitespace-nowrap">
                 The AI <RotatingWord />
               </span>{" "}
               that helps you win more work.

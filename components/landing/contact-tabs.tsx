@@ -41,8 +41,10 @@ export function ContactTabs() {
   const inputClasses =
     "h-12 w-full rounded-xl border border-section-dark-foreground/15 bg-section-dark-foreground/[0.06] px-4 text-base text-section-dark-foreground outline-none transition-colors placeholder:text-section-dark-foreground/45 focus:border-primary/60"
 
+  // The outer 0.75 shrink is a desktop fit trick; on a phone it only makes the
+  // tabs and copy too small to read, so it starts at `sm`.
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col items-center [zoom:0.75]">
+    <div className="mx-auto flex w-full max-w-2xl flex-col items-center sm:[zoom:0.75]">
       <div
         role="tablist"
         aria-label="Contact options"
@@ -52,37 +54,40 @@ export function ContactTabs() {
           role="tab"
           aria-selected={mode === "call"}
           onClick={() => setMode("call")}
-          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${mode === "call"
+          className={`inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-full px-3 text-[13px] font-semibold transition-colors sm:gap-2 sm:px-5 sm:text-sm ${mode === "call"
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:text-foreground"
             }`}
         >
-          <CalendarDays className="size-4" />
+          <CalendarDays className="hidden size-4 min-[360px]:block" />
           Book a call
         </button>
         <button
           role="tab"
           aria-selected={mode === "message"}
           onClick={() => setMode("message")}
-          className={`inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors ${mode === "message"
+          className={`inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-full px-3 text-[13px] font-semibold transition-colors sm:gap-2 sm:px-5 sm:text-sm ${mode === "message"
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:text-foreground"
             }`}
         >
-          <MessageSquare className="size-4" />
+          <MessageSquare className="hidden size-4 min-[360px]:block" />
           Send a message
         </button>
       </div>
 
       <div className="mt-8 w-full">
+        {/* Phones get Calendly's own responsive layout at full width. Scaling the
+            1100px desktop widget down to phone width left it unreadable, so the
+            fixed-size crop-and-zoom treatment only kicks in from `sm` up. */}
         {mode === "call" ? (
-          <div className="mx-auto w-fit overflow-hidden rounded-lg">
-            <div className="h-[622px] w-[799px] overflow-hidden [zoom:0.35] sm:[zoom:0.45] md:[zoom:0.55] lg:[zoom:0.65] xl:[zoom:0.75] 2xl:[zoom:0.85]">
+          <div className="w-full overflow-hidden rounded-lg sm:mx-auto sm:w-fit">
+            <div className="h-[680px] w-full overflow-hidden sm:h-[622px] sm:w-[799px] sm:[zoom:0.45] md:[zoom:0.55] lg:[zoom:0.65] xl:[zoom:0.75] 2xl:[zoom:0.85]">
               <iframe
                 title="Book a call with Gaudi AI"
                 src={CALENDLY_URL}
                 loading="lazy"
-                className="-ml-[151px] -mt-[68px] h-[720px] w-[1100px] border-0"
+                className="h-[680px] w-full border-0 sm:-ml-[151px] sm:-mt-[68px] sm:h-[720px] sm:w-[1100px]"
               />
             </div>
           </div>
