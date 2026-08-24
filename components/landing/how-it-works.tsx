@@ -344,7 +344,7 @@ function JustAskCard() {
     <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 sm:p-8">
       <p className="text-xs font-semibold uppercase tracking-wider text-primary">Just ask Gaudi</p>
       <h3 className="mt-2 font-sans text-2xl font-light tracking-tight text-foreground">
-        Wherever you already text.
+        Any channel. Any question. Answered.
       </h3>
 
       <ul className="mt-6 flex flex-1 flex-col justify-center gap-2.5">
