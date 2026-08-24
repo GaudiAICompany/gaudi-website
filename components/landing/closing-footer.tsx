@@ -1,9 +1,9 @@
-import { ArrowRight, Linkedin, Mail } from "lucide-react"
 import { ContactTabs } from "@/components/landing/contact-tabs"
+import { ConversionForm, CtaTrustRow } from "@/components/landing/conversion-form"
 
 export function ClosingCta() {
   return (
-    <section className="px-4 py-20 sm:px-6 lg:py-28">
+    <section className="px-4 py-14 sm:px-6 lg:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="relative overflow-hidden rounded-3xl border border-border">
           <img
@@ -16,13 +16,10 @@ export function ClosingCta() {
             <h2 className="max-w-3xl text-balance font-sans text-4xl font-light leading-[0.95] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
               Ready to see your <span className="font-serif text-[1.08em] font-medium italic text-primary">own numbers?</span>
             </h2>
-            <a
-              href="#hero"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
-            >
-              Get started
-              <ArrowRight className="size-4" />
-            </a>
+            <div className="w-full max-w-xl">
+              <ConversionForm buttonLabel="Get started on a free estimate" tone="dark" />
+              <CtaTrustRow className="mt-5" />
+            </div>
           </div>
         </div>
       </div>
@@ -32,12 +29,12 @@ export function ClosingCta() {
 
 export function Contact() {
   return (
-    <section id="contact" className="px-4 pb-20 sm:px-6">
+    <section id="contact" className="px-4 pb-14 sm:px-6">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col items-center gap-8 rounded-3xl border border-border bg-card px-6 py-14 text-center">
+        <div className="flex flex-col items-center gap-4 rounded-3xl border border-border bg-card px-6 py-6 text-center">
           <div className="flex flex-col items-center gap-3">
-            <p className="text-sm font-semibold uppercase tracking-wider text-primary">Contact</p>
-            <h2 className="max-w-xl text-balance font-sans text-3xl font-light leading-[1.02] tracking-[-0.02em] text-foreground sm:text-4xl">
+            {/* <p className="text-sm font-semibold uppercase tracking-wider text-primary">Contact</p> */}
+            <h2 className="max-w-xl text-balance font-sans text-2xl sm:text-3xl font-light leading-[1.02] tracking-[-0.02em] text-foreground ">
               Talk to us about your next bid.
             </h2>
           </div>
@@ -50,75 +47,41 @@ export function Contact() {
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-section-dark text-section-dark-foreground">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-col gap-10 py-14 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-sm">
-            <p className="font-sans text-lg font-extrabold tracking-tight">
-              Gaudi<span className="text-primary"> AI</span>
-            </p>
-            <p className="mt-3 leading-relaxed text-section-dark-foreground/70">
-              The AI estimator and bid coordinator for people who build for a living.
-            </p>
-            <div className="mt-5 flex gap-3">
-              <a
-                href="https://www.linkedin.com/company/gaudiai/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Gaudi AI on LinkedIn"
-                className="flex size-9 items-center justify-center rounded-full border border-section-dark-foreground/20 transition-colors hover:bg-section-dark-foreground/10"
-              >
-                <Linkedin className="size-4" />
+    <footer className="overflow-hidden bg-section-dark text-section-dark-foreground">
+      {/* Small, understated nav pinned top-right, with generous space beneath (Sable-style) */}
+      <div className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:pt-16">
+        <nav aria-label="Footer" className="flex justify-end">
+          <ul className="flex gap-8 text-sm text-section-dark-foreground/70 sm:gap-12">
+            <li>
+              <a href="/#product" className="transition-colors hover:text-section-dark-foreground">
+                Product
               </a>
-              <a
-                href="mailto:contact@heygaudi.ai"
-                aria-label="Email Gaudi AI"
-                className="flex size-9 items-center justify-center rounded-full border border-section-dark-foreground/20 transition-colors hover:bg-section-dark-foreground/10"
-              >
-                <Mail className="size-4" />
+            </li>
+            <li>
+              <a href="/#contact" className="transition-colors hover:text-section-dark-foreground">
+                Contact
               </a>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
-            <div>
-              <p className="text-sm font-semibold text-section-dark-foreground">Product</p>
-              <ul className="mt-4 space-y-3 text-sm text-section-dark-foreground/70">
-                <li><a href="#how-it-works" className="transition-colors hover:text-section-dark-foreground">Estimator</a></li>
-                <li><a href="#how-it-works" className="transition-colors hover:text-section-dark-foreground">Bid coordinator</a></li>
-                <li><a href="#pricing" className="transition-colors hover:text-section-dark-foreground">Pricing</a></li>
-              </ul>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-section-dark-foreground">Solutions</p>
-              <ul className="mt-4 space-y-3 text-sm text-section-dark-foreground/70">
-                <li><a href="#pricing" className="transition-colors hover:text-section-dark-foreground">General Contractors</a></li>
-                <li><a href="#pricing" className="transition-colors hover:text-section-dark-foreground">Estimators</a></li>
-                <li><a href="#pricing" className="transition-colors hover:text-section-dark-foreground">Developers</a></li>
-              </ul>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-section-dark-foreground">Company</p>
-              <ul className="mt-4 space-y-3 text-sm text-section-dark-foreground/70">
-                <li><a href="#contact" className="transition-colors hover:text-section-dark-foreground">Contact</a></li>
-                <li><a href="/careers/engineering" className="transition-colors hover:text-section-dark-foreground">Careers</a></li>
-                <li><a href="/privacy" className="transition-colors hover:text-section-dark-foreground">Privacy</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between border-t border-section-dark-foreground/15 py-6 text-sm text-section-dark-foreground/50">
-          <p>&copy; {new Date().getFullYear()} Gaudi AI. All rights reserved.</p>
-        </div>
+            </li>
+            <li>
+              <a href="/privacy" className="transition-colors hover:text-section-dark-foreground">
+                Privacy
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
 
-      {/* Oversized wordmark, deliberately clipped by the page edge. */}
-      <div aria-hidden="true" className="pointer-events-none select-none px-4 sm:px-6">
-        <span className="block translate-y-[0.09em] whitespace-nowrap font-sans text-[27vw] font-semibold uppercase leading-[0.8] tracking-[-0.06em] text-[#2f2620] sm:text-[26vw]">
+      {/* Dramatically oversized, muted watermark wordmark bleeding off both edges, left-aligned */}
+      <div aria-hidden="true" className="pointer-events-none mt-24 select-none pl-3 sm:mt-32 sm:pl-4">
+        <span className="block whitespace-nowrap font-sans text-[26vw] font-semibold uppercase leading-[0.78] tracking-[-0.055em] text-[#221c17]">
           Gaudi AI
         </span>
       </div>
+
+      {/* Copyright, small and muted, directly beneath the wordmark */}
+      <p className="px-4 pb-5 pt-3 text-sm text-section-dark-foreground/50 sm:px-6">
+        &copy; {new Date().getFullYear()} Gaudi AI. All rights reserved.
+      </p>
     </footer>
   )
 }
