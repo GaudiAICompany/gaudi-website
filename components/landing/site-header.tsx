@@ -115,7 +115,7 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
               Contact Sales
             </a>
             <a
-              href="/#hero"
+              href="/get-started"
               className="inline-flex h-10 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
             >
               Get started
@@ -169,7 +169,7 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
                   Contact Sales
                 </a>
                 <a
-                  href="/#hero"
+                  href="/get-started"
                   onClick={() => setMobileOpen(false)}
                   className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
                 >

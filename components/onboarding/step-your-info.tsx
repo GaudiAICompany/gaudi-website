@@ -1,0 +1,195 @@
+"use client"
+
+import type React from "react"
+import { useState } from "react"
+import { ArrowRight, Check, Loader2 } from "lucide-react"
+
+import type { OnboardingDetails } from "@/lib/onboarding"
+import { Field, PrimaryButton, fieldAria, inputClass } from "./field"
+import { StepHeading } from "./onboarding-shell"
+
+type Errors = Partial<Record<keyof OnboardingDetails | "terms", string>>
+
+const FIELDS: {
+  key: keyof OnboardingDetails
+  label: string
+  type: string
+  autoComplete: string
+  inputMode?: "text" | "tel" | "email"
+  placeholder: string
+}[] = [
+  { key: "fullName", label: "Full name", type: "text", autoComplete: "name", placeholder: "Dana Reyes" },
+  { key: "phone", label: "Cell phone", type: "tel", autoComplete: "tel", inputMode: "tel", placeholder: "(555) 014-2233" },
+  { key: "email", label: "Work email", type: "email", autoComplete: "email", inputMode: "email", placeholder: "dana@reyesbuilders.com" },
+  { key: "company", label: "Company name", type: "text", autoComplete: "organization", placeholder: "Reyes Builders" },
+]
+
+function validate(details: OnboardingDetails, agreed: boolean): Errors {
+  const errors: Errors = {}
+  if (details.fullName.trim().length < 2) errors.fullName = "I need a name to put on the account."
+  // Ten digits is the floor for a US number; anything shorter is a typo, not a format.
+  if (details.phone.replace(/\D/g, "").length < 10) errors.phone = "That number looks short. Check the digits."
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(details.email.trim())) errors.email = "That email address isn't valid."
+  if (details.company.trim().length < 2) errors.company = "Your company name sets up your Gaudi address."
+  if (!agreed) errors.terms = "Check the box and we're set."
+  return errors
+}
+
+/**
+ * Second screen on desktop, first on mobile. Deliberately not framed as
+ * "create an account": nothing here is a password, it is the information the
+ * estimator needs to send work back.
+ */
+export function StepYourInfo({
+  details,
+  prefilled,
+  onDetailsChange,
+  onSubmit,
+  submitting,
+  submitError,
+  submitReference,
+}: {
+  details: OnboardingDetails
+  /** Fields the landing CTA already collected, so this screen confirms rather than asks. */
+  prefilled: (keyof OnboardingDetails)[]
+  onDetailsChange: (details: OnboardingDetails) => void
+  onSubmit: () => void
+  submitting: boolean
+  submitError: string | null
+  submitReference: string | null
+}) {
+  const [agreed, setAgreed] = useState(false)
+  const [errors, setErrors] = useState<Errors>({})
+  // A confirmed value is still editable; it just does not open as a question.
+  const [unlocked, setUnlocked] = useState<(keyof OnboardingDetails)[]>([])
+
+  const isConfirmed = (key: keyof OnboardingDetails) =>
+    prefilled.includes(key) && !unlocked.includes(key) && details[key].trim() !== ""
+
+  const unlock = (key: keyof OnboardingDetails) =>
+    setUnlocked((prev) => (prev.includes(key) ? prev : [...prev, key]))
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    if (submitting) return
+    const found = validate(details, agreed)
+    setErrors(found)
+    if (Object.keys(found).length > 0) {
+      // Whatever the CTA handed over did not pass, so open it for correction.
+      for (const key of prefilled) if (found[key]) unlock(key)
+      return
+    }
+    onSubmit()
+  }
+
+  const update = (key: keyof OnboardingDetails, value: string) => {
+    onDetailsChange({ ...details, [key]: value })
+    if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }))
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate>
+      <StepHeading
+        title="Introduce yourself to Gaudi Estimator"
+        subtitle="We'll use this information to set up your account."
+      />
+
+      <div className="flex flex-col gap-5">
+        {FIELDS.map((field) =>
+          isConfirmed(field.key) ? (
+            <Field key={field.key} id={field.key} label={field.label} error={errors[field.key]}>
+              <div className="flex items-center gap-3 rounded-xs border border-border bg-muted/60 px-4 py-3">
+                <Check className="size-4 shrink-0 text-primary" strokeWidth={3} aria-hidden="true" />
+                <span className="min-w-0 flex-1 truncate text-base text-foreground">
+                  {details[field.key]}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => unlock(field.key)}
+                  className="shrink-0 rounded-full text-sm font-semibold text-primary underline underline-offset-4 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  Change
+                </button>
+              </div>
+            </Field>
+          ) : (
+            <Field key={field.key} id={field.key} label={field.label} required error={errors[field.key]}>
+              <input
+                id={field.key}
+                type={field.type}
+                inputMode={field.inputMode}
+                autoComplete={field.autoComplete}
+                placeholder={field.placeholder}
+                value={details[field.key]}
+                onChange={(e) => update(field.key, e.target.value)}
+                autoFocus={unlocked.includes(field.key)}
+                className={inputClass}
+                {...fieldAria(field.key, errors[field.key])}
+              />
+            </Field>
+          ),
+        )}
+
+        <div className="flex flex-col gap-2 pt-1">
+          <label htmlFor="terms" className="flex cursor-pointer items-start gap-3">
+            <input
+              id="terms"
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => {
+                setAgreed(e.target.checked)
+                if (e.target.checked) setErrors((prev) => ({ ...prev, terms: undefined }))
+              }}
+              className="mt-0.5 size-5 shrink-0 cursor-pointer rounded-[6px] border-input accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              {...fieldAria("terms", errors.terms)}
+            />
+            <span className="text-sm leading-relaxed text-muted-foreground">
+              I agree to Gaudi&apos;s{" "}
+              <a
+                href="/privacy"
+                className="font-medium text-foreground underline underline-offset-4 hover:text-primary"
+              >
+                Privacy Policy
+              </a>{" "}
+              and to being contacted about my estimate.
+              <span className="ml-0.5 text-primary" aria-hidden="true">
+                *
+              </span>
+            </span>
+          </label>
+          {errors.terms && (
+            <p id="terms-error" role="alert" className="text-sm font-medium text-destructive">
+              {errors.terms}
+            </p>
+          )}
+        </div>
+
+        <div className="pt-1">
+          <PrimaryButton type="submit" disabled={submitting || !agreed}>
+            {submitting ? (
+              <>
+                <Loader2 className="size-4 animate-spin" />
+                Setting you up
+              </>
+            ) : (
+              <>
+                Continue
+                <ArrowRight className="size-4" />
+              </>
+            )}
+          </PrimaryButton>
+        </div>
+
+        {submitError && (
+          <div role="alert" className="rounded-xs border border-destructive/30 bg-destructive/5 px-4 py-3">
+            <p className="text-sm text-foreground">{submitError}</p>
+            {/* Quoting this back to support pins the failure to one server-side trace. */}
+            {submitReference && (
+              <p className="mt-1 text-xs text-muted-foreground">Reference: {submitReference}</p>
+            )}
+          </div>
+        )}
+      </div>
+    </form>
+  )
+}

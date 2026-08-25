@@ -59,6 +59,7 @@ touch config:
 | Variable | Required | Read by | Notes |
 | --- | --- | --- | --- |
 | `NEXT_PUBLIC_LEAD_CAPTURE_URL` | **yes** | `lib/capture-lead.ts` | Full URL of the backend's `capture_cta_lead` endpoint. A plain address, not a credential. Unset ⇒ every CTA fails fast with `code=endpoint_unconfigured`. |
+| `NEXT_PUBLIC_BLUEPRINT_UPLOAD_URL` | no | `lib/upload-blueprint.ts` | Full URL of the backend endpoint that accepts a plan set from `/get-started`. **No such endpoint exists yet**, so unset is the expected state: signup still completes, and the last screen asks the visitor to forward the file by email instead. Also a plain address, not a credential. |
 | `NEXT_PUBLIC_SITE_URL` | no | `app/waitlist/*/page.tsx` | Canonical origin for share links and OG metadata. Set nowhere today; falls back to `https://heygaudi.ai`. |
 | `VERCEL_URL` | no | `app/waitlist/*/page.tsx` | Second fallback for the canonical origin. Never set on Azure. |
 

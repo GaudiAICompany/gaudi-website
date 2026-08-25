@@ -2,11 +2,14 @@
 
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
-import { ArrowRight, Check, Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { ArrowRight, Loader2 } from "lucide-react"
 
 import { captureLead, traceableRequestId } from "@/lib/capture-lead"
+import { writeCtaHandoff } from "@/lib/onboarding"
 
-type Status = "idle" | "loading" | "success" | "error"
+// Success is not a state here any more: a captured lead continues on /get-started.
+type Status = "idle" | "loading" | "error"
 
 // Shared trust row that sits directly beneath a ConversionForm pill:
 // FREE pill · First 5 estimates | then $150 each | ✓ No credit card required.
@@ -52,6 +55,7 @@ export function ConversionForm({
   const [requestId, setRequestId] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
 
   // Responsive placeholder swap (not user-toggled): Email on desktop, Phone number on mobile.
   useEffect(() => {
@@ -69,38 +73,19 @@ export function ConversionForm({
 
     const payload = isMobile ? { phone: value, source: buttonLabel } : { email: value, source: buttonLabel }
 
+    // Capture first so a visitor who abandons the flow is still a lead, then hand
+    // the same value to /get-started so nobody types their address twice.
     const result = await captureLead(payload)
     setRequestId(traceableRequestId(result))
     if (result.ok) {
-      setStatus("success")
-      setValue("")
+      writeCtaHandoff(isMobile ? { phone: value.trim() } : { email: value.trim() })
+      router.push("/get-started")
       return
     }
     setStatus("error")
   }
 
   const dark = tone === "dark"
-
-  if (status === "success") {
-    return (
-      <div
-        role="status"
-        aria-live="polite"
-        className={`flex items-center gap-3 rounded-2xl border px-5 py-4 text-left ${
-          dark
-            ? "border-section-dark-foreground/20 bg-section-dark-foreground/5 text-section-dark-foreground"
-            : "border-primary/30 bg-primary/10 text-foreground"
-        } ${className}`}
-      >
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-          <Check className="size-4" />
-        </span>
-        <p className="text-sm leading-relaxed">
-          You&apos;re on the list. I&apos;ll reach out shortly to set up your first estimate.
-        </p>
-      </div>
-    )
-  }
 
   return (
     <form onSubmit={handleSubmit} className={`w-full ${className}`} noValidate>

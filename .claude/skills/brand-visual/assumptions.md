@@ -197,3 +197,43 @@ per user request ("let the visual do the explaining").
 - **Bigger images.** Channel tiles [grid-auto-rows] 7.5rem → 9rem, column 280 →
   300px; audit blueprint w-36/40 h-28 → w-44/52 h-36 with a larger highlight box.
 - No em dashes anywhere in the section (copy or comments).
+
+## Signup / onboarding flow (app/get-started + components/onboarding/*)
+Three WEBSITE screens from the onboarding roadmap: upload blueprint (desktop
+only), enter info, check email. Everything below reuses tokens already logged
+above; no new colors, fonts, or radii were introduced.
+
+### Layout
+- **Split screen at `lg`, single column below.** Why: every desktop wireframe
+  shows a fixed left value panel and a right task panel, and both mobile
+  wireframes show the task panel alone. The panel is `hidden lg:flex`, and its
+  four selling points collapse to one trust line under the fold on mobile so
+  the value proposition survives without eating half a phone screen.
+- **Progress bar + back arrow + close.** Wireframes show a partially filled
+  pill on all three screens, a `<` where there is a previous step, and an `X`
+  on mobile. Back is wired to real browser history, so the arrow and the
+  phone's own back gesture agree.
+- **Mobile keeps the wordmark.** Assumption: the wireframes show no logo on
+  mobile, but a signup screen with zero branding reads as a phishing page. It
+  costs one 24px row next to the `X`.
+
+### Type and shape
+- **Step headings `text-3xl`/`sm:text-4xl` `font-light`.** Why: same treatment
+  as the landing section headings one step down in size, since a form heading
+  is not a hero.
+- **`rounded-xs` (15px) inputs, `rounded-xl` panels, pill buttons.** Why: the
+  site's `--radius: 1.25rem` is too round for a 48px input; `--radius-xs` is
+  the existing token that fits. Buttons stay pills to match every other CTA.
+
+### Photo
+- **`closing-desk.png` in the left panel at `opacity-45`** under a
+  left-weighted scrim plus a top/bottom cap. Why: anti-visual-slop requires a
+  real image rather than a text-only panel, and this is the one existing asset
+  showing the reader's own desk (plans, takeoff, finished estimate). The first
+  pass at `opacity-30` under a flat scrim crushed it to black; the scrim is now
+  weighted left so the copy keeps contrast and the photo still reads.
+
+### Deliberately not brand marks
+- **"Open Gmail" / "Open Outlook" are text buttons, not logos.** The wireframe
+  draws a "G" and an "outlook" box. Real brand SVGs would be better and can be
+  dropped in; text labels were chosen over hand-drawing approximate logo paths.
