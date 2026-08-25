@@ -9,12 +9,6 @@ on:
     branches:
       - main
 
-# The Free tier allows only three staging environments at once, so a queue of
-# superseded runs for one branch can starve the quota and fail later PRs.
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 permissions:
   contents: read
 
@@ -23,6 +17,12 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+    # Free tier allows three staging environments at once, so superseded PR builds
+    # must be cancelled or they starve the quota. Not github.ref: on a merged PR's
+    # `closed` event it resolves to refs/heads/main, the push-to-main deploy's key.
+    concurrency:
+      group: ${{ github.workflow }}-deploy-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
     permissions:
       contents: read
       pull-requests: write # repo_token below posts the preview URL as a PR comment
