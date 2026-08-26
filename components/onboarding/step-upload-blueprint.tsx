@@ -153,7 +153,7 @@ export function StepUploadBlueprint({
           )}
         </Field>
 
-        <Field id="notes" label="Add more context about the project" hint="Optional, but it sharpens the numbers.">
+        <Field id="notes" label="Add more context about the project (Optional)" hint="Optional, but it sharpens the numbers.">
           <div className="relative">
             <textarea
               id="notes"
