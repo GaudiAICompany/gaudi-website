@@ -14,9 +14,8 @@
 
 export const BLUEPRINT_UPLOAD_ENDPOINT = process.env.NEXT_PUBLIC_BLUEPRINT_UPLOAD_URL || ""
 
-/** What a plan set actually arrives as: drawings, scans, exports, or a bundle of them. */
-export const BLUEPRINT_ACCEPT =
-  ".pdf,.dwg,.dxf,.rvt,.png,.jpg,.jpeg,.heic,.webp,.zip,application/pdf,image/*"
+/** The onboarding flow currently supports PDF plan sets only. */
+export const BLUEPRINT_ACCEPT = ".pdf,application/pdf"
 
 export const MAX_BLUEPRINT_BYTES = 50 * 1024 * 1024
 export const MAX_BLUEPRINT_FILES = 10
@@ -44,6 +43,8 @@ function newRequestId(): string {
 export function rejectionFor(file: File): string | null {
   if (file.size === 0) return "That file came through empty."
   if (file.size > MAX_BLUEPRINT_BYTES) return "That one is over 50 MB. Send it by email instead."
+  const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf")
+  if (!isPdf) return "Only PDF files are supported right now."
   return null
 }
 

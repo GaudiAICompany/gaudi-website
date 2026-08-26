@@ -86,7 +86,7 @@ export function StepUploadBlueprint({
           label="Blueprint or plan set"
           required
           error={error || undefined}
-          hint="PDF, DWG, images or a ZIP. Up to 50 MB per file."
+          hint="PDF only. Up to 50 MB per file."
         >
           <label
             htmlFor="blueprint"
