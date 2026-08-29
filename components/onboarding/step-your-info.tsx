@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ArrowRight, Check, Loader2 } from "lucide-react"
 
 import type { OnboardingDetails } from "@/lib/onboarding"
@@ -48,6 +48,7 @@ export function StepYourInfo({
   submitting,
   submitError,
   submitReference,
+  fieldRejection,
 }: {
   details: OnboardingDetails
   /** Fields the landing CTA already collected, so this screen confirms rather than asks. */
@@ -57,14 +58,28 @@ export function StepYourInfo({
   submitting: boolean
   submitError: string | null
   submitReference: string | null
+  /** A field the backend refused (taken or unusable), shown on that field. */
+  fieldRejection: { key: keyof OnboardingDetails; message: string } | null
 }) {
   const [agreed, setAgreed] = useState(false)
   const [errors, setErrors] = useState<Errors>({})
   // A confirmed value is still editable; it just does not open as a question.
   const [unlocked, setUnlocked] = useState<(keyof OnboardingDetails)[]>([])
+  const inputs = useRef<Partial<Record<keyof OnboardingDetails, HTMLInputElement | null>>>({})
+
+  // Cleared as soon as they edit the field, like every other error here: leaving
+  // "already registered" under an address they have just changed reads as stuck.
+  const [rejectionEdited, setRejectionEdited] = useState(false)
+  const showRejection = fieldRejection && !rejectionEdited ? fieldRejection : null
+
+  const errorFor = (key: keyof OnboardingDetails) =>
+    errors[key] ?? (showRejection?.key === key ? showRejection.message : undefined)
 
   const isConfirmed = (key: keyof OnboardingDetails) =>
-    prefilled.includes(key) && !unlocked.includes(key) && details[key].trim() !== ""
+    prefilled.includes(key) &&
+    !unlocked.includes(key) &&
+    details[key].trim() !== "" &&
+    showRejection?.key !== key
 
   const unlock = (key: keyof OnboardingDetails) =>
     setUnlocked((prev) => (prev.includes(key) ? prev : [...prev, key]))
@@ -82,9 +97,23 @@ export function StepYourInfo({
     onSubmit()
   }
 
+  // The value the CTA handed over can be the refused one, and a confirmed field
+  // does not open as a question, so it has to be opened for them.
+  //
+  // The focus call is what actually takes them to it: the submit button is at the
+  // bottom of the form, and autoFocus fires only on mount, so a field they typed
+  // themselves is already mounted and would just quietly turn red off-screen.
+  useEffect(() => {
+    if (!fieldRejection) return
+    unlock(fieldRejection.key)
+    setRejectionEdited(false)
+    inputs.current[fieldRejection.key]?.focus()
+  }, [fieldRejection])
+
   const update = (key: keyof OnboardingDetails, value: string) => {
     onDetailsChange({ ...details, [key]: value })
     if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }))
+    if (fieldRejection?.key === key) setRejectionEdited(true)
   }
 
   return (
@@ -97,7 +126,7 @@ export function StepYourInfo({
       <div className="flex flex-col gap-5">
         {FIELDS.map((field) =>
           isConfirmed(field.key) ? (
-            <Field key={field.key} id={field.key} label={field.label} error={errors[field.key]}>
+            <Field key={field.key} id={field.key} label={field.label} error={errorFor(field.key)}>
               <div className="flex items-center gap-3 rounded-xs border border-border bg-muted/60 px-4 py-3">
                 <Check className="size-4 shrink-0 text-primary" strokeWidth={3} aria-hidden="true" />
                 <span className="min-w-0 flex-1 truncate text-base text-foreground">
@@ -113,9 +142,12 @@ export function StepYourInfo({
               </div>
             </Field>
           ) : (
-            <Field key={field.key} id={field.key} label={field.label} required error={errors[field.key]}>
+            <Field key={field.key} id={field.key} label={field.label} required error={errorFor(field.key)}>
               <input
                 id={field.key}
+                ref={(el) => {
+                  inputs.current[field.key] = el
+                }}
                 type={field.type}
                 inputMode={field.inputMode}
                 autoComplete={field.autoComplete}
@@ -124,7 +156,7 @@ export function StepYourInfo({
                 onChange={(e) => update(field.key, e.target.value)}
                 autoFocus={unlocked.includes(field.key)}
                 className={inputClass}
-                {...fieldAria(field.key, errors[field.key])}
+                {...fieldAria(field.key, errorFor(field.key))}
               />
             </Field>
           ),

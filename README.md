@@ -23,6 +23,8 @@ not here, so point the site at one:
 ```bash
 # .env.local
 NEXT_PUBLIC_LEAD_CAPTURE_URL=https://<backend-host>/api/capture_cta_lead
+NEXT_PUBLIC_ONBOARDING_URL=https://<backend-host>/api/onboard_client
+NEXT_PUBLIC_STAGE_BLUEPRINT_URL=https://<backend-host>/api/stage_blueprint
 ```
 
 Against a backend running locally that's `http://localhost:7071/api/capture_cta_lead`,
@@ -59,25 +61,40 @@ touch config:
 | Variable | Required | Read by | Notes |
 | --- | --- | --- | --- |
 | `NEXT_PUBLIC_LEAD_CAPTURE_URL` | **yes** | `lib/capture-lead.ts` | Full URL of the backend's `capture_cta_lead` endpoint. A plain address, not a credential. Unset ⇒ every CTA fails fast with `code=endpoint_unconfigured`. |
-| `NEXT_PUBLIC_BLUEPRINT_UPLOAD_URL` | no | `lib/upload-blueprint.ts` | Full URL of the backend endpoint that accepts a plan set from `/get-started`. **No such endpoint exists yet**, so unset is the expected state: signup still completes, and the last screen asks the visitor to forward the file by email instead. Also a plain address, not a credential. |
+| `NEXT_PUBLIC_STAGE_BLUEPRINT_URL` | no, but wanted | `lib/stage-blueprint.ts` | Full URL of the backend's `stage_blueprint` endpoint. The plan set uploads as soon as it is picked, so the final step has nothing left to send. Unset ⇒ signup still works, the upload just happens at submit like before. |
+| `NEXT_PUBLIC_ONBOARDING_URL` | **yes** for `/get-started` | `lib/submit-onboarding.ts` | Full URL of the backend's `onboard_client` endpoint, which creates the Supabase account and starts the estimate from one submission. Also a plain address, not a credential. Unset ⇒ the last step fails with `code=endpoint_unconfigured` and nobody can sign up. |
 | `NEXT_PUBLIC_SITE_URL` | no | `app/waitlist/*/page.tsx` | Canonical origin for share links and OG metadata. Set nowhere today; falls back to `https://heygaudi.ai`. |
 | `VERCEL_URL` | no | `app/waitlist/*/page.tsx` | Second fallback for the canonical origin. Never set on Azure. |
 
-In production `NEXT_PUBLIC_LEAD_CAPTURE_URL` is a GitHub Actions **variable**
-(Settings → Secrets and variables → Actions → Variables), read by the build step
-in `.github/workflows/azure-static-web-apps-icy-smoke-0822f711e.yml`. A variable
-rather than a secret because a public endpoint URL is not one, and keeping it
-visible makes it obvious which backend the site is pointed at. Switching between
-the dev and prod backends is that one value plus a rebuild — no code changes.
+In production `NEXT_PUBLIC_LEAD_CAPTURE_URL` and `NEXT_PUBLIC_ONBOARDING_URL` are
+GitHub Actions **variables** (Settings → Secrets and variables → Actions →
+Variables), read by the build step in
+`.github/workflows/azure-static-web-apps-icy-smoke-0822f711e.yml`. Variables rather
+than secrets because a public endpoint URL is not one, and keeping them visible
+makes it obvious which backend the site is pointed at. Switching between the dev and
+prod backends is those values plus a rebuild — no code changes.
 
 
 ## 🔌 What the backend expects
 
-The endpoint is live at `/api/capture_cta_lead` on the `agentic-back-office-dev`
-function app. It takes no key: the backend owns the database credentials and
-decides what actually gets written, and this repo holds a URL and nothing else.
+Two endpoints on the `agentic-back-office-dev` function app: `/api/capture_cta_lead`
+for the landing CTAs, and `/api/onboard_client` for the last step of `/get-started`.
+Neither takes a key: the backend owns the database credentials and decides what
+actually gets written, and this repo holds URLs and nothing else.
 
-A browser can only reach it from an allowed origin, and that takes **two**
+`onboard_client` is a single `multipart/form-data` POST carrying `name`, `email`,
+`phone`, `company`, `notes` and the PDF plan sets. It records the lead row, creates
+the Supabase user and company, and starts the estimate — which is why the site no
+longer posts the lead separately. It answers `200` with
+`blueprint: "sent" | "failed" | "none"`, so a plan set that did not reach the
+pipeline costs the visitor a forward rather than the signup.
+
+An email or phone that already has an account is refused with `409` and a `field`
+naming which one (`PHONE_INVALID` is the same shape with `400`). `FIELD_REJECTIONS`
+in `components/onboarding/onboarding-flow.tsx` turns those into a message shown on
+that input, so the visitor corrects the field instead of reading a generic failure.
+
+A browser can only reach either from an allowed origin, and that takes **two**
 independent settings on the function app:
 
 - `LEAD_CAPTURE_ALLOWED_ORIGINS`, the allowlist the function itself enforces — a
@@ -96,6 +113,7 @@ Every submission logs one line client-side, carrying no address and no credentia
 
 ```
 [cta] failed source=Get started requestId=<uuid> status=404 code=http_404 durationMs=812 hint=endpoint-not-deployed
+[onboarding] submitted files=2 requestId=<uuid> status=200 code=none blueprint=sent durationMs=1840
 ```
 
 `status=no-response` means the request never reached a server at all (DNS, TLS,

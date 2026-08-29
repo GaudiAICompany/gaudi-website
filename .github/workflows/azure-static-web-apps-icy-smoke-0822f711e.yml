@@ -40,11 +40,13 @@ jobs:
       # This has to be set HERE, not in Azure. The site is a static export, so
       # `next build` compiles NEXT_PUBLIC_* values straight into the JS bundle --
       # by the time Azure serves it there is no process left to read a setting.
-      # It is a `vars` entry rather than a secret: a public endpoint URL is not one.
+      # They are `vars` entries rather than secrets: a public endpoint URL is not one.
       - name: Build and export static site
         run: npm run build
         env:
           NEXT_PUBLIC_LEAD_CAPTURE_URL: ${{ vars.NEXT_PUBLIC_LEAD_CAPTURE_URL }}
+          NEXT_PUBLIC_ONBOARDING_URL: ${{ vars.NEXT_PUBLIC_ONBOARDING_URL }}
+          NEXT_PUBLIC_STAGE_BLUEPRINT_URL: ${{ vars.NEXT_PUBLIC_STAGE_BLUEPRINT_URL }}
       # skip_app_build below stops Oryx from running, and nothing else copies this
       # file: without it the vCard redirects and the .vcf MIME type silently vanish.
       - name: Stage routing config alongside the export
@@ -58,7 +60,7 @@ jobs:
           action: "upload"
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           # Deploy the export built above instead of letting Oryx build a second
-          # copy: only this build has NEXT_PUBLIC_LEAD_CAPTURE_URL baked in.
+          # copy: only this build has the NEXT_PUBLIC_* endpoints baked in.
           app_location: "out" # Pre-built app content, not source, because of skip_app_build
           api_location: ""
           output_location: "" # Must be empty when skip_app_build is true

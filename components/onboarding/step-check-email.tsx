@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { AlertTriangle, Check, ExternalLink, Loader2, Mail } from "lucide-react"
 
+import type { BlueprintOutcome } from "@/lib/submit-onboarding"
 import { StepHeading } from "./onboarding-shell"
 
 /** Deep links land on the inbox; a filter for the sender is more help than the inbox root. */
@@ -28,8 +29,6 @@ const HOW_IT_WORKS = [
     body: "You'll get a notification when it's ready. Review it, request edits, or send it straight to your client.",
   },
 ]
-
-type BlueprintOutcome = "none" | "sent" | "failed"
 
 export function StepCheckEmail({
   mailbox,
