@@ -148,8 +148,9 @@ export function OnboardingFlow() {
     return () => window.removeEventListener("popstate", onPopState)
   }, [])
 
-  // Starts the upload the moment a file is picked. Silent on purpose: nothing in the
-  // UI mentions it, and a failure here only means the submit sends the bytes itself.
+  // Starts the upload, and the estimate behind it, the moment a file is picked. Silent
+  // on purpose: nothing in the UI mentions it, and a failure here only means the submit
+  // sends the bytes itself.
   const handleFilesChange = useCallback((next: File[]) => {
     setFiles(next)
     if (next.length === 0) {

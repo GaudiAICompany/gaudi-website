@@ -1,20 +1,21 @@
 /**
- * Uploads the plan set while the visitor is still filling in the form.
+ * Uploads the plan set, and starts its estimate, while the visitor is still typing.
  *
- * The file is tens of megabytes and their uplink is the slowest thing in the signup,
- * so the upload starts the moment they pick it rather than when they press Continue.
- * By the time four fields are typed it is usually already stored, and the submit
- * carries a draft id instead of the bytes.
+ * The file is tens of megabytes and their uplink is the slowest thing in the signup, so
+ * both start the moment they pick it rather than when they press Continue. The submit
+ * then carries a draft id instead of the bytes, and claims the estimate already running
+ * under it.
  *
- * Deliberately invisible: no progress bar, no wording about uploading. The visitor
- * is choosing a file, not managing a transfer, and the point is that the last step
- * simply feels instant.
+ * Deliberately invisible: no progress bar, no wording about uploading. The point is that
+ * the last step simply feels instant.
  *
  * Best-effort by design. Every failure here is swallowed and the submit falls back to
  * sending the files inline, so a blocked or slow stage costs latency, never a signup.
  */
 
-export const STAGE_BLUEPRINT_ENDPOINT = process.env.NEXT_PUBLIC_STAGE_BLUEPRINT_URL || ""
+import { getTurnstileToken } from "@/lib/turnstile"
+
+const STAGE_BLUEPRINT_ENDPOINT = process.env.NEXT_PUBLIC_STAGE_BLUEPRINT_URL || ""
 
 /** Generous: this races the visitor typing, and losing the race is merely slower. */
 const STAGE_TIMEOUT_MS = 5 * 60 * 1000
@@ -22,9 +23,8 @@ const STAGE_TIMEOUT_MS = 5 * 60 * 1000
 /**
  * How long the submit will wait for a stage that has not landed yet.
  *
- * Short on purpose. Waiting any longer puts the upload back on the critical path,
- * which is the one thing staging exists to prevent -- a stalled stage would hold the
- * button on "Setting you up" for as long as the stage's own timeout allows.
+ * Short on purpose: waiting longer puts the upload back on the critical path, which is
+ * the one thing staging exists to prevent.
  */
 export const STAGE_GRACE_MS = 2000
 
@@ -63,9 +63,16 @@ export async function stageBlueprints(
   const started = Date.now()
 
   try {
+    // Sent even when null: the backend owns the rejection rule, and duplicating it here
+    // gives it somewhere to drift from.
+    const token = await getTurnstileToken()
+
     const res = await fetch(STAGE_BLUEPRINT_ENDPOINT, {
       method: "POST",
-      headers: { "x-request-id": draftId },
+      headers: {
+        "x-request-id": draftId,
+        ...(token ? { "x-turnstile-token": token } : {}),
+      },
       body,
       signal: controller.signal,
     })

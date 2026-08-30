@@ -5,27 +5,20 @@
  * an address, never a credential. Nothing in this repo can accept a file or reach
  * a database, so the endpoint lives with the rest of the backend.
  *
- * It replaces an earlier "upload the blueprint somewhere" call. A plan set on its
- * own is not a signup: the backend needs the contact, the company and the notes in
- * the same request to create the Supabase user and start the estimate, and sending
- * them separately meant either could land without the other.
+ * Contact, company, notes and plan set travel in one request on purpose: the backend
+ * needs all of them to create the Supabase user and start the estimate, and split
+ * across two either half could land without the other.
  */
 
-export const ONBOARDING_ENDPOINT = process.env.NEXT_PUBLIC_ONBOARDING_URL || ""
+const ONBOARDING_ENDPOINT = process.env.NEXT_PUBLIC_ONBOARDING_URL || ""
 
-/** The onboarding flow currently supports PDF plan sets only. */
 export const BLUEPRINT_ACCEPT = ".pdf,application/pdf"
 
-export const MAX_BLUEPRINT_BYTES = 50 * 1024 * 1024
+const MAX_BLUEPRINT_BYTES = 50 * 1024 * 1024
 export const MAX_BLUEPRINT_FILES = 10
 
-/**
- * Generous, because a plan set on a slow uplink legitimately takes minutes -- but
- * finite, because fetch has no timeout of its own: without this a request that
- * stalls leaves the button spinning on "Setting you up" for as long as the visitor
- * is willing to wait, which is the one outcome worse than an error.
- */
-export const SUBMIT_TIMEOUT_MS = 3 * 60 * 1000
+/** fetch has no timeout of its own; without this the button spins for as long as the visitor lets it. */
+const SUBMIT_TIMEOUT_MS = 3 * 60 * 1000
 
 /** What became of the plan set. The mobile path never sends one, hence "none". */
 export type BlueprintOutcome = "none" | "sent" | "failed"
@@ -57,10 +50,7 @@ export type OnboardingResult = {
   durationMs: number
 }
 
-/**
- * The id is only in App Insights if the request actually reached the server, so
- * a transport failure must not hand support a reference nothing ever logged.
- */
+/** Null on a transport failure: support must not get a reference App Insights never logged. */
 export function traceableRequestId(result: OnboardingResult): string | null {
   return result.status === null ? null : result.requestId
 }
@@ -105,7 +95,6 @@ export async function submitOnboarding(
 ): Promise<OnboardingResult> {
   const requestId = newRequestId()
   const started = Date.now()
-  // Already staged means the bytes are in storage and the submit only names them.
   const staged = Boolean(submission.draftId)
   const fileCount = submission.files.length
   const unsent: BlueprintOutcome = fileCount > 0 || staged ? "failed" : "none"
@@ -148,9 +137,8 @@ export async function submitOnboarding(
       signal: controller.signal,
     })
 
-    // Shape matches the backend's _error_response: {"error": code, "message": ...}.
-    // A proxy or a 404 answers with neither, so fall back to the status class
-    // rather than reporting a misleading reason.
+    // Shape matches the backend's _error_response. A proxy or a 404 answers with
+    // neither, so fall back to the status class rather than a misleading reason.
     let code: string | null = null
     let field: string | null = null
     let serverRequestId = res.headers.get("x-request-id")
@@ -198,7 +186,7 @@ export async function submitOnboarding(
   }
 }
 
-/** One line per file so the resend lead row records what was sent. */
+/** Recorded on the resend lead row, so support can see what was actually sent. */
 export function fileManifest(files: File[]): string {
   return files.map((f) => `${f.name} (${Math.round(f.size / 1024)} KB)`).join(", ")
 }
