@@ -80,11 +80,11 @@ export function OnboardingFlow() {
   const [step, setStep] = useState<OnboardingStep>("info")
 
   const [files, setFiles] = useState<File[]>([])
-  // One draft per visit, and the in-flight upload it belongs to. The submit awaits
-  // this rather than racing it, so a plan set picked seconds ago is already stored
-  // and one picked a moment ago is merely finishing.
+  // Written once per Continue, never per file, so there is only ever one draft in
+  // flight and the submit knows exactly which files are in it.
   const draftId = useRef<string>("")
   const staging = useRef<Promise<StagedBlueprints> | null>(null)
+  const stagedFiles = useRef<File[]>([])
   const [notes, setNotes] = useState("")
   const [details, setDetails] = useState<OnboardingDetails>(EMPTY_DETAILS)
   const [prefilled, setPrefilled] = useState<(keyof OnboardingDetails)[]>([])
@@ -148,24 +148,29 @@ export function OnboardingFlow() {
     return () => window.removeEventListener("popstate", onPopState)
   }, [])
 
-  // Starts the upload, and the estimate behind it, the moment a file is picked. Silent
-  // on purpose: nothing in the UI mentions it, and a failure here only means the submit
-  // sends the bytes itself.
-  const handleFilesChange = useCallback((next: File[]) => {
-    setFiles(next)
-    if (next.length === 0) {
-      staging.current = null
-      return
-    }
-    if (!draftId.current) draftId.current = newDraftId()
-    staging.current = stageBlueprints(draftId.current, next)
-  }, [])
-
   const goTo = useCallback((next: OnboardingStep) => {
     setStep(next)
     window.history.pushState({ onboardingStep: next }, "")
     window.scrollTo({ top: 0, behavior: "auto" })
   }, [])
+
+  // Starts the upload when the visitor leaves this step rather than each time they touch
+  // the list. By Continue the plan set is final, so picking files one at a time, or
+  // adding and then removing one, still costs exactly one request.
+  const handleUploadContinue = useCallback(() => {
+    const unchanged =
+      files.length === stagedFiles.current.length &&
+      files.every((file, i) => file === stagedFiles.current[i])
+    // Returning to this step and changing nothing must not re-upload what is already staged.
+    if (!unchanged) {
+      stagedFiles.current = files
+      // A new draft each time, so a set edited after Continue cannot inherit the files
+      // of the one staged before it.
+      draftId.current = newDraftId()
+      staging.current = stageBlueprints(draftId.current, files)
+    }
+    goTo("info")
+  }, [files, goTo])
 
   const leadPayload = useCallback(
     (source: string) => {
@@ -254,9 +259,9 @@ export function OnboardingFlow() {
         <StepUploadBlueprint
           files={files}
           notes={notes}
-          onFilesChange={handleFilesChange}
+          onFilesChange={setFiles}
           onNotesChange={setNotes}
-          onContinue={() => goTo("info")}
+          onContinue={handleUploadContinue}
         />
       ) : step === "info" ? (
         <StepYourInfo

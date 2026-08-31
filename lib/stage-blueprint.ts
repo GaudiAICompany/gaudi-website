@@ -2,9 +2,13 @@
  * Uploads the plan set, and starts its estimate, while the visitor is still typing.
  *
  * The file is tens of megabytes and their uplink is the slowest thing in the signup, so
- * both start the moment they pick it rather than when they press Continue. The submit
- * then carries a draft id instead of the bytes, and claims the estimate already running
- * under it.
+ * both start when they leave the upload step rather than when they press the final
+ * submit. The submit then carries a draft id instead of the bytes, and claims the
+ * estimate already running under it.
+ *
+ * Called once per draft, on Continue, and never while the visitor is still adding or
+ * removing files: a draft is written by exactly one request, so nothing here has to
+ * reconcile a set that changed under it.
  *
  * Deliberately invisible: no progress bar, no wording about uploading. The point is that
  * the last step simply feels instant.
