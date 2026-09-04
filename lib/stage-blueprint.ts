@@ -6,9 +6,9 @@
  * submit. The submit then carries a draft id instead of the bytes, and claims the
  * estimate already running under it.
  *
- * Called once per draft, on Continue, and never while the visitor is still adding or
- * removing files: a draft is written by exactly one request, so nothing here has to
- * reconcile a set that changed under it.
+ * One draft id per signup, reused on every Continue. Re-staging supersedes whatever was
+ * under that id, so an edited set replaces the previous one instead of leaving a second
+ * estimate running beside it, and an emptied set clears the draft.
  *
  * Deliberately invisible: no progress bar, no wording about uploading. The point is that
  * the last step simply feels instant.
@@ -24,17 +24,9 @@ const STAGE_BLUEPRINT_ENDPOINT = process.env.NEXT_PUBLIC_STAGE_BLUEPRINT_URL || 
 /** Generous: this races the visitor typing, and losing the race is merely slower. */
 const STAGE_TIMEOUT_MS = 5 * 60 * 1000
 
-/**
- * How long the submit will wait for a stage that has not landed yet.
- *
- * Short on purpose: waiting longer puts the upload back on the critical path, which is
- * the one thing staging exists to prevent.
- */
-export const STAGE_GRACE_MS = 2000
-
 export type StagedBlueprints = {
   draftId: string
-  /** Files confirmed stored, so the submit knows whether it can skip the upload. */
+  /** How many of the submitted files are confirmed stored. */
   staged: number
 }
 
@@ -56,7 +48,8 @@ export async function stageBlueprints(
   files: File[],
 ): Promise<StagedBlueprints> {
   const nothing: StagedBlueprints = { draftId, staged: 0 }
-  if (!STAGE_BLUEPRINT_ENDPOINT || files.length === 0) return nothing
+  // An emptied set still POSTs: nothing else tells the draft its files were removed.
+  if (!STAGE_BLUEPRINT_ENDPOINT) return nothing
 
   const body = new FormData()
   body.append("draft_id", draftId)
@@ -69,7 +62,7 @@ export async function stageBlueprints(
   try {
     // Sent even when null: the backend owns the rejection rule, and duplicating it here
     // gives it somewhere to drift from.
-    const token = await getTurnstileToken()
+    const token = await getTurnstileToken("stage_blueprint")
 
     const res = await fetch(STAGE_BLUEPRINT_ENDPOINT, {
       method: "POST",
@@ -94,28 +87,5 @@ export async function stageBlueprints(
     return nothing
   } finally {
     clearTimeout(stall)
-  }
-}
-
-/**
- * The staged result if it lands within *ms*, otherwise null. Never throws and never
- * waits longer than *ms*, so a slow or dead stage costs the submit a moment, not the
- * signup: the caller sends the bytes inline instead.
- */
-export async function stagedWithin(
-  pending: Promise<StagedBlueprints> | null,
-  ms: number,
-): Promise<StagedBlueprints | null> {
-  if (!pending) return null
-
-  let timer: ReturnType<typeof setTimeout> | undefined
-  const deadline = new Promise<null>((resolve) => {
-    timer = setTimeout(() => resolve(null), ms)
-  })
-
-  try {
-    return await Promise.race([pending.catch(() => null), deadline])
-  } finally {
-    clearTimeout(timer)
   }
 }

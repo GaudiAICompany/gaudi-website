@@ -10,6 +10,8 @@
  * across two either half could land without the other.
  */
 
+import { getTurnstileToken } from "@/lib/turnstile"
+
 const ONBOARDING_ENDPOINT = process.env.NEXT_PUBLIC_ONBOARDING_URL || ""
 
 export const BLUEPRINT_ACCEPT = ".pdf,application/pdf"
@@ -30,7 +32,7 @@ export type OnboardingSubmission = {
   company: string
   notes: string
   files: File[]
-  /** Set when lib/stage-blueprint.ts already stored these; the bytes stay home. */
+  /** Keys the estimate. Sent staged or not -- the backend decides which copy is authoritative. */
   draftId?: string
   /** Which flow produced this, so conversions stay attributable per placement. */
   source?: string
@@ -122,13 +124,18 @@ export async function submitOnboarding(
   body.append("company", submission.company.trim())
   body.append("notes", submission.notes.trim())
   body.append("source", submission.source || "Onboarding signup")
-  if (staged) body.append("draft_id", submission.draftId as string)
-  else for (const file of submission.files) body.append("files", file, file.name)
+  if (submission.draftId) body.append("draft_id", submission.draftId)
+  // Both copies can travel together; the draft id is what stops that becoming two estimates.
+  for (const file of submission.files) body.append("files", file, file.name)
 
   const controller = new AbortController()
   const stall = setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS)
 
   try {
+    // Gated on a token too, not only the staging upload: this endpoint mints an auth user.
+    const token = await getTurnstileToken("onboard_client")
+    if (token) body.append("turnstile_token", token)
+
     // No Content-Type header: the browser has to set the multipart boundary.
     const res = await fetch(ONBOARDING_ENDPOINT, {
       method: "POST",

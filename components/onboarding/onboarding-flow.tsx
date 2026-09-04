@@ -12,13 +12,7 @@ import {
   splitFullName,
   takeCtaHandoff,
 } from "@/lib/onboarding"
-import {
-  STAGE_GRACE_MS,
-  type StagedBlueprints,
-  newDraftId,
-  stageBlueprints,
-  stagedWithin,
-} from "@/lib/stage-blueprint"
+import { newDraftId, stageBlueprints } from "@/lib/stage-blueprint"
 import {
   type BlueprintOutcome,
   fileManifest,
@@ -80,11 +74,12 @@ export function OnboardingFlow() {
   const [step, setStep] = useState<OnboardingStep>("info")
 
   const [files, setFiles] = useState<File[]>([])
-  // Written once per Continue, never per file, so there is only ever one draft in
-  // flight and the submit knows exactly which files are in it.
+  // One id for the whole signup: re-using it is what lets a re-stage supersede the
+  // previous estimate instead of starting a second one beside it.
   const draftId = useRef<string>("")
-  const staging = useRef<Promise<StagedBlueprints> | null>(null)
   const stagedFiles = useRef<File[]>([])
+  // Read synchronously at submit, so the last step never waits on the upload.
+  const stagedOk = useRef(false)
   const [notes, setNotes] = useState("")
   const [details, setDetails] = useState<OnboardingDetails>(EMPTY_DETAILS)
   const [prefilled, setPrefilled] = useState<(keyof OnboardingDetails)[]>([])
@@ -163,11 +158,13 @@ export function OnboardingFlow() {
       files.every((file, i) => file === stagedFiles.current[i])
     // Returning to this step and changing nothing must not re-upload what is already staged.
     if (!unchanged) {
+      if (!draftId.current) draftId.current = newDraftId()
       stagedFiles.current = files
-      // A new draft each time, so a set edited after Continue cannot inherit the files
-      // of the one staged before it.
-      draftId.current = newDraftId()
-      staging.current = stageBlueprints(draftId.current, files)
+      stagedOk.current = false
+      // Confirmed only when the whole set landed: a partial stage still owes the bytes.
+      stageBlueprints(draftId.current, files).then((r) => {
+        stagedOk.current = files.length > 0 && r.staged === files.length
+      })
     }
     goTo("info")
   }, [files, goTo])
@@ -199,20 +196,16 @@ export function OnboardingFlow() {
     // with blueprint="failed" when only the plan set did not make it, so a forward
     // is all the visitor owes -- the last screen says which happened.
     try {
-      // Peek at the stage rather than waiting on it. It started several form fields
-      // ago and has almost always landed; when it has not, the bytes go inline and
-      // the wasted upload is nobody's problem but ours.
-      const stagedResult = await stagedWithin(staging.current, STAGE_GRACE_MS)
-      const staged = stagedResult !== null && stagedResult.staged === files.length
-
+      // Never waits on the stage: unconfirmed means the bytes go inline as well, and the
+      // draft id is what keeps two copies from becoming two estimates.
       const result = await submitOnboarding({
         fullName: details.fullName,
         email: details.email,
         phone: details.phone,
         company: details.company,
         notes,
-        files,
-        draftId: staged ? draftId.current : undefined,
+        files: stagedOk.current ? [] : files,
+        draftId: draftId.current || undefined,
         source: "Onboarding signup",
       })
 
