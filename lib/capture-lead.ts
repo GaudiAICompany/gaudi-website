@@ -5,6 +5,8 @@
  * backends is a variable change plus a rebuild -- nothing in the site's code.
  */
 
+import { resolveEndpoint } from "@/lib/api-endpoint"
+
 export const CAPTURE_LEAD_ENDPOINT = process.env.NEXT_PUBLIC_LEAD_CAPTURE_URL || ""
 
 export type CaptureLeadPayload = {
@@ -63,10 +65,11 @@ function logOutcome(result: CaptureLeadResult, source: string | undefined, extra
 export async function captureLead(payload: CaptureLeadPayload): Promise<CaptureLeadResult> {
   const requestId = newRequestId()
   const started = Date.now()
+  const endpoint = resolveEndpoint(CAPTURE_LEAD_ENDPOINT)
 
   // A missing build variable is a deploy mistake, not a transport failure. Name it
   // as such rather than POSTing to "" and reporting a confusing 404.
-  if (!CAPTURE_LEAD_ENDPOINT) {
+  if (!endpoint) {
     const result: CaptureLeadResult = {
       ok: false,
       requestId,
@@ -79,7 +82,7 @@ export async function captureLead(payload: CaptureLeadPayload): Promise<CaptureL
   }
 
   try {
-    const res = await fetch(CAPTURE_LEAD_ENDPOINT, {
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

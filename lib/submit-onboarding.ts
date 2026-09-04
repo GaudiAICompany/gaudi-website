@@ -10,6 +10,7 @@
  * across two either half could land without the other.
  */
 
+import { resolveEndpoint } from "@/lib/api-endpoint"
 import { getTurnstileToken } from "@/lib/turnstile"
 
 const ONBOARDING_ENDPOINT = process.env.NEXT_PUBLIC_ONBOARDING_URL || ""
@@ -100,10 +101,11 @@ export async function submitOnboarding(
   const staged = Boolean(submission.draftId)
   const fileCount = submission.files.length
   const unsent: BlueprintOutcome = fileCount > 0 || staged ? "failed" : "none"
+  const endpoint = resolveEndpoint(ONBOARDING_ENDPOINT)
 
   // A missing build variable is a deploy mistake, not a transport failure. Name it
   // as such rather than POSTing to "" and reporting a confusing 404.
-  if (!ONBOARDING_ENDPOINT) {
+  if (!endpoint) {
     const result: OnboardingResult = {
       ok: false,
       requestId,
@@ -137,7 +139,7 @@ export async function submitOnboarding(
     if (token) body.append("turnstile_token", token)
 
     // No Content-Type header: the browser has to set the multipart boundary.
-    const res = await fetch(ONBOARDING_ENDPOINT, {
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "x-request-id": requestId },
       body,
