@@ -3,12 +3,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import { captureLead } from "@/lib/capture-lead"
+import { checkContact } from "@/lib/check-contact"
 import {
   DESKTOP_STEPS,
+  FIELD_REJECTIONS,
+  type FieldRejection,
   MOBILE_STEPS,
   type OnboardingDetails,
   type OnboardingStep,
   companyMailbox,
+  rejectionForTakenContact,
   splitFullName,
   takeCtaHandoff,
 } from "@/lib/onboarding"
@@ -29,31 +33,18 @@ const EMPTY_DETAILS: OnboardingDetails = { fullName: "", phone: "", email: "", c
 /** Same breakpoint the landing CTA uses to decide email vs phone, so one device sees one story. */
 const MOBILE_QUERY = "(max-width: 767px)"
 
+/** The shape StepYourInfo already validates: no point asking the backend about "dana@". */
+const PLAUSIBLE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+
+/** Long enough that typing a contact end to end costs one check, not a dozen. */
+const CONTACT_CHECK_DEBOUNCE_MS = 600
+
 const SUBMIT_FAILED =
   "That didn't go through on my end. Try again, or email help@heygaudi.ai and I'll set you up from there."
 
 /** A stalled upload is almost always the plan set, so point at the way around it. */
 const SUBMIT_TIMED_OUT =
-  "That's taking longer than it should — a large plan set can do it. Email it to help@heygaudi.ai and I'll pick it up from there."
-
-/**
- * Rejections the visitor can fix themselves, shown on the field they have to change
- * rather than in the generic failure banner at the bottom of the form.
- */
-const FIELD_REJECTIONS: Record<string, { key: keyof OnboardingDetails; message: string }> = {
-  EMAIL_EXISTS: {
-    key: "email",
-    message: "That email already has a Gaudi account. Use another, or email help@heygaudi.ai.",
-  },
-  PHONE_EXISTS: {
-    key: "phone",
-    message: "That number is already on a Gaudi account. Use another, or email help@heygaudi.ai.",
-  },
-  PHONE_INVALID: {
-    key: "phone",
-    message: "I couldn't read that as a phone number. Include the area code.",
-  },
-}
+  "That's taking longer than it should, a large plan set can do it. Email it to help@heygaudi.ai and I'll pick it up from there."
 
 function StepSkeleton() {
   return (
@@ -83,13 +74,17 @@ export function OnboardingFlow() {
   const [notes, setNotes] = useState("")
   const [details, setDetails] = useState<OnboardingDetails>(EMPTY_DETAILS)
   const [prefilled, setPrefilled] = useState<(keyof OnboardingDetails)[]>([])
+  // The company this address is already joined to. Not a `prefilled` entry: that one is
+  // deliberately unlockable, and this is the name the backend will use whatever the form
+  // sends, so offering to change it would be offering something that does not happen.
+  const [fixedCompany, setFixedCompany] = useState<string | null>(null)
 
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [submitReference, setSubmitReference] = useState<string | null>(null)
-  const [fieldRejection, setFieldRejection] = useState<
-    { key: keyof OnboardingDetails; message: string } | null
-  >(null)
+  // Set by the submit's 409, and now also by the contact check when a field settles on a
+  // contact that is already a client. Same message either way, only the timing differs.
+  const [fieldRejection, setFieldRejection] = useState<FieldRejection | null>(null)
   const [blueprintOutcome, setBlueprintOutcome] = useState<BlueprintOutcome>("none")
 
   const steps = useMemo(() => (isMobile ? MOBILE_STEPS : DESKTOP_STEPS), [isMobile])
@@ -142,6 +137,80 @@ export function OnboardingFlow() {
     window.addEventListener("popstate", onPopState)
     return () => window.removeEventListener("popstate", onPopState)
   }, [])
+
+  // The contact the last check asked about, so a slow answer for a contact they have
+  // since edited cannot land on the fields.
+  const checkedContact = useRef("")
+  // What the check itself put in the company field. Anything else in there was typed by
+  // the visitor, and is not this feature's to erase.
+  const injectedCompany = useRef("")
+
+  const applyFixedCompany = useCallback((company: string | null) => {
+    const previouslyInjected = injectedCompany.current
+    injectedCompany.current = company || ""
+    setFixedCompany(company)
+    setDetails((prev) => {
+      // A name on file wins outright: the backend joins them to that company and drops
+      // whatever the form sent, so showing anything else here would promise something
+      // that does not happen.
+      if (company) return prev.company === company ? prev : { ...prev, company }
+      // Nothing on file: only the name this check wrote is ours to take back.
+      if (prev.company !== "" && prev.company === previouslyInjected) {
+        return { ...prev, company: "" }
+      }
+      return prev
+    })
+  }, [])
+
+  // Fires when a contact settles, never per keystroke: the check is rate limited per IP.
+  // The phone is in the key as well as the address, so filling it in afterwards asks again
+  // rather than leaving the one field the check can also speak for unchecked.
+  //
+  // Keyed on the whole address rather than on the domain, because for a public mailbox the
+  // address is the identity, so pedro@gmail.com is a different question from juan@gmail.com
+  // even though the domain did not change.
+  //
+  // An early warning only. The submit and its 409 are untouched: this changes when the
+  // visitor hears about a contact that is already a client, not whether they can try.
+  useEffect(() => {
+    const email = details.email.trim().toLowerCase()
+    // Only the digits the check would actually be given, so formatting a number they
+    // already typed does not spend a request.
+    const phone = details.phone.replace(/\D/g, "")
+    const contact = `${email}|${phone.length >= 10 ? phone : ""}`
+
+    if (!PLAUSIBLE_EMAIL.test(email)) {
+      // Back to half-typed: drop the lock rather than hold a name for an abandoned address.
+      // The rejection stays: it is hidden the moment its own field is edited, and dropping
+      // it here would take a 409 off the screen that nobody has dealt with yet.
+      if (checkedContact.current !== "") {
+        checkedContact.current = ""
+        applyFixedCompany(null)
+      }
+      return
+    }
+    if (contact === checkedContact.current) return
+
+    const timer = setTimeout(() => {
+      checkedContact.current = contact
+      // Never rejects, and answers both-null for every failure, so there is nothing to
+      // catch: an unreachable check leaves the form as it has always behaved.
+      checkContact(email, phone.length >= 10 ? details.phone : undefined).then((result) => {
+        if (checkedContact.current !== contact) return
+        applyFixedCompany(result.company)
+        // The submit's own wording, said earlier. Null clears a warning this check raised
+        // about a contact that has since changed.
+        //
+        // Copied rather than passed through: StepYourInfo hides a rejection once its field
+        // is edited, and reads a new value as the reason to show it again. Handing back the
+        // one shared object would make "this other address is taken too" silently identical
+        // to the message they just edited away from.
+        const rejected = rejectionForTakenContact(result.contactTaken)
+        setFieldRejection(rejected ? { ...rejected } : null)
+      })
+    }, CONTACT_CHECK_DEBOUNCE_MS)
+    return () => clearTimeout(timer)
+  }, [details.email, details.phone, applyFixedCompany])
 
   const goTo = useCallback((next: OnboardingStep) => {
     setStep(next)
@@ -260,6 +329,7 @@ export function OnboardingFlow() {
         <StepYourInfo
           details={details}
           prefilled={prefilled}
+          fixedCompany={fixedCompany}
           onDetailsChange={setDetails}
           onSubmit={handleSubmit}
           submitting={submitting}

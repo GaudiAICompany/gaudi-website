@@ -3,6 +3,8 @@
  * picks a path through them, and the small derivations the screens display.
  */
 
+import type { TakenContact } from "@/lib/check-contact"
+
 export type OnboardingStep = "upload" | "info" | "check-email"
 
 /**
@@ -21,6 +23,47 @@ export type OnboardingDetails = {
   phone: string
   email: string
   company: string
+}
+
+export type FieldRejection = { key: keyof OnboardingDetails; message: string }
+
+/**
+ * What the backend refused, shown on the field it named rather than in the generic failure
+ * banner at the bottom of the form.
+ *
+ * The two EXISTS cases are not mistakes to correct: that contact is already a client, and the
+ * account they would be signing up for is one they have. So they are told what to do with the
+ * one they have, rather than to go and find another address to sign up with.
+ *
+ * Keyed by the backend's own error codes, because the submit's 409 is where these started. The
+ * contact check now reaches the same two conclusions before a form is even filled in, so it
+ * borrows the wording through rejectionForTakenContact rather than saying it a second way: one
+ * situation the visitor can be in should not have two vocabularies depending on when we noticed.
+ */
+export const FIELD_REJECTIONS: Record<string, FieldRejection> = {
+  EMAIL_EXISTS: {
+    key: "email",
+    message:
+      "That email is already registered. No need to sign up again. Just contact us from it, " +
+      "the way you would a coworker, and I'll pick it up.",
+  },
+  PHONE_EXISTS: {
+    key: "phone",
+    message:
+      "That phone number is already registered. No need to sign up again. Just contact us from " +
+      "that account, the way you would a coworker, and I'll pick it up.",
+  },
+  PHONE_INVALID: {
+    key: "phone",
+    message: "I couldn't read that as a phone number. Include the area code.",
+  },
+}
+
+/** The contact check names a contact; the submit names an error code. Same two situations. */
+const TAKEN_CONTACT_CODE = { email: "EMAIL_EXISTS", phone: "PHONE_EXISTS" } as const
+
+export function rejectionForTakenContact(taken: TakenContact | null): FieldRejection | null {
+  return taken ? FIELD_REJECTIONS[TAKEN_CONTACT_CODE[taken]] ?? null : null
 }
 
 /**
