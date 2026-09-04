@@ -2,25 +2,19 @@
  * Asks the backend the two things it already knows about a contact before the form does.
  *
  * A company is identified by the address's domain, or by the whole address for a public
- * mailbox, so two coworkers on the same domain land on one company and two strangers on
- * gmail do not. When that company already exists the backend joins the new signup to it
- * and discards whatever was typed in the company field, so the form has to know before
- * the submit, not after: it shows the name on file and stops asking a question whose
- * answer is thrown away.
- *
- * The second answer is the refusal the submit would otherwise end in. Hearing "you are
- * already a client" while still on the address, rather than after filling in a whole
- * form, is the entire point of asking early.
+ * mailbox. When it already exists the backend joins the signup to it and discards whatever
+ * the company field sent, so the form has to know before the submit, not after: it shows
+ * the name on file instead of asking a question whose answer is thrown away. The second
+ * answer, that the contact is already a client, is the refusal the submit would otherwise
+ * end in, said while they are still on the first field.
  *
  * The two are never both set: someone being turned away is not told whose company the
- * address belongs to, so the backend withholds the name in that case.
+ * address belongs to.
  *
- * Same contract as the other clients here: the URL is inlined at build time and is an
- * address, never a credential. The endpoint writes nothing and is safe to call again,
- * but it is rate limited per IP, so callers debounce rather than calling per keystroke.
+ * Rate limited per IP, so callers debounce rather than asking per keystroke.
  *
- * Advisory only. Every failure answers both-null, which is also the answer for a contact
- * nothing is known about, so the form asks and submits exactly as it always has.
+ * Fails open. Every failure answers both-null, the same answer as for a contact nothing is
+ * known about, so the form asks and submits exactly as it always has.
  */
 
 import { resolveEndpoint } from "@/lib/api-endpoint"
@@ -30,17 +24,13 @@ const CHECK_CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CHECK_CONTACT_URL || ""
 /** A visitor is waiting on this mid-form, so a slow answer is worth less than a fast "no". */
 const CHECK_TIMEOUT_MS = 4_000
 
-/** Which of the two contacts already belongs to a Gaudi client, when one of them does. */
 export type TakenContact = "email" | "phone"
 
 export type ContactCheck = {
-  /** The company this identity is already joined to, null when it joins none. */
   company: string | null
-  /** Deliberately withheld, hence null, whenever a contact is taken. */
   contactTaken: TakenContact | null
 }
 
-/** Both answers absent: "nothing known", which is also what every failure reports. */
 const NOTHING: ContactCheck = { company: null, contactTaken: null }
 
 export async function checkContact(email: string, phone?: string): Promise<ContactCheck> {
@@ -50,8 +40,8 @@ export async function checkContact(email: string, phone?: string): Promise<Conta
 
   const body = new FormData()
   body.append("email", email)
-  // Ten digits is the floor for a US number, the same floor the form itself enforces.
-  // Under it there is nothing to recognise, so a half-typed number is not worth asking about.
+  // Ten digits is the floor for a US number, the same floor the form itself enforces:
+  // under it there is nothing to recognise.
   if (phone && phone.replace(/\D/g, "").length >= 10) body.append("phone", phone)
 
   const controller = new AbortController()
@@ -85,10 +75,7 @@ export async function checkContact(email: string, phone?: string): Promise<Conta
   }
 }
 
-/**
- * Browser consoles are effectively public, so this line carries the outcome and the
- * timing only: never the contact looked up, never the company name it answered with.
- */
+/** Browser consoles are public: outcome and timing only, never the contact or the company. */
 function logOutcome(outcome: string, started: number, extra?: string) {
   console.info(
     `[contact] ${outcome} durationMs=${Date.now() - started}` + (extra ? ` ${extra}` : ""),

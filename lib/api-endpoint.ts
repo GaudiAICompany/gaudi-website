@@ -5,9 +5,6 @@
  * the machine's LAN address from a phone or a second laptop makes "localhost" mean *that*
  * device, so the fetch dies on a preflight nothing answered -- which the console reports
  * as a CORS failure rather than as the wrong host it is.
- *
- * The environment variable still wins whenever it names a real host, so staging and prod
- * are untouched.
  */
 
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"])

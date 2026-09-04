@@ -60,13 +60,7 @@ export function StepYourInfo({
   details: OnboardingDetails
   /** Fields the landing CTA already collected, so this screen confirms rather than asks. */
   prefilled: (keyof OnboardingDetails)[]
-  /**
-   * The company this email is already joined to, or null when it joins none.
-   *
-   * Separate from `prefilled` on purpose: a prefilled value is theirs to change, and this
-   * one is not. The backend assigns it from the address whatever the form sends, so a
-   * Change affordance here would offer an edit that quietly does nothing.
-   */
+  /** The company already on file. Unlike `prefilled`, not theirs to change: the backend assigns it. */
   fixedCompany: string | null
   onDetailsChange: (details: OnboardingDetails) => void
   onSubmit: () => void
@@ -121,9 +115,8 @@ export function StepYourInfo({
   // bottom of the form, and autoFocus fires only on mount, so a field they typed
   // themselves is already mounted and would just quietly turn red off-screen.
   //
-  // Not when they are already typing somewhere else, though: a rejection now also arrives
-  // from the contact check, seconds after a field settles, and by then they have usually
-  // moved on to the next one. Pulling them back would land their keystrokes in the wrong box.
+  // Not when the caret is in another input, though: a rejection can arrive from the contact
+  // check seconds after a field settles, and pulling them back lands keystrokes in the wrong box.
   useEffect(() => {
     if (!fieldRejection) return
     unlock(fieldRejection.key)
@@ -153,8 +146,7 @@ export function StepYourInfo({
         {FIELDS.map((field) =>
           isFixed(field.key) ? (
             <Field key={field.key} id={field.key} label={field.label} error={errorFor(field.key)}>
-              {/* A confirmed field's treatment without its Change button: it reads as
-                  settled, and offers no edit that the backend would then ignore. */}
+              {/* A confirmed field's treatment, minus the Change button: there is no edit to offer. */}
               <div className="flex items-center gap-3 rounded-xs border border-border bg-muted/60 px-4 py-3">
                 <Check className="size-4 shrink-0 text-primary" strokeWidth={3} aria-hidden="true" />
                 {/* An input rather than a span, so the value is still part of the field. */}

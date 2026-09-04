@@ -48,7 +48,7 @@ function newRequestId(): string {
 
 /**
  * Browser consoles are effectively public, so these lines carry only the request
- * id, the transport outcome and a coarse reason code — never the submitted
+ * id, the transport outcome and a coarse reason code, never the submitted
  * address, never a credential, never an upstream error body.
  */
 function logOutcome(result: CaptureLeadResult, source: string | undefined, extra?: string) {

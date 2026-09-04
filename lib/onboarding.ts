@@ -27,19 +27,7 @@ export type OnboardingDetails = {
 
 export type FieldRejection = { key: keyof OnboardingDetails; message: string }
 
-/**
- * What the backend refused, shown on the field it named rather than in the generic failure
- * banner at the bottom of the form.
- *
- * The two EXISTS cases are not mistakes to correct: that contact is already a client, and the
- * account they would be signing up for is one they have. So they are told what to do with the
- * one they have, rather than to go and find another address to sign up with.
- *
- * Keyed by the backend's own error codes, because the submit's 409 is where these started. The
- * contact check now reaches the same two conclusions before a form is even filled in, so it
- * borrows the wording through rejectionForTakenContact rather than saying it a second way: one
- * situation the visitor can be in should not have two vocabularies depending on when we noticed.
- */
+/** Keyed by the backend's error codes. Shown on the field named, not in the form's banner. */
 export const FIELD_REJECTIONS: Record<string, FieldRejection> = {
   EMAIL_EXISTS: {
     key: "email",

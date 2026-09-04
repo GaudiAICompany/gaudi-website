@@ -74,16 +74,14 @@ export function OnboardingFlow() {
   const [notes, setNotes] = useState("")
   const [details, setDetails] = useState<OnboardingDetails>(EMPTY_DETAILS)
   const [prefilled, setPrefilled] = useState<(keyof OnboardingDetails)[]>([])
-  // The company this address is already joined to. Not a `prefilled` entry: that one is
-  // deliberately unlockable, and this is the name the backend will use whatever the form
-  // sends, so offering to change it would be offering something that does not happen.
+  // Not a `prefilled` entry: that one is unlockable, and this is the name the backend uses
+  // whatever the form sends, so offering a change would offer something that does not happen.
   const [fixedCompany, setFixedCompany] = useState<string | null>(null)
 
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [submitReference, setSubmitReference] = useState<string | null>(null)
-  // Set by the submit's 409, and now also by the contact check when a field settles on a
-  // contact that is already a client. Same message either way, only the timing differs.
+  // Set by the submit's 409 and by the contact check: same message, different timing.
   const [fieldRejection, setFieldRejection] = useState<FieldRejection | null>(null)
   const [blueprintOutcome, setBlueprintOutcome] = useState<BlueprintOutcome>("none")
 
@@ -138,11 +136,9 @@ export function OnboardingFlow() {
     return () => window.removeEventListener("popstate", onPopState)
   }, [])
 
-  // The contact the last check asked about, so a slow answer for a contact they have
-  // since edited cannot land on the fields.
+  // The contact the last check asked about, so a slow answer for an edited one cannot land.
   const checkedContact = useRef("")
-  // What the check itself put in the company field. Anything else in there was typed by
-  // the visitor, and is not this feature's to erase.
+  // What the check wrote into the company field; anything else there was typed by the visitor.
   const injectedCompany = useRef("")
 
   const applyFixedCompany = useCallback((company: string | null) => {
@@ -150,9 +146,8 @@ export function OnboardingFlow() {
     injectedCompany.current = company || ""
     setFixedCompany(company)
     setDetails((prev) => {
-      // A name on file wins outright: the backend joins them to that company and drops
-      // whatever the form sent, so showing anything else here would promise something
-      // that does not happen.
+      // A name on file wins outright: showing anything else promises an edit that the
+      // backend will drop.
       if (company) return prev.company === company ? prev : { ...prev, company }
       // Nothing on file: only the name this check wrote is ours to take back.
       if (prev.company !== "" && prev.company === previouslyInjected) {
@@ -162,27 +157,19 @@ export function OnboardingFlow() {
     })
   }, [])
 
-  // Fires when a contact settles, never per keystroke: the check is rate limited per IP.
   // The phone is in the key as well as the address, so filling it in afterwards asks again
   // rather than leaving the one field the check can also speak for unchecked.
   //
-  // Keyed on the whole address rather than on the domain, because for a public mailbox the
-  // address is the identity, so pedro@gmail.com is a different question from juan@gmail.com
-  // even though the domain did not change.
-  //
-  // An early warning only. The submit and its 409 are untouched: this changes when the
-  // visitor hears about a contact that is already a client, not whether they can try.
+  // An early warning only: the submit and its 409 still decide whether they can sign up.
   useEffect(() => {
     const email = details.email.trim().toLowerCase()
-    // Only the digits the check would actually be given, so formatting a number they
-    // already typed does not spend a request.
+    // Only the digits the check is given, so reformatting a typed number costs no request.
     const phone = details.phone.replace(/\D/g, "")
     const contact = `${email}|${phone.length >= 10 ? phone : ""}`
 
     if (!PLAUSIBLE_EMAIL.test(email)) {
-      // Back to half-typed: drop the lock rather than hold a name for an abandoned address.
-      // The rejection stays: it is hidden the moment its own field is edited, and dropping
-      // it here would take a 409 off the screen that nobody has dealt with yet.
+      // Drop the lock rather than hold a name for an abandoned address. The rejection stays:
+      // clearing it here would take an unhandled 409 off the screen.
       if (checkedContact.current !== "") {
         checkedContact.current = ""
         applyFixedCompany(null)
@@ -193,18 +180,12 @@ export function OnboardingFlow() {
 
     const timer = setTimeout(() => {
       checkedContact.current = contact
-      // Never rejects, and answers both-null for every failure, so there is nothing to
-      // catch: an unreachable check leaves the form as it has always behaved.
+      // Fails open and never rejects, so there is nothing to catch.
       checkContact(email, phone.length >= 10 ? details.phone : undefined).then((result) => {
         if (checkedContact.current !== contact) return
         applyFixedCompany(result.company)
-        // The submit's own wording, said earlier. Null clears a warning this check raised
-        // about a contact that has since changed.
-        //
-        // Copied rather than passed through: StepYourInfo hides a rejection once its field
-        // is edited, and reads a new value as the reason to show it again. Handing back the
-        // one shared object would make "this other address is taken too" silently identical
-        // to the message they just edited away from.
+        // A fresh object, not the shared FIELD_REJECTIONS entry: StepYourInfo re-shows a
+        // rejection on a new value, and the same object twice would read as unchanged.
         const rejected = rejectionForTakenContact(result.contactTaken)
         setFieldRejection(rejected ? { ...rejected } : null)
       })

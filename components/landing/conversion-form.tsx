@@ -61,18 +61,13 @@ export function ConversionForm({
   const [status, setStatus] = useState<Status>("idle")
   const [requestId, setRequestId] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
-  // The address the check answered about, kept beside its message: the message is shown
-  // only while the field still holds that address, so an edit hides it at once and typing
-  // the same one back shows it again without spending another request.
+  // Paired with the address it answered about: the message shows only while the field still
+  // holds that address, so an edit hides it without spending another request.
   const [taken, setTaken] = useState<{ email: string; message: string } | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  // The address the last check asked about, so a slow answer for one they have since
-  // edited cannot land under the field.
+  // The address the last check asked about, so a slow answer for an edited one cannot land.
   const checkedEmail = useRef("")
-  // The check for that address, kept so a submit can WAIT on it. Without the promise itself the
-  // guard below is only as good as the debounce: press the button inside that window and the
-  // answer is still null, the lead is captured, and they are pushed into a signup this exists to
-  // spare them. Holding it also means the submit joins the request already in flight rather than
+  // Kept so the submit can await it, and so it joins the request already in flight rather than
   // spending a second one against the per-IP budget.
   const inFlight = useRef<{ email: string; answer: Promise<ContactCheck> } | null>(null)
   const router = useRouter()
@@ -89,12 +84,9 @@ export function ConversionForm({
     return () => mq.removeEventListener("change", update)
   }, [])
 
-  // Asks, while they are still on the address, the question the signup would otherwise only
-  // answer at the end of its form: is this contact already a client?
-  //
-  // Desktop only, because that is the mode that collects an address and the check needs one.
-  // A number that already belongs to a client is still caught where it always was, by the
-  // signup's own 409.
+  // Asks, while they are still on the address, what the signup would otherwise only answer at
+  // the end of its form. Desktop only: mobile collects a number, not an address, and a number
+  // already on an account is still caught by the signup's own 409.
   useEffect(() => {
     if (isMobile) return
     if (!PLAUSIBLE_EMAIL.test(normalized)) {
@@ -128,14 +120,13 @@ export function ConversionForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!value.trim() || status === "loading") return
-    // Already a client: walking them into a signup that ends in a refusal is the thing the
-    // check exists to prevent, so this stops here and the message stays on the field.
+    // Already a client: the signup would only end in the same refusal.
     if (takenMessage) return
     setStatus("loading")
 
-    // The answer may not have arrived yet, because pressing the button is exactly how someone
-    // beats a debounce. Waiting for it here is what makes the guard above hold; the check fails
-    // open, so an unreachable one answers nothing-known and this carries on as it always did.
+    // Pressing the button is exactly how someone beats the debounce, so the guard above only
+    // holds if the submit awaits the answer rather than reading the state. Fails open, so an
+    // unreachable check leaves this carrying on as it always did.
     if (!isMobile && PLAUSIBLE_EMAIL.test(normalized)) {
       const rejected = rejectionForTakenContact((await askAbout(normalized)).contactTaken)
       if (rejected) {
