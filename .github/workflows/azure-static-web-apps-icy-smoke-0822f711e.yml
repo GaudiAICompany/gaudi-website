@@ -49,6 +49,7 @@ jobs:
           NEXT_PUBLIC_LEAD_CAPTURE_URL: ${{ vars.NEXT_PUBLIC_LEAD_CAPTURE_URL }}
           NEXT_PUBLIC_ONBOARDING_URL: ${{ vars.NEXT_PUBLIC_ONBOARDING_URL }}
           NEXT_PUBLIC_STAGE_BLUEPRINT_URL: ${{ vars.NEXT_PUBLIC_STAGE_BLUEPRINT_URL }}
+          NEXT_PUBLIC_CHECK_CONTACT_URL: ${{ vars.NEXT_PUBLIC_CHECK_CONTACT_URL }}
           NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: ${{ vars.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY }}
       # skip_app_build below stops Oryx from running, and nothing else copies this
       # file: without it the vCard redirects and the .vcf MIME type silently vanish.
