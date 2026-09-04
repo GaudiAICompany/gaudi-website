@@ -46,7 +46,7 @@ function newRequestId(): string {
 
 /**
  * Browser consoles are effectively public, so these lines carry only the request
- * id, the transport outcome and a coarse reason code — never the submitted
+ * id, the transport outcome and a coarse reason code, never the submitted
  * address, never a credential, never an upstream error body.
  */
 function logOutcome(result: CaptureLeadResult, source: string | undefined, extra?: string) {
@@ -63,10 +63,11 @@ function logOutcome(result: CaptureLeadResult, source: string | undefined, extra
 export async function captureLead(payload: CaptureLeadPayload): Promise<CaptureLeadResult> {
   const requestId = newRequestId()
   const started = Date.now()
+  const endpoint = CAPTURE_LEAD_ENDPOINT
 
   // A missing build variable is a deploy mistake, not a transport failure. Name it
   // as such rather than POSTing to "" and reporting a confusing 404.
-  if (!CAPTURE_LEAD_ENDPOINT) {
+  if (!endpoint) {
     const result: CaptureLeadResult = {
       ok: false,
       requestId,
@@ -79,7 +80,7 @@ export async function captureLead(payload: CaptureLeadPayload): Promise<CaptureL
   }
 
   try {
-    const res = await fetch(CAPTURE_LEAD_ENDPOINT, {
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

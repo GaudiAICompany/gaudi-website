@@ -3,6 +3,8 @@
  * picks a path through them, and the small derivations the screens display.
  */
 
+import type { TakenContact } from "@/lib/check-contact"
+
 export type OnboardingStep = "upload" | "info" | "check-email"
 
 /**
@@ -21,6 +23,35 @@ export type OnboardingDetails = {
   phone: string
   email: string
   company: string
+}
+
+export type FieldRejection = { key: keyof OnboardingDetails; message: string }
+
+/** Keyed by the backend's error codes. Shown on the field named, not in the form's banner. */
+export const FIELD_REJECTIONS: Record<string, FieldRejection> = {
+  EMAIL_EXISTS: {
+    key: "email",
+    message:
+      "That email is already registered. No need to sign up again. Just contact us from it, " +
+      "the way you would a coworker, and I'll pick it up.",
+  },
+  PHONE_EXISTS: {
+    key: "phone",
+    message:
+      "That phone number is already registered. No need to sign up again. Just contact us from " +
+      "that account, the way you would a coworker, and I'll pick it up.",
+  },
+  PHONE_INVALID: {
+    key: "phone",
+    message: "I couldn't read that as a phone number. Include the area code.",
+  },
+}
+
+/** The contact check names a contact; the submit names an error code. Same two situations. */
+const TAKEN_CONTACT_CODE = { email: "EMAIL_EXISTS", phone: "PHONE_EXISTS" } as const
+
+export function rejectionForTakenContact(taken: TakenContact | null): FieldRejection | null {
+  return taken ? FIELD_REJECTIONS[TAKEN_CONTACT_CODE[taken]] ?? null : null
 }
 
 /**

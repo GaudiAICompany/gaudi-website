@@ -76,7 +76,7 @@ export function Pricing() {
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">Custom needs</p>
             <h3 className="mt-3 font-sans text-2xl font-semibold tracking-tight">Enterprise</h3>
 
-            {/* Price zone — mirrors the self-serve card's price zone position */}
+            {/* Price zone: mirrors the self-serve card's price zone position */}
             <div className="mt-[clamp(1rem,2.5vh,1.5rem)] border-t border-border pt-[clamp(1rem,2.5vh,1.5rem)]">
               <div className="flex items-baseline gap-2">
                 <span className="font-sans text-[clamp(2.25rem,min(5vw,6vh),3.75rem)] font-light tracking-[-0.02em]">Custom</span>
