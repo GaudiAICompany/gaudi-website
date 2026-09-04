@@ -10,7 +10,6 @@
  * across two either half could land without the other.
  */
 
-import { resolveEndpoint } from "@/lib/api-endpoint"
 import { getTurnstileToken } from "@/lib/turnstile"
 
 const ONBOARDING_ENDPOINT = process.env.NEXT_PUBLIC_ONBOARDING_URL || ""
@@ -101,7 +100,7 @@ export async function submitOnboarding(
   const staged = Boolean(submission.draftId)
   const fileCount = submission.files.length
   const unsent: BlueprintOutcome = fileCount > 0 || staged ? "failed" : "none"
-  const endpoint = resolveEndpoint(ONBOARDING_ENDPOINT)
+  const endpoint = ONBOARDING_ENDPOINT
 
   // A missing build variable is a deploy mistake, not a transport failure. Name it
   // as such rather than POSTing to "" and reporting a confusing 404.

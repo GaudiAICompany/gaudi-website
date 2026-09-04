@@ -17,8 +17,6 @@
  * known about, so the form asks and submits exactly as it always has.
  */
 
-import { resolveEndpoint } from "@/lib/api-endpoint"
-
 const CHECK_CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CHECK_CONTACT_URL || ""
 
 /** A visitor is waiting on this mid-form, so a slow answer is worth less than a fast "no". */
@@ -34,7 +32,7 @@ export type ContactCheck = {
 const NOTHING: ContactCheck = { company: null, contactTaken: null }
 
 export async function checkContact(email: string, phone?: string): Promise<ContactCheck> {
-  const endpoint = resolveEndpoint(CHECK_CONTACT_ENDPOINT)
+  const endpoint = CHECK_CONTACT_ENDPOINT
   // An unset variable is a deploy choice here, not a failure: the form simply asks.
   if (!endpoint) return NOTHING
 

@@ -17,7 +17,6 @@
  * sending the files inline, so a blocked or slow stage costs latency, never a signup.
  */
 
-import { resolveEndpoint } from "@/lib/api-endpoint"
 import { getTurnstileToken } from "@/lib/turnstile"
 
 const STAGE_BLUEPRINT_ENDPOINT = process.env.NEXT_PUBLIC_STAGE_BLUEPRINT_URL || ""
@@ -49,7 +48,7 @@ export async function stageBlueprints(
   files: File[],
 ): Promise<StagedBlueprints> {
   const nothing: StagedBlueprints = { draftId, staged: 0 }
-  const endpoint = resolveEndpoint(STAGE_BLUEPRINT_ENDPOINT)
+  const endpoint = STAGE_BLUEPRINT_ENDPOINT
   // An emptied set still POSTs: nothing else tells the draft its files were removed.
   if (!endpoint) return nothing
 
