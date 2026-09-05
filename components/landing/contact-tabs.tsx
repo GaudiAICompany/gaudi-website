@@ -187,13 +187,23 @@ export function ContactTabs() {
       </div>
 
       <div className="mt-10 w-full border-t border-border pt-8 text-center">
-        <p className="text-sm text-muted-foreground">More Questions? Reach out directly:</p>
-        <a
-          href={`mailto:${CONTACT_EMAIL}`}
-          className="mt-2 inline-block text-sm font-medium text-primary transition-colors hover:text-primary/80"
-        >
-          {CONTACT_EMAIL}
-        </a>
+        <p className="text-sm text-muted-foreground sm:text-lg">More Questions?</p>
+        <p className="mt-1 text-sm text-muted-foreground sm:text-lg">
+          See our{" "}
+          <a
+            href="/faq"
+            className="font-medium text-primary transition-colors hover:text-primary/80"
+          >
+            FAQ
+          </a>{" "}
+          or reach out directly:{" "}
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="font-medium text-primary transition-colors hover:text-primary/80"
+          >
+            {CONTACT_EMAIL}
+          </a>
+        </p>
       </div>
     </div>
   )
