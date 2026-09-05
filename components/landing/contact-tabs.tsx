@@ -187,8 +187,8 @@ export function ContactTabs() {
       </div>
 
       <div className="mt-10 w-full border-t border-border pt-8 text-center">
-        <p className="text-sm text-muted-foreground">More Questions?</p>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground sm:text-lg">More Questions?</p>
+        <p className="mt-1 text-sm text-muted-foreground sm:text-lg">
           See our{" "}
           <a
             href="/faq"
