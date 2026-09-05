@@ -3,6 +3,7 @@ import { Plus } from "lucide-react"
 import { SiteHeader } from "@/components/landing/site-header"
 import { SiteFooter } from "@/components/landing/closing-footer"
 import { faqCategories, allFaqItems, type FaqItem } from "./faq-data"
+import { FaqJumpNav } from "./faq-jump-nav"
 
 export const metadata: Metadata = {
   title: "FAQ | Gaudi AI",
@@ -47,8 +48,8 @@ function slugify(value: string) {
 
 function FaqEntry({ item }: { item: FaqItem }) {
   return (
-    <details className="group border-b border-border last:border-b-0">
-      <summary className="flex cursor-pointer list-none items-start justify-between gap-4 py-5 [&::-webkit-details-marker]:hidden">
+    <details id={slugify(item.question)} className="group scroll-mt-28 border-b border-border last:border-b-0">
+      <summary className="flex cursor-pointer list-none items-start justify-between gap-4 py-4 [&::-webkit-details-marker]:hidden">
         <h3 className="text-pretty font-sans text-base font-medium leading-snug tracking-[-0.01em] text-foreground sm:text-lg">
           {item.question}
         </h3>
@@ -59,7 +60,7 @@ function FaqEntry({ item }: { item: FaqItem }) {
           <Plus className="size-3.5 transition-transform duration-200 group-open:rotate-45" />
         </span>
       </summary>
-      <p className="pb-6 pr-10 text-[15px] leading-relaxed text-muted-foreground">
+      <p className="pb-5 pr-10 text-[15px] leading-relaxed text-muted-foreground">
         {item.answerNode ?? item.answer}
       </p>
     </details>
@@ -80,35 +81,64 @@ export default function FaqPage() {
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-primary">FAQs</p>
             <div className="max-w-3xl">
               <h1 className="text-balance font-sans text-5xl font-light leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
-                FAQs
+                Questions we get a lot.
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                Commonly received questions about Gaudi AI.
+                What Gaudi does, what it costs, and how it&apos;s different. Still feeling stuck?{" "}
+                <a
+                  href="mailto:help@heygaudi.ai"
+                  className="font-medium text-primary underline-offset-4 hover:underline"
+                >
+                  Email us directly
+                </a>
+                .
               </p>
+              <div className="mt-8">
+                <FaqJumpNav categories={faqCategories} />
+              </div>
             </div>
           </div>
         </section>
 
         {/* ── FAQ content grouped by category ───────────────────────────────── */}
-        <section className="px-4 py-14 sm:px-6 lg:py-20">
+        <section className="px-4 pb-8 pt-10 sm:px-6 lg:pt-14">
           <div className="mx-auto max-w-6xl">
-            <div className="flex flex-col gap-12 lg:gap-16">
+            <div className="flex flex-col gap-8 lg:gap-10">
               {faqCategories.map((category) => (
                 <div
                   key={category.title}
-                  className="grid gap-6 lg:grid-cols-[16rem_1fr] lg:gap-12"
+                  className="grid gap-4 lg:grid-cols-[16rem_1fr] lg:gap-12"
                   id={slugify(category.title)}
                 >
                   <h2 className="text-balance font-sans text-2xl font-light leading-[1.05] tracking-[-0.02em] text-foreground lg:sticky lg:top-28 lg:h-fit">
                     {category.title}
                   </h2>
-                  <div className="rounded-3xl border border-border bg-card px-5 sm:px-7">
+                  <div className="border-t border-border">
                     {category.items.map((item) => (
                       <FaqEntry key={item.question} item={item} />
                     ))}
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Closing CTA ───────────────────────────────────────────────────── */}
+        <section className="px-4 pb-24 pt-4 sm:px-6">
+          <div className="mx-auto max-w-6xl">
+            <div className="border-t border-border pt-10">
+              <h2 className="font-sans text-2xl font-light tracking-[-0.02em] text-foreground">
+                Still have questions?
+              </h2>
+              <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
+                <a
+                  href="mailto:help@heygaudi.ai"
+                  className="font-medium text-primary underline-offset-4 hover:underline"
+                >
+                  Email help@heygaudi.ai
+                </a>
+              </p>
             </div>
           </div>
         </section>
