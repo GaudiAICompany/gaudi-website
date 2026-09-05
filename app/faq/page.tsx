@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   title: "FAQ | Gaudi AI",
   description:
     "Commonly received questions about Gaudi AI, the virtual construction estimating coworker that turns blueprints into takeoffs and estimates in minutes.",
-  alternates: { canonical: "/resources/faq" },
+  alternates: { canonical: "/faq" },
   openGraph: {
     title: "FAQ | Gaudi AI",
     description:
       "Commonly received questions about Gaudi AI, the virtual construction estimating coworker that turns blueprints into takeoffs and estimates in minutes.",
-    url: "/resources/faq",
+    url: "/faq",
     type: "website",
   },
   twitter: {
