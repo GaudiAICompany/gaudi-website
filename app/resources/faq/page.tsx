@@ -3,7 +3,7 @@ import { Plus } from "lucide-react"
 import { SiteHeader } from "@/components/landing/site-header"
 import { SiteFooter } from "@/components/landing/closing-footer"
 import { faqCategories, allFaqItems, type FaqItem } from "./faq-data"
-import { FaqJumpNav } from "./faq-jump-nav"
+import { FaqJumpNav, type FaqJumpGroup } from "./faq-jump-nav"
 
 export const metadata: Metadata = {
   title: "FAQ | Gaudi AI",
@@ -45,6 +45,15 @@ function slugify(value: string) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "")
 }
+
+// Plain, serializable data for the client-side jump nav (no JSX crosses the boundary).
+const jumpNavGroups: FaqJumpGroup[] = faqCategories.map((category) => ({
+  title: category.title,
+  options: category.items.map((item) => ({
+    id: slugify(item.question),
+    question: item.question,
+  })),
+}))
 
 function FaqEntry({ item }: { item: FaqItem }) {
   return (
@@ -94,7 +103,7 @@ export default function FaqPage() {
                 .
               </p>
               <div className="mt-8">
-                <FaqJumpNav categories={faqCategories} />
+                <FaqJumpNav groups={jumpNavGroups} />
               </div>
             </div>
           </div>

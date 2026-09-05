@@ -1,16 +1,13 @@
 "use client"
 
 import { ChevronDown } from "lucide-react"
-import type { FaqCategory } from "./faq-data"
 
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "")
+export type FaqJumpGroup = {
+  title: string
+  options: { id: string; question: string }[]
 }
 
-export function FaqJumpNav({ categories }: { categories: FaqCategory[] }) {
+export function FaqJumpNav({ groups }: { groups: FaqJumpGroup[] }) {
   function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const id = event.target.value
     if (!id) return
@@ -39,11 +36,11 @@ export function FaqJumpNav({ categories }: { categories: FaqCategory[] }) {
         <option value="" disabled>
           Jump to a question
         </option>
-        {categories.map((category) => (
-          <optgroup key={category.title} label={category.title}>
-            {category.items.map((item) => (
-              <option key={item.question} value={slugify(item.question)}>
-                {item.question}
+        {groups.map((group) => (
+          <optgroup key={group.title} label={group.title}>
+            {group.options.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.question}
               </option>
             ))}
           </optgroup>
