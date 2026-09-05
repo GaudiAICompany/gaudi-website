@@ -136,18 +136,16 @@ export default function FaqPage() {
         {/* ── Closing CTA ───────────────────────────────────────────────────── */}
         <section className="px-4 pb-24 pt-4 sm:px-6">
           <div className="mx-auto max-w-6xl">
-            <div className="border-t border-border pt-10">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-border pt-10">
               <h2 className="font-sans text-2xl font-light tracking-[-0.02em] text-foreground">
                 Still have questions?
               </h2>
-              <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-                <a
-                  href="mailto:help@heygaudi.ai"
-                  className="font-medium text-primary underline-offset-4 hover:underline"
-                >
-                  Email help@heygaudi.ai
-                </a>
-              </p>
+              <a
+                href="mailto:help@heygaudi.ai"
+                className="text-2xl font-light tracking-[-0.02em] text-primary underline-offset-4 hover:underline"
+              >
+                Email help@heygaudi.ai
+              </a>
             </div>
           </div>
         </section>
