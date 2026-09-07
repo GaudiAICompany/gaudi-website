@@ -13,8 +13,10 @@
  *
  * Rate limited per IP, so callers debounce rather than asking per keystroke.
  *
- * Fails open. Every failure answers both-null, the same answer as for a contact nothing is
- * known about, so the form asks and submits exactly as it always has.
+ * Fails open. Every failure answers `answered: false`, which callers must treat as "ask
+ * the way you always did" -- and, crucially, not as "nothing is on file". The two are
+ * different claims: one signup asks several times as the address and phone settle, and a
+ * later failed ask must not retract what an earlier answer established.
  */
 
 const CHECK_CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CHECK_CONTACT_URL || ""
@@ -27,14 +29,16 @@ export type TakenContact = "email" | "phone"
 export type ContactCheck = {
   company: string | null
   contactTaken: TakenContact | null
+  /** True only when the backend replied. False is the absence of an answer, not a negative one. */
+  answered: boolean
 }
 
-const NOTHING: ContactCheck = { company: null, contactTaken: null }
+const UNANSWERED: ContactCheck = { company: null, contactTaken: null, answered: false }
 
 export async function checkContact(email: string, phone?: string): Promise<ContactCheck> {
   const endpoint = CHECK_CONTACT_ENDPOINT
   // An unset variable is a deploy choice here, not a failure: the form simply asks.
-  if (!endpoint) return NOTHING
+  if (!endpoint) return UNANSWERED
 
   const body = new FormData()
   body.append("email", email)
@@ -49,10 +53,12 @@ export async function checkContact(email: string, phone?: string): Promise<Conta
   try {
     const res = await fetch(endpoint, { method: "POST", body, signal: controller.signal })
 
-    // 400 / 403 / 429 all mean the same thing to the form: no answer to act on.
+    // 400 / 403 / 429 all mean the same thing to the form: no answer to act on. 429 is the
+    // routine one -- one signup spends several lookups -- and the one that used to read as
+    // "no company on file" and unlock a field the first lookup had correctly locked.
     if (!res.ok) {
       logOutcome("unanswered", started, `status=${res.status}`)
-      return NOTHING
+      return UNANSWERED
     }
 
     const parsed = await res.json()
@@ -62,12 +68,12 @@ export async function checkContact(email: string, phone?: string): Promise<Conta
 
     logOutcome(contactTaken ? `taken=${contactTaken}` : company ? "company" : "none", started)
     // Belt and braces on the withholding rule: one screen, one thing to say.
-    return { company: contactTaken ? null : company || null, contactTaken }
+    return { company: contactTaken ? null : company || null, contactTaken, answered: true }
   } catch (err) {
     // Aborted, offline, DNS, TLS, or a blocking extension. All advisory, all nothing.
     const name = err instanceof Error ? err.name : "UnknownError"
     logOutcome("unanswered", started, `error=${name}`)
-    return NOTHING
+    return UNANSWERED
   } finally {
     clearTimeout(stall)
   }

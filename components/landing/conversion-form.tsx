@@ -99,6 +99,8 @@ export function ConversionForm({
     const timer = setTimeout(() => {
       askAbout(email).then((result) => {
         if (checkedEmail.current !== email) return
+        // Silence from the check is not a clearance; leave the field as it stands.
+        if (!result.answered) return
         const rejected = rejectionForTakenContact(result.contactTaken)
         setTaken(rejected ? { email, message: rejected.message } : null)
       })
@@ -113,7 +115,12 @@ export function ConversionForm({
     if (inFlight.current?.email === email) return inFlight.current.answer
     checkedEmail.current = email
     const answer = checkContact(email)
+    // Only a real answer is worth reusing. Caching a rate-limited one would make the submit
+    // read the same silence back instead of asking again once the budget has recovered.
     inFlight.current = { email, answer }
+    answer.then((result) => {
+      if (inFlight.current?.answer === answer && !result.answered) inFlight.current = null
+    })
     return answer
   }
 

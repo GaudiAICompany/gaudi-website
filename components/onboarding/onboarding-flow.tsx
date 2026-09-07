@@ -183,6 +183,11 @@ export function OnboardingFlow() {
       // Fails open and never rejects, so there is nothing to catch.
       checkContact(email, phone.length >= 10 ? details.phone : undefined).then((result) => {
         if (checkedContact.current !== contact) return
+        // One signup asks more than once -- the address settles, then the phone does -- and
+        // the later ask is the one that meets the rate limit. An unanswered check knows
+        // nothing, so it leaves the screen as the last answered one left it rather than
+        // retracting a locked company or a rejection the visitor is already reading.
+        if (!result.answered) return
         applyFixedCompany(result.company)
         // A fresh object, not the shared FIELD_REJECTIONS entry: StepYourInfo re-shows a
         // rejection on a new value, and the same object twice would read as unchanged.
