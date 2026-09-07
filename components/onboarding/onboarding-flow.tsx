@@ -2,17 +2,27 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
-import { captureLead, traceableRequestId } from "@/lib/capture-lead"
+import { captureLead } from "@/lib/capture-lead"
+import { checkContact } from "@/lib/check-contact"
 import {
   DESKTOP_STEPS,
+  FIELD_REJECTIONS,
+  type FieldRejection,
   MOBILE_STEPS,
   type OnboardingDetails,
   type OnboardingStep,
   companyMailbox,
+  rejectionForTakenContact,
   splitFullName,
   takeCtaHandoff,
 } from "@/lib/onboarding"
-import { fileManifest, uploadBlueprint } from "@/lib/upload-blueprint"
+import { newDraftId, stageBlueprints } from "@/lib/stage-blueprint"
+import {
+  type BlueprintOutcome,
+  fileManifest,
+  submitOnboarding,
+  traceableRequestId,
+} from "@/lib/submit-onboarding"
 import { OnboardingShell } from "./onboarding-shell"
 import { StepCheckEmail } from "./step-check-email"
 import { StepUploadBlueprint } from "./step-upload-blueprint"
@@ -23,8 +33,18 @@ const EMPTY_DETAILS: OnboardingDetails = { fullName: "", phone: "", email: "", c
 /** Same breakpoint the landing CTA uses to decide email vs phone, so one device sees one story. */
 const MOBILE_QUERY = "(max-width: 767px)"
 
+/** The shape StepYourInfo already validates: no point asking the backend about "dana@". */
+const PLAUSIBLE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+
+/** Long enough that typing a contact end to end costs one check, not a dozen. */
+const CONTACT_CHECK_DEBOUNCE_MS = 600
+
 const SUBMIT_FAILED =
   "That didn't go through on my end. Try again, or email help@heygaudi.ai and I'll set you up from there."
+
+/** A stalled upload is almost always the plan set, so point at the way around it. */
+const SUBMIT_TIMED_OUT =
+  "That's taking longer than it should, a large plan set can do it. Email it to help@heygaudi.ai and I'll pick it up from there."
 
 function StepSkeleton() {
   return (
@@ -45,14 +65,25 @@ export function OnboardingFlow() {
   const [step, setStep] = useState<OnboardingStep>("info")
 
   const [files, setFiles] = useState<File[]>([])
+  // One id for the whole signup: re-using it is what lets a re-stage supersede the
+  // previous estimate instead of starting a second one beside it.
+  const draftId = useRef<string>("")
+  const stagedFiles = useRef<File[]>([])
+  // Read synchronously at submit, so the last step never waits on the upload.
+  const stagedOk = useRef(false)
   const [notes, setNotes] = useState("")
   const [details, setDetails] = useState<OnboardingDetails>(EMPTY_DETAILS)
   const [prefilled, setPrefilled] = useState<(keyof OnboardingDetails)[]>([])
+  // Not a `prefilled` entry: that one is unlockable, and this is the name the backend uses
+  // whatever the form sends, so offering a change would offer something that does not happen.
+  const [fixedCompany, setFixedCompany] = useState<string | null>(null)
 
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [submitReference, setSubmitReference] = useState<string | null>(null)
-  const [blueprintOutcome, setBlueprintOutcome] = useState<"none" | "sent" | "failed">("none")
+  // Set by the submit's 409 and by the contact check: same message, different timing.
+  const [fieldRejection, setFieldRejection] = useState<FieldRejection | null>(null)
+  const [blueprintOutcome, setBlueprintOutcome] = useState<BlueprintOutcome>("none")
 
   const steps = useMemo(() => (isMobile ? MOBILE_STEPS : DESKTOP_STEPS), [isMobile])
   const stepsRef = useRef(steps)
@@ -105,11 +136,88 @@ export function OnboardingFlow() {
     return () => window.removeEventListener("popstate", onPopState)
   }, [])
 
+  // The contact the last check asked about, so a slow answer for an edited one cannot land.
+  const checkedContact = useRef("")
+  // What the check wrote into the company field; anything else there was typed by the visitor.
+  const injectedCompany = useRef("")
+
+  const applyFixedCompany = useCallback((company: string | null) => {
+    const previouslyInjected = injectedCompany.current
+    injectedCompany.current = company || ""
+    setFixedCompany(company)
+    setDetails((prev) => {
+      // A name on file wins outright: showing anything else promises an edit that the
+      // backend will drop.
+      if (company) return prev.company === company ? prev : { ...prev, company }
+      // Nothing on file: only the name this check wrote is ours to take back.
+      if (prev.company !== "" && prev.company === previouslyInjected) {
+        return { ...prev, company: "" }
+      }
+      return prev
+    })
+  }, [])
+
+  // The phone is in the key as well as the address, so filling it in afterwards asks again
+  // rather than leaving the one field the check can also speak for unchecked.
+  //
+  // An early warning only: the submit and its 409 still decide whether they can sign up.
+  useEffect(() => {
+    const email = details.email.trim().toLowerCase()
+    // Only the digits the check is given, so reformatting a typed number costs no request.
+    const phone = details.phone.replace(/\D/g, "")
+    const contact = `${email}|${phone.length >= 10 ? phone : ""}`
+
+    if (!PLAUSIBLE_EMAIL.test(email)) {
+      // Drop the lock rather than hold a name for an abandoned address. The rejection stays:
+      // clearing it here would take an unhandled 409 off the screen.
+      if (checkedContact.current !== "") {
+        checkedContact.current = ""
+        applyFixedCompany(null)
+      }
+      return
+    }
+    if (contact === checkedContact.current) return
+
+    const timer = setTimeout(() => {
+      checkedContact.current = contact
+      // Fails open and never rejects, so there is nothing to catch.
+      checkContact(email, phone.length >= 10 ? details.phone : undefined).then((result) => {
+        if (checkedContact.current !== contact) return
+        applyFixedCompany(result.company)
+        // A fresh object, not the shared FIELD_REJECTIONS entry: StepYourInfo re-shows a
+        // rejection on a new value, and the same object twice would read as unchanged.
+        const rejected = rejectionForTakenContact(result.contactTaken)
+        setFieldRejection(rejected ? { ...rejected } : null)
+      })
+    }, CONTACT_CHECK_DEBOUNCE_MS)
+    return () => clearTimeout(timer)
+  }, [details.email, details.phone, applyFixedCompany])
+
   const goTo = useCallback((next: OnboardingStep) => {
     setStep(next)
     window.history.pushState({ onboardingStep: next }, "")
     window.scrollTo({ top: 0, behavior: "auto" })
   }, [])
+
+  // Starts the upload when the visitor leaves this step rather than each time they touch
+  // the list. By Continue the plan set is final, so picking files one at a time, or
+  // adding and then removing one, still costs exactly one request.
+  const handleUploadContinue = useCallback(() => {
+    const unchanged =
+      files.length === stagedFiles.current.length &&
+      files.every((file, i) => file === stagedFiles.current[i])
+    // Returning to this step and changing nothing must not re-upload what is already staged.
+    if (!unchanged) {
+      if (!draftId.current) draftId.current = newDraftId()
+      stagedFiles.current = files
+      stagedOk.current = false
+      // Confirmed only when the whole set landed: a partial stage still owes the bytes.
+      stageBlueprints(draftId.current, files).then((r) => {
+        stagedOk.current = files.length > 0 && r.staged === files.length
+      })
+    }
+    goTo("info")
+  }, [files, goTo])
 
   const leadPayload = useCallback(
     (source: string) => {
@@ -131,34 +239,50 @@ export function OnboardingFlow() {
   const handleSubmit = useCallback(async () => {
     setSubmitting(true)
     setSubmitError(null)
+    setFieldRejection(null)
 
-    const lead = await captureLead(leadPayload("Onboarding signup"))
-    setSubmitReference(traceableRequestId(lead))
-    if (!lead.ok) {
-      setSubmitError(SUBMIT_FAILED)
-      setSubmitting(false)
-      return
-    }
-
-    // The lead row already carries the file names, so a failed upload costs the
-    // visitor a forward, not the signup. The last screen says which happened.
-    if (files.length > 0) {
-      const upload = await uploadBlueprint(files, {
-        email: details.email.trim(),
-        company: details.company.trim(),
-        notes: notes.trim(),
+    // One request, because the account is the submission: the backend creates the
+    // user and company and starts the estimate from the same form. It answers 200
+    // with blueprint="failed" when only the plan set did not make it, so a forward
+    // is all the visitor owes -- the last screen says which happened.
+    try {
+      // Never waits on the stage: unconfirmed means the bytes go inline as well, and the
+      // draft id is what keeps two copies from becoming two estimates.
+      const result = await submitOnboarding({
+        fullName: details.fullName,
+        email: details.email,
+        phone: details.phone,
+        company: details.company,
+        notes,
+        files: stagedOk.current ? [] : files,
+        draftId: draftId.current || undefined,
+        source: "Onboarding signup",
       })
-      setBlueprintOutcome(upload.ok ? "sent" : "failed")
-    } else {
-      setBlueprintOutcome("none")
+
+      setSubmitReference(traceableRequestId(result))
+      if (!result.ok) {
+        const rejected = result.code ? FIELD_REJECTIONS[result.code] : undefined
+        if (rejected) setFieldRejection(rejected)
+        else setSubmitError(result.code === "timeout" ? SUBMIT_TIMED_OUT : SUBMIT_FAILED)
+        return
+      }
+
+      setBlueprintOutcome(result.blueprint)
+      goTo("check-email")
+    } catch (err) {
+      // submitOnboarding swallows its own failures, so reaching here means something
+      // unforeseen. The button must still come back: StepYourInfo ignores every click
+      // while `submitting` is true, so leaving it set makes the form look dead.
+      console.error(`[onboarding] unexpected submit failure: ${String(err)}`)
+      setSubmitError(SUBMIT_FAILED)
+    } finally {
+      setSubmitting(false)
     }
+  }, [details, files, goTo, notes])
 
-    setSubmitting(false)
-    goTo("check-email")
-  }, [details, files, goTo, leadPayload, notes])
-
-  // The welcome email is sent off the back of a captured lead, so re-sending the
-  // same row is what asks the backend for another one.
+  // Deliberately not a second submitOnboarding: that would queue a duplicate
+  // estimate. Re-submitting the lead row records that the visitor asked again and
+  // is the only part of the signup that is safe to repeat.
   const handleResend = useCallback(async () => {
     await captureLead(leadPayload("Onboarding resend"))
   }, [leadPayload])
@@ -180,17 +304,19 @@ export function OnboardingFlow() {
           notes={notes}
           onFilesChange={setFiles}
           onNotesChange={setNotes}
-          onContinue={() => goTo("info")}
+          onContinue={handleUploadContinue}
         />
       ) : step === "info" ? (
         <StepYourInfo
           details={details}
           prefilled={prefilled}
+          fixedCompany={fixedCompany}
           onDetailsChange={setDetails}
           onSubmit={handleSubmit}
           submitting={submitting}
           submitError={submitError}
           submitReference={submitReference}
+          fieldRejection={fieldRejection}
         />
       ) : (
         <StepCheckEmail

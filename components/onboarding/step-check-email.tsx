@@ -1,8 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { AlertTriangle, Check, ExternalLink, Loader2, Mail } from "lucide-react"
+import { AlertTriangle, ExternalLink, Loader2, Mail } from "lucide-react"
 
+import type { BlueprintOutcome } from "@/lib/submit-onboarding"
 import { StepHeading } from "./onboarding-shell"
 
 /** Deep links land on the inbox; a filter for the sender is more help than the inbox root. */
@@ -28,8 +29,6 @@ const HOW_IT_WORKS = [
     body: "You'll get a notification when it's ready. Review it, request edits, or send it straight to your client.",
   },
 ]
-
-type BlueprintOutcome = "none" | "sent" | "failed"
 
 export function StepCheckEmail({
   mailbox,
@@ -110,18 +109,6 @@ export function StepCheckEmail({
           </>
         )}
       </p>
-
-      {blueprintOutcome === "sent" && (
-        <div className="mt-8 flex items-start gap-3 rounded-xl border border-primary/25 bg-primary/5 px-5 py-4">
-          <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-primary">
-            <Check className="size-3.5 text-primary-foreground" strokeWidth={3} />
-          </span>
-          <p className="text-sm leading-relaxed text-foreground">
-            <span className="font-semibold">Your blueprint is in the queue.</span> Pricing starts now.
-            The email has the link to your estimate.
-          </p>
-        </div>
-      )}
 
       {blueprintOutcome === "failed" && (
         <div className="mt-8 flex items-start gap-3 rounded-xl border border-border bg-muted/60 px-5 py-4">

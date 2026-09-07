@@ -9,7 +9,7 @@ import {
   BLUEPRINT_ACCEPT,
   MAX_BLUEPRINT_FILES,
   rejectionFor,
-} from "@/lib/upload-blueprint"
+} from "@/lib/submit-onboarding"
 import { Field, PrimaryButton, controlClass } from "./field"
 import { StepHeading } from "./onboarding-shell"
 import { VoiceDictation } from "./voice-dictation"
