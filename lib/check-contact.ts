@@ -5,18 +5,18 @@
  * mailbox. When it already exists the backend joins the signup to it and discards whatever
  * the company field sent, so the form has to know before the submit, not after: it shows
  * the name on file instead of asking a question whose answer is thrown away. The second
- * answer, that the contact is already a client, is the refusal the submit would otherwise
+ * answer, that the contact is already registered, is the refusal the submit would otherwise
  * end in, said while they are still on the first field.
  *
  * The two are never both set: someone being turned away is not told whose company the
  * address belongs to.
  *
- * Rate limited per IP, so callers debounce rather than asking per keystroke.
+ * Rate limited per IP, and one signup asks more than once as the address and the phone
+ * settle, so every distinct question is asked at most once per session -- see `memo`.
  *
- * Fails open. Every failure answers `answered: false`, which callers must treat as "ask
- * the way you always did" -- and, crucially, not as "nothing is on file". The two are
- * different claims: one signup asks several times as the address and phone settle, and a
- * later failed ask must not retract what an earlier answer established.
+ * Fails open. A failure answers `answered: false`, which callers must treat as "ask the way
+ * you always did" and never as "nothing is on file". The two are different claims, and
+ * conflating them let a refused lookup retract what an earlier answered one established.
  */
 
 const CHECK_CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CHECK_CONTACT_URL || ""
@@ -35,16 +35,45 @@ export type ContactCheck = {
 
 const UNANSWERED: ContactCheck = { company: null, contactTaken: null, answered: false }
 
-export async function checkContact(email: string, phone?: string): Promise<ContactCheck> {
+/**
+ * Every question this session has already asked, keyed by the exact question.
+ *
+ * Module level, not per component: the landing CTA asks about the address, then
+ * `/get-started` asks about the same one a route change later, and the second is the same
+ * question. Holding the promise rather than the result also collapses the two askers the
+ * landing form has -- the debounce and the submit -- into one request.
+ *
+ * Only answers are kept. A refused lookup is deleted so the next ask can try again once the
+ * per-IP budget has recovered, rather than serving the refusal back for the rest of the visit.
+ */
+const memo = new Map<string, Promise<ContactCheck>>()
+
+export function checkContact(email: string, phone?: string): Promise<ContactCheck> {
+  // Ten digits is the floor for a US number, the same floor the form itself enforces:
+  // under it there is nothing to recognise.
+  const digits = (phone || "").replace(/\D/g, "")
+  const usable = digits.length >= 10 ? phone || "" : ""
+  const key = `${email}|${usable.replace(/\D/g, "")}`
+
+  const asked = memo.get(key)
+  if (asked) return asked
+
+  const answer = ask(email, usable).then((result) => {
+    if (!result.answered) memo.delete(key)
+    return result
+  })
+  memo.set(key, answer)
+  return answer
+}
+
+async function ask(email: string, phone: string): Promise<ContactCheck> {
   const endpoint = CHECK_CONTACT_ENDPOINT
   // An unset variable is a deploy choice here, not a failure: the form simply asks.
   if (!endpoint) return UNANSWERED
 
   const body = new FormData()
   body.append("email", email)
-  // Ten digits is the floor for a US number, the same floor the form itself enforces:
-  // under it there is nothing to recognise.
-  if (phone && phone.replace(/\D/g, "").length >= 10) body.append("phone", phone)
+  if (phone) body.append("phone", phone)
 
   const controller = new AbortController()
   const stall = setTimeout(() => controller.abort(), CHECK_TIMEOUT_MS)
@@ -53,9 +82,7 @@ export async function checkContact(email: string, phone?: string): Promise<Conta
   try {
     const res = await fetch(endpoint, { method: "POST", body, signal: controller.signal })
 
-    // 400 / 403 / 429 all mean the same thing to the form: no answer to act on. 429 is the
-    // routine one -- one signup spends several lookups -- and the one that used to read as
-    // "no company on file" and unlock a field the first lookup had correctly locked.
+    // 400 / 403 / 429 all mean the same thing to the form: no answer to act on.
     if (!res.ok) {
       logOutcome("unanswered", started, `status=${res.status}`)
       return UNANSWERED

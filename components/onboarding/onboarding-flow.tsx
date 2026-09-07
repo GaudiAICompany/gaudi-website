@@ -188,7 +188,10 @@ export function OnboardingFlow() {
         // nothing, so it leaves the screen as the last answered one left it rather than
         // retracting a locked company or a rejection the visitor is already reading.
         if (!result.answered) return
-        applyFixedCompany(result.company)
+        // A refused phone says nothing about the company. The domain decides that, and the
+        // backend withholds the name while it is turning a number away, so reading that
+        // omission as "no company on file" would unlock what the address had just locked.
+        if (result.contactTaken !== "phone") applyFixedCompany(result.company)
         // A fresh object, not the shared FIELD_REJECTIONS entry: StepYourInfo re-shows a
         // rejection on a new value, and the same object twice would read as unchanged.
         const rejected = rejectionForTakenContact(result.contactTaken)

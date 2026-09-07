@@ -67,9 +67,6 @@ export function ConversionForm({
   const inputRef = useRef<HTMLInputElement>(null)
   // The address the last check asked about, so a slow answer for an edited one cannot land.
   const checkedEmail = useRef("")
-  // Kept so the submit can await it, and so it joins the request already in flight rather than
-  // spending a second one against the per-IP budget.
-  const inFlight = useRef<{ email: string; answer: Promise<ContactCheck> } | null>(null)
   const router = useRouter()
 
   const normalized = value.trim().toLowerCase()
@@ -110,18 +107,10 @@ export function ConversionForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [normalized, isMobile])
 
-  /** The one check for *email*, started if nobody has started it yet. Never rejects. */
+  /** Never rejects. checkContact collapses this and the submit's ask into one request. */
   const askAbout = (email: string): Promise<ContactCheck> => {
-    if (inFlight.current?.email === email) return inFlight.current.answer
     checkedEmail.current = email
-    const answer = checkContact(email)
-    // Only a real answer is worth reusing. Caching a rate-limited one would make the submit
-    // read the same silence back instead of asking again once the budget has recovered.
-    inFlight.current = { email, answer }
-    answer.then((result) => {
-      if (inFlight.current?.answer === answer && !result.answered) inFlight.current = null
-    })
-    return answer
+    return checkContact(email)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
