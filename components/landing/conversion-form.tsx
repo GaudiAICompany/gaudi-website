@@ -67,9 +67,6 @@ export function ConversionForm({
   const inputRef = useRef<HTMLInputElement>(null)
   // The address the last check asked about, so a slow answer for an edited one cannot land.
   const checkedEmail = useRef("")
-  // Kept so the submit can await it, and so it joins the request already in flight rather than
-  // spending a second one against the per-IP budget.
-  const inFlight = useRef<{ email: string; answer: Promise<ContactCheck> } | null>(null)
   const router = useRouter()
 
   const normalized = value.trim().toLowerCase()
@@ -99,6 +96,8 @@ export function ConversionForm({
     const timer = setTimeout(() => {
       askAbout(email).then((result) => {
         if (checkedEmail.current !== email) return
+        // Silence from the check is not a clearance; leave the field as it stands.
+        if (!result.answered) return
         const rejected = rejectionForTakenContact(result.contactTaken)
         setTaken(rejected ? { email, message: rejected.message } : null)
       })
@@ -108,13 +107,10 @@ export function ConversionForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [normalized, isMobile])
 
-  /** The one check for *email*, started if nobody has started it yet. Never rejects. */
+  /** Never rejects. checkContact collapses this and the submit's ask into one request. */
   const askAbout = (email: string): Promise<ContactCheck> => {
-    if (inFlight.current?.email === email) return inFlight.current.answer
     checkedEmail.current = email
-    const answer = checkContact(email)
-    inFlight.current = { email, answer }
-    return answer
+    return checkContact(email)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {

@@ -8,13 +8,17 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+  # Editing a repo variable fires no event, and the NEXT_PUBLIC_* values below are
+  # compiled into the bundle, so a changed endpoint reaches the site only on the next
+  # build. Without this the only way to pick one up is an empty commit to main.
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     # Free tier allows three staging environments at once, so superseded PR builds
