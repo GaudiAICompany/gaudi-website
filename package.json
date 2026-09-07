@@ -4,11 +4,9 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "export": "next export",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "predeploy": "npm run build && npm run export",
     "probe:cta": "node scripts/probe-capture-cta.mjs"
   },
   "dependencies": {
