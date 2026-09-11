@@ -1,0 +1,50 @@
+# Gaudi AI
+
+> Gaudi AI is a virtual construction estimating coworker for residential general contractors in the United States. It turns blueprints, RFPs, site notes, calls, and texts into traceable, ready-to-send takeoffs and estimates in minutes. $150 per completed estimate, first 5 free, no subscription or contract.
+
+Gaudi accepts input through any channel — call, text, email, WhatsApp, or dashboard upload — and returns a client-ready estimate with every line item traced back to its source in the plans. Users can ask Gaudi follow-up questions in plain language (e.g. "How many drywall sheets on level 2?") and get sourced answers. Gaudi learns a company's approved pricing and preferences over time. Gaudi does not replace a contractor's final review, pricing strategy, or bid decision — it prepares the takeoff and estimate so the team can review, edit, and send it. Gaudi is built by founders with backgrounds managing construction projects, owning and operating properties, and shipping AI products at Amazon, Microsoft, Goldman Sachs, and AdTheorent.
+
+Last updated: September 2026
+
+## Results
+Compared to traditional, manual estimating methods:
+- Time per estimate: ~7 days → ~5 minutes with Gaudi AI
+- Cost per estimate: ~$1,700 (skilled labor) → $150 with Gaudi AI
+- Monthly bid ceiling: 4 bids/month → unlimited — estimating is no longer a revenue growth bottleneck
+- Improves proposal accuracy while reducing costly mistakes, rework, and unhappy clients
+
+## Pages
+- [Home](https://heygaudi.ai/): Product overview, how estimating works (any-channel intake, audited line items, client-ready output), and pricing
+- [About](https://heygaudi.ai/about): Founders Sebastián Piedra Rodríguez and Begüm Cital, their backgrounds, and why they built Gaudi
+- [Pricing](https://heygaudi.ai/#pricing): Pay-per-estimate — $150/estimate, first 5 free, no subscription; custom/enterprise pricing available
+- [Partnerships](https://heygaudi.ai/partnership): Ways to work with Gaudi — trade schools and associations, podcasts and media, referrals, and webinars for general contractors
+- [Newsroom](https://heygaudi.ai/newsroom): Press coverage, events, and video interviews featuring Gaudi's founders
+- [Contact](https://heygaudi.ai/#contact): Book a call or send a message to the Gaudi team
+- [FAQ](https://heygaudi.ai/faq): 65 questions and answers covering the product, pricing, accuracy, security, integrations, and how Gaudi compares to traditional estimating software, hiring an estimator, or an outsourced estimating service
+
+## FAQ highlights
+- What is Gaudi AI? A virtual construction estimating coworker that reads blueprints, creates takeoffs and estimates, and answers project questions in minutes, reachable by email, text, phone, or dashboard chat.
+- Who is it for? Built primarily for residential general contractors in the United States; subcontractors and developers can also use it.
+- How fast? Takeoffs and estimates are typically completed within minutes of submitting plans.
+- Accuracy: Gaudi uses hard-coded construction and trade rules (not open-ended generation) to calculate quantities and costs, links every number back to its source in the plans, and asks for clarification instead of guessing when plans are unclear or incomplete.
+- How is it different from software or an estimator? Traditional estimating software gives you tools and leaves the work to your team; an outsourced service is a project-by-project handoff. Gaudi is a dedicated, on-demand virtual coworker that completes the work itself, at $150 per estimate with no subscription, seat fee, or contract.
+- Integrations: Excel export is supported today; Procore, Autodesk, and QuickBooks integrations are in development.
+- Security: Company and project information is kept confidential and not shared with other customers; data deletion can be requested by email.
+
+## Contact
+- General: contact@heygaudi.ai
+- Media/partnerships: media@heygaudi.ai
+- Support: help@heygaudi.ai
+- Book a call or send a message: https://heygaudi.ai/#contact
+
+## Notes
+- Gaudi AI serves general contractors, estimators, and developers — not homeowners or architects.
+- Geographic focus: United States.
+- "Get started" (a free estimate) is the primary call to action across the site.
+
+## Optional
+- [Gaudi AI (LinkedIn)](https://www.linkedin.com/company/gaudiai/): Company page
+- [Begüm Cital (LinkedIn)](https://www.linkedin.com/in/begumcital/): Co-founder, Gaudi AI
+- [Sebastián Piedra Rodríguez (LinkedIn)](https://www.linkedin.com/in/sebastian-piedra-rodriguez): Co-founder, Gaudi AI
+- [Gaudi AI (Facebook)](https://www.facebook.com/profile.php?id=61588042603826)
+- [Gaudi AI (Instagram)](https://www.instagram.com/heygaudi.ai/?hl=en)
