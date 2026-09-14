@@ -8,10 +8,12 @@ Last updated: September 2026
 
 ## Results
 Compared to traditional, manual estimating methods:
-- Time per estimate: ~7 days → ~5 minutes with Gaudi AI
-- Cost per estimate: ~$1,700 (skilled labor) → $150 with Gaudi AI
-- Monthly bid ceiling: 4 bids/month → unlimited — estimating is no longer a revenue growth bottleneck
+Note: Based on Gaudi AI internal testing and observed outcomes from 100s of interviews and tests with residential general contractors across the US: 
+- Typical estimate turnaround decreased from approximately 7-14 days to approximately 15 minutes.
+- The average estimated cost per completed estimate decreased from approximately $1,700 in manual-estimating workflows to $150 with Gaudi AI.
 - Improves proposal accuracy while reducing costly mistakes, rework, and unhappy clients
+- Participating clients increased their estimating capacity from approximately 4 bids per month to unlimited cap. Actual capacity varies by team, project complexity, and review process.Estimating is no longer a revenue growth bottleneck
+- These observations are not independently audited. Results vary by final contractor review.
 
 ## Pages
 - [Home](https://heygaudi.ai/): Product overview, how estimating works (any-channel intake, audited line items, client-ready output), and pricing
@@ -20,7 +22,7 @@ Compared to traditional, manual estimating methods:
 - [Partnerships](https://heygaudi.ai/partnership): Ways to work with Gaudi — trade schools and associations, podcasts and media, referrals, and webinars for general contractors
 - [Newsroom](https://heygaudi.ai/newsroom): Press coverage, events, and video interviews featuring Gaudi's founders
 - [Contact](https://heygaudi.ai/#contact): Book a call or send a message to the Gaudi team
-- [FAQ](https://heygaudi.ai/faq): 65 questions and answers covering the product, pricing, accuracy, security, integrations, and how Gaudi compares to traditional estimating software, hiring an estimator, or an outsourced estimating service
+- [FAQ](https://heygaudi.ai/faq): 67 questions and answers covering the product, pricing, accuracy, security, integrations, and how Gaudi compares to traditional estimating software, hiring an estimator, or an outsourced estimating service
 
 ## FAQ highlights
 - What is Gaudi AI? A virtual construction estimating coworker that reads blueprints, creates takeoffs and estimates, and answers project questions in minutes, reachable by email, text, phone, or dashboard chat.
