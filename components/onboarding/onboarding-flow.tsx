@@ -46,6 +46,14 @@ const SUBMIT_FAILED =
 const SUBMIT_TIMED_OUT =
   "That's taking longer than it should, a large plan set can do it. Email it to help@heygaudi.ai and I'll pick it up from there."
 
+function phoneForContactCheck(phone: string): string | undefined {
+  return phone.replace(/\D/g, "").length >= 10 ? phone : undefined
+}
+
+function isBannedCompany(accessStatus: string | null): boolean {
+  return accessStatus === "banned"
+}
+
 function StepSkeleton() {
   return (
     <div className="flex animate-pulse flex-col gap-6" aria-hidden="true">
@@ -165,8 +173,8 @@ export function OnboardingFlow() {
   useEffect(() => {
     const email = details.email.trim().toLowerCase()
     // Only the digits the check is given, so reformatting a typed number costs no request.
-    const phone = details.phone.replace(/\D/g, "")
-    const contact = `${email}|${phone.length >= 10 ? phone : ""}`
+    const phone = phoneForContactCheck(details.phone)
+    const contact = `${email}|${(phone || "").replace(/\D/g, "")}`
 
     if (!PLAUSIBLE_EMAIL.test(email)) {
       // Drop the lock rather than hold a name for an abandoned address. The rejection stays:
@@ -184,7 +192,7 @@ export function OnboardingFlow() {
     const timer = setTimeout(() => {
       checkedContact.current = contact
       // Fails open and never rejects, so there is nothing to catch.
-      checkContact(email, phone.length >= 10 ? details.phone : undefined).then((result) => {
+      checkContact(email, phone).then((result) => {
         if (checkedContact.current !== contact) return
         // One signup asks more than once -- the address settles, then the phone does -- and
         // the later ask is the one that meets the rate limit. An unanswered check knows
@@ -195,9 +203,10 @@ export function OnboardingFlow() {
         // backend withholds the name while it is turning a number away, so reading that
         // omission as "no company on file" would unlock what the address had just locked.
         if (result.contactTaken !== "phone") applyFixedCompany(result.company)
-        const banned = result.accessStatus === "banned"
+        const banned = isBannedCompany(result.accessStatus)
         setCompanyBanned(banned)
         if (banned) {
+          setSubmitError(null)
           return
         }
         // A fresh object, not the shared FIELD_REJECTIONS entry: StepYourInfo re-shows a
@@ -264,12 +273,14 @@ export function OnboardingFlow() {
     try {
       const checked = await checkContact(
         details.email.trim().toLowerCase(),
-        details.phone.replace(/\D/g, "").length >= 10 ? details.phone : undefined,
+        phoneForContactCheck(details.phone),
       )
-      if (checked.answered && checked.accessStatus === "banned") {
+      if (checked.answered && isBannedCompany(checked.accessStatus)) {
         setCompanyBanned(true)
+        setSubmitError(null)
         return
       }
+      setCompanyBanned(false)
 
       // Never waits on the stage: unconfirmed means the bytes go inline as well, and the
       // draft id is what keeps two copies from becoming two estimates.
@@ -286,12 +297,14 @@ export function OnboardingFlow() {
 
       setSubmitReference(traceableRequestId(result))
       if (!result.ok) {
+        setCompanyBanned(false)
         const rejected = result.code ? FIELD_REJECTIONS[result.code] : undefined
         if (rejected) setFieldRejection(rejected)
         else setSubmitError(result.code === "timeout" ? SUBMIT_TIMED_OUT : SUBMIT_FAILED)
         return
       }
 
+      setCompanyBanned(false)
       setBlueprintOutcome(result.blueprint)
       goTo("check-email")
     } catch (err) {
