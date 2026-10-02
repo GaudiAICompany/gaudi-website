@@ -184,10 +184,12 @@ export function OnboardingFlow() {
         applyFixedCompany(null)
       }
       setCompanyBanned(false)
+      setFieldRejection((prev) => (prev?.key === "company" ? null : prev))
       return
     }
     if (contact === checkedContact.current) return
     setCompanyBanned(false)
+    setFieldRejection((prev) => (prev?.key === "company" ? null : prev))
 
     const timer = setTimeout(() => {
       checkedContact.current = contact
@@ -207,6 +209,7 @@ export function OnboardingFlow() {
         setCompanyBanned(banned)
         if (banned) {
           setSubmitError(null)
+          setFieldRejection({ ...FIELD_REJECTIONS.ACCOUNT_BANNED })
           return
         }
         // A fresh object, not the shared FIELD_REJECTIONS entry: StepYourInfo re-shows a
@@ -275,12 +278,14 @@ export function OnboardingFlow() {
         details.email.trim().toLowerCase(),
         phoneForContactCheck(details.phone),
       )
-      if (checked.answered && isBannedCompany(checked.accessStatus)) {
+      if ((checked.answered && isBannedCompany(checked.accessStatus)) || (!checked.answered && companyBanned)) {
         setCompanyBanned(true)
         setSubmitError(null)
+        setFieldRejection({ ...FIELD_REJECTIONS.ACCOUNT_BANNED })
         return
       }
       setCompanyBanned(false)
+      setFieldRejection((prev) => (prev?.key === "company" ? null : prev))
 
       // Never waits on the stage: unconfirmed means the bytes go inline as well, and the
       // draft id is what keeps two copies from becoming two estimates.
@@ -316,7 +321,7 @@ export function OnboardingFlow() {
     } finally {
       setSubmitting(false)
     }
-  }, [details, files, goTo, notes])
+  }, [companyBanned, details, files, goTo, notes])
 
   // Deliberately not a second submitOnboarding: that would queue a duplicate
   // estimate. Re-submitting the lead row records that the visitor asked again and
@@ -352,7 +357,7 @@ export function OnboardingFlow() {
           onDetailsChange={setDetails}
           onSubmit={handleSubmit}
           submitting={submitting}
-          submitError={companyBanned ? FIELD_REJECTIONS.ACCOUNT_BANNED.message : submitError}
+          submitError={submitError}
           submitReference={submitReference}
           fieldRejection={fieldRejection}
         />
