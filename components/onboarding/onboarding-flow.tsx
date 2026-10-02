@@ -45,6 +45,8 @@ const SUBMIT_FAILED =
 /** A stalled upload is almost always the plan set, so point at the way around it. */
 const SUBMIT_TIMED_OUT =
   "That's taking longer than it should, a large plan set can do it. Email it to help@heygaudi.ai and I'll pick it up from there."
+const STATUS_UNVERIFIED =
+  "I couldn't verify your company status right now. Please try again in a moment or email help@heygaudi.ai."
 
 function phoneForContactCheck(phone: string): string | undefined {
   return phone.replace(/\D/g, "").length >= 10 ? phone : undefined
@@ -282,6 +284,12 @@ export function OnboardingFlow() {
         setCompanyBanned(true)
         setSubmitError(null)
         setFieldRejection({ ...FIELD_REJECTIONS.ACCOUNT_BANNED })
+        return
+      }
+      // Submit is fail-closed for the ban check: without an answer, do not create an account.
+      if (!checked.answered) {
+        setCompanyBanned(false)
+        setSubmitError(STATUS_UNVERIFIED)
         return
       }
       setCompanyBanned(false)
