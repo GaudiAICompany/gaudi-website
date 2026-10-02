@@ -83,6 +83,9 @@ which one (`PHONE_INVALID` is the same shape with `400`). `FIELD_REJECTIONS` in
 `components/onboarding/onboarding-flow.tsx` turns those into a message on that input, so
 the visitor corrects the field instead of reading a generic failure.
 
+When the matched company is marked `billing_accounts.access_status = "banned"`, onboarding
+is refused with `ACCOUNT_BANNED` and signup is blocked.
+
 A browser can only reach any of them from an allowed origin, and that takes **two**
 independent settings on the function app:
 
