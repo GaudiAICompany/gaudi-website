@@ -289,7 +289,6 @@ export function OnboardingFlow() {
       }
       // Submit is fail-closed for the ban check: without an answer, do not create an account.
       if (!checked.answered) {
-        setCompanyBanned(false)
         setSubmitError(STATUS_UNVERIFIED)
         return
       }
