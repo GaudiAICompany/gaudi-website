@@ -49,7 +49,8 @@ const STATUS_UNVERIFIED =
   "I couldn't verify your company status right now. Please try again in a moment or email help@heygaudi.ai."
 
 function phoneForContactCheck(phone: string): string | undefined {
-  return phone.replace(/\D/g, "").length >= 10 ? phone : undefined
+  const digits = phone.replace(/\D/g, "")
+  return digits.length >= 10 ? digits : undefined
 }
 
 function isBannedCompany(accessStatus: string | null): boolean {
@@ -176,7 +177,7 @@ export function OnboardingFlow() {
     const email = details.email.trim().toLowerCase()
     // Only the digits the check is given, so reformatting a typed number costs no request.
     const phone = phoneForContactCheck(details.phone)
-    const contact = `${email}|${(phone || "").replace(/\D/g, "")}`
+    const contact = `${email}|${phone || ""}`
 
     if (!PLAUSIBLE_EMAIL.test(email)) {
       // Drop the lock rather than hold a name for an abandoned address. The rejection stays:
