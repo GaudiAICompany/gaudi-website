@@ -45,6 +45,11 @@ export const FIELD_REJECTIONS: Record<string, FieldRejection> = {
     key: "phone",
     message: "I couldn't read that as a phone number. Include the area code.",
   },
+  ACCOUNT_BANNED: {
+    key: "company",
+    message:
+      "Your company's account is currently unavailable for signup. Email help@heygaudi.ai and we'll assist you directly.",
+  },
 }
 
 /** The contact check names a contact; the submit names an error code. Same two situations. */

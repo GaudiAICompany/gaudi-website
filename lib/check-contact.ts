@@ -29,11 +29,13 @@ export type TakenContact = "email" | "phone"
 export type ContactCheck = {
   company: string | null
   contactTaken: TakenContact | null
+  /** Billing access status for the matched company, when the backend provides it. */
+  accessStatus: string | null
   /** True only when the backend replied. False is the absence of an answer, not a negative one. */
   answered: boolean
 }
 
-const UNANSWERED: ContactCheck = { company: null, contactTaken: null, answered: false }
+const UNANSWERED: ContactCheck = { company: null, contactTaken: null, accessStatus: null, answered: false }
 
 /**
  * Every question this session has already asked, keyed by the exact question.
@@ -92,10 +94,22 @@ async function ask(email: string, phone: string): Promise<ContactCheck> {
     const company = typeof parsed?.company === "string" ? parsed.company.trim() : ""
     const taken = parsed?.contact_taken
     const contactTaken: TakenContact | null = taken === "email" || taken === "phone" ? taken : null
+    const accessStatusRaw =
+      typeof parsed?.access_status === "string"
+        ? parsed.access_status
+        : typeof parsed?.billing_account?.access_status === "string"
+          ? parsed.billing_account.access_status
+          : null
+    const accessStatus = accessStatusRaw ? accessStatusRaw.trim().toLowerCase() : null
 
     logOutcome(contactTaken ? `taken=${contactTaken}` : company ? "company" : "none", started)
     // Belt and braces on the withholding rule: one screen, one thing to say.
-    return { company: contactTaken ? null : company || null, contactTaken, answered: true }
+    return {
+      company: contactTaken ? null : company || null,
+      contactTaken,
+      accessStatus,
+      answered: true,
+    }
   } catch (err) {
     // Aborted, offline, DNS, TLS, or a blocking extension. All advisory, all nothing.
     const name = err instanceof Error ? err.name : "UnknownError"

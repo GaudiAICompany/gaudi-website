@@ -81,6 +81,7 @@ export function OnboardingFlow() {
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [submitReference, setSubmitReference] = useState<string | null>(null)
+  const [companyBanned, setCompanyBanned] = useState(false)
   // Set by the submit's 409 and by the contact check: same message, different timing.
   const [fieldRejection, setFieldRejection] = useState<FieldRejection | null>(null)
   const [blueprintOutcome, setBlueprintOutcome] = useState<BlueprintOutcome>("none")
@@ -174,9 +175,11 @@ export function OnboardingFlow() {
         checkedContact.current = ""
         applyFixedCompany(null)
       }
+      setCompanyBanned(false)
       return
     }
     if (contact === checkedContact.current) return
+    setCompanyBanned(false)
 
     const timer = setTimeout(() => {
       checkedContact.current = contact
@@ -192,6 +195,11 @@ export function OnboardingFlow() {
         // backend withholds the name while it is turning a number away, so reading that
         // omission as "no company on file" would unlock what the address had just locked.
         if (result.contactTaken !== "phone") applyFixedCompany(result.company)
+        const banned = result.accessStatus === "banned"
+        setCompanyBanned(banned)
+        if (banned) {
+          return
+        }
         // A fresh object, not the shared FIELD_REJECTIONS entry: StepYourInfo re-shows a
         // rejection on a new value, and the same object twice would read as unchanged.
         const rejected = rejectionForTakenContact(result.contactTaken)
@@ -254,6 +262,15 @@ export function OnboardingFlow() {
     // with blueprint="failed" when only the plan set did not make it, so a forward
     // is all the visitor owes -- the last screen says which happened.
     try {
+      const checked = await checkContact(
+        details.email.trim().toLowerCase(),
+        details.phone.replace(/\D/g, "").length >= 10 ? details.phone : undefined,
+      )
+      if (checked.answered && checked.accessStatus === "banned") {
+        setCompanyBanned(true)
+        return
+      }
+
       // Never waits on the stage: unconfirmed means the bytes go inline as well, and the
       // draft id is what keeps two copies from becoming two estimates.
       const result = await submitOnboarding({
@@ -322,7 +339,7 @@ export function OnboardingFlow() {
           onDetailsChange={setDetails}
           onSubmit={handleSubmit}
           submitting={submitting}
-          submitError={submitError}
+          submitError={companyBanned ? FIELD_REJECTIONS.ACCOUNT_BANNED.message : submitError}
           submitReference={submitReference}
           fieldRejection={fieldRejection}
         />
