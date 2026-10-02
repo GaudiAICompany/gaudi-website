@@ -280,7 +280,7 @@ export function OnboardingFlow() {
         details.email.trim().toLowerCase(),
         phoneForContactCheck(details.phone),
       )
-      if ((checked.answered && isBannedCompany(checked.accessStatus)) || (!checked.answered && companyBanned)) {
+      if (checked.answered && isBannedCompany(checked.accessStatus)) {
         setCompanyBanned(true)
         setSubmitError(null)
         setFieldRejection({ ...FIELD_REJECTIONS.ACCOUNT_BANNED })
@@ -329,7 +329,7 @@ export function OnboardingFlow() {
     } finally {
       setSubmitting(false)
     }
-  }, [companyBanned, details, files, goTo, notes])
+  }, [details, files, goTo, notes])
 
   // Deliberately not a second submitOnboarding: that would queue a duplicate
   // estimate. Re-submitting the lead row records that the visitor asked again and
